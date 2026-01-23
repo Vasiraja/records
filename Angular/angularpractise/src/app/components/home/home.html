@@ -1,0 +1,35 @@
+<p>home works!</p>
+
+
+<h3 class="topics">1. Hooks</h3>
+
+<h4 class="subtopics">i  ..ngoninit.. </h4>
+
+<h5 class="tiny">Rendering Items through ngoninit Hook</h5>
+
+<div *ngFor="let item of randomUsers " >
+    <p>{{item.email}}</p>
+    <p>{{item.name.first}}</p>
+    
+
+</div> 
+
+<h4 class="subtopics">ii  ..ngonchanges..</h4>
+<h5 class="tiny">trigger ngonchanges through input decorator</h5>
+<button (click)="triggerNgOnChanges()"  >ngOnchanges </button>
+
+<h4 class="subtopics">iii   ..ngdocheck..</h4>
+
+<h5 class="tiny">Monitor change detection through timers</h5>
+<p>{{timer}}</p>
+ <button (click)="ngdochecktrigger()">ngdocheck</button>
+
+   <app-homechild [childVariable]="childPass" *ngIf="triggeredChild">
+     <p #parentproperty> Hi i am outside content from the parent: {{timer}}</p> 
+
+ </app-homechild>  
+<h4 class="subtopics">vi   ..ngondestroy..</h4>
+
+<h5 class="tiny">triggered the ngdestroy from parent to child to remove the child  </h5>
+  
+ <button (click)="removechild()">ngdestroy child</button>
