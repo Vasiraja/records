@@ -1,0 +1,33 @@
+<p>pipes works!</p>
+<h3 class="topics">5. Pipes </h3>
+<p>Transform date in the template</p>
+
+<h4 class="subtopics">..1.. Uppercase | Lowercase</h4>
+
+<p>{{"Vasiraja" | uppercase}}</p>
+<p>{{"vasiRaja" | lowercase}}</p>
+
+
+<h4 class="subtopics">..2.. Date Pipe</h4>
+<p>{{ today | date }}</p>
+<p>{{ today | date:'shortDate' }}</p>
+<p>{{ today | date:'fullDate' }}</p>
+
+<h4 class="subtopics">..3.. Currency</h4>
+<p>{{amount | currency}}</p>
+<p>{{amount | currency:'INR'}}</p>
+<p>{{ amount  | currency:'USD':'symbol':'1.4-5' }}</p>
+
+<h4 class="subtopics">..4.. Value </h4>
+<p>{{ value | number:'1.2-3' }}</p>
+<h4 class="subtopics">..5.. Percentage</h4>
+<p>{{score | percent}}</p>
+<h4 class="subtopics">..6.. Slice</h4>
+<p>{{"VASI RAJA" | slice:0:6}}</p>
+<h4 class="subtopics">..7.. JSON</h4>
+<p>{{user | json}}</p>
+<h4 class="subtopics">..8.. Asyc</h4>
+<p>The async pipe subscribes to it automatically and updates the UI whenever a new value arrives.</p>
+<p>Live Time: {{ time$ | async }}</p>
+
+

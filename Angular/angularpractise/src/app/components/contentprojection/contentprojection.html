@@ -1,0 +1,28 @@
+<p>contentprojection works!</p>
+
+
+<h3 class="topics">6. content projection  <span>share html layout or element from parent to child</span></h3>
+<h4 class="subtopics">Single Slot Projection</h4>
+
+<div class="card" style="border: 2px solid red; padding: 20px;">
+   <p>--- Child Component Start ---</p>
+   
+   <ng-content></ng-content>
+   
+   <p>--- Child Component End ---</p>
+</div>
+
+
+<h4 class="subtopics">Multi Slot Projection</h4>
+
+<ng-content  select="[newsubheader]">
+
+</ng-content>
+<ng-content select="[newsubpara]"></ng-content>
+
+
+<h4 class="subtopics">
+Conditional Projection
+</h4>
+
+

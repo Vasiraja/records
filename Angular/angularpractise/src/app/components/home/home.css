@@ -14,10 +14,10 @@
     color: #fff;
     display: flex;
     justify-content: center;
-    background-color: rgb(169, 162, 209) ;
+    background-color: red ;
     width: fit-content;
 }
 .tiny{
-    background-color: rgb(33, 220, 133);
+    background-color: blue;
     color:gray;
 }

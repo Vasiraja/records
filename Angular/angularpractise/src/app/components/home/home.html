@@ -7,7 +7,7 @@
 
 <h5 class="tiny">Rendering Items through ngoninit Hook</h5>
 
-<div *ngFor="let item of randomUsers " >
+<div *ngFor="let item of randomUsers" >
     <p>{{item.email}}</p>
     <p>{{item.name.first}}</p>
     
@@ -16,9 +16,9 @@
 
 <h4 class="subtopics">ii  ..ngonchanges..</h4>
 <h5 class="tiny">trigger ngonchanges through input decorator</h5>
-<button (click)="triggerNgOnChanges()"  >ngOnchanges </button>
+<button (click)="triggerNgOnChanges()">ngOnchanges </button>
 
-<h4 class="subtopics">iii   ..ngdocheck..</h4>
+<h4 class="subtopics">iii  ..ngdocheck..</h4>
 
 <h5 class="tiny">Monitor change detection through timers</h5>
 <p>{{timer}}</p>
@@ -33,3 +33,20 @@
 <h5 class="tiny">triggered the ngdestroy from parent to child to remove the child  </h5>
   
  <button (click)="removechild()">ngdestroy child</button>
+ <div>Outside Component</div>
+
+<app-encapsulation></app-encapsulation>
+
+<app-contentprojection>
+  <div>
+    <h3>This content projected from the parent componenet</h3>
+    <p>This is dragged from single slot content projection method</p>
+
+  </div>
+
+  <div newsubheader>
+    <h3>This is for multi slot content project through select inside ng-content</h3>
+
+  </div>
+  <p newsubpara>this is also multi slot content projection through select inside ng-content but name is --newsubpara--</p>
+</app-contentprojection>

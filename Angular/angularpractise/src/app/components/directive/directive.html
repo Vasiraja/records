@@ -46,7 +46,31 @@
 <h4 class="subtopics">Attribute Directives</h4>
 
 <p>i. ngClass</p>
+<h5 class="tiny">Change the class property with ngclass</h5>
+
+<button (click)="logtoggle()">logtoggle</button>
+
+<p [ngClass]="login? 'success' :'error'">
+
+    {{login?'login success':'logout'}}
+</p>
+
 
 
 
 <p>ii.  ngStyle</p>
+<h5 class="tiny">Change the style property with ngStyle</h5>
+
+<button (click)="activedeactive()">activetoggle</button>
+<p [ngStyle]="{color:stylecheck?'green':'red'}">
+
+   {{stylecheck ?'Activated':'Deactivated'}}
+</p>
+
+<p> iii. ngModel</p>
+
+<h5 class="tiny">helps to bind the data two ways between template and the componenet</h5>
+<input type="text" placeholder="Type Anything" [(ngModel)]="ngmodelVal">
+<p>{{ngmodelVal}}</p>
+
+ <div style="width: 200px;height:200px;">f</div>

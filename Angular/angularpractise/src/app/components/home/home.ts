@@ -2,9 +2,11 @@ import { Component , DoCheck, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Homechild } from '../homechild/homechild';
+import { Encapsulation } from '../encapsulation/encapsulation';
+import { Contentprojection } from '../contentprojection/contentprojection';
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,Homechild],
+  imports: [CommonModule,Homechild,Encapsulation,Contentprojection  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })

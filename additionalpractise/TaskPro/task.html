@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery Practice</title>
+    <style>
+        .highlight
+         { background-color: yellow; font-weight: bold; }
+        #box 
+        { transition: all 0.5s; } 
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div>
+         <p id="message">Hello, World!</p>
+    <button id="btn-change">Click Me</button>
+    
+
+    <div id="box" style="width: 100px; height: 100px; background-color: red;"></div>
+    <button id="btn-style">Style It</button>
+    
+
+    <div id="content">Now you see me...</div>
+    <button id="btn-toggle">Toggle Content</button>
+     
+
+    <p class="text-item">Paragraph 1</p>
+    <p class="text-item">Paragraph 2</p>
+    <button id="btn-highlight">Highlight All</button>
+     
+
+   <input type="text"   id="user-input">
+<button id="btn-copy">Copy Text</button>
+<div id="display-area"></div>
+
+<ul id="my-list">
+    <li>Item 1</li>
+</ul>
+<button id="btn-add">Add Item</button>
+
+<div id="box-anim" style="width: 100px; height: 100px; background-color: orange;"></div>
+<button id="btn-animate">Animate</button>
+
+<div class="card">
+    <h3>Product 1</h3>
+    <p>This is a description.</p>
+    <button class="btn-hide-parent">Remove Card</button>
+</div>
+<div class="card">
+    <h3>Product 2</h3>
+    <p>This is another description.</p>
+    <button class="btn-hide-parent">Remove Card</button>
+</div>
+    <input type="text" id="search-box" placeholder="Search names...">
+<ul id="name-list">
+    <li>Alice</li>
+    <li>Bob</li>
+    <li>Charlie</li>
+    <li>David</li>
+    x
+</ul>
+    </div>
+
+    <div id="practDiv">
+        <h1>display divitions</h1>
+        <div class="item1">
+            <h4>First para</h4>
+        </div>
+        <div class="item1">
+            <h4>First para</h4>
+        </div>
+        <div class="item1">
+            <h4>First para</h4>
+        </div>
+        <div class="item1">
+            <h4>First para</h4>
+        </div>
+    </div>
+    <button id="removediv">removeDiv</button>
+   
+    <script>
+      $("#removediv").click(function() {
+  
+    $("#practDiv").closest(".item1").fadeOut(600, function() {
+        $(this).remove(); 
+    });
+});
+
+$("#search-box").keyup(function(){
+   const searched = $(this).val().toLowerCase();
+    
+   const lists=$("#name-list li").text();
+   console.log(lists);
+})
+
+
+    $(document).ready(function() {
+            $(".btn-hide-parent").click(function() {
+                 
+                $(this).closest(".card").fadeOut(500, function() {
+                    $(this).remove();  
+                });
+            });
+            $("#btn-change").click(function(){
+                $("#message").text("jQuery is working!");
+            });
+                     $("#btn-style").click(function(){
+                $("#box").css({
+                    "background-color": "blue",
+                    "width": "200px",
+                    "border-radius": "50%"
+                });
+            });
+
+            
+            $("#btn-toggle").click(function(){
+                $("#content").toggle("slow");
+            });
+
+            
+            $("#btn-highlight").click(function(){
+                $(".text-item").addClass("highlight").text("Highlighted!");
+            });
+
+          });
+    $("#btn-add").click(function(){
+            const parentDiv= $("#my-list");
+            const parentDivs= $("#my-list li");
+            let length =parentDivs.length;
+            parentDiv.append(`<li>item ${length+1}</li>`)
+          })
+    $("#btn-copy").click(function(){
+            const val=$("#user-input").val();
+            $("#display-area").text(val);
+            $("#user-input").val("");
+            })
+    $("#btn-animate").click(function(){
+    $("#box-anim").fadeOut("slow", function(){
+        $(this).css("background-color", "purple"); 
+        $(this).fadeIn("fast");
+    });
+   
+
+
+
+});
+
+    
+   
+   </script>
+</body>
+</html>

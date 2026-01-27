@@ -13,6 +13,16 @@ export class Directive implements OnInit{
    showngif:boolean=true;
    randomUsers :any[]=[];
    role:string="guest";
+   login:boolean=false;
+   stylecheck:boolean=true;
+   ngmodelVal:string="";
+
+
+
+activedeactive(){
+  this.stylecheck=!this.stylecheck; 
+}
+
      ngOnInit(): void {
      fetch("https://randomuser.me/api/").then(res=>res.json()
   .then(data=>{
@@ -23,7 +33,9 @@ export class Directive implements OnInit{
   .catch(err=>console.error(err))
 )
   }
-
+logtoggle(){
+  this.login=!this.login;
+}
 
   removediv(){
     this.showngif=!this.showngif;

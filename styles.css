@@ -1,0 +1,172 @@
+/* CSS Advanced */
+/* 1. CSS Rounded Corners */
+.cssdiv {
+    border: 1px solid transparent;
+    width: 200px;
+    height: 200px;
+    padding: 1rem;
+    border-radius: 30px 20px 40px 10px;
+
+}
+
+/* 2. Border Image */
+.cssdiv {
+    border-image: url("https://www.w3schools.com/css/border.png") 30 stretch;
+
+}
+
+/* 3. CSS Colors */
+.cssdiv {
+    background-color: rgba(255, 0, 0, 0.3);
+}
+
+.cssdiv {
+    background-color: hsl(31, 20%, 32%);
+}
+
+.cssdiv {
+    background-color: #ff2200;
+}
+
+
+
+
+/* 4. CSS Color Keywords */
+
+.cssdiv p {
+    background-color: transparent;
+    background-color: currentColor;
+    background-color: inherit;
+}
+
+
+
+
+
+/* 5. CSS color Gradients */
+
+.cssdiv {
+    background-image: linear-gradient(180deg, red, yellow);
+    background-image: linear-gradient(to left, red, yellow);
+    background-image: linear-gradient(to bottom right, red, yellow);
+    /* background-image: radial-gradient(red 40%, yellow 9% , green 100%); */
+
+
+}
+
+/* 6. CSS Shadows */
+
+.cssdiv {
+    box-shadow: 3px 4px 3px gray;
+ }
+
+.cssdiv p {
+
+    /* text-shadow: 1px 3px 3px rgb(0, 213, 255); */
+}
+
+/* 7. CSS padding and margin */
+.cssdiv {
+    margin: 12px 33px 10px 8px;
+    padding: 10px 10px 10px 90px;
+    color: white;
+}
+
+/* 8. CSS Links */
+
+.cssdiv p a:link {
+    color: white;
+    text-decoration: none;
+}
+
+.cssdiv p a:hover {
+    color: bisque;
+}
+
+.cssdiv p a:active {
+    color: green;
+}
+
+.cssdiv p a:visited {
+    color: gray;
+}
+
+p a:hover {
+    color: white;
+    text-decoration: none;
+    background-color: red;
+
+}
+
+p a:active {
+    background-color: white;
+    color: red;
+}
+
+
+/* 9. position elements */
+.cssdiv {
+    position: relative;
+}
+
+.additionaldiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: blue;
+    width: fit-content;
+    height: fit-content;
+    z-index: -1;
+
+}
+
+/* 10 float and clear */
+.redcube,
+.greencube {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    margin: 1rem;
+}
+
+.greencube {
+    float: left;
+}
+
+p {
+    clear: both;
+}
+
+.redcube {
+    float: left;
+}
+
+/* 11. Pesudo Class Pseudo Elements */
+
+
+/* :hover,:link,:active,:focus,:visited  -------------> Pesudo Class */
+
+/* Pesudo Elements */
+.cssdiv p::first-line {
+    background-color: rgb(4, 5, 4);
+}
+
+::marker {
+    color: green;
+}
+
+
+.gridareas{
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    grid-template-rows:200px 200px 200px ;
+    gap: 1rem;
+    /* column-gap: 1rem; */
+    grid-template-areas: "grid-1 grid-1 grid-3" "grid-2 grid-2 grid-4" "grid-5 grid-5 grid-5";
+background-color: blue;
+  }
+ 
+
+  .gridareas div{
+    background-color: red;
+  }
