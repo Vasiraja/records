@@ -11,7 +11,7 @@ import { Contentprojection } from '../contentprojection/contentprojection';
   styleUrl: './home.css',
 })
 export class Home implements OnInit , DoCheck {
-
+  showContent = true;
   triggeredChild:boolean=true;
   removechild(){
     this.triggeredChild=!this.triggeredChild;

@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './contentprojection.css',
 })
 export class Contentprojection {
-
+ showProjectedContent = true;
 }

@@ -1,0 +1,46 @@
+<p>bindings works!</p>
+<h3 class="topics">7. Binding Methods  <span>Bind data values between templates and typescript files</span></h3>
+<h4 class="subtopics">i. Interpollation</h4>
+
+<p>Defined variable in typescript function rendered here through one way binding : <b> {{interpolVar}}</b></p>
+
+<h4 class="subtopics">ii. Property Binding</h4>
+
+
+<p>We can implement dynamic properties through property binding</p>
+<p>I'm disable the submit button based on the input value change or empty</p>
+
+<input type="text" [(ngModel)]="firstname" (input)="checkFirstname()"><br><br>
+<button [disabled]="!buttonWorks">submit</button>
+
+<h4 class="subtopics">iii. Event Binding</h4>
+<button (click)="eventTrigger()">Event Trigger</button>
+
+<h4 class="subtopics">iv. Two Way Binding </h4>
+<p>Entered input details shown below through two way binding </p>
+<input type="text" [(ngModel)]="twoWayBindVar">
+<p>{{twoWayBindVar}}</p>
+
+
+<h4 class="subtopics">v. Style Binding</h4>
+<p>Used to implement dynamic style through this binding method</p>
+<button [style.backgroundColor]="isError?'red':'green'"  [style.color]="'white'"
+  [style.fontSize.px]="16" (click)="checkErr()">Access</button>
+
+
+  <h4 class="subtopics">vi. Attribute Binding</h4>
+  <p>Used to implement dynamic attributes and if attribute doesn't exist it will remove attribute completly also dynamcally</p>
+
+  input [id]="propId" placeholder="Property ID Input">
+<p>DOM property: {{ propId }}</p>
+
+<h2>Attribute Binding [attr.id]</h2>
+<p>Here attribute will totally remove when the id is removed</p>
+<input [attr.id]="attrId" placeholder="Attribute ID Input">
+<p>HTML attribute: {{ attrId }}</p> 
+<span>It will remove when using clear id but attribute stays</span><br><br>
+
+<button (click)="clearIds()">Clear IDs</button>
+
+
+

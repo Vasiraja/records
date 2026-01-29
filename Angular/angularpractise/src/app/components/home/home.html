@@ -37,7 +37,7 @@
 
 <app-encapsulation></app-encapsulation>
 
-<app-contentprojection>
+<app-contentprojection #showContentprojection>
   <div>
     <h3>This content projected from the parent componenet</h3>
     <p>This is dragged from single slot content projection method</p>
@@ -49,4 +49,18 @@
 
   </div>
   <p newsubpara>this is also multi slot content projection through select inside ng-content but name is --newsubpara--</p>
+  <ng-container  >
+  <ng-content></ng-content>
+</ng-container>
 </app-contentprojection>
+
+
+ 
+ <!-- parent.component.html -->
+<button (click)="showContent = !showContent">Toggle Projected Content</button>
+
+<ng-container *ngIf="showContent">
+  <app-contentprojection>
+    <p>This content is projected from parent</p>
+  </app-contentprojection>
+</ng-container>

@@ -20,10 +20,15 @@
 
 </ng-content>
 <ng-content select="[newsubpara]"></ng-content>
-
+ 
 
 <h4 class="subtopics">
 Conditional Projection
 </h4>
+ <div *ngIf="showProjectedContent">
+  <ng-content></ng-content>
+</div>
+<p>Other child content</p>
+
 
 
