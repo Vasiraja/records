@@ -13,7 +13,9 @@ import { Analytics } from './dashboard/analytics/analytics';
 import { dashboardchildGuard } from './dashboardchild-guard';
 import { Dashboard } from './dashboard/dashboard/dashboard';
 import { Reports } from './dashboard/reports/reports';
-
+import { UnsavedChangesGuard } from './guards/unsaved-changes-guard';
+import { Rxjsangular } from './components/rxjsangular/rxjsangular';
+ 
 export const routes: Routes = [
 
     { path: "", component: Home },
@@ -28,7 +30,7 @@ export const routes: Routes = [
 
 
 
-    { path: "login", component: Login },
+    { path: "login", component: Login,canDeactivate:[UnsavedChangesGuard]  },
     {
         path: 'dashboard',
         component: Dashboard,
@@ -41,12 +43,15 @@ export const routes: Routes = [
     {
         path: "success", component: Success, canActivate: [authGuard]
     },
+    {
+        path: "rxjs", component: Rxjsangular
+    },
 
 
 
 
     {
-        path: "", redirectTo: "login", pathMatch: "full"
+        path: "", redirectTo: "/login", pathMatch: "full"
     },
 
 ];

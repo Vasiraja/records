@@ -13,16 +13,22 @@ export class Login {
   name:string='';
   saved=false;
 
-
+   
 
   constructor(private router:Router,private auth:Auth){
 
   }
+   isDirty = false;
 
-  save(){
-    this.saved=true;
-    alert("Saved..!")
+  markDirty() {
+    this.isDirty = true;  
   }
+
+  save() {
+    this.isDirty = false;  
+    alert('Saved!');
+  }
+ 
 
   login(){
     this.auth.login();

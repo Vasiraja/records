@@ -1,0 +1,77 @@
+<p>rxjsangular works!</p>
+
+
+<h3 class="topics">Rxjs - Angular</h3>
+
+<h4 class="subtopics">i.  Observables - stream of data</h4>
+<h4 class="subtopics">ii. Subscribe - used for access those stream of data</h4>
+<h4 class="subtopics">iii. next - used to emit new values through this next method</h4>
+ 
+<p>{{obserVar}}</p>
+<button (click)="startObserver()">Start Observer</button>
+
+
+
+<h4 class="subtopics">iv. of() and from() </h4>
+<p>of() is used for instantly emit values from the array </p>
+<p>from() is used for instantly converting array to observables </p>
+
+<button (click)="emitoffrom()">start of from</button>
+
+
+<h4 class="subtopics">v. Map and Filter values</h4>
+<h4 class="subtopics">vi. Pipe usually used for chain them map and filter concepts without that map,filter won't work</h4>
+<h4 class="subtopics">vii. tap usually used for debugging like log the values inbetween map filter functionalities</h4>
+
+<button (click)="maptrigger()">maptrigger</button> <br><br>
+<button (click)="filtertrigger()">filtertrigger</button>
+
+
+<h4 class="subtopics">viii. Switch Map</h4>
+<p>Reducing the data leaks through unsubscribe previous values </p>
+<strong>we used delay function because using switch map it would reject previous one so that need some time, so we can visually see what switch map does </strong><br>
+<button (click)="switchmaptrigger()">switch map trigger</button>
+
+<h4 class="subtopics">ix. Merge Map</h4>
+
+<p>unlike switch map it will give all data works in parallely</p>
+<button (click)="mergemaptrigger()">merge map trigger</button>
+
+<h4 class="subtopics">ix. Concat Map</h4>
+
+<p>It works unlike mergemap and switch map, it works sequentially one by one . waits....</p>
+<button (click)="concatmaptrigger()">concat map trigger</button>
+<h4 class="subtopics">ix. Catch Error</h4>
+
+<p>Used to caught the error and giving the fallback value also</p>
+<p>we create an custom error in value of 2 in array and given fallback value also </p>
+<strong></strong><br><br>
+<button (click)="runCatchError()">catch error trigger</button>
+
+
+<h4 class="subtopics">x. Subject</h4>
+<p>Subject act as observer and observable , can able to recieve data through subscribe and produce data through next</p>
+<button (click)="triggersub()">trigger subject</button>
+
+<h4 class="subtopics">xi. Behavorial Subject</h4>
+<p>Behavorial subject same as subject but it holds initial and current value and get those current value through getValue() method or (.value) operator</p>
+<button (click)="triggerbeh()">trigger Behavorial Subject</button>
+
+
+<h4 class="subtopics">xii. Combine Latest</h4>
+ <button (click)="triggercombinelatest()">combine latest</button>
+ <p>Used for emit multiple observables with current values whenever eventhough any one changed </p>
+
+<button (click)="incrAvalue()">inc A</button>
+<button (click)="incrBValue()">inc B</button>
+
+
+
+
+
+<h4 class="subtopics">xii. Debounce Time</h4>
+ <button (click)="debouncelisten()">debouncelisten listen</button>
+
+ <input type="text"  [(ngModel)]="searchInput" placeholder="Google Search ex.." (input)="onchangeevent()">
+ <p> Used to delay the process according to respective time period for fetch the action completely</p>
+ <p>In above input it waits 500ms untill the typing action completes</p>
