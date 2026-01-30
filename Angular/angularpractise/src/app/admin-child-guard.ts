@@ -13,4 +13,5 @@ export const adminChildGuard: CanActivateFn = (route, state) => {
   else{
 return auth.isAuthenticated()
     ? true
-    : router.createUrlTree(['/login']);    }};
+    : router.createUrlTree(['/login']);   
+   }};
