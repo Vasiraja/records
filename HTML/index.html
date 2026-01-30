@@ -3,11 +3,14 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="description" content="HTML practice file">
+   <meta name="keywords" content="html, css, javascript">
+   <meta name="author" content="Student">
+   <base href="https://www.w3schools.com/" target="_blank">
+
    <link rel="icon" type="image/x-icon" href="https://www.w3schools.com/images/w3schools_green.jpg">
    <link rel="stylesheet" href="styles.css">
 
- 
-   
    <style>
       th,
       tr,
@@ -23,9 +26,11 @@
 </head>
 
 <body>
-   <!-- 1.  HTML Basic Program -->
+
+   <!-- 1. HTML Basic Program -->
    <h1 id="firstone">My First Heading</h1>
    <p>My first paragraph.</p>
+
    <!-- 2. HTML Elements -->
    <h1>First Element</h1>
    <p>Second Para Element</p>
@@ -36,131 +41,154 @@
    <img src="image.png" alt="">
    <!-- Absolute path -->
    <img src="https://www.w3schools.png/" alt="">
+   <input type="text" value="default text" readonly>
+   <p>Readonly cant able to access along with default text also</p>
 
    <!-- 4. Para And Header -->
    <h1>first header</h1>
    <h6>Tiny header</h6>
    <p>This is the Para</p>
 
-   <!--6. HTML Styles -->
+   <!-- 5. HTML Comments -->
+   <!-- This is comment -->
 
-
+   <!-- 6. HTML Styles -->
    <h1 style="color:red">Red Coloured header</h1>
    <p style="background-color:violet">violet Coloured para</p>
 
-
    <!-- 7. Text Formatting -->
-
-   <p> <b>bold text</b> <strong>strong text</strong> <i>Italic Style Text</i> <em>Emphasized Text</em>
-      <small>smaller Text</small> <del>Deleted Text</del> <ins>Insertion text</ins>
-      <sub>Sub text</sub><sup>super Text</sup>
+   <p>
+      <b>bold text</b>
+      <strong>strong text</strong>
+      <i>Italic Style Text</i>
+      <em>Emphasized Text</em>
+      <small>smaller Text</small>
+      <del>Deleted Text</del>
+      <ins>Insertion text</ins>
+      <mark>Marked text</mark>
+      <sub>Sub text</sub>
+      <sup>super Text</sup>
    </p>
 
-   <!-- 8. HTML Quotations  -->
+   <!-- 8. HTML Quotations -->
    <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>
+   <blockquote cite="https://www.worldwildlife.org/">Long quotation text here</blockquote>
 
    <p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
 
-   <p>Marking up abbreviations can give useful information to browsers, translation systems and search-engines.</p>
+   <address>
+      Written by John Doe.<br>
+      Visit us at: Example.com
+   </address>
+
    <!-- 9. HTML Links and Link Colors -->
-   <!-- Link,Visited,hover,active -->
    <p><a target="_blank" href="https://www.w3.org/">W3C</a></p>
    <p><a target="_parent" href="https://www.google.com/">Google</a></p>
    <p><a target="_top" href="https://www.google.com/">Google</a></p>
    <p><a target="_self" href="https://www.google.com/">Google</a></p>
+   <p><a href="mailto:test@gmail.com">Send Mail</a></p>
+   <p><a href="tel:+919876543210">Call Now</a></p>
+   <p><a href="sample.pdf" download>Download File</a></p>
 
    <!-- 10. Link Bookmark -->
    <p><a href="#firstone">Go TO Top</a></p>
 
-
    <!-- 11. Image Component -->
    <img src="https://www.w3schools.com/images/w3schools_green.jpg" height="200px" width="200px" alt="W3Schools.com">
+   <img src="https://www.w3schools.com/images/w3schools_green.jpg" loading="lazy">
 
    <!-- 12. Favicon and page title-->
-   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="icon" type="image/x-icon" href="https://www.w3schools.com/images/w3schools_green.jpg">
+   <!-- already in head -->
 
-    <title>Document</title> -->
+   <!-- 13. HTML Tables -->
+   <table style="border-color:red" cellpadding="6" cellspacing="0">
+      <caption><strong>Employee Details</strong></caption>
 
-   <!-- 13.  HTML Tables-->
-<table style="border-color:red"   cellpadding="6" cellspacing="0">
-   <caption><strong>Employee Details</strong></caption>
+      <thead>
+         <tr>
+            <th>Employee ID</th>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th colspan="2">Contact</th>
+            <th>Joining Date</th>
+         </tr>
+      </thead>
 
-   <thead>
-      <tr>
-         <th>Employee ID</th>
-         <th>Employee Name</th>
-         <th>Department</th>
-         <th>Designation</th>
-         <th>Email</th>
-         <th>Joining Date</th>
-      </tr>
-   </thead>
+      <tbody>
+         <tr>
+            <td>EMP1001</td>
+            <td>Ravindhar</td>
+            <td>Human Resources</td>
+            <td>HR Executive</td>
+            <td>ravindhar.sudhagar@company.com</td>
+            <td>9432200434</td>
+            <td>15-03-2021</td>
+         </tr>
 
-   <tbody>
-      <tr>
-         <td>EMP1001</td>
-         <td>Ravindhar</td>
-         <td>Human Resources</td>
-         <td>HR Executive</td>
-         <td>ravindhar.sudhagar@company.com</td>
-         <td>15-03-2021</td>
-      </tr>
+         <tr>
+            <td>EMP1002</td>
+            <td>Azhagar Selvam</td>
+            <td>Finance</td>
+            <td>Account Manager</td>
+            <td>azhagar.selvam@company.com</td>
+            <td>9432200434</td>
+            <td>10-07-2020</td>
+         </tr>
 
-      <tr>
-         <td>EMP1002</td>
-         <td>Azhagar Selvam</td>
-         <td>Finance</td>
-         <td>Account Manager</td>
-         <td>azhagar.selvam@company.com</td>
-         <td>10-07-2020</td>
-      </tr>
+         <tr>
+            <td>EMP1003</td>
+            <td>Seenivasan</td>
+            <td>IT</td>
+            <td>Software Engineer</td>
+            <td>seenivasan.ml@company.com</td>
+            <td>9432200434</td>
+            <td>22-01-2022</td>
+         </tr>
 
-      <tr>
-         <td>EMP1003</td>
-         <td>Seenivasan</td>
-         <td>IT</td>
-         <td>Software Engineer</td>
-         <td>seenivasan.ml@company.com</td>
-         <td>22-01-2022</td>
-      </tr>
+         <tr>
+            <td>EMP1004</td>
+            <td>Ganesh Kumar</td>
+            <td>Marketing</td>
+            <td>Digital Marketing Specialist</td>
+            <td>ganesh.kumar@company.com</td>
+            <td>9432200434</td>
+            <td>05-11-2019</td>
+         </tr>
 
-      <tr>
-         <td>EMP1004</td>
-         <td>Ganesh Kumar</td>
-         <td>Marketing</td>
-         <td>Digital Marketing Specialist</td>
-         <td>ganesh.kumar@company.com</td>
-         <td>05-11-2019</td>
-      </tr>
+         <tr>
+            <td>EMP1005</td>
+            <td>Aari Sudharsan</td>
+            <td>Operations</td>
+            <td>Operations Manager</td>
+            <td>aari.sudharsan@company.com</td>
+            <td>9432200434</td>
+            <td>18-06-2018</td>
+         </tr>
+      </tbody>
 
-      <tr>
-         <td>EMP1005</td>
-         <td>Aari Sudharsan</td>
-         <td>Operations</td>
-         <td>Operations Manager</td>
-         <td>aari.sudharsan@company.com</td>
-         <td>18-06-2018</td>
-      </tr>
-   </tbody>
-</table>
+      <tfoot>
+         <tr>
+            <td colspan="7">Total Employees : 5</td>
+         </tr>
+      </tfoot>
+   </table>
 
-
-
-
-   <!-- 14. zlists  -->
+   <!-- 14. Lists -->
    <ol type="i">
       <li>first lists item</li>
       <li>second lists item</li>
       <li>third lists item</li>
       <li>fourth lists item</li>
    </ol>
+
    <ul>
       <li>first list items </li>
       <li>second list items</li>
       <li>third list items</li>
       <li>fourth list items</li>
    </ul>
+
    <dl>
       <dt>A Coffee</dt>
       <dd>A fresh restart</dd>
@@ -168,24 +196,25 @@
       <dd>A fresh reboot</dd>
    </dl>
 
+   <!-- Nested List -->
+   <ul>
+      <li>Frontend
+         <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JS</li>
+         </ul>
+      </li>
+   </ul>
+
    <!-- 15. Block and Inline Elements -->
-   <!-- Block Elements Take Full width -->
-   <!-- Ex.  -->
    <div></div>
    <p></p>
    <h1></h1>
-   <!-- <address><article><aside><blockquote><canvas><dd><div><dl><dt><fieldset><figcaption><figure><footer><form><h1>-<h6><header><hr><li><main><nav><noscript><ol><p><pre><section><table><tfoot><ul><video></video> -->
 
-
-
-
-
-   <!-- Inline Elements  -->
-   <!-- take much width as necessary -->
    <span></span>
    <br>
-   <!-- <a><abbr><acronym><b><bdo><big><br><button><cite><code><dfn><em><i><img><input><kbd><label><map><object><output><q><samp><script><select><small><span><strong><sub><sup><textarea><time><tt><var> -->
-
+   <a href="#">Link</a>
 
    <!-- 16. Div -->
    <div>
@@ -201,14 +230,18 @@
    <div class="first_class"></div>
    <p class="first_class"></p>
    <h1 id="unique_id"></h1>
+
    <!-- 18. Buttons -->
    <form action="newform">
       <input type="text" name="" id="">
       <button type="submit">submit</button>
       <button type="reset">reset</button>
+      <button type="button" onclick="alert('clicked')">click me</button>
    </form>
+
    <!-- 19. Iframes -->
    <iframe src="index.html" height="200" width="300" title="Iframe Example"></iframe>
+
    <!-- 20. HTML Layout Semantic layouts -->
    <header>New Topic</header>
    <nav>
@@ -219,17 +252,22 @@
    <article>self contained content</article>
    <aside>like sidebar kind of</aside>
    <footer>footer bar</footer>
-   <details>defines additional summary that user can open and close
+
+   <main>Main content area</main>
+
+   <details>
       <summary>header of details tag....</summary>
+      This is hidden content
    </details>
 
    <!-- 21. HTML Forms -->
-   <form action="/action_page.php" target="_blank" method="get" novalidate>
+   <form action="/action_page.php" target="_blank" method="get" novalidate autocomplete="on">
       <label for="fname">First name:</label><br>
-      <input type="text" id="fname" value=" "><br><br>
+      <input type="text" id="fname" name="fname" value=" " required><br><br>
+      <input type="password" placeholder="password">
+      <input type="email" placeholder="email">
       <input type="submit" value="Submit">
    </form>
-
 
    <!-- 22. Select -->
    <label for="cars">Choose a car:</label>
@@ -240,16 +278,76 @@
       <option value="audi">Audi</option>
    </select>
 
-   <!--23. Attributes input -->
+   <!-- 23. Input Attributes -->
    <form action="">
-      <input type="text" maxlength="5" placeholder="five letters">
-      <input type="number" max="30">
+      <input type="text" maxlength="5" placeholder="five letters" autofocus>
+      <input type="number" max="30" min="1" step="5">
       <input type="date" min="2000-12-14">
+      <input type="file" multiple>
+      <input type="checkbox" checked> Agree
+      <input type="radio" name="gender"> Male
+      <input type="radio" name="gender"> Female
+      <input type="range" min="0" max="100">
+      <input type="color">
       <button type="submit" formtarget="_blank">submit</button>
    </form>
 
+   <!-- 24. Fieldset and Legend -->
+   <form>
+      <fieldset>
+         <legend>User Info</legend>
+         <input type="text" placeholder="name">
+         <input type="email" placeholder="email">
+      </fieldset>
+   </form>
 
+   <!-- 25. Textarea -->
+   <textarea rows="4" cols="30">Type something...</textarea>
 
+   <!-- 26. Datalist -->
+   <input list="browsers">
+   <datalist id="browsers">
+      <option value="Chrome">
+      <option value="Firefox">
+      <option value="Edge">
+      <option value="Safari">
+   </datalist>
+ 
+   <!-- 28. Audio and Video -->
+   <audio controls>
+      <source src="audio.mp3" type="audio/mpeg">
+   </audio>
+
+   <video controls width="250">
+      <source src="movie.mp4" type="video/mp4">
+   </video>
+
+   <!-- 29. Figure and Figcaption -->
+   <figure>
+      <img src="https://www.w3schools.com/images/w3schools_green.jpg" width="150">
+      <figcaption>W3Schools Logo</figcaption>
+   </figure>
+
+   <!-- 30. Canvas -->
+   <canvas id="myCanvas" width="200" height="100" style="border:1px solid black;"></canvas>
+
+   <!-- 31. SVG -->
+   <svg width="100" height="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+   </svg>
+
+   <!-- 32. HTML Entities -->
+   <p>&lt;div&gt; &nbsp; &copy; &reg; &euro;</p>
+ 
+
+   <!-- 34. HTML Responsive Image -->
+   <img src="https://www.w3schools.com/images/w3schools_green.jpg" style="max-width:100%;height:auto;">
+
+   <!-- 35. HTML Accessibility -->
+    <img src="image.png" alt="profile image">
+
+   <!-- 36. Marquee (old but exam type) -->
+   <marquee behavior="scroll" direction="left">Scrolling Text</marquee>
 
    <!-- CSS Part -->
 
@@ -261,6 +359,7 @@
          <span>additional span content</span>
       </div>
    </div>
+
    <ol>
       <li>hi</li>
       <li>hello</li>
@@ -269,87 +368,43 @@
 
    <p><a href="https://www.youtube.com/">click it</a></p>
 
-   <div class="redcube">
+   <div class="redcube"></div>
 
-   </div>
    <p>
-
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-      type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-      Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions
-      of Lorem Ipsum.
-
-      Why do we use it?
-      It is a long established fact that a reader will be distracted by the readable content of a page when looking at
-      its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
-      opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing
-      packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will
-      uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by
-      accident, sometimes on purpose (injected humour and the like).
-
-
-      Where does it come from?
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin
-      literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney
-      College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-      going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes
-      from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero,
-      written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first
-      line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-      The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32
-      and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form,
-      accompanied by English versions from the 1914 translation by H. Rackham.
-
-      Where can I get some?
-      There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
-      form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a
-      passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All
-      the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first
-      true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model
-      sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always
-      free from repetition, injected humour, or non-characteristic words etc.
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry...
    </p>
-   <div class="greencube">
+ 
+ 
 
-   </div>
-
-    <div class="gridareas">
-      <div class="gridfirst" style="grid-area: grid-1;">1</div>
-      <div class="gridsecond" style="grid-area: grid-2;">2</div>
-      <div class="gridthird"  style="grid-area: grid-3;">3</div>
-      <div class="gridfourth"  style="grid-area: grid-4;">4</div>
-      <div class="gridfifth"  style="grid-area: grid-5;">5</div>
-    </div>
+   <!-- 38. Noscript -->
+   <noscript>Your browser does not support JavaScript</noscript>
+ 
+   <!-- 40. Content Editable -->
+   <p contenteditable="true">Edit this text</p>
 
    <script>
- 
-const posts="https://jsonplaceholder.typicode.com/posts";
-const users = "https://jsonplaceholder.typicode.com/users";
-const comments = "https://jso nplaceholder.typicode.com/comments";
- 
-const checkAll =  Promise.allSettled([
-  fetch(posts).then((res)=>res.json()),
-  fetch(users).then((res)=>res.json()),
-  fetch(comments).then((res)=>res.json())
-]);
 
-  
-checkAll.then(([postdata,userdata,commentsdata])=>{
-   console.log(postdata)
-   console.log(userdata)
-   console.log(commentsdata);
-   
+      const posts = "https://jsonplaceholder.typicode.com/posts";
+      const users = "https://jsonplaceholder.typicode.com/users";
+      const comments = "https://jsonplaceholder.typicode.com/comments";
 
-})
-.catch((error)=>{
-   console.log(error)
-})
+      const checkAll = Promise.allSettled([
+         fetch(posts).then((res) => res.json()),
+         fetch(users).then((res) => res.json()),
+         fetch(comments).then((res) => res.json())
+      ]);
 
-  
-</script>
+      checkAll.then(([postdata, userdata, commentsdata]) => {
+         console.log(postdata)
+         console.log(userdata)
+         console.log(commentsdata);
+      })
+         .catch((error) => {
+            console.log(error)
+         })
+
+   </script>
 
 </body>
+
 </html>
