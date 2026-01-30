@@ -64,14 +64,93 @@
 
 <button (click)="incrAvalue()">inc A</button>
 <button (click)="incrBValue()">inc B</button>
-
-
-
-
-
+ 
 <h4 class="subtopics">xii. Debounce Time</h4>
  <button (click)="debouncelisten()">debouncelisten listen</button>
 
  <input type="text"  [(ngModel)]="searchInput" placeholder="Google Search ex.." (input)="onchangeevent()">
  <p> Used to delay the process according to respective time period for fetch the action completely</p>
  <p>In above input it waits 500ms untill the typing action completes</p>
+ 
+<h4 class="subtopics">xiii. next, error, complete</h4>
+<button (click)="nexterrorcomplete()">next error complete</button>
+<h4 class="subtopics">xiv. concatAll</h4>
+<p>concat all observable along with inner observable wait to complete</p>
+<button (click)="concatall()">concatall</button>
+<h4 class="subtopics">xv. mergeAll</h4>
+<p>order is not guaranteed but everything functions in parellel</p>
+<button (click)="mergeall()">mergeall</button>
+<h4 class="subtopics">xvi. switchall</h4>
+<p>cancels the previous inner Observable whenever a new one comes in</p>
+<button (click)="switchall()">switchall</button>
+<h4 class="subtopics">xvii. exhaustAll</h4>
+<p>Reject the new observable values only implement first one</p>
+<button (click)="exhaustMap()">exhaustAll</button>
+<h4 class="subtopics">xviii. Timer</h4>
+<p>delay respected time to run once or multiple times</p>
+<button (click)="timer()">Timer</button>
+
+<h4 class="subtopics">xix. interval</h4>
+<p>trigger between respective timing</p>
+<button (click)="interval()">interval</button>
+
+
+<h4 class="subtopics">xx. forkjoin</h4>
+<p>Waiting for all observable complete then only give the result</p>
+<button (click)="forkjoin()">forkjoin</button>
+
+
+<h4 class="subtopics">race</h4>
+<p>implement the first winning observable and ignore rest</p>
+<button (click)="race()">race</button>
+
+<h4 class="subtopics">mapto</h4>
+<p>to transform the existing data to new one</p>
+<button (click)="mapto()">mapto</button>
+
+<h4 class="subtopics">pluck</h4>
+<p>Pick the value from the object through pluck</p>
+<button (click)="pluck()">pluck</button>
+
+<h4 class="subtopics">filter - first, last</h4>
+<p>performing no of series 1,2,3,4,5,6,7,8 using filter and show first and last one</p>
+<button (click)="filtergroup()">filterfirstlast</button>
+
+<h4 class="subtopics">take,takewhile,takelast</h4>
+<p>performing no of series 1,2,3,4,5,6,7,8 through take, takewhile, takelast</p>
+<p>takewhile condition less than 5</p>
+<button (click)="take()">taketakewhiletakelast</button>
+<h4 class="subtopics">skip,skipwhile</h4>
+<p>performing no of series 1,2,3,4,5,6,7,8 through take, takewhile, takelast</p>
+<p>skipwhile condition less than 5</p>
+<button (click)="skiptrigger()">skipskipwhile</button>
+
+<h4 class="subtpics">distinct and distinctuntilchanged</h4>
+
+<p>distinct - give unique values</p>
+<p>distinctuntilchanged - prevent consecutive dupliate values</p>
+<button (click)="distinct()">distinct distinctuntilchanged</button>
+
+ 
+<h4 class="subtopics">Delay and Delay when</h4>
+<p>Delay just delay the observable and Delay when works based on the another observable</p>
+<button (click)="delayfunc()">delay delaywhen</button>
+
+ 
+ 
+<h4 class="subtopics">Repeat</h4>
+<p>Repeats the whole observable and without parameter this would be repeat forever </p>
+<p>Given parameter is 4</p>
+<button (click)="repeatfunc()">repeat</button>
+
+
+
+ 
+<h4 class="subtopics">Retry</h4>
+<p>if error caught we can insert retry function to execute the same operation which failed because of error </p>
+<button (click)="retry()">retry</button>
+
+
+
+
+ 
