@@ -1,0 +1,469 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button onclick="switchTrigger()">switchtrigger</button>
+
+
+
+    <script>
+
+
+        // 1. Let, Const, Var
+        console.log("----------------------1. Let,Const,Var--------------------")
+
+        var nameVar = "var variable";
+
+        function blockScopeVar() {
+            const nameConst = 'const variable';
+            let nameLet = 'let variable';
+
+            console.log(nameVar);
+
+        }
+
+        console.log(nameVar)
+        // console.log(nameConst)
+        // console.log(nameLet)
+
+        // 2. Javascript Types
+        console.log("----------------------2. JS Types--------------------")
+
+        let typeName = "jstypes";
+        let varName = "letconstvar";
+
+        // Number
+        let length = 20;
+        let weight = 9.5;
+
+        // BigInt
+        let bigNum = 4323420203949320932;
+        let bigNum_ = BigInt(4323420203949320932)
+
+        // Boolean
+        let boolX = true;
+        let boolY = false;
+
+        // Object
+        const person = { firstName: "vasi", age: 25, gender: "Male" };
+
+        // Array object
+        const students = ["Gyanavel", "GuruPrasath", "Aaryan"];
+
+        // Date object
+        const date = new Date("2026-02-02");
+
+        // Undefined
+        let undefinedA;
+        let undefinedB;
+
+        // Null
+        let nullA = null;
+        let nullB = null;
+
+        // Symbol
+        const symbolX = Symbol();
+        const symbolY = Symbol();
+
+
+        console.log("----for Symbol example x === y---");
+        console.log(symbolX === symbolY)
+
+        // 3.Operators
+
+
+
+        console.log("----------------------3. Operators--------------------")
+
+        console.log("-----i. Assignment Operators");
+        let x = 10;
+        x += 5;
+        console.log("Assignment Operator x += 5: " + x);
+
+        x -= 3;
+        console.log("Assignment Operator x -= 3: " + x);
+
+        x *= 2;
+        console.log("Assignment Operator x *= 2: " + x);
+
+        x /= 4;
+        console.log("Assignment Operator x /= 4: " + x);
+
+        console.log("-----ii. Arithmetic Operators");
+
+        let addition = 50 + 90;
+        console.log("Addition Operator 50 + 90: " + addition);
+        let subtract = 50 - 90;
+        console.log("subtract Operator 50 - 90: " + subtract);
+        let divOp = 50 / 90;
+        console.log("divOp Operator 50 / 9: " + divOp);
+        let reminder = 50 % 9;
+        console.log("reminder Operator 50 % 90: " + reminder);
+        let a = 50;
+        let incr = ++a + 1;
+        console.log("Increment Operator ++50 + 1: " + incr);
+
+        let b = 50;
+        let decr = b-- - 1;
+        console.log("Decrement Operator 50-- - 1: " + decr);
+
+
+
+
+        console.log("-----iii. Comparison operators")
+        let equalLoose = 50 == "50";
+        console.log("Loose Equality Operator 50 == '50': " + equalLoose);
+
+        let equalStrict = 50 === "50";
+        console.log("Strict Equality Operator 50 === '50': " + equalStrict);
+
+        let notEqualLoose = 50 != "90";
+        console.log("Loose Not Equal Operator 50 != '90': " + notEqualLoose);
+
+        let notEqualStrict = 50 !== "50";
+        console.log("Strict Not Equal Operator 50 !== '50': " + notEqualStrict);
+
+        let greaterThan = 90 > 50;
+        console.log("Greater Than Operator 90 > 50: " + greaterThan);
+
+        let greaterThanEqual = 50 >= 50;
+        console.log("Greater Than or Equal Operator 50 >= 50: " + greaterThanEqual);
+
+        let lessThanEqual = 40 <= 50;
+        console.log("Less Than or Equal Operator 40 <= 50: " + lessThanEqual);
+
+
+
+
+        // 4. JS Conditional
+        console.log("----------------------4. JS Conditional--------------------")
+        console.log("-----i. If Statement")
+        let marks = 36;
+
+        if (marks > 35) {
+            console.log("Pass Mark ")
+            console.log("Condition Passed through if statement greater than 35")
+        }
+
+
+        console.log("-----ii. If...else")
+        var ifelsemarks = 32;
+
+        if (ifelsemarks > 35) {
+            console.log("Pass mark")
+        } else {
+            console.log("Fail Mark")
+            console.log("Condition else block passed through ifelse statement ")
+        }
+
+
+        var ifelsemarks = 100;
+        console.log("-----iii. If...elseif")
+        if (ifelsemarks < 35) {
+            console.log("fail mark")
+        } else if (ifelsemarks > 35 && ifelsemarks === 100) {
+            console.log("Centem")
+            console.log("Condition else if with condition block passed through ifelseif statement ")
+        }
+        else {
+            console.log("Pass mark")
+        }
+
+        console.log("-----iv. Ternary Operator")
+
+        ternaryCheck = 40;
+
+        console.log("Checking limit trough ternary operator")
+        ternaryCheck > 25 ? console.log("Exceeded limit") : console.log("Accessed");
+
+
+        //   5. JS Switch
+
+        function switchTrigger() {
+
+            console.log("-----i. Check through Switch statement");
+            let actionSwitch = parseInt(prompt("Select Action\n1. Check Balance \n2. Withdraw \n3. Deposite"));
+
+            switch (actionSwitch) {
+                case 1:
+                    alert("Your Bank Balance is XXXXXXXX");
+                    break;
+                case 2:
+                    alert("Amout Deducted");
+                    break;
+                case 3:
+                    alert("Amount Deposited");
+                    break;
+                default:
+                    alert("Check the input and give the valid one")
+            }
+
+
+
+
+        }
+
+
+        //  6. JS Loops
+
+        console.log("----------------------5. JS Looping Statements--------------------")
+        console.log("-----i. for Statement")
+        let arrValu = [43, 66, 11, 22, 90];
+
+
+        console.log("Print Array values through for loop")
+        for (let i = 0; i < arrValu.length; i++) {
+            console.log(arrValu[i]);
+
+        }
+
+        console.log("-----ii. while Statement")
+        let arrValWhile = [2, 3, 4, 5, 6, 7, 8, 8, 4, 3, 2];
+        console.log("Stop when the duplicate exists 2,3,4,5,6,7,8,8,4,3,2")
+        let arrAdditional = [];
+        let i = 0;
+        while (!arrAdditional.includes(arrValWhile[i])) {
+
+            arrAdditional.push(arrValWhile[i]);
+            i++;
+        }
+
+        console.log(arrAdditional);
+
+        console.log("-----iii. do while Statement");
+
+        let num = 1;
+        console.log("Print numbers from 1 to 5 using do while loop");
+
+        do {
+            console.log(num);
+            num++;
+        } while (num <= 5);
+
+
+        console.log("----------------------7. JS Strings--------------------");
+
+        console.log("-----i. Strings");
+        let stringVal = "this is the string value";
+        console.log(stringVal);
+
+        console.log("-----ii. Template String");
+        let stringValTemplate = `Backtics used for template string 3+4 => ${3 + 4}`;
+        console.log(stringValTemplate);
+
+        console.log("-----iii. Escape Character");
+        let escapeChar = "here the escape character \"ESCAPE CHARACTER\" implemented";
+        console.log(escapeChar);
+
+        console.log("-----iv. String length");
+        console.log("Length of string: " + stringVal.length);
+
+        console.log("-----v. String charAt()");
+        console.log("Character at index 5: " + stringVal.charAt(5));
+
+        console.log("-----vi. String charCodeAt()");
+        console.log("Char code at index 5: " + stringVal.charCodeAt(5));
+
+        console.log("-----vii. String codePointAt()");
+        console.log("Code point at index 5: " + stringVal.codePointAt(5));
+
+        console.log("-----viii. String concat()");
+        let concatStr = stringVal.concat(" added text");
+        console.log(concatStr);
+
+        console.log("-----ix. String at()");
+        console.log("Character at index 2: " + stringVal.at(2));
+
+        console.log("-----x. String []");
+        console.log("Character at index 3: " + stringVal[3]);
+
+        console.log("-----xi. String slice()");
+        console.log("Slice from index 0 to 4: " + stringVal.slice(0, 4));
+
+        console.log("-----xii. String substring()");
+        console.log("Substring from index 5 to 10: " + stringVal.substring(5, 10));
+
+        console.log("-----xiii. String substr()");
+        console.log("Substr from index 5 length 6: " + stringVal.substr(5, 6));
+
+        console.log("-----xiv. String toUpperCase()");
+        console.log(stringVal.toUpperCase());
+
+        console.log("-----xv. String toLowerCase()");
+        console.log(stringVal.toLowerCase());
+
+        console.log("-----xvi. String isWellFormed()");
+        console.log("Is well formed: " + stringVal.isWellFormed());
+
+        const toWellformedVal = "\uD800";
+        console.log("-----xvii. String toWellFormed() broken character filled with  �");
+        console.log("Well formed string: " + toWellformedVal.toWellFormed());
+
+        console.log("-----xviii. String trim()");
+        let trimStr = "   trim this string   ";
+        console.log(trimStr.trim());
+
+        console.log("-----xix. String trimStart()");
+        console.log(trimStr.trimStart());
+
+        console.log("-----xx. String trimEnd()");
+        console.log(trimStr.trimEnd());
+
+        console.log("-----xxi. String padStart()");
+        let padStr = "5";
+        console.log(padStr.padStart(4, "0"));
+
+        console.log("-----xxii. String padEnd()");
+        console.log(padStr.padEnd(4, "0"));
+
+        console.log("-----xxiii. String repeat()");
+        console.log("JS ".repeat(3));
+
+        console.log("-----xxiv. String replace()");
+        console.log(stringVal.replace("string", "text"));
+
+        console.log("-----xxv. String replaceAll()");
+        console.log(stringVal.replaceAll(" ", "-"));
+
+        console.log("-----xxvi. String split()");
+        let splitStr = stringVal.split(" ");
+        console.log(splitStr);
+
+        // 8. JS Functions
+
+        console.log("----------------------8. JS Function--------------------")
+        console.log("-----i. Function Declaration")
+
+        function simpleFunc() {
+            let length = 20;
+            let breadth = 50;
+            return length * breadth
+        }
+
+        console.log("Calling function with return value along with calculations: " + simpleFunc());
+
+        console.log("-----ii. Call Method");
+
+        function studVal(name, age) {
+
+            return `${name} and age: ${age} and department ${this.department}`
+        }
+        console.log(studVal.call({ department: "development" }, "vasiraja", 25));
+
+
+        console.log("-----iii. Apply Method");
+
+        projects = ["codevamp", "automation view", "testing software"];
+
+        function printDev(dep) {
+
+            for (let i of dep) {
+                console.log(i);
+            }
+
+
+
+        }
+        printDev.apply(null, [projects])
+
+
+        console.log("-----iv. Bind Method");
+        console.log("-----Bind together function and user details into one through bind method")
+
+        function userAccess() {
+            console.log(this.name + " have the special access to trigger that function")
+            console.log("Age is: " + this.age)
+        }
+
+        const user = {
+            name: "vasi",
+            age: 25
+        };
+
+        const bindTogether = userAccess.bind(user);
+        bindTogether();
+
+        console.log("-----v. IIFE Method");
+
+        (function () {
+            console.log("This functionality immediately implement without any trigger through this IIFE(Immediately Invoked Function Expression) method ")
+        })();
+
+
+        console.log("-----vi. Closure Method");
+        console.log("Inner function able to access the variable from the outer function even outer function executed completed")
+
+        function firstFunction() {
+            let availBalance = 3400;
+
+            function checkBalance() {
+                return availBalance;
+            }
+
+            return checkBalance;
+        }
+        const checked = firstFunction()
+
+        console.log(checked());
+
+
+
+        console.log("----------------------9. JS Objects--------------------")
+        console.log("-----i. Object assign");
+
+
+        const objectUser={
+            name:"Rahmen",
+            age:24,
+            dob:new Date(14,12,2000)
+        }
+        const objectAddress={
+            city:"Madurai",
+            pincode:"625535"
+        }
+
+        console.log(Object.assign({},objectUser,objectAddress))
+        console.log(objectUser)
+        console.log(objectAddress)
+
+        console.log("-----ii. Object Create")
+
+        Object.create({name:"vasi",dob:"22-01-1999"});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

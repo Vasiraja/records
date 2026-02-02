@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BehaviorSubject, catchError, combineLatest, concatAll, concatMap, debounceTime, delay, delayWhen, distinct, distinctUntilChanged, distinctUntilKeyChanged, exhaustAll, first, forkJoin, from, interval, last, mapTo, mergeAll, mergeMap, Observable, of, pluck, race, repeat, retry, skip, skipLast, skipWhile, Subject, switchAll, switchMap, take, takeLast, takeWhile, tap, timer } from 'rxjs';
+import {
+  BehaviorSubject, catchError, combineLatest, concatAll, concatMap,
+  debounceTime, delay, delayWhen, distinct, distinctUntilChanged, distinctUntilKeyChanged,
+  exhaustAll, first, forkJoin, from, interval, last, mapTo, mergeAll, mergeMap, Observable,
+  of, pluck, race, repeat, retry, skip, skipLast, skipWhile, Subject, switchAll,
+  switchMap, take, takeLast, takeWhile, tap, timer
+} from 'rxjs';
 import { map } from 'rxjs';
 import { filter } from 'rxjs';
 
@@ -311,8 +317,8 @@ export class Rxjsangular {
     ).pipe(last())
 
       .subscribe(console.log)
-  }
-
+  } 
+   
   take() {
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
       tap(() => console.log("--Taking first values with count")),
@@ -328,9 +334,7 @@ export class Rxjsangular {
       tap(() => console.log("Taking values from last")),
       takeLast(4),
     ).subscribe(console.log);
-  }
-
-
+  } 
   skiptrigger() {
 
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
@@ -339,63 +343,60 @@ export class Rxjsangular {
 
 
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
-      skipWhile(val => val<5 )
+      skipWhile(val => val < 5)
     ).subscribe(console.log)
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
       tap(() => console.log("----------------")),
       skipLast(3)
     ).subscribe(console.log)
   }
-  distinct(){
+  distinct() {
     console.log("Given Numbers 2,3,4,4,5,2,1,1,3,3,5,4,2,1,5");
 
     console.log("distinct")
-    of(2,3,4,4,5,2,1,1,3,3,5,4,2,1,5).pipe(
+    of(2, 3, 4, 4, 5, 2, 1, 1, 3, 3, 5, 4, 2, 1, 5).pipe(
       distinct()
     ).subscribe(console.log)
 
     console.log("distinct until changed")
-    of(2,3,4,4,5,2,1,1,3,3,5,4,2,1,5).pipe(
+    of(2, 3, 4, 4, 5, 2, 1, 1, 3, 3, 5, 4, 2, 1, 5).pipe(
       distinctUntilChanged()
     ).subscribe(console.log)
 
 
   }
 
-  delayfunc(){
-    of(1,2,3).pipe(
+  delayfunc() {
+    of(1, 2, 3).pipe(
       delay(5000)
     ).subscribe(console.log)
 
-  of(1,2,3).pipe(
-    delayWhen(val=>timer(val*1000))
-  ).subscribe(console.log)
+    of(1, 2, 3).pipe(
+      delayWhen(val => timer(val * 1000))
+    ).subscribe(console.log)
   }
-
-  repeatfunc(){
-    of(1,2,3).pipe(
+ 
+  repeatfunc() {
+    of(1, 2, 3).pipe(
       repeat(4)
     ).subscribe(console.log)
   }
+ 
+  retry() {
 
-
-  retry(){
-    
-of(1, 2, 3)
-  .pipe(
-    map(val => {
-      if (val === 3) throw new Error('Boom');
-      return val;
-    }),
-    retry(2) 
-  )
-  .subscribe({
-    next: v => console.log(v),
-    error: e => console.log('Final Error:', e.message)
-  });
-  }
-  
-
+    of(1, 2, 3)
+      .pipe(
+        map(val => {
+          if (val === 3) throw new Error('Boom');
+          return val;
+        }),
+        retry(2)
+      )
+      .subscribe({
+        next: v => console.log(v),
+        error: e => console.log('Final Error:', e.message)
+      });
+  } 
 }
 
 
