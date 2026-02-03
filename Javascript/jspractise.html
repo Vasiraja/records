@@ -799,14 +799,11 @@
 
         console.log("Multiline modifier  ");
         let multilineText = `Hello 
-this 
-        is
-        Vasi 
-this
-        `;
+this    is Vasi 
+this `;
         let multilineMod = /^this/m;
         console.log(multilineMod.test(multilineText));
-
+        console.log(multilineMod.test(instruction))
         console.log("-----xiii. \\d - match digit");
         let digitCheck = /\d/g;
         console.log(digitCheck.test(instruction));
@@ -846,7 +843,7 @@ this
 
 
         console.log("----------------------15. JS Promise - Simple Example--------------------");
-
+    
         console.log("-----i. Simple Promise creation");
 
         let simplePromise = new Promise((resolve, reject) => {
