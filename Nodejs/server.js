@@ -4,7 +4,7 @@
 
 
 
-// require("dotenv").config();
+require("dotenv").config();
 
 // const app = express();
 
@@ -128,7 +128,7 @@ const fs = require("fs");
 // const writeStream = fs.createWriteStream("files/output.txt");
 // console.log(writeStream); 
 
-// console.log("----- iii. Stream on and end ")
+// console.log("----- iii. Stream on ")
 
 // const readStreamOn = fs.createReadStream("files/firstfile.txt", "utf8");
 
@@ -144,14 +144,216 @@ const fs = require("fs");
 //   console.error(err);
 // });
 
-console.log("----- iv. Stream Pipe ");
+// console.log("----- iv. Stream Pipe ");
 
-const readPipeStream = fs.createReadStream("../largefile.mp4");
-const writePipeStream  = fs.createWriteStream("files/newupdated.mp4");
+// const readPipeStream = fs.createReadStream("../largefile.mp4");
+// const writePipeStream  = fs.createWriteStream("files/newupdated.mp4");
 
-const check =readPipeStream.pipe(writePipeStream);
-if(check){
-    console.log("Large file copied through stream pipe");
+// const check =readPipeStream.pipe(writePipeStream);
+// if(check){
+//     console.log("Large file copied through stream pipe")
+// } 
+  
+//     console.log("----- iv. Stream Pause and Resume and isPaused method ");
+
+// const rs = fs.createReadStream("files/firstfile.txt", {
+//   encoding: "utf8",
+//   highWaterMark: 5
+// });
+
+// rs.on("data", chunk => {
+//   console.log(chunk);
+//   rs.pause();
+//   console.log(" Paused...\n");
+//   console.log(rs.isPaused());
+
+//   setTimeout(() => {
+//     console.log(" Resumed...\n");
+
+//     rs.resume();
+//       console.log(rs.isPaused());
+
+//   }, 1500);
+// });
+
+// rs.on("end", () => {
+//   console.log("Filed Reading Done");
+// });
+// console.log("----- iv. Stream Unpipe ");
+// console.log("Through this unpipe we stop sending those data from the read file to write file, like cut the subscription")
+
+// const readPipeStream = fs.createReadStream("../largefile.mp4");
+// const writePipeStream  = fs.createWriteStream("files/newupdated.mp4");
+
+// const checkUn =readPipeStream.pipe(writePipeStream);
+// if(checkUn){
+//     console.log("Large file copied through stream pipe")
+// } 
+//   const checkUnpipe=readPipeStream.unpipe(writePipeStream);
+//   if(checkUnpipe){
+//     console.log("unpipe implemented between those write and read file")
+//   }
+
+
+// console.log("------------------5. Process Object  ---------------------");
+
+// console.log("Process object mainly used for global level access and provide multiple dependencies for the project")
+
+// console.log("----- i. Process env variables")
+//  console.log("Below port get by env variables through process object")
+// console.log(process.env.PORT);
+
+
+// console.log("----- ii. Process cwd")
+//  console.log("Current Working Directory")
+// console.log(process.cwd());
+
+
+// console.log("----- iii. Process ID")
+// console.log("Given the id of the specific process , through this we can  monitoring, log, kill processes programmatically")
+// console.log(process.pid);  
+
+
+// console.log("-----iv. Process Memory Usage");
+// console.log("Return specific memory usage of the process")
+// console.log(process.memoryUsage());
+
+
+// console.log("-----v. Process Platform");
+// console.log("Return the platform for the current project");
+// console.log(process.platform)
+
+
+
+// console.log("-----vi. Process Archietecture");
+// console.log("Return the platform archietecture");
+// console.log(process.arch)
+
+
+// console.log("-----vii. process emitwarning")
+// console.log("Emits a warning instead of throwing an error");
+// console.log(process.emitWarning("This is the Warning created by process emitwarning"));
+ 
+
+// console.log("-----viii. Process on")
+
+// process.on("warning", warning => {
+//   console.log("Listener active!");
+//   console.log(warning.name, warning.message);
+// });
+
+//  process.emitWarning("This feature is deprecated", "DeprecationWarning");
+
+
+
+//  console.log("------------------6. HTTP Server  ---------------------");
+
+ const http = require("http");
+const { Readline } = require("readline/promises");
+
+// console.log("-----i. Create HTTP Server")
+
+ const createServer= http.createServer((req,res)=>{
+    console.log("Server Created")
+ })
+
+ console.log("-----ii. Listen Server")
+
+//  createServer.listen(process.env.PORT,()=>{
+//     console.log(`${process.env.PORT} Server Listening`)
+//  })
+
+//  console.log("-----iii. Request Method and Response Method");
+//  const newServer= http.createServer((req,res)=>{
+//     console.log("Server Created")
+//     console.log(req.url);
+//     console.log(req.method);
+//     console.log(res.statusCode); 
+//     console.log(res.statusMessage);
+//         res.write("Written notes\n");
+
+//     res.end("Hi hello")
+//  })
+ 
+//   newServer.listen(process.env.PORT,()=>{
+//     console.log(`${process.env.PORT} Server Listening`)
+//  })  
+
+ 
+//  console.log("------------------7. Readline Module  ---------------------");
+console.log("Basically readline is used to read content in the CLI and display output");
+
+// console.log("-----i. CreateInterface");
+
+ const readline = require("readline");
+
+ const groupInputs = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout 
+});
+
+// console.log(groupInputs);
+// console.log("-----ii. rl.questions and r1.close ")
+
+//  groupInputs.question("What is your name? ", (answer) => {
+//     console.log(`Hello, ${answer}`);
+//     groupInputs.close();
+// });
+
+// console.log("-----iii. rl.on rl.close ")
+// console.log("This will listen every time wheter you typing or not and display what you type")
+// groupInputs.on("line", (input) => {
+//     console.log("You typed:", input);
+
+//     if (input === "exit") { 
+//         groupInputs.close(); 
+//     }
+// });
+
+
+//  console.log("------------------8. Util  ---------------------");
+
+const util =require("util");
+ 
+console.log("-----i. util.promisify")
+
+const readFilePromise = util.promisify(fs.readFile);
+console.log("Unlike readfile it will create a promise while creating ")
+async function readFileExample() {
+  try {
+    const data = await readFilePromise("files/firstfile.txt", "utf-8");
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
 }
 
+readFileExample(); 
 
+console.log("-----ii. util.types.isBuffer")
+
+console.log("For checking date valid or not")
+ const date = new Date();
+
+ const notDate="2020-20-04"
+
+ console.log(util.types.isDate(date));   
+console.log(util.types.isDate(notDate));
+
+
+// console.log("-----iii. util.types.isError");
+
+// const errorUtil = "here the error";
+// const errorUtilNew = new Error("here error");
+
+// console.log(util.types.isError(errorUtil));
+// console.log(util.types.isError(errorUtilNew));
+
+
+console.log("-----iv. Promise Util Error ")
+
+const promise = new Promise((resolve) => resolve(42));
+const notPromise = 42;
+
+console.log(util.types.isPromise(promise));    
+console.log(util.types.isPromise(notPromise));
