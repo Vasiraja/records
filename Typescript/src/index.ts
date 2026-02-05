@@ -578,7 +578,7 @@ const firstUser:newUserType={
 
 function showAll(user:newUserType,keyperson:keyof newUserType ){
     console.log(user);
-    console.log(keyperson)
+    console.log(keyperson);
 }
 
 showAll(firstUser,"firstname");
