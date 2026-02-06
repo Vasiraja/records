@@ -92,11 +92,11 @@ export class Rxjsangular {
     of(1, 2, 3)
       .pipe(
         map(num => {
-          if (num === 2) {
-            throw new Error('Something went wrong at 2');
-          }
-          return num * 10;
-        }),
+         if (num === 2) {
+           throw new Error('Something went wrong at 2');
+         }
+         return num * 10;
+       }),
         tap(x => console.log('After map:', x)),
         catchError(err => {
           console.log('Caught error:', err.message);

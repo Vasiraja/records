@@ -33,7 +33,7 @@ require("dotenv").config();
 // console.log("It return true or false statement checking whether buffer or not");
 // const bufVar = "hello";
 // const truBuff= Buffer.from(bufVar);
-// console.log(Buffer.isBuffer(bufVar))
+// console.log(Buffer.isBuffer(bufVar));
 // console.log(Buffer.isBuffer(truBuff));
 
 // console.log("------------------2. File Systems---------------------");
