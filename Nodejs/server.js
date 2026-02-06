@@ -46,6 +46,7 @@ const fs = require("fs");
 //     if(err){
 //         console.error(err)
 //     }
+
 //     console.log("File readed below");
 //     console.log("' "+data+" '");
 // }) 
@@ -249,8 +250,7 @@ const fs = require("fs");
 //  console.log("------------------6. HTTP Server  ---------------------");
 
  const http = require("http");
-const { Readline } = require("readline/promises");
-
+ 
 // console.log("-----i. Create HTTP Server")
 
  const createServer= http.createServer((req,res)=>{
