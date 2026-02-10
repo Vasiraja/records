@@ -4,26 +4,23 @@ import { MongoDBService } from '@feathersjs/mongodb'
 import type { MongoDBAdapterParams, MongoDBAdapterOptions } from '@feathersjs/mongodb'
 
 import type { Application } from '../../declarations'
-import type { Messages, MessagesData, MessagesPatch, MessagesQuery } from './mess.schema'
- 
-export type { Messages, MessagesData, MessagesPatch, MessagesQuery }
+import type { Usersval, UsersvalData, UsersvalPatch, UsersvalQuery } from './users.schema'
 
-export interface MessagesParams extends MongoDBAdapterParams<MessagesQuery> {}
+export type { Usersval, UsersvalData, UsersvalPatch, UsersvalQuery }
+
+export interface UsersvalParams extends MongoDBAdapterParams<UsersvalQuery> {}
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
-export class MessagesService<ServiceParams extends Params = MessagesParams> extends MongoDBService<
-  Messages,
-  MessagesData,
-  MessagesParams,
-  MessagesPatch
-> {
-   
-}
+export class UsersvalService<ServiceParams extends Params = UsersvalParams> extends MongoDBService<
+  Usersval,
+  UsersvalData,
+  UsersvalParams, 
+  UsersvalPatch
+> {}
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get('paginate'),
-    Model: app.get('mongodbClient').then(db => db.collection('mess'))
+    Model: app.get('mongodbClient').then(db => db.collection('users'))
   }
 }
- 

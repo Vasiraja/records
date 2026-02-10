@@ -9,5 +9,6 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb+srv://vasiraja14122000:<Mongodb7>@cluster0.nutvxoa.mongodb.net/?appName=Cluster0"
+"mongodb": "mongodb+srv://vasiraja14122000:Mongodb7@cluster0.nutvxoa.mongodb.net/?appName=Cluster0"
+
 }

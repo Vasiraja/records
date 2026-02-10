@@ -32,7 +32,7 @@ export const messagesDataResolver = resolve<MessagesData, HookContext<MessagesSe
 
 // Schema for updating existing entries
 export const messagesPatchSchema = Type.Partial(messagesSchema, {
-  $id: 'MessagesPatch'
+  $id: 'MessagesPatch' 
 })
 export type MessagesPatch = Static<typeof messagesPatchSchema>
 export const messagesPatchValidator = getValidator(messagesPatchSchema, dataValidator)
@@ -43,7 +43,7 @@ export const messagesQueryProperties = Type.Pick(messagesSchema, ['_id', 'text']
 export const messagesQuerySchema = Type.Intersect(
   [
     querySyntax(messagesQueryProperties),
-    // Add additional query properties here
+    // Add additional query properties here 
     Type.Object({}, { additionalProperties: false })
   ],
   { additionalProperties: false }
@@ -51,3 +51,4 @@ export const messagesQuerySchema = Type.Intersect(
 export type MessagesQuery = Static<typeof messagesQuerySchema>
 export const messagesQueryValidator = getValidator(messagesQuerySchema, queryValidator)
 export const messagesQueryResolver = resolve<MessagesQuery, HookContext<MessagesService>>({})
+ 

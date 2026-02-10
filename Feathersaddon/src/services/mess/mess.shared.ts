@@ -10,19 +10,19 @@ export type MessagesClientService = Pick<
   (typeof messagesMethods)[number]
 >
 
-export const messagesPath = '/mess'
+export const messagesPath = 'mess'
 
 export const messagesMethods: Array<keyof MessagesService> = ['find', 'get', 'create', 'patch', 'remove']
 
 export const messagesClient = (client: ClientApplication) => {
-  const connection = client.get('connection')
+  const connection = client.get('connection') 
 
   client.use(messagesPath, connection.service(messagesPath), {
     methods: messagesMethods
   })
 }
 
-// Add this service to the client service type index
+
 declare module '../../client' {
   interface ServiceTypes {
     [messagesPath]: MessagesClientService

@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { usersvalClient } from './services/users/users.shared'
+export type { Usersval, UsersvalData, UsersvalQuery, UsersvalPatch } from './services/users/users.shared'
+
 import { messagesClient } from './services/mess/mess.shared'
 export type { Messages, MessagesData, MessagesQuery, MessagesPatch } from './services/mess/mess.shared'
 
@@ -34,5 +37,6 @@ export const createClient = <Configuration = any,>(
   client.set('connection', connection)
 
   client.configure(messagesClient)
+  client.configure(usersvalClient)
   return client
 }

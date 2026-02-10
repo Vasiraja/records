@@ -1,0 +1,23 @@
+MONOGODB Connection
+
+db.users.find({});                                                             --used for find all data in one collection
+
+show dbs                                                                       --used to show all the databased
+
+use blog                                                                       --used to create a new database 
+
+db.createCollection("softwares")                                               --used to create a new collection
+
+db.softwares.insertOne({softwareName:"Anydesk",version:2.4,price:1200});       --used to insert one record in collection
+
+db.softwares.insertMany([{softwareName:"PostMan",version:4.0,price:1000},
+{softwareName:"Visual Basic",version:4.0,price:3000}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('698b10d03995e80284628ca1'),
+    '1': ObjectId('698b10d03995e80284628ca2')
+  }
+}                                                                             --used to insert multiple record in collection
+
+
