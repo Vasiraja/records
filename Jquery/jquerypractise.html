@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>All jQuery Events</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        div {
+            padding: 5px;
+            margin: 10px;
+            border: 1px solid black;
+            width: 80px;
+        }
+button{
+    cursor: pointer;
+}
+        body {
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="iddiv" class="box">
+        ID selector div
+    </div>
+    <button id="buttonid">idselector</button>
+
+    <div class="classdiv box">
+        Class selector div
+    </div>
+    <button class="buttonclass">classselector</button>
+
+    <input type="text" id="keyboard" placeholder="Type here" class="box">
+
+    <form id="myform">
+        <input type="text" id="name" placeholder="Enter name" class="box"><br><br>
+
+        <select id="course" class="box">
+            <option value="">Select Course</option>
+            <option>HTML</option>
+            <option>CSS</option>
+            <option>jQuery</option>
+        </select><br><br>
+
+        <div id="dblclick">doubleclick</div>
+        <div id="mouseleave">mouseleave</div>
+        <div id="mouseenter">mouseenter</div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div class="hideshow" style="background-color: rgb(233, 129, 11);color:white;position:relative;">
+        Hide and Show
+    </div>
+
+    <button class="hidebutton">hide</button>
+    <button class="showbutton">show</button>
+    <button class="togglebutton">toggle</button>
+    <button class="fadein">fadein</button>
+    <button class="fadeout">fadeout</button>
+    <button class="fadetoggle">fadetoggle</button>
+    <button class="fadeto">fadeto 0.5 opacity</button>
+    <button class="slideup">slideup</button>
+    <button class="slidedown">slidedown</button>
+    <button class="slidetoggle">slidetoggle</button>
+    <button class="animate">animate</button>
+    <button class="animateopacity">animatewithopacity</button><br>
+    <button class="preventanimation" style="width: 68%;height:20%">stop animation</button>
+
+    <div>
+        <p id="triggeredtext"></p>
+        <div id="triggeredhtml" style="padding:15px 0"></div>
+        <input id="triggeredvalue" style="width: 100%;" placeholder="get value"></input>
+    </div>
+    <button id="triggertext">trigger text</button>
+    <button id="triggerhtml">trigger html</button>
+    <button id="triggerval">trigger input</button>
+
+
+
+    <p id="htmlcontent">this is the original text</p>
+    <button id="prependadd">prepend add</button>
+    <button id="appendadd">append add</button>
+    <button id="afteradd">after add</button>
+    <button id="beforeadd">before add</button>
+
+    <div class="parentremove">
+        parent
+        <div class="childremove">
+              child
+        </div>
+    </div>
+    <button id="removetrigger">remove</button>
+
+    <div class="parentempty">
+        parent
+        <div class="childempty">
+            child
+
+        </div>
+    </div>
+    <button id="emptytrigger">empty</button>
+
+    <script>
+
+
+        console.log("-----1. Document ready Function");
+
+        $(document).ready(function () {
+            console.log("Document ready function triggered");
+
+            console.log("-----2. ID Selector - Click Event");
+
+            $("#buttonid").click(function () {
+                $("#iddiv").css({
+                    backgroundColor: "red",
+                    color: "white"
+                });
+            });
+
+            console.log("-----3. Class Selector - Click Event");
+
+            $(".buttonclass").click(function () {
+                $(".classdiv").css({
+                    backgroundColor: "green",
+                    color: "white"
+                });
+            });
+
+
+            console.log("-----4. Mouse Events");
+
+            $("#dblclick").dblclick(function () {
+                $(this).css({ "backgroundColor": "blue", "color": "white" });
+            });
+
+            $("#mouseenter").mouseenter(function () {
+                $(this).css({ "backgroundColor": "red", "color": "white" });
+            });
+
+            $("#mouseleave").mouseleave(function () {
+                $(this).css({ "backgroundColor": "green", "color": "white" });
+            });
+
+
+            console.log("-----5. Keyboard Events");
+
+            $("#keyboard").keypress(function () {
+                console.log("Key Press");
+            });
+
+            $("#keyboard").keydown(function () {
+                console.log("Key Down");
+            });
+
+            $("#keyboard").keyup(function () {
+                console.log("Key Up");
+            });
+
+
+            console.log("-----6. Form Events");
+
+            $("#name").focus(function () {
+                $(this).css("backgroundColor", "yellow");
+            });
+
+            $("#name").blur(function () {
+                $(this).css("backgroundColor", "red");
+            });
+
+            $("#course").change(function () {
+                alert("Selected: " + $(this).val());
+            });
+
+            $("#myform").submit(function (event) {
+                event.preventDefault();
+                alert("Form Submitted");
+            });
+
+            console.log("-----7. Window  Events");
+
+            $(window).on("load", function () {
+                console.log("Window Loaded");
+            });
+
+            $(window).resize(function () {
+                console.log("Window Resized");
+            });
+
+            $(window).scroll(function () {
+                console.log("Window Scrolled");
+            });
+
+            console.log("-----8. Hide and Show");
+
+            $(".hidebutton").click(() => {
+                $(".hideshow").hide(1000);
+            })
+            $(".showbutton").click(() => {
+                $(".hideshow").show(400);
+            });
+
+            console.log("-----9. Jquery Toggle");
+            $(".togglebutton").click(() => {
+                $(".hideshow").toggle(300);
+            })
+
+            console.log("-----10. Fade in , Fade out, Fade toggle, Fade to ")
+
+            $(".fadein").click(function () {
+                $(".hideshow").fadeIn(3000);
+            })
+            $(".fadeout").click(function () {
+                $(".hideshow").fadeOut("slow");
+            })
+            $(".fadetoggle").click(function () {
+                $(".hideshow").fadeToggle("fast");
+            })
+            $(".fadeto").click(function () {
+                $(".hideshow").fadeTo("slow", "0.5");
+            })
+
+
+            console.log("-----11. slide down, slide up, slide toggle")
+            $(".slideup").click(function () {
+                $(".hideshow").slideUp("slow");
+            })
+            $(".slidedown").click(function () {
+                $(".hideshow").slideDown("fast");
+            })
+            $(".slidetoggle").click(function () {
+                $(".hideshow").slideToggle();
+            })
+
+            
+            console.log("-----12. Animate")
+            $(".animate").click(function () {
+                $(".hideshow").animate({ left: "420px" }, 2000);
+            })
+            $(".animateopacity").click(function () {
+                $(".hideshow").animate({ left: "420px", opacity: 0.3 }, 4000);
+            })
+
+            $(".preventanimation").click(function () {
+                $(".hideshow").stop();
+            })
+
+
+            console.log("-----13. Set --- text(), html(), and val()")
+
+
+
+            $("#triggertext").click(function () {
+                $("#triggeredtext").text("here text attached ")
+            })
+            $("#triggerhtml").click(function () {
+                $("#triggeredhtml").html("<h3>h3 tag element added through trigger html</h3>")
+            })
+
+            $("#triggerval").click(function () {
+                let triggeredValue = $("#triggeredvalue").val();
+                console.log(triggeredValue);
+
+                if (triggeredValue !== "" && triggeredValue !== undefined) {
+                    alert(triggeredValue + " got input");
+                } else {
+                    alert("input is empty...");
+                }
+            });
+
+            console.log("-----14. Get --- text(), html(), and val()")
+            $("#triggertext").click(function () {
+                console.log($("#triggeredtext").text());
+            })
+
+            $("#triggerhtml").click(function () {
+                console.log($("#triggeredhtml").html());
+            })
+
+            $("#triggerval").click(function () {
+                console.log($("#triggeredval").val());
+            })
+
+            console.log("-----14. prepend, append, after, before")
+            $("#prependadd").click(function () {
+                $("#htmlcontent").prepend("<b>Text added before</b> ")
+            })
+            $("#appendadd").click(function () {
+                $("#htmlcontent").append(" <i>text added after</i>")
+            })
+            $("#afteradd").click(() => {
+                $("#htmlcontent").after("<h1>after h1 tag added </h1>")
+            })
+            $("#beforeadd").click(() => {
+                $("#htmlcontent").before("<h1>before h1 tag added </h1>")
+            })
+
+            console.log("-----15. Jquery remove() and empty()");
+
+            $("#removetrigger").click(()=>{
+               $(".parentremove").remove();
+            })
+            $("#emptytrigger").click(()=>{
+               $(".parentempty").empty();
+               $(".parentempty").text("parent still here....");
+            })
+
+
+
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
