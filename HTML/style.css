@@ -265,6 +265,32 @@ input:focus {
   column-gap: 1rem;
 }
 
+.gridtemplateview {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  row-gap: 10px;
+  column-gap: 10px;
+  padding: 1rem;
+  place-content: center;
+  grid-template-areas: "firstbox secondbox secondbox thirdbox"
+    "fourthbox fourthbox fifthbox sixthbox"
+    "seventhbox seventhbox fifthbox sixthbox"
+
+  ;
+
+}
+
+.gridtemplateview div p {
+  text-align: center;
+}
+
+.gridtemplateview div {
+  background-color: rgb(37, 145, 121);
+
+}
+
 .gridview div {
   background-color: blue;
   height: 200px;
