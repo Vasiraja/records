@@ -4,6 +4,34 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { userdetClient } from './services/userdet/userdet.shared'
+export type { Userdet, UserdetData, UserdetQuery, UserdetPatch } from './services/userdet/userdet.shared'
+
+import { userClient } from './services/users/users.shared'
+export type { User, UserData, UserQuery, UserPatch } from './services/users/users.shared'
+
+import { userClient } from './services/users/users.shared'
+export type { User, UserData, UserQuery, UserPatch } from './services/users/users.shared'
+
+import { authenticationClient } from './services/authentication/authentication.shared'
+export type {
+  Authentication,
+  AuthenticationData,
+  AuthenticationQuery,
+  AuthenticationPatch
+} from './services/authentication/authentication.shared'
+
+import { userdetClient } from './services/userdet/userdet.shared'
+export type { Userdet, UserdetData, UserdetQuery, UserdetPatch } from './services/userdet/userdet.shared'
+
+import { userdetailsClient } from './services/userdet/userdet.shared'
+export type {
+  Userdetails,
+  UserdetailsData,
+  UserdetailsQuery,
+  UserdetailsPatch
+} from './services/userdet/userdet.shared'
+
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
@@ -30,5 +58,11 @@ export const createClient = <Configuration = any,>(
   client.configure(authenticationClient(authenticationOptions))
   client.set('connection', connection)
 
+  client.configure(userdetailsClient)
+  client.configure(userdetClient)
+  client.configure(authenticationClient)
+  client.configure(userClient)
+  client.configure(userClient)
+  client.configure(userdetClient)
   return client
 }

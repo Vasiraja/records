@@ -275,6 +275,7 @@ class Child extends Parent {
         console.log("Hello from Child");
     }
 }
+
 const obj = new Child();
 obj.greet();
 console.log("------------------13. Typescript Basic Generics---------------------");

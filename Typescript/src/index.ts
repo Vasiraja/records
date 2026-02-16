@@ -29,8 +29,8 @@ function submitUser(): void {
 console.log("------------------1. TypeScript Types---------------------")
 var boolVar:boolean=true;
 console.log("Boolean: "+boolVar)
-var bigIntVar:bigint=2320923920932323223423n;
-console.log("BigInt: "+bigIntVar)
+// var bigIntVar:bigint=2320923923423n;
+// console.log("BigInt: "+bigIntVar)
 var numberVar:number=23;
 console.log("number: "+numberVar)
 var stringVar:string="stringVarhere";
@@ -225,12 +225,13 @@ console.log("House: ",house)
 
 console.log("------------------9. TypeScript Union Types---------------------");
 console.log("Here two type of variable types allowed due to union or operator")
-function printStatusCode (output:string|number){
+function printStatusCode (output:string|number|Float16Array){
     console.log(output)
 }
 
 printStatusCode("200")
-printStatusCode(200) 
+printStatusCode(200);
+printStatusCode(200.00);
 
 
 
@@ -281,7 +282,7 @@ console.log(optionalFunc(23,44))
     console.log("rest in function in ts it will take group of rest parameters");
     return a*b*rest.reduce((prev,items )=>prev+items,0);
  }
-console.log(restFunc(43,23,55,11,2221,32,55,42,23,12,44,4));
+console.log(restFunc(43,23,55,11,21,32,55,42,23,12,44,4));
 
 console.log("-----v. Named Parameter");
 console.log("we can give the name of the parameter inside function");
@@ -505,8 +506,7 @@ console.log("Like select query, we determain what exactly we want")
 
 const studentPick: Pick<Students,"age" > = {
    age: 25
-};
-
+}; 
 
  console.log(studentPick);
  
@@ -562,6 +562,7 @@ type AddParams = Parameters<typeof add>;
 const values: AddParams = [10, 20];
 
 console.log(values);
+ 
 
 
 interface newUserType{
@@ -575,10 +576,22 @@ const firstUser:newUserType={
     firstname:"vasi",
     gender:"male"
 }
+ 
 
 function showAll(user:newUserType,keyperson:keyof newUserType ){
     console.log(user);
     console.log(keyperson);
+
 }
 
-showAll(firstUser,"firstname");
+showAll(firstUser,"firstname"); 
+
+
+
+
+// const aTypeArray:string[] =['vasi','vasll','reia'];
+
+// console.log(aTypeArray.shift('newValueShift'));
+// console.log(aTypeArray);
+ console.log("---------------")
+

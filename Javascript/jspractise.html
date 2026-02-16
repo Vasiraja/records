@@ -9,8 +9,45 @@
 <body>
 
     <button onclick="switchTrigger()">switchtrigger</button>
+    <button onclick="removeTok()">Remove Local</button>
+    <button onclick="getTok()">Get Local</button>
+
+
+
+
+
+    <h3>Event Bubbling</h3>
+    <div id="grandparent" style="padding:40px; background:lightblue;">
+        Grandparent
+        <div id="parent" style="padding:40px; background:lightgreen;">
+            Parent
+            <button id="child">Bubbling</button>
+        </div>
+    </div>
+
+    <h3>Event Capturing</h3>
+    <div id="grandparentcap" style="padding:40px; background:lightblue;">
+        Grandparent
+        <div id="parentcap" style="padding:40px; background:lightgreen;">
+            Parent
+            <button id="childcap">Capturing</button>
+        </div>
+    </div>
+
+    <h3>Event Delegation</h3>
+
+    <ul class="productslists">
+        <li>noise</li>
+        <li>realme</li>
+        <li>boult</li>
+        <li>boat</li>
+    </ul>
+
+
+
 
     <script>
+        // "use strict";
 
 
         // 1. Let, Const, Var
@@ -842,81 +879,338 @@ this `;
 
 
 
-        console.log("----------------------15. JS Promise - Simple Example--------------------"); 
-     
-        console.log("-----i. Simple Promise creation"); 
- 
-        let simplePromise = new Promise((resolve, reject) => { 
-            let success = true; 
-            if (success) { 
-                resolve("Promise resolved successfully!"); 
-            } else { 
-                reject("Promise rejected!"); 
-            } 
-        }); 
- 
- 
-        simplePromise 
-            .then(result => console.log("Then: " + result)) 
-            .catch(error => console.log("Catch: " + error)); 
- 
-        console.log("-----ii. async/await ") 
-        console.log("Using this we can handle delayed function for parallel access") 
-        function fetchMessage() { 
-            return new Promise((resolve, reject) => { 
-                setTimeout(() => { 
-                    resolve("Hello from async function!"); 
-                }, 1000); 
-            }); 
-        } 
- 
-        console.log("-----ii. Simple Async/Await function"); 
- 
-        async function showMessage() { 
-            let message = await fetchMessage(); 
-            console.log(message); 
-        } 
- 
-        showMessage(); 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-    </script> 
-</body> 
- 
-</html> 
+        console.log("----------------------15. JS Promise - Simple Example--------------------");
+
+        console.log("-----i. Simple Promise creation");
+
+        let simplePromise = new Promise((resolve, reject) => {
+            let success = true;
+            if (success) {
+                resolve("Promise resolved successfully!");
+            } else {
+                reject("Promise rejected!");
+            }
+        });
+
+
+        simplePromise
+            .then(result => console.log("Then: " + result))
+            .catch(error => console.log("Catch: " + error));
+
+        console.log("-----ii. async/await ")
+        console.log("Using this we can handle delayed function for parallel access")
+        function fetchMessage() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("Hello from async function!");
+                }, 1000);
+            });
+        }
+
+        console.log("-----ii. Simple Async/Await function");
+
+        async function showMessage() {
+            let message = await fetchMessage();
+            console.log(message);
+        }
+
+        showMessage();
+
+
+        console.log("----------------------16. JS Localstorage, Session Storage, Cookies--------------------");
+
+        localStorage.setItem("token", 432435)
+        sessionStorage.setItem("sesstok", 44444);
+
+        document.cookie = "cookietoke=92034; expires=Fri, 31 Dec 2029 12:00:00 UTC; path=/";
+        function removeTok() {
+            localStorage.clear();
+        }
+        function getTok() {
+            const tokenget = localStorage.getItem("token");
+            alert(tokenget)
+        }
+
+        console.log("----------------------17. JS Object & Array Destructuring--------------------");
+        const arrObj = ['user', 'admin', 'guest', 'useradmin']
+        const [user1, user2, user3, user4] = arrObj;
+        console.log(user1, user2, user3, user4)
+
+        const objArc = { name: "vasi", mark: 60, dob: '14/12/2000' };
+        const { name, mark, dob } = objArc;
+
+        console.log(name);
+        console.log(mark);
+        console.log(dob);
+
+        console.log("----------------------18. JS SpreadOperator--------------------");
+
+        const arrayUsers = ['manoj', 'haaroon', 'mohan'];
+        const anotherArray = [...arrayUsers, 'abinesh', 'ashwin'];
+        console.log(anotherArray)
+        console.log(anotherArray[3])
+
+        console.log("----------------------19. Shallow & Deep copy--------------------");
+
+        console.log("-----i. Shallow Copy")
+        const userDetails = {
+            name: "arun",
+            gender: "male",
+            address: { district: "madurai", state: "Tamil Nadu" }
+        }
+
+        const copyUserDetails = userDetails;
+
+        console.log(userDetails);
+        console.log(copyUserDetails);
+
+        copyUserDetails.address.state = "Bangalore";
+
+        console.log(userDetails);
+        console.log(copyUserDetails)
+
+        console.log("-----ii. Deep Copy")
+        const userDetailsDeep = {
+            name: "manoj",
+            gender: "male",
+            address: { city: "Elumalai", Taluk: "peraiyur" }
+        }
+        const copyUserDetailsDeep = JSON.parse(JSON.stringify(userDetailsDeep))
+
+        console.log(userDetailsDeep)
+        console.log(copyUserDetailsDeep)
+
+        copyUserDetailsDeep.address.city = "Peraiyambatti";
+
+        console.log(userDetailsDeep)
+        console.log(copyUserDetailsDeep)
+
+
+        console.log("----------------------20. Optional Chaining--------------------");
+
+        const userOptionalChain = {
+            name: "vasi",
+            age: 25
+        };
+
+        console.log(user.address?.city);
+
+
+        console.log("----------------------21. Prototype Chaining--------------------");
+
+        console.log("able to call another fucntion through prototype chaining option")
+        const userObj = {
+
+            getMethod() {
+
+                return 34;
+            },
+            valMethod: 100
+        };
+
+        const newUserObj = Object.create(userObj);
+        console.log(newUserObj.valMethod)
+        console.log(newUserObj.getMethod());
+
+
+        console.log("----------------------22. Event Propogation--------------------");
+        console.log("-----i. Event Bubbling (bottom to top)");
+
+        document.getElementById("grandparent")
+            .addEventListener("click", () => {
+                console.log("Grandparent clicked");
+            });
+
+        document.getElementById("parent")
+            .addEventListener("click", () => {
+                console.log("Parent clicked");
+            });
+
+        document.getElementById("child")
+            .addEventListener("click", () => {
+                console.log("Child clicked");
+            });
+        console.log("-----ii. Event Capturing (top to bottom)");
+
+        document.getElementById("grandparentcap")
+            .addEventListener("click", () => {
+                console.log("Grandparent clicked");
+            }, true);
+
+        document.getElementById("parentcap")
+            .addEventListener("click", () => {
+                console.log("Parent clicked");
+            }, true);
+
+        document.getElementById("childcap")
+            .addEventListener("click", () => {
+                console.log("Child clicked");
+            }, true);
+
+        console.log("----------------------23. Event Delegation--------------------");
+
+
+        document.querySelector(".productslists").addEventListener('click', (e) => {
+
+            if (e.target.tagName === 'LI') {
+                e.target.style.backgroundColor = "red";
+
+            }
+        })
+
+
+        console.log("----------------------24. OOPS -  Constructor--------------------");
+
+        class Person {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            greet() {
+                console.log("Hello " + this.name);
+            }
+        }
+
+        const p1 = new Person("Alice", 30);
+        p1.greet();
+
+        console.log("----------------------25. Encapsulation--------------------");
+        class Encaps {
+
+            #privateBalance = 35000;
+
+            checkBalance() {
+                return this.#privateBalance;
+            }
+
+        }
+        const access = new Encaps();
+        // console.log(#privateBalance)
+        console.log(access.checkBalance());
+        console.log("----------------------26. Inheritance--------------------");
+        class basestep {
+            firststep() {
+                console.log("first Step");
+            }
+        }
+
+        class newstep extends basestep {
+            secondstep() {
+                console.log("second Step");
+            }
+        }
+
+        const d = new newstep();
+        d.firststep();
+        d.secondstep();
+
+        console.log("----------------------27. Polymorphism--------------------");
+        class Character {
+            move() {
+                console.log("Character moves");
+            }
+        }
+
+        class Mario extends Character {
+            move() {
+                console.log("Mario runs forward ");
+            }
+        }
+
+        class Luigi extends Character {
+            move() {
+                console.log("Luigi jumps high ");
+            }
+        }
+
+        class Enemy extends Character {
+            move() {
+                console.log("Enemy walks slowly ");
+            }
+        }
+
+        const player1 = new Mario();
+        const player2 = new Luigi();
+        const enemy1 = new Enemy();
+
+        player1.move();
+        player2.move();
+        enemy1.move();
+
+        console.log("----------------------28. Abstraction--------------------");
+        class Characters {
+            jump() {
+                this.#calculateJumpPower();
+                console.log("Character jumps");
+            }
+
+            #calculateJumpPower() {
+                console.log("Jump Calculations");
+            }
+        }
+
+        const mario = new Characters();
+        mario.jump();
+
+
+
+        console.log("----------------------29. Practise--------------------");
+        
+
+  
+        
+        //  const mapValees = [1,2,3,4,5,6,7,8,9,10];
+
+        //  const reducedResult = mapValees.some((item)=>item%2===0);
+        //  console.log(reducedResult)
+
+
+           const namesReg = 'Readking#008';
+           let checkedReg = /[A-Z]{1,}[a-z]{1,}[0-9]{1,}^[a-zA-z0-9]{1,}{8-12}/
+           console.log(checkedReg.test(namesReg));
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

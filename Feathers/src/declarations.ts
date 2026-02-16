@@ -3,6 +3,14 @@ import { HookContext as FeathersHookContext, NextFunction } from '@feathersjs/fe
 import { Application as FeathersApplication } from '@feathersjs/koa'
 import { ApplicationConfiguration } from './configuration'
 
+import { Userdet } from './services/userdet/userdet'
+
+import { User } from './services/users/users'
+
+import { User } from './services/users/users'
+
+import { Userdet } from './services/userdet/userdet'
+
 export type { NextFunction }
 
 // The types for app.get(name) and app.set(name)
@@ -18,3 +26,31 @@ export type Application = FeathersApplication<ServiceTypes, Configuration>
 
 // The context for hook functions - can be typed with a service class
 export type HookContext<S = any> = FeathersHookContext<Application, S>
+
+// Add the userdet as an optional property to all params
+declare module '@feathersjs/feathers' {
+  interface Params {
+    userdet?: Userdet
+  }
+}
+
+// Add the user as an optional property to all params
+declare module '@feathersjs/feathers' {
+  interface Params {
+    user?: User
+  }
+}
+
+// Add the user as an optional property to all params
+declare module '@feathersjs/feathers' {
+  interface Params {
+    user?: User
+  }
+}
+
+// Add the userdet as an optional property to all params
+declare module '@feathersjs/feathers' {
+  interface Params {
+    userdet?: Userdet
+  }
+}

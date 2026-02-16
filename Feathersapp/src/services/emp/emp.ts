@@ -35,7 +35,7 @@ export const employees = (app: Application) => {
       all: [
         schemaHooks.resolveExternal(employeesExternalResolver),
         schemaHooks.resolveResult(employeesResolver)
-      ]
+      ] 
     },
     before: {
       all: [

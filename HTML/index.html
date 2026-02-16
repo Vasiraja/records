@@ -6,11 +6,11 @@
    <meta name="description" content="HTML practice file">
    <meta name="keywords" content="html, css, javascript">
    <meta name="author" content="Student">
-   <base href="https://www.w3schools.com/" target="_blank">
+   <!-- <base href="https://www.w3schools.com/" target="_blank"> -->
 
    <link rel="icon" type="image/x-icon" href="https://www.w3schools.com/images/w3schools_green.jpg">
-   <link rel="stylesheet" href="styles.css">
 
+   <link rel="stylesheet" href="style.css">
    <style>
       th,
       tr,
@@ -312,14 +312,14 @@
       <option value="Edge">
       <option value="Safari">
    </datalist>
- 
+
    <!-- 28. Audio and Video -->
    <audio controls>
       <source src="audio.mp3" type="audio/mpeg">
    </audio>
 
    <video controls width="250">
-      <source src="movie.mp4" type="video/mp4">
+      <source src="../largefile.mp4" type="video/mp4">
    </video>
 
    <!-- 29. Figure and Figcaption -->
@@ -338,13 +338,13 @@
 
    <!-- 32. HTML Entities -->
    <p>&lt;div&gt; &nbsp; &copy; &reg; &euro;</p>
- 
+
 
    <!-- 34. HTML Responsive Image -->
    <img src="https://www.w3schools.com/images/w3schools_green.jpg" style="max-width:100%;height:auto;">
 
    <!-- 35. HTML Accessibility -->
-    <img src="image.png" alt="profile image">
+   <img src="image.png" alt="profile image">
 
    <!-- 36. Marquee (old but exam type) -->
    <marquee behavior="scroll" direction="left">Scrolling Text</marquee>
@@ -373,14 +373,46 @@
    <p>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry...
    </p>
- 
- 
+
+
 
    <!-- 38. Noscript -->
    <noscript>Your browser does not support JavaScript</noscript>
- 
+
    <!-- 40. Content Editable -->
    <p contenteditable="true">Edit this text</p>
+   <!-- 41. background-clip -->
+   <div class="background-clip-pr">
+
+      <p>hi hello</p>
+
+   </div>
+
+   <!-- 42.  Backgorund origin -->
+
+   <div id="bgorigin">
+      content here
+
+   </div>
+
+   <div id="position" style="background-color: blue;width: 300px;height:300px">
+
+   </div>
+
+   <!-- 43.  Flex -->
+   <h3>flex</h3>
+   <div class="flexview">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div id="individual">flex grow implemeneted</div>
+   </div><br><br>
 
    <script>
 
@@ -404,7 +436,17 @@
          })
 
    </script>
+   <h3>grid</h3>
 
+   <div class="gridview">
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+      <div><p>inside content</p></div>
+   </div>
 </body>
 
 </html>

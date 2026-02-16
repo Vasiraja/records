@@ -8,9 +8,14 @@ import { configurationValidator } from './configuration'
 import type { Application } from './declarations'
 import { logError } from './hooks/log-error'
 import { mongodb } from './mongodb'
+
+import { authentication } from './authentication'
 import { services } from './services/index'
 import { channels } from './channels'
+import { UserdetService } from './services/userdet/userdet.class'
 
+import * as dotenv from 'dotenv';
+dotenv.config();
 const app: Application = koa(feathers())
 
 // Load our app configuration (see config/ folder)
@@ -33,6 +38,8 @@ app.configure(
   })
 )
 app.configure(mongodb)
+
+app.configure(authentication)
 app.configure(services)
 app.configure(channels)
 

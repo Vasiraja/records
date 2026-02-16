@@ -1,0 +1,360 @@
+/* 1. CSS ID and Class Selector */
+
+
+#mainid {
+  width: 300px;
+  height: 200px;
+}
+
+.mainclass {
+  border: 2px solid red;
+}
+
+
+/* 2. CSS Comments */
+
+
+/* This is a CSS Comment */
+
+
+/* 3. CSS Borders */
+
+
+.cssdiv {
+  border: 1px solid transparent;
+  border-radius: 30px 20px 40px 10px;
+  border-image: url("https://www.w3schools.com/css/border.png") 30 stretch;
+}
+
+
+/* 4. CSS Colors */
+
+
+.cssdiv {
+  background-color: rgba(255, 0, 0, 0.3);
+  background-color: hsl(31, 20%, 32%);
+  background-color: #ff2200;
+}
+
+.cssdiv p {
+  background-color: transparent;
+  background-color: currentColor;
+  background-color: inherit;
+}
+
+
+/* 5. CSS Gradients */
+
+
+.cssdiv {
+  background-image: linear-gradient(180deg, red, yellow);
+  background-image: linear-gradient(to left, red, yellow);
+  background-image: linear-gradient(to bottom right, red, yellow);
+}
+
+
+/* 6. CSS Shadows */
+
+
+.cssdiv {
+  box-shadow: 3px 4px 3px gray;
+}
+
+.cssdiv p {
+  text-shadow: 1px 3px 3px rgb(0, 213, 255);
+}
+
+
+/* 7. CSS Margin & Padding */
+
+
+.cssdiv {
+  margin: 12px 33px 10px 8px;
+  padding: 10px 10px 10px 90px;
+  color: white;
+}
+
+
+/* 8. CSS Height & Width */
+
+
+.cssdiv {
+  width: 200px;
+  height: 200px;
+}
+
+
+/* 9. CSS Box Model */
+
+
+
+/* 10. CSS Links */
+
+
+.cssdiv p a:link {
+  color: white;
+  text-decoration: none;
+}
+
+.cssdiv p a:hover {
+  color: bisque;
+}
+
+.cssdiv p a:active {
+  color: green;
+}
+
+.cssdiv p a:visited {
+  color: gray;
+}
+
+
+/* 11. CSS Display */
+
+
+.displayblock {
+  display: block;
+}
+
+.displayinline {
+  display: inline;
+}
+
+.displaynone {
+  display: none;
+}
+
+
+/* 12. CSS Position & Z-index */
+
+
+.cssdiv {
+  position: relative;
+}
+
+.additionaldiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: fit-content;
+  height: fit-content;
+  z-index: -1;
+}
+
+#bgorigin {
+  background: url("./bgv.webp");
+  padding: 30px;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 200px;
+  background-origin: content-box;
+  border: 10px solid rgba(81, 81, 82, 0.5);
+
+
+  background-size: cover;
+
+}
+
+/* 13. CSS Float & Clear */
+
+
+.redcube,
+.greencube {
+  width: 100px;
+  height: 100px;
+  margin: 1rem;
+}
+
+.greencube {
+  float: left;
+}
+
+.redcube {
+  float: left;
+}
+
+p {
+  clear: both;
+}
+
+
+/* 14. Pseudo Class */
+
+
+/* :hover, :link, :active, :focus, :visited */
+
+input:focus {
+  border: 2px solid blue;
+}
+
+
+/* 15. Pseudo Elements */
+
+
+.cssdiv p::first-line {
+  background-color: rgb(4, 5, 4);
+}
+
+.cssdiv p::first-letter {
+  background-color: red;
+}
+
+::marker {
+  color: green;
+}
+
+
+/* 16. CSS Opacity */
+
+
+.opacityexample {
+  opacity: 0.5;
+}
+
+
+/* 17. CSS !important */
+
+
+.importantexample {
+  color: red !important;
+}
+
+#position {
+  background-image: url("./bgv.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+  /* background-size: cover ;
+   background-size: contain; */
+  /* background-size: auto; */
+}
+
+.flexview {
+  display: flex;
+  /* flex-direction: column; */
+  background-color: antiquewhite;
+  border: 1px solid gray;
+  height: 218px;
+  /* gap: 1rem; */
+  flex-wrap: wrap;
+
+}
+
+.flexview div {
+  background-color: aquamarine;
+  border: 1px solid gray;
+  height: 200px;
+  /* width: 200px;  */
+  flex-basis: 25%;
+
+}
+
+#individual {
+  flex-grow: 1;
+
+}
+
+
+.gridview {
+  background-color: bisque;
+  margin-top: 520px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 20px;
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+
+.gridview div {
+  background-color: blue;
+  height: 200px;
+  width: 200px;
+  place-content: center;
+  place-items: center;
+}
+
+/* 18. CSS Optimization (Shorthand used) */
+
+
+/* margin & padding shorthand already used */
+
+
+/* 19. Media Queries */
+
+
+@media screen and (max-width: 768px) {
+  .cssdiv {
+    width: 100%;
+    height: auto;
+  }
+}
+
+
+/* 20. Background-size */
+
+
+.cssdiv {
+  /* background-size: auto;
+  background-size: contain;
+  background-size: cover; */
+  /* background-color: rgb(236, 16, 218); */
+}
+
+
+/* 21. Background-clip */
+
+
+.cssdiv {
+  /* background-clip: border-box; */
+  /* background-clip: padding-box; */
+  background-clip: content-box;
+}
+
+.background-clip-pr {
+  background-color: red;
+  width: 200px;
+  height: 200px;
+  background-clip: initial;
+  border: 10px dotted black;
+  background-clip: border-box;
+  background-clip: padding-box;
+  /* background-origin: content-box; */
+  padding: 10px;
+}
+
+/* 22. CSS Flexbox */
+
+
+.flexcontainer {
+  display: flex;
+}
+
+.flexitem {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+
+
+/* 23. CSS Grid */
+
+
+.gridcontainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 100px 200px;
+  grid-template-areas:
+    "header header"
+    "sidebar content";
+}
+
+.header {
+  grid-area: header;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+}

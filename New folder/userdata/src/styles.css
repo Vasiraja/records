@@ -1,0 +1,25 @@
+ 
+
+
+#userslist {
+    display: flex;
+
+    justify-content: flex-start;
+}
+
+#userslist p {
+    padding: 1rem;
+    width: 20rem;
+}
+
+.buttoncontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.buttoncontainer button {
+    cursor: pointer;
+}

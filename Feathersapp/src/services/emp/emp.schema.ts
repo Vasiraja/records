@@ -27,6 +27,7 @@ export const employeesDataSchema = Type.Pick(employeesSchema, ['text'], {
   $id: 'EmployeesData'
 })
 export type EmployeesData = Static<typeof employeesDataSchema>
+
 export const employeesDataValidator = getValidator(employeesDataSchema, dataValidator)
 export const employeesDataResolver = resolve<EmployeesData, HookContext<EmployeesService>>({})
 
@@ -37,7 +38,7 @@ export const employeesPatchSchema = Type.Partial(employeesSchema, {
 export type EmployeesPatch = Static<typeof employeesPatchSchema>
 export const employeesPatchValidator = getValidator(employeesPatchSchema, dataValidator)
 export const employeesPatchResolver = resolve<EmployeesPatch, HookContext<EmployeesService>>({})
-
+  
 // Schema for allowed query properties
 export const employeesQueryProperties = Type.Pick(employeesSchema, ['_id', 'text'])
 export const employeesQuerySchema = Type.Intersect(
