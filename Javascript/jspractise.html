@@ -13,8 +13,10 @@
     <button onclick="getTok()">Get Local</button>
 
 
+    <button onclick="setinterval()"> start interval</button>
+    <button onclick="settimeout()">start delay action</button>
 
-
+    
 
     <h3>Event Bubbling</h3>
     <div id="grandparent" style="padding:40px; background:lightblue;">
@@ -42,6 +44,17 @@
         <li>boult</li>
         <li>boat</li>
     </ul>
+
+<p id="text">Dom Action first chnage text</p>
+    <button onclick="changeText()">Change Text</button>
+
+    <p>DOM List </p>
+    <ul id="list">
+        <li>Item 1</li>
+    </ul>
+
+    <button onclick="addItem()">Add Item</button>
+
 
 
 
@@ -1155,21 +1168,74 @@ this `;
 
 
 
-        console.log("----------------------29. Practise--------------------");
-        
+        console.log("----------------------29. Logical Operator &&,||,!--------------------");
+        let age = 20;
+        let hasID = true;
 
-  
-        
+        if (age >= 18 && hasID) {
+            console.log("You are allowed to enter.");
+        } else {
+            console.log("Access denied.");
+        }
+        console.log("----------------------30. Type of --------------------");
+
+        let typestring = 'string value';
+        let typenumber = 32;
+        let typeobj = {};
+        let typebool = true;
+        console.log(typeof (typestring), typeof (typenumber), typeof (typeobj), typeof (typebool));
+
+
+        console.log("----------------------31. Bitwise Operator --------------------");
+        let bitwisea = 5;
+        let bitwiseb = 3;
+
+        let result = bitwisea | bitwiseb;
+
+        console.log(result);
+        console.log("----------------------32. Timers --------------------");
+
+        function settimeout() {
+            console.log("Timeout Started")
+            setTimeout(() => {
+                console.log("Delayed 3 secs")
+
+            }, 3000)
+        }
+        function setinterval() {
+            console.log("Interval function Started");
+            setInterval(() => {
+                console.log("Run every 3 secs")
+
+            }, 3000)
+        }
+
+        console.log("----------------------33. Dom Actions --------------------");
+        function changeText() {
+            document.getElementById("text").textContent = "Text Changed!";
+        }
+        function addItem() {
+            let li = document.createElement("li");
+            li.textContent = "New Item";
+            document.getElementById("list").appendChild(li);
+        }
+
         //  const mapValees = [1,2,3,4,5,6,7,8,9,10];
 
         //  const reducedResult = mapValees.some((item)=>item%2===0);
         //  console.log(reducedResult)
 
 
-           const namesReg = 'Readking#008';
-           let checkedReg = /[A-Z]{1,}[a-z]{1,}[0-9]{1,}^[a-zA-z0-9]{1,}{8-12}/
-           console.log(checkedReg.test(namesReg));
-    
+        //    const namesReg = 'Readking#008';
+        //    let checkedReg = /[A-Z]{1,}[a-z]{1,}[0-9]{1,}^[a-zA-z0-9]{1,}{8-12}/
+        //    console.log(checkedReg.test(namesReg));
+
+        console.log("----------------------------")
+
+
+
+
+        console.log("----------------------------")
 
 
 
@@ -1206,6 +1272,8 @@ this `;
 
 
 
+
+ 
 
 
 
