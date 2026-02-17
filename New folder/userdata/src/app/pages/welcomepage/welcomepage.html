@@ -1,0 +1,67 @@
+
+
+
+ 
+
+<h3 style="text-align: center;margin:2rem 0">Welcome User!</h3>
+ @for (item of users(); track item._id) {
+
+<div id="userslist">
+
+   <input *ngIf="editId === item._id"
+         [(ngModel)]="formInputs.firstname"
+         name="firstname"
+
+         placeholder="Name" value="firstname">
+
+  <p *ngIf="editId !== item._id" >
+    {{ item.firstname }} 
+    
+  </p>
+
+   <input *ngIf="editId === item._id"
+         [(ngModel)]="formInputs.email" name="email" placeholder="Email">
+
+  <p *ngIf="editId !== item._id">
+    {{ item.email }}
+  </p>
+
+  <div class="selectadmintype">
+     <select *ngIf="editId === item._id"
+        [(ngModel)]="formInputs.userType" name="userType"  [disabled]="disabledAction">
+  <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+</select>
+<!-- 
+<p *ngIf="editId !== item._id">
+  {{ item.userType }}
+</p> -->
+
+  </div>
+ 
+       
+
+  <p *ngIf="editId !== item._id">
+    {{ item.userType }}
+  </p>  
+
+   <input type="number" *ngIf="editId === item._id"
+         [(ngModel)]="formInputs.age" name="age" placeholder="Age">
+
+  <p *ngIf="editId !== item._id">
+    {{ item.age }}
+  </p>
+
+  <div class="buttoncontainer">
+    <button class="btn btn-danger" *ngIf="editId===null"  [disabled]="disabledAction" id="deluser" (click)="delUser(item._id)">Del</button>   
+    <button class="btn btn-warning"  *ngIf="editId===null"  [disabled]="disabledAction" (click)="editUser(item._id)">Ed</button>
+    <button *ngIf="editId === item._id" class="btn btn-success"
+            (click)="updateUser(item._id)"> 
+      Save
+    </button>
+  </div>
+
+</div>
+
+} @empty {
+<p>No users found.</p>
+}

@@ -5,5 +5,6 @@ import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
   app.configure(userdet)
-   // All services will be registered here
+   // All services will be registered here 
 }
+ 

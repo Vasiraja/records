@@ -1,0 +1,16 @@
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+  }
+ form input{
+    width: 20%;
+    margin: 1rem 0;
+ }
+ form input[type="submit"]{
+    width: 5%;
+ }
+
+

@@ -1,0 +1,34 @@
+ 
+
+
+<br><br>
+<form  [formGroup]="formSignup" (ngSubmit)="submitform( )">
+<h5>Signup Form</h5>
+
+    <input type="text" formControlName="firstname" placeholder="Name">
+    <div *ngIf="formSignup.get('firstname')?.touched && formSignup.get('firstname')?.invalid" style="color:red">
+    <div *ngIf="formSignup.get('firstname')?.errors?.['required']">Name is required</div>
+    <div *ngIf="formSignup.get('firstname')?.errors?.['minlength']">Minimum $ characters</div>
+  </div>
+    <input type="text" formControlName="email" placeholder="Email">
+    <div *ngIf="formSignup.get('email')?.touched && formSignup.get('email')?.invalid" style="color:red">
+        <div *ngIf="formSignup.get('email')?.errors?.['email']">Email is Invalid</div>
+    <div *ngIf="formSignup.get('email')?.errors?.['required']">Email is Required</div> 
+
+    </div>
+    <input type="number" formControlName="age" placeholder="Age">
+    <div *ngIf="formSignup.get('age')?.touched && formSignup.get('age')?.invalid" style="color:red">
+        <div *ngIf="formSignup.get('age')?.errors?.['min']">Minimum Age is 10 </div>
+        <div *ngIf="formSignup.get('age')?.errors?.['required']">Age is Required </div>
+
+    </div>
+    <input type="password" formControlName="password" placeholder="password">
+    <div *ngIf="formSignup.get('password')?.touched && formSignup.get('password')?.invalid" style="color:red">
+        <div *ngIf="formSignup.get('password')?.errors?.['required']">Password Required </div>
+
+    </div>
+
+<input type="submit"  value="signup">
+
+
+</form>

@@ -1,0 +1,10 @@
+.useradd{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#userslist{
+    margin:0 5rem;
+}

@@ -1,14 +1,13 @@
 
-
-
+ 
 
 const value: string = "this is the value here";
 console.log(value);
 
 console.log("The console start here")
 console.group("the console another")
-
-function submitUser(): void {
+ 
+function submitUser(): void { 
 
     const inputElement = document.querySelector<HTMLInputElement>("#inputgiven");
     const userDiv = document.querySelector<HTMLUListElement>(".userlists");
@@ -32,7 +31,7 @@ console.log("Boolean: "+boolVar)
 // var bigIntVar:bigint=2320923923423n;
 // console.log("BigInt: "+bigIntVar)
 var numberVar:number=23;
-console.log("number: "+numberVar)
+console.log("number: "+numberVar) 
 var stringVar:string="stringVarhere";
 console.log("string: "+stringVar)
 
@@ -116,12 +115,14 @@ const objUser ={
     designation:"Testing",
     dob:"12/03/1999"
 }
+
 const objInferenceObj:{name:string,designation:string,phone:number}={
     name:"rajuvicky",
     designation:"Testing",
     phone:9324513210
 
 }
+
 console.log(objUser);
 console.log(objInferenceObj.phone);
 
@@ -225,14 +226,13 @@ console.log("House: ",house)
 
 console.log("------------------9. TypeScript Union Types---------------------");
 console.log("Here two type of variable types allowed due to union or operator")
-function printStatusCode (output:string|number|Float16Array){
+function printStatusCode (output:string|number){
     console.log(output)
 }
 
 printStatusCode("200")
 printStatusCode(200);
-printStatusCode(200.00);
-
+ 
 
 
 
@@ -277,6 +277,7 @@ console.log(optionalFunc(23,44))
 
 
 
+console.log("-----v. Rest Parameter");
 
  function restFunc(a:number,b:number,...rest:number[]):any{
     console.log("rest in function in ts it will take group of rest parameters");
@@ -284,7 +285,7 @@ console.log(optionalFunc(23,44))
  }
 console.log(restFunc(43,23,55,11,21,32,55,42,23,12,44,4));
 
-console.log("-----v. Named Parameter");
+console.log("-----vi. Named Parameter");
 console.log("we can give the name of the parameter inside function");
 
 
@@ -323,24 +324,28 @@ newclass.firstname="jane";
 
 console.log(newclass.firstname);
 
-console.log("-----ii. Inheritance")
+console.log("-----ii. Inheritance");
 
+class Shape {
+  constructor(
+    protected width: number,
+    protected height: number
+  ) {}
 
-interface measurementsin {
-  getArea: () => number;
+  public getArea(): number {
+    return 0; 
+  }
 }
 
-class Rectangle implements measurementsin {
-  public constructor(protected readonly width: number, protected readonly height: number) {}
-
+class Rectangle extends Shape {
   public getArea(): number {
     return this.width * this.height;
   }
 }
 
-const myRect = new Rectangle(10,20);
+const myRect = new Rectangle(10, 20);
+console.log(myRect.getArea()); // 200
 
-console.log(myRect.getArea());
 
 console.log("-----iii. public, private, protected");
 console.log("Public variable able to access everywhere");
@@ -585,13 +590,31 @@ function showAll(user:newUserType,keyperson:keyof newUserType ){
 }
 
 showAll(firstUser,"firstname"); 
-
-
-
+ 
+   
+  
 
 // const aTypeArray:string[] =['vasi','vasll','reia'];
 
 // console.log(aTypeArray.shift('newValueShift'));
 // console.log(aTypeArray);
- console.log("---------------")
+console.log("-----------------")
 
+ console.log("-----------------") 
+
+   
+ interface valInter {
+  width:number;
+  height:number;
+
+
+ }
+
+let newvalInter :valInter={
+
+  width:30,
+  height:20
+
+}
+ 
+console.log(newvalInter)

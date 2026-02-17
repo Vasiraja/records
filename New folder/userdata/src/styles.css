@@ -1,16 +1,30 @@
  
-
-
+ 
 #userslist {
     display: flex;
 
-    justify-content: flex-start;
+   gap: 2rem;
 }
 
-#userslist p {
-    padding: 1rem;
-    width: 20rem;
+#userslist p,#userslist input {
+     width: 12rem;
+    height: 50px;
+ }
+#userslist p,#userslist input:focus{
+ 
 }
+select{
+    height: 50px;
+}
+#usertypeid {
+    width: 1rem;
+    height: 1rem;
+  }
+  .selectadmintype{
+    display: flex;
+    align-items: center;
+    justify-self: center;
+  }
 
 .buttoncontainer {
     display: flex;

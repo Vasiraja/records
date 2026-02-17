@@ -19,8 +19,8 @@ function submitUser() {
 console.log("------------------1. TypeScript Types---------------------");
 var boolVar = true;
 console.log("Boolean: " + boolVar);
-var bigIntVar = 2320923920932323223423n;
-console.log("BigInt: " + bigIntVar);
+// var bigIntVar:bigint=2320923923423n;
+// console.log("BigInt: "+bigIntVar)
 var numberVar = 23;
 console.log("number: " + numberVar);
 var stringVar = "stringVarhere";
@@ -59,6 +59,7 @@ console.log("number array:", numberArray);
 console.log("-----ii. Readonly method");
 var readonlyArray = [213, 12, 44, 2, 31, 12];
 console.log("due to readonly function we cant add any values inside the array element");
+// readonlyArray.push(24)
 console.log(readonlyArray);
 console.log("------------------5. TypeScript Tuples---------------------");
 console.log("-----i. Simple Tuple");
@@ -98,6 +99,7 @@ console.log("We can easily used object without a defined lists of properties");
 const nameAgeMap = {};
 nameAgeMap.Jack = 25;
 nameAgeMap.vicky = 32;
+// nameAgeMap.Mark = "Fifty";
 console.log(nameAgeMap);
 console.log("------------------7. TypeScript Enums---------------------");
 console.log("We can store predefined values inside enum and access through enum properties, And using this we can limit the typo errors ");
@@ -170,12 +172,13 @@ console.log(optionalFunc(3, 5));
 console.log("-----iv. Default Parameter");
 console.log("It will take a parameter automatially if we assign any value between parameter when function definition");
 console.log(optionalFunc(23, 44));
+console.log("-----v. Rest Parameter");
 function restFunc(a, b, ...rest) {
     console.log("rest in function in ts it will take group of rest parameters");
     return a * b * rest.reduce((prev, items) => prev + items, 0);
 }
-console.log(restFunc(43, 23, 55, 11, 2221, 32, 55, 42, 23, 12, 44, 4));
-console.log("-----v. Named Parameter");
+console.log(restFunc(43, 23, 55, 11, 21, 32, 55, 42, 23, 12, 44, 4));
+console.log("-----vi. Named Parameter");
 console.log("we can give the name of the parameter inside function");
 function namedFunc({ name: firstinput, age: secondinput }) {
     return firstinput + secondinput;
@@ -196,17 +199,22 @@ const newclass = new Classroot();
 newclass.firstname = "jane";
 console.log(newclass.firstname);
 console.log("-----ii. Inheritance");
-class Rectangle {
+class Shape {
     constructor(width, height) {
         this.width = width;
         this.height = height;
     }
     getArea() {
+        return 0;
+    }
+}
+class Rectangle extends Shape {
+    getArea() {
         return this.width * this.height;
     }
 }
 const myRect = new Rectangle(10, 20);
-console.log(myRect.getArea());
+console.log(myRect.getArea()); // 200
 console.log("-----iii. public, private, protected");
 console.log("Public variable able to access everywhere");
 console.log("Private variable accessible only inside the class");
@@ -275,7 +283,6 @@ class Child extends Parent {
         console.log("Hello from Child");
     }
 }
-
 const obj = new Child();
 obj.greet();
 console.log("------------------13. Typescript Basic Generics---------------------");
@@ -307,6 +314,7 @@ const studentreadonly = {
     age: 25,
     designation: "developer"
 };
+// studentreadonly.name="changed name";
 console.log(studentreadonly);
 console.log("-----iv. Pick");
 console.log("Like select query, we determain what exactly we want");
@@ -354,3 +362,13 @@ function showAll(user, keyperson) {
     console.log(keyperson);
 }
 showAll(firstUser, "firstname");
+// const aTypeArray:string[] =['vasi','vasll','reia'];
+// console.log(aTypeArray.shift('newValueShift'));
+// console.log(aTypeArray);
+console.log("-----------------");
+console.log("-----------------");
+let newvalInter = {
+    width: 30,
+    height: 20
+};
+console.log(newvalInter);

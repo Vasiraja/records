@@ -19,7 +19,7 @@ import { UserdetService, getOptions } from './userdet.class'
 import { userdetPath, userdetMethods } from './userdet.shared'
  
 export * from './userdet.class'
-export * from './userdet.schema'
+export * from './userdet.schema' 
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const userdet = (app: Application) => {
@@ -36,11 +36,11 @@ export const userdet = (app: Application) => {
     around: {
       all: [schemaHooks.resolveExternal(userdetExternalResolver), schemaHooks.resolveResult(userdetResolver)],
       find: [ ],
-      get: [authenticate('jwt')],
+      get: [ ], 
       create: [],
-      update: [authenticate('jwt')],
-      patch: [authenticate('jwt')],
-      remove: [authenticate('jwt')]
+      update: [ ],
+      patch: [ ],
+      remove: []
     },
     before: {
       all: [schemaHooks.validateQuery(userdetQueryValidator), schemaHooks.resolveQuery(userdetQueryResolver)],

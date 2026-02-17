@@ -11,15 +11,15 @@ import type { UserdetService } from './userdet.class'
 
 // Main data model schema
 export const userdetSchema = Type.Object(
-  {
+  { 
     _id: ObjectIdSchema(),
     email: Type.String(),
     password: Type.Optional(Type.String()),
     firstname:Type.String(),
     age:Type.Number(),
-    userType:Type.String(),
+    userType:Type.String(), 
 
-  },
+  }, 
   { $id: 'Userdet', additionalProperties: false }
 )
 export type Userdet = Static<typeof userdetSchema>
@@ -31,9 +31,9 @@ export const userdetExternalResolver = resolve<Userdet, HookContext<UserdetServi
   password: async () => undefined
 })
 
-// Schema for creating new entries
+// Schema for creating new entries 
 export const userdetDataSchema = Type.Pick(userdetSchema, ['email', 'password','firstname','age','userType'], {
-  $id: 'UserdetData'
+  $id: 'UserdetData'    
 })
 export type UserdetData = Static<typeof userdetDataSchema>
 export const userdetDataValidator = getValidator(userdetDataSchema, dataValidator)
