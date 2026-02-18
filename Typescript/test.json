@@ -1,7 +1,1 @@
-[
-  { "action": "goto", "value": "https://www.flipkart.com/account/login?ret=/" },
-  { "action": "fill", "selector": "#email", "value": "user@test.com" },
-  { "action": "fill", "selector": "#password", "value": "123456" },
-  { "action": "click", "selector": "#loginBtn" },
-  { "action": "assertText", "selector": "h1", "value": "Dashboard" }
-]
+ 

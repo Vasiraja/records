@@ -15,6 +15,7 @@ import { Dashboard } from './dashboard/dashboard/dashboard';
 import { Reports } from './dashboard/reports/reports';
 import { UnsavedChangesGuard } from './guards/unsaved-changes-guard';
 import { Rxjsangular } from './components/rxjsangular/rxjsangular';
+import { Inputoutputdec } from './components/inputoutputdec/inputoutputdec';
  
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: "pipes", component: Pipes },
     { path: "contentprojection", component: Contentprojection },
     { path: "binding", component: Bindings },
+    {path:"inputoutput",component:Inputoutputdec},
 
 
 

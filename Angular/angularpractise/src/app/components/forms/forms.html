@@ -24,7 +24,7 @@
     <div *ngIf="age.touched && age.invalid" style="color:red">
         <div *ngIf="age.errors?.['required']">Age is required</div>
         <div *ngIf="age.errors?.['pattern']">Enter numbers only (1–3 digits)</div>
-    </div>
+    </div> 
     <br><br>
 
     <button type="submit" [disabled]="formassign.invalid">Submit</button>

@@ -1,4 +1,3 @@
-"use strict";
 const value = "this is the value here";
 console.log(value);
 console.log("The console start here");
@@ -362,13 +361,16 @@ function showAll(user, keyperson) {
     console.log(keyperson);
 }
 showAll(firstUser, "firstname");
-// const aTypeArray:string[] =['vasi','vasll','reia'];
+// const aTypeArray:string[] =['vasi','vasll','reia']; 
 // console.log(aTypeArray.shift('newValueShift'));
 // console.log(aTypeArray);
 console.log("-----------------");
+console.log("sdfb");
 console.log("-----------------");
 let newvalInter = {
     width: 30,
     height: 20
 };
 console.log(newvalInter);
+export {};
+//# sourceMappingURL=index.js.map

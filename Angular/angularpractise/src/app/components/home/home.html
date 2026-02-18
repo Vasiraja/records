@@ -62,5 +62,15 @@
 <ng-container *ngIf="showContent">
   <app-contentprojection>
     <p>This content is projected from parent</p>
-  </app-contentprojection>
+  </app-contentprojection> 
 </ng-container>
+
+
+
+
+<app-inputoutputdec [childVar]="parentVar" (stocksget)="noOfStocks($event)">
+
+  <p contentforinputoutput> here input output </p>
+
+</app-inputoutputdec>
+

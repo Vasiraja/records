@@ -4,15 +4,19 @@ import { CommonModule } from '@angular/common';
 import { Homechild } from '../homechild/homechild';
 import { Encapsulation } from '../encapsulation/encapsulation';
 import { Contentprojection } from '../contentprojection/contentprojection';
+import { Inputoutputdec } from '../inputoutputdec/inputoutputdec';
+
 @Component({
   selector: 'app-home',
-  imports: [CommonModule,Homechild,Encapsulation,Contentprojection  ],
+  imports: [CommonModule,Homechild,Encapsulation,Contentprojection,Inputoutputdec  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit , DoCheck {
   showContent = true;
   triggeredChild:boolean=true;
+  parentVar:string="parentValue Here";
+
   removechild(){
     this.triggeredChild=!this.triggeredChild;
   }
@@ -48,9 +52,11 @@ export class Home implements OnInit , DoCheck {
     }, 2000);
   }
 
+noOfStocks(value:number){
+  console.log(value+": Available stocks in child component")
+}
 
-
-
+ 
 
 
 }

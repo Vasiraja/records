@@ -594,20 +594,20 @@ showAll(firstUser,"firstname");
    
   
 
-// const aTypeArray:string[] =['vasi','vasll','reia'];
+// const aTypeArray:string[] =['vasi','vasll','reia']; 
 
 // console.log(aTypeArray.shift('newValueShift'));
 // console.log(aTypeArray);
-console.log("-----------------")
-
- console.log("-----------------") 
+console.log("-----------------") 
+console.log("sdfb"); 
+ console.log("-----------------")  
 
    
- interface valInter {
-  width:number;
-  height:number;
-
-
+ interface valInter { 
+  width:number;   
+  height:number; 
+  
+  
  }
 
 let newvalInter :valInter={
