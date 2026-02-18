@@ -64,8 +64,7 @@ export const userdetQuerySchema = Type.Intersect(
 export type UserdetQuery = Static<typeof userdetQuerySchema>
 export const userdetQueryValidator = getValidator(userdetQuerySchema, queryValidator)
 export const userdetQueryResolver = resolve<UserdetQuery, HookContext<UserdetService>>({
-  // If there is a user (e.g. with authentication), they are only allowed to see their own data
-  _id: async (value, user, context) => {
+   _id: async (value, user, context) => {
     if (context.params.user) {
       return context.params.user._id
     }

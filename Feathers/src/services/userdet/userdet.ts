@@ -34,13 +34,23 @@ export const userdet = (app: Application) => {
   // Initialize hooks
   app.service(userdetPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(userdetExternalResolver), schemaHooks.resolveResult(userdetResolver)],
-      find: [],
+      all: [schemaHooks.resolveExternal(userdetExternalResolver), 
+        schemaHooks.resolveResult(userdetResolver)
+      ],
+      find: [
+
+      ],
       get: [],
       create: [],
-      update: [],
-      patch: [],
-      remove: []
+      update: [
+        
+      ],
+      patch: [
+
+      ],
+      remove: [
+
+      ]
     },
     before: {
       all: [schemaHooks.validateQuery(userdetQueryValidator), schemaHooks.resolveQuery(userdetQueryResolver),
@@ -56,11 +66,12 @@ export const userdet = (app: Application) => {
         console.log("ID", context.id);
         console.log("Context Error", context.error);
         console.log("Result", context.result);
+        console.log("Query:",context.params.query)
 
 
 
         return context;
-      }
+      } 
 
 
       ],
@@ -95,8 +106,8 @@ export const userdet = (app: Application) => {
         console.log("ID", context.id);
         console.log("Context Error", context.error);
         console.log("Result", context.result);
-        console.log("Data", context.data)
-        console.log("Params", context.params)
+        console.log("Data", context.data);
+        console.log("Params", context.params);
 
 
 
