@@ -9,12 +9,19 @@ export class Auth {
 
   login(){
     this.isLoggedIn=true;
+    localStorage.setItem("isLoggedIn","true");
+
   }
   logout(){
     this.isLoggedIn=false;
+        localStorage.setItem("isLoggedIn","false");
+
   }
    isAuthenticated() {
-     console.log('Auth check:', this.isLoggedIn);
+     this.isLoggedIn=false;
+     this.isLoggedIn=localStorage.getItem("isLoggedIn") === "true"
+
+     
      return this.isLoggedIn;
   }
  

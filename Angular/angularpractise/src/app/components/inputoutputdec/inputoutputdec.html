@@ -7,3 +7,21 @@
 <button (click)="implementOutputtrigger()" >getstocks and send parent</button>
 
 <ng-content select ="[contentforinputoutput]"></ng-content>
+
+
+
+<p class="outvariable" >{{outVariableName |  uppercase }} </p>
+
+<button (click)="alerting()">click</button>
+
+
+
+<p>{{price | currency:'USD'}}</p>
+<button (click)="passPrice()">send price</button>
+
+
+
+<input type="text" (input)="searchaction()" [(ngModel)]="searchVar"> 
+
+<p>{{passCount}}</p>
+<button (click)="triggering()">train</button>

@@ -7,6 +7,7 @@ export const dashboardchildGuard: CanActivateFn = (route, state) => {
     const auth = inject(Auth);
      const router = inject(Router);
 
+ 
   return auth.isAuthenticated()
     ? true
     : router.createUrlTree(['/login']);

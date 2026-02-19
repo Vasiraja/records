@@ -16,6 +16,11 @@ export class Home implements OnInit , DoCheck {
   showContent = true;
   triggeredChild:boolean=true;
   parentVar:string="parentValue Here";
+  countPar :number=0;
+
+
+
+
 
   removechild(){
     this.triggeredChild=!this.triggeredChild;
@@ -51,11 +56,17 @@ export class Home implements OnInit , DoCheck {
         
     }, 2000);
   }
+  increaseParentCount(){
+    this.countPar++;
+  }
 
 noOfStocks(value:number){
   console.log(value+": Available stocks in child component")
 }
 
+priceGot(value:any){
+  console.log("Final Price: "+value )
+}
  
 
 

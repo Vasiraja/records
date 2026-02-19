@@ -43,7 +43,6 @@ export const userdet = (app: Application) => {
       get: [],
       create: [],
       update: [
-        
       ],
       patch: [
 
@@ -77,7 +76,9 @@ export const userdet = (app: Application) => {
       ],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(userdetDataValidator), schemaHooks.resolveData(userdetDataResolver),
+      create: [schemaHooks.validateData(userdetDataValidator), 
+        
+        schemaHooks.resolveData(userdetDataResolver),
       async (context) => {
         console.log(' Incoming Data:', context.data);
         console.log('Status before setting:', context.statusCode);
@@ -87,7 +88,9 @@ export const userdet = (app: Application) => {
         console.log('Status after setting:', context.statusCode); return context;
       }
       ],
-      patch: [schemaHooks.validateData(userdetPatchValidator), schemaHooks.resolveData(userdetPatchResolver)],
+
+      patch: [schemaHooks.validateData(userdetPatchValidator),
+         schemaHooks.resolveData(userdetPatchResolver)],
       remove: []
     },
     after: {
@@ -103,10 +106,17 @@ export const userdet = (app: Application) => {
         console.log("App", context.app);
         console.log("Type", context.type);
         console.log("Status Code", context.statusCode);
+
         console.log("ID", context.id);
         console.log("Context Error", context.error);
         console.log("Result", context.result);
         console.log("Data", context.data);
+
+
+
+
+        
+
         console.log("Params", context.params);
 
 

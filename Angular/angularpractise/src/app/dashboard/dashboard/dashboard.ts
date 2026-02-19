@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-
+  
 }

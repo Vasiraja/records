@@ -68,9 +68,10 @@
 
 
 
-<app-inputoutputdec [childVar]="parentVar" (stocksget)="noOfStocks($event)">
+<app-inputoutputdec *ngIf="countPar>2" [passCount]="countPar" [childVar]="parentVar" [outVariableName]="'outVariableName'" [price]="23000" (stocksget)="noOfStocks($event)" (priceClicked)="priceGot($event)"   > 
 
   <p contentforinputoutput> here input output </p>
 
 </app-inputoutputdec>
 
+<button (click)="increaseParentCount()">increase parent count </button>
