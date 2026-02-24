@@ -139,16 +139,12 @@ export class Rxjsangular {
 
     const sub = new Subject<number>();
 
-    sub.subscribe(console.log);
-
-
+    sub.subscribe(console.log); 
     sub.next(43);
     sub.next(432);
     sub.next(409);
     sub.complete();
-
-
-
+ 
   }
   triggercombinelatest() {
 
@@ -157,8 +153,7 @@ export class Rxjsangular {
       console.log('a value: ' + a);
       console.log('b value: ' + b);
 
-
-
+ 
     });
 
 

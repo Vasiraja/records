@@ -13,7 +13,6 @@ constructor(private router:Router){}
   logoutdashboard(){
     localStorage.setItem("isLoggedIn","false");
     this.router.navigate(["/dashboard"])
-
-
+ 
   }
 }

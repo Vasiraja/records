@@ -8,12 +8,12 @@ import { Router } from '@angular/router';
   styleUrl: './reports.css',
 })
 export class Reports {
-  constructor(private router:Router){}
+  constructor(private router: Router) { }
 
-  logoutdashboard(){
-    localStorage.setItem("isLoggedIn","false");
-this.router.navigate(["/dashboard"])
-    
+  logoutdashboard() {
+    localStorage.setItem("isLoggedIn", "false");
+    this.router.navigate(["/dashboard"])
+
 
   }
 }

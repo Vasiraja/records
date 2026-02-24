@@ -17,7 +17,7 @@ export class Signuppage {
   formSignup = new FormGroup({
     firstname: new FormControl("", [Validators.required, Validators.maxLength(4)]),
     email: new FormControl("", [Validators.required, Validators.email]),
-    age: new FormControl("", [Validators.required, Validators.min(10),]),
+    age: new FormControl("", [Validators.required, Validators.min(10)]),
     password: new FormControl("", [Validators.required])
   })
 

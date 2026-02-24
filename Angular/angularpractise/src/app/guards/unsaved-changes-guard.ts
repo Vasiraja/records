@@ -5,7 +5,7 @@ import { CanDeactivate } from '@angular/router';
   providedIn: 'root'
 })
 export class UnsavedChangesGuard implements CanDeactivate<Login> {
-  canDeactivate(
+  canDeactivate(   
     component: Login
   ): boolean {
     if (component.isDirty) {
