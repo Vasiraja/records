@@ -77,10 +77,11 @@ fs.readdir("./",(err,files)=>{
 })
 
 console.log("-----v. existSync");
-console.log("Check whether the file exists or not")
+console.log("Check whether the file exists or not");
 const checks = fs.existsSync("files/firstfile.txt");
 console.log(checks);
 
+console.log("trident")
 
 
 console.log("------------------3. Path Module  ---------------------");
@@ -170,12 +171,12 @@ rs.on("data", chunk => {
 
   setTimeout(() => {
     console.log(" Resumed...\n");
-
-    rs.resume();
+  rs.resume();
       console.log(rs.isPaused());
 
   }, 1500);
-});
+})
+  ;
 
 rs.on("end", () => {
   console.log("Filed Reading Done");

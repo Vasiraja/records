@@ -5,11 +5,12 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta name="description" content="HTML practice file">
    <meta name="keywords" content="html, css, javascript">
-   <meta name="author" content="Student">
+   <meta name="author" content="creator">
+     <meta http-equiv="cookie" content="userid=xyz; expires=Wednesday, 08-Aug-15 23:59:59 GMT;" />
+     <!-- Above we can store cookie along with expiration data to automatically remove and helps for the seo optimization content related also  -->
    <!-- <base href="https://www.w3schools.com/" target="_blank"> -->
 
-   <link rel="icon" type="image/x-icon" href="https://www.w3schools.com/images/w3schools_green.jpg">
-
+   <link rel="icon" type="image/png" href="https://github.com/favicon.ico">
    <link rel="stylesheet" href="style.css">
    <style>
       th,
@@ -61,14 +62,25 @@
       <b>bold text</b>
       <strong>strong text</strong>
       <i>Italic Style Text</i>
-      <em>Emphasized Text</em>
-      <small>smaller Text</small>
-      <del>Deleted Text</del>
-      <ins>Insertion text</ins>
-      <mark>Marked text</mark>
-      <sub>Sub text</sub>
-      <sup>super Text</sup>
-   </p>
+   <p>pre texted area, </p>
+   <em>Emphasized Text</em>
+   <bdo dir="rtl">This text will go right to left.</bdo>
+
+   <small>smaller Text</small>
+   <del>Deleted Text</del>
+   <ins>Insertion text</ins>
+   <mark>Marked text</mark>
+   <sub>Sub text</sub>
+   <sup>super Text</sup>
+         <samp>samp tag used when the old data removed and inserted new data we represent through this tag</samp>
+
+   <p>Is that work done, <q>I wish to finish that </q>. </p>
+
+
+ <code>This is the code different from normal text and seems like computer code </code>
+<kbd>This is the keyboard text </kbd>
+<p><var>x</var> + <var>y</var> = 10</p>
+</p>
 
    <!-- 8. HTML Quotations -->
    <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>
@@ -86,22 +98,31 @@
    <p><a target="_parent" href="https://www.google.com/">Google</a></p>
    <p><a target="_top" href="https://www.google.com/">Google</a></p>
    <p><a target="_self" href="https://www.google.com/">Google</a></p>
-   <p><a href="mailto:test@gmail.com">Send Mail</a></p>
-   <p><a href="tel:+919876543210">Call Now</a></p>
-   <p><a href="sample.pdf" download>Download File</a></p>
+   <p><a href="mailto:test@gmail.com" title="mailid">Send Mail</a></p>
+   <p><a href="tel:+919876543210" title="phone">Call Now</a></p>
+   <p><a href="sample.pdf" download title="download now">Download File</a></p>
 
    <!-- 10. Link Bookmark -->
    <p><a href="#firstone">Go TO Top</a></p>
 
    <!-- 11. Image Component -->
-   <img src="https://www.w3schools.com/images/w3schools_green.jpg" height="200px" width="200px" alt="W3Schools.com">
-   <img src="https://www.w3schools.com/images/w3schools_green.jpg" loading="lazy">
+   <img src="https://via.placeholder.com/300x200.jpg" height="200px" width="200px" alt="W3Schools.com">
+   <img src="https://picsum.photos/300/200.jpg" loading="lazy">
 
    <!-- 12. Favicon and page title-->
    <!-- already in head -->
 
    <!-- 13. HTML Tables -->
-   <table style="border-color:red" cellpadding="6" cellspacing="0">
+   <table style="border-color:red" cellpadding="6" cellspacing="0" border="1">
+    <colgroup>
+    <col style="width:180px;background-color:rgb(171, 116, 223);" >        
+    <col style="width:180px;background-color: aqua;" >          
+    <col>                           
+    <col style="background-color: rgb(31, 176, 212);">                              
+    <col style="background-color:rgb(58, 78, 168)"> 
+    <col style="background-color:rgb(221, 221, 142)">  
+    <col style="width:130px">    
+  </colgroup>
       <caption><strong>Employee Details</strong></caption>
 
       <thead>
@@ -262,7 +283,7 @@
 
    <!-- 21. HTML Forms -->
    <form action="/action_page.php" target="_blank" method="get" novalidate autocomplete="on">
-      <label for="fname">First name:</label><br>
+      <label for="fname" autofocus>First name:</label><br>
       <input type="text" id="fname" name="fname" value=" " required><br><br>
       <input type="password" placeholder="password">
       <input type="email" placeholder="email">
@@ -283,7 +304,7 @@
       <input type="text" maxlength="5" placeholder="five letters" autofocus>
       <input type="number" max="30" min="1" step="5">
       <input type="date" min="2000-12-14">
-      <input type="file" multiple>
+      <input type="file" multiple accept = "image/*" >
       <input type="checkbox" checked> Agree
       <input type="radio" name="gender"> Male
       <input type="radio" name="gender"> Female
@@ -317,6 +338,11 @@
    <audio controls>
       <source src="audio.mp3" type="audio/mpeg">
    </audio>
+      <embed src = "../largefile.mp4" 
+          type = "audio/mp3" 
+          width="450" 
+          height="250">
+   </embed>
 
    <video controls width="250">
       <source src="../largefile.mp4" type="video/mp4">
@@ -324,7 +350,7 @@
 
    <!-- 29. Figure and Figcaption -->
    <figure>
-      <img src="https://www.w3schools.com/images/w3schools_green.jpg" width="150">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" width="150">
       <figcaption>W3Schools Logo</figcaption>
    </figure>
 
@@ -341,7 +367,7 @@
 
 
    <!-- 34. HTML Responsive Image -->
-   <img src="https://www.w3schools.com/images/w3schools_green.jpg" style="max-width:100%;height:auto;">
+   <img src="https://www.wikipedia.org/static/favicon/wikipedia.ico" style="max-width:100%;height:auto;">
 
    <!-- 35. HTML Accessibility -->
    <img src="image.png" alt="profile image">
@@ -367,6 +393,9 @@
    </ol>
 
    <p><a href="https://www.youtube.com/">click it</a></p>
+   <a href="https://www.youtube.com/">
+   <img src="./bgv.webp" alt="alternative text">
+</a>
 
    <div class="redcube"></div>
 
@@ -435,29 +464,82 @@
             console.log(error)
          })
 
+
+
+         var userName = "This value rendered from script "
+
    </script>
    <h3>grid</h3>
 
 
    <div class="gridview">
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
-      <div><p>inside content</p></div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
+      <div>
+         <p>inside content</p>
+      </div>
    </div>
 
    <div class="gridtemplateview">
-      <div style="grid-area: firstbox;"><p>first content</p></div>
-      <div style="grid-area: secondbox;"><p>second content</p></div>
-      <div style="grid-area: thirdbox;"><p>third content</p></div>
-      <div style="grid-area: fourthbox;"><p>fourth content</p></div>
-      <div style="grid-area: fifthbox;"><p>fifth content</p></div>
-      <div style="grid-area: sixthbox;"><p>sixth content</p></div>
-      <div style="grid-area: seventhbox;"><p>seventh content</p></div>
+      <div style="grid-area: firstbox;">
+         <p>first content</p>
+      </div>
+      <div style="grid-area: secondbox;">
+         <p>second content</p>
+      </div>
+      <div style="grid-area: thirdbox;">
+         <p>third content</p>
+      </div>
+      <div style="grid-area: fourthbox;">
+         <p>fourth content</p>
+      </div>
+      <div style="grid-area: fifthbox;">
+         <p>fifth content</p>
+      </div>
+      <div style="grid-area: sixthbox;">
+         <p>sixth content</p>
+      </div>
+      <div style="grid-area: seventhbox;">
+         <p>seventh content</p>
+      </div>
    </div>
+
+
+   <!-- 44.  Horizontal Rule Tag and Non - breaking Space and center -->
+   <p>Horizontal content 1 &nbsp; nbsp space got</p>
+   <hr>
+   <p>Horizontal content 2</p>
+
+   <center>p centered tag here</center>
+   <!-- 45. Image Map -->
+   <h4>Image Map</h4>
+   <img src="./bgv.webp" usemap="#image-map">
+
+   <map name="image-map">
+      <area target="_blank" alt="chair" title="chair"
+         href="https://www.nilkamalfurniture.com/collections/chairs?srsltid=AfmBOooeOP-gyfZkvCXLLmvFQecOQCxut5ribVZ1851vpfM9-jjjn4pl"
+         coords="64,250,63,106,90,109,188,183,196,230,159,260,145,258,129,252,161,260,115,252,91,258,80,251,120,256,91,248,111,254,292,256,121,254,162,248"
+         shape="poly">
+   </map>
+   <!-- 46.    -->
+    
+
 
 
 </body>

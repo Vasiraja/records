@@ -1,3 +1,4 @@
+import { additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
 const value = "this is the value here";
 console.log(value);
 console.log("The console start here");
@@ -13,6 +14,9 @@ function submitUser() {
         listItem.innerText = inputVal;
         userDiv.append(listItem);
         inputElement.value = "";
+    }
+    else {
+        return;
     }
 }
 console.log("------------------1. TypeScript Types---------------------");
@@ -51,6 +55,11 @@ console.log("anotheranytype: " + anotheranyVar);
 var unknownVar = "hi";
 console.log("2. Unknown: " + unknownVar);
 console.log("you can easily change any type through this and you can safely use this without knowledge of the variable type");
+console.log("3. Never: ");
+//  function causeError(message:string):never{
+//   throw new Error(message);
+//  }
+// causeError("error occureed");
 console.log("------------------4. TypeScript Arrays---------------------");
 console.log("-----i. Simple array");
 var numberArray = [1, 2, 3, 4];
@@ -257,16 +266,18 @@ class phoneScreen {
     }
 }
 class realmeScreen extends phoneScreen {
-    constructor(width, height, breadth) {
+    constructor(width, height, breadth, noOfObjects) {
         super(width, height);
         this.breadth = breadth;
+        // this.noOfObjects=noOfObjects; //  static can't even able to access
     }
     getOverallValue() {
         let finalValue = this.width + this.height + this.breadth;
         return finalValue;
     }
 }
-const newSet = new realmeScreen(22, 33, 211);
+realmeScreen.noOfObjects = 0;
+const newSet = new realmeScreen(22, 33, 211, 42);
 console.log(newSet.breadth);
 console.log(newSet.height);
 console.log(newSet.getOverallValue());
@@ -285,12 +296,45 @@ class Child extends Parent {
 const obj = new Child();
 obj.greet();
 console.log("------------------13. Typescript Basic Generics---------------------");
+console.log("------i. Generic Type");
 function genericReturn(value) {
+    // console.log(value.length)
     return value;
 }
 console.log(genericReturn(43));
 console.log(genericReturn("this is string"));
 console.log(genericReturn(true));
+console.log("------ii. Generic Constraints");
+console.log("We can't acces result's lenght in normal generic type but we can do that in generic ocnstraints");
+function genericLenghtReturn(value) {
+    console.log(value.length);
+    return value;
+}
+genericLenghtReturn({ length: 34 });
+genericLenghtReturn("this is the string value");
+console.log("------iii. Generic Interface");
+console.log("We can use this for the predefined interface functionalities ");
+const response1 = {
+    data: "Success",
+    status: 200
+};
+const response2 = {
+    data: 500,
+    status: 200
+};
+console.log(response1);
+console.log(response2);
+console.log("------iv. Generic Class");
+class genericClassAccess {
+    constructor(value) {
+        this.value = value;
+    }
+    getValuResult() {
+        return this.value;
+    }
+}
+const stringAccessValue = new genericClassAccess("stringaccess Value Here");
+const numberAccessValue = new genericClassAccess(4332);
 console.log("------------------13. TypeScript Utility Types---------------------");
 console.log("-----i. Partial");
 console.log("We can use predefined types and with partial we dont need to use all properties ");
@@ -352,25 +396,171 @@ function add(a, b) {
 }
 const values = [10, 20];
 console.log(values);
-const firstUser = {
-    firstname: "vasi",
-    gender: "male"
-};
-function showAll(user, keyperson) {
-    console.log(user);
-    console.log(keyperson);
+console.log("------------------14. TypeScript Switch---------------------");
+let targetVal = "mon";
+switch (targetVal) {
+    case 'tue':
+        console.log("Tuesday");
+        break;
+    case 'mon':
+        console.log("Monday");
+        break;
+    case 'sun':
+        console.log("Sunday");
+        break;
+    case 'wed':
+        console.log("wednesday");
+        break;
+    default:
+        console.log("Inputs wrong");
 }
-showAll(firstUser, "firstname");
-// const aTypeArray:string[] =['vasi','vasll','reia']; 
-// console.log(aTypeArray.shift('newValueShift'));
-// console.log(aTypeArray);
-console.log("-----------------");
-console.log("sdfb");
-console.log("-----------------");
-let newvalInter = {
-    width: 30,
-    height: 20
+console.log("------------------15. While - do While---------------------");
+let i = 1;
+let check = i.toString().length;
+while (check < 2) {
+    check = i.toString().length;
+    if (i % 2 !== 0) {
+        console.log(i);
+    }
+    else {
+        i++;
+        continue;
+    }
+    i++;
+    if (check <= 0)
+        break;
+}
+let dowhilei = 1;
+do {
+    console.log(dowhilei);
+    if (dowhilei === 5) {
+        break;
+    }
+    dowhilei++;
+} while (dowhilei < 10);
+console.log("Loop ended");
+console.log("------------------16. Function OverLoading ---------------------");
+const addSeries = (a, b, c) => {
+    if (c) {
+        let result = a + b + c;
+        console.log("result for three: " + result);
+    }
+    else if (!c) {
+        let result = a + b;
+        console.log("result for two: " + result);
+    }
+    return 0;
 };
-console.log(newvalInter);
-export {};
+addSeries(12, 44, 66);
+addSeries(23, 44);
+console.log("------------------17. Getter, Setter Method ---------------------");
+class studentDet {
+    constructor() {
+        this._name = "";
+    }
+    get name() {
+        if (this._name.includes("va")) {
+            throw new Error("va must not inherit here");
+        }
+        return this._name;
+    }
+    set name(value) {
+        this._name = value;
+        if (value.length < 3) {
+            throw new Error("Name must be maximum 3 characters");
+        }
+        this._name = value.toUpperCase();
+    }
+}
+const studentassign = new studentDet();
+const secondstudent = new studentDet();
+studentassign.name = "Karunagaran";
+secondstudent.name = "pandi";
+console.log(studentassign, secondstudent);
+console.log("------------------18. Abstract class Method ---------------------");
+class confidentialUsers {
+    detailsHidden() {
+        console.log("Details Are accessed here-----------------");
+    }
+}
+// const confid = new confidentialUsers();
+class accessInside extends confidentialUsers {
+    accessmethod() {
+        console.log("Hidden details accessed");
+    }
+}
+const confid = new accessInside();
+confid.detailsHidden();
+console.log("------------------19. Intersection Types ---------------------");
+let empfirst = {
+    id: "EC01243",
+    name: "vasi",
+    department: "Development",
+    noofassets: 2
+};
+let workerfirst = {
+    id: "WE339402",
+    name: "rakki",
+    assignedArea: "stagearea",
+    assignedWork: "NA"
+};
+console.log(empfirst);
+console.log(workerfirst);
+console.log("------------------20. Type Guards ---------------------");
+console.log("Type guard implemented below for string and number without arising error ");
+function returnedValue(value) {
+    if (typeof (value) === 'string') {
+        return value.toUpperCase();
+    }
+    else if (typeof (value) === 'number') {
+        return value.toFixed(-1 * -2);
+    }
+}
+console.log(returnedValue("here with string"));
+console.log(returnedValue(5030));
+console.log("------------------21. Instance of (like type guards for classobjects) ---------------------");
+class Withdraw {
+    amountMoney(amount) {
+        console.log("Withdrawal Amount: " + amount);
+    }
+}
+class Deposit {
+    amountMoney(amount) {
+        console.log("Deposited Amount: " + amount);
+    }
+}
+function processFunction(transaction, amount) {
+    if (transaction instanceof Withdraw) {
+        transaction.amountMoney(amount);
+    }
+    else if (transaction instanceof Deposit) {
+        transaction.amountMoney(amount);
+    }
+}
+const getMoney = new Withdraw();
+const depositMoney = new Deposit();
+processFunction(getMoney, 2000);
+processFunction(depositMoney, 3000);
+console.log("------------------22. Type Assertions ---------------------");
+console.log("Type assertion used when we know the exact type");
+let someValue = "TypeScript Assertion Example";
+let strLength = someValue.length;
+console.log("String Length:", strLength);
+console.log("------------------i. Compile-Time Error ---------------------");
+let price = "9.99";
+// let netPrice = price as number;
+// console.log(netPrice);
+console.log("------------------ii. Runtime Error ---------------------");
+let element = document.querySelector("#notInput");
+// We are forcing it as HTMLInputElement
+let inputElement = element;
+// console.log(inputElement.value.length);
+console.log("------------------iii. Unexpected Behavior ---------------------");
+// let value: unknown = "123";
+// let num = value as number;
+// console.log(num + 1);  
+console.log("------------------23. Work with Modules ---------------------");
+console.log(additionEvent(32, 22));
+console.log(areaOfRectangle(223, 44));
+console.log(perimeterRectangle(22, 12));
 //# sourceMappingURL=index.js.map

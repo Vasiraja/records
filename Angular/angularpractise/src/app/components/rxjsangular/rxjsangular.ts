@@ -397,3 +397,16 @@ export class Rxjsangular {
 }
 
 
+const obsiden = new Subject<any>();
+obsiden.subscribe({
+  next:(data)=>{
+    console.log(data)
+  },
+  error:(err)=>{
+    console.error(err)
+  },
+  complete:()=>{
+    console.log("Observable completed")
+  }
+
+ })
