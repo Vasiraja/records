@@ -16,7 +16,7 @@ import {
 
 import type { Application } from '../../declarations'
 import { UserdetService, getOptions } from './userdet.class'
-import { userdetPath, userdetMethods } from './userdet.shared'
+import { userdetPath, userdetMethods } from './userdet.shared'  
 
 export * from './userdet.class'
 export * from './userdet.schema'

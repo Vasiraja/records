@@ -1,0 +1,38 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .navbarli {
+            display: flex;
+            height: 3rem;
+            padding: 1rem;
+            background-color: rgb(244, 246, 248);
+            justify-content: flex-end;
+            box-shadow: 0 1px 5px rgb(218, 218, 223);
+        }
+
+        .navbarli li {
+            list-style: none;
+            color: rgb(82, 197, 197);
+            padding: 0 1rem;
+        }
+
+        #imagegallaries {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px;
+            padding: 20px;
+        }
+
+        #imagegallaries img {
+            width: 100px;
+            height: 300px;
+            /* object-fit: cover;   */
+            border-radius: 8px;
+        }
+        #imagegallaries img:hover{
+
+            padding: 2px;
+        }

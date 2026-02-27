@@ -1,24 +1,4 @@
 import { additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
-const value = "this is the value here";
-console.log(value);
-console.log("The console start here");
-console.group("the console another");
-function submitUser() {
-    const inputElement = document.querySelector("#inputgiven");
-    const userDiv = document.querySelector(".userlists");
-    if (inputElement && userDiv) {
-        const inputVal = inputElement.value;
-        if (inputVal.trim() === "")
-            return;
-        const listItem = document.createElement("li");
-        listItem.innerText = inputVal;
-        userDiv.append(listItem);
-        inputElement.value = "";
-    }
-    else {
-        return;
-    }
-}
 console.log("------------------1. TypeScript Types---------------------");
 var boolVar = true;
 console.log("Boolean: " + boolVar);
@@ -563,4 +543,122 @@ console.log("------------------23. Work with Modules ---------------------");
 console.log(additionEvent(32, 22));
 console.log(areaOfRectangle(223, 44));
 console.log(perimeterRectangle(22, 12));
+console.log("------------------24. TS Operators---------------------");
+console.log("-----i. Arithmetic Operators");
+let a = 10;
+let b = 5;
+console.log("Addition:", a + b);
+console.log("Subtraction:", a - b);
+console.log("Multiplication:", a * b);
+console.log("Division:", a / b);
+console.log("Modulus:", a % b);
+console.log("-----ii. Assignment Operators");
+let x = 10;
+x += 5;
+console.log("+= :", x);
+x -= 3;
+console.log("-= :", x);
+x *= 2;
+console.log("*= :", x);
+x /= 4;
+console.log("/= :", x);
+console.log("-----iii. Comparison Operators");
+let num1 = 10;
+let num2 = 20;
+console.log("Equal:", num1 == num2);
+console.log("Strict Equal:", num1 === num2);
+console.log("Not Equal:", num1 != num2);
+console.log("Greater Than:", num2 > num1);
+console.log("Less Than:", num1 < num2);
+console.log("Greater or Equal:", num1 >= 10);
+console.log("-----iv. Logical Operators");
+let isLoggedIn = true;
+let isAdmin = false;
+console.log("AND:", isLoggedIn && isAdmin);
+console.log("OR:", isLoggedIn || isAdmin);
+console.log("NOT:", !isLoggedIn);
+console.log("-----v. Increment Decrement Operators");
+let count = 5;
+count++;
+console.log("Increment:", count);
+count--;
+console.log("Decrement:", count);
+console.log("-----vi. Ternary Operator");
+let age = 18;
+let result = age >= 18 ? "Adult" : "Minor";
+console.log("Ternary:", result);
+console.log("-----vi. Nullish Coalcing ");
+let inputValue = null;
+let output = inputValue !== null && inputValue !== void 0 ? inputValue : "Default Value";
+console.log("Nullish Coalescing:", output);
+console.log("------------------25. Type Annotation---------------------");
+var typeannotvariable = "";
+console.log("here : is the type annotation creator");
+console.log("------------------26. Anonymous Function---------------------");
+let functionAnonymouse = function (firstNum, secondNum) {
+    return firstNum * secondNum;
+};
+console.log(functionAnonymouse(32, 44));
+console.log("------------------27. Arrow Function---------------------");
+let multiply = (x, y) => {
+    return x * y;
+};
+console.log(multiply(4, 5));
+console.log("------------------28. Duck Typing---------------------");
+let studentUser = {
+    name: "vasiraja",
+    age: 20,
+    isStudent: true
+};
+let car = {
+    name: "Volvo",
+    color: "red",
+};
+console.log("car object doesnt works but for studnets user works , eventhough user has extra property becuase it has name and age which already defined in interface but car dont have that .");
+console.log(studentUser);
+console.log(car);
+greet(studentUser);
+function greet(person) {
+    console.log(`Hello ${person.name}, Age: ${person.age}`);
+}
+console.log("------------------29. KeyOf Type Operator---------------------");
+let key;
+key = "name",
+    key = "age",
+    console.group("Keyof return the union of property names ");
+function getProperty(obj, key) {
+    return obj[key];
+}
+let person = { name: "Rahul", age: 25 };
+console.log(getProperty(person, "name"));
+console.log(getProperty(person, "age"));
+console.log("------------------30. TypeOf Type Operator  ---------------------");
+let str1 = "TutorialsPoint";
+console.log(typeof str1);
+let num1s = 32;
+console.log(typeof num1s);
+let bool1 = true;
+console.log(typeof bool1);
+console.log("------------------31. Indexed Access Types   ---------------------");
+console.log("------------------32. Template Literal Types   ---------------------");
+const greeting = "Hi, h ow are you";
+console.log(greeting);
+function submitUser() {
+    const inputElement = document.querySelector("#inputgiven");
+    const userDiv = document.querySelector(".userlists");
+    if (inputElement && userDiv) {
+        const inputVal = inputElement.value;
+        if (inputVal.trim() === "")
+            return;
+        const listItem = document.createElement("li");
+        listItem.innerText = inputVal;
+        userDiv.append(listItem);
+        inputElement.value = "";
+    }
+    else {
+        return;
+    }
+}
+const buttonTri = document.querySelector("#submitusertrigger");
+buttonTri === null || buttonTri === void 0 ? void 0 : buttonTri.addEventListener("click", submitUser);
 //# sourceMappingURL=index.js.map

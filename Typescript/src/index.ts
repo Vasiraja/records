@@ -1,32 +1,7 @@
-import {additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
+import { additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
 
 
 
-const value: string = "this is the value here";
-console.log(value);
-
-console.log("The console start here")
-console.group("the console another")
-
-function submitUser(): void {
-
-  const inputElement = document.querySelector<HTMLInputElement>("#inputgiven");
-  const userDiv = document.querySelector<HTMLUListElement>(".userlists");
-
-  if (inputElement && userDiv) {
-    const inputVal = inputElement.value;
-    if (inputVal.trim() === "") return;
-
-    const listItem = document.createElement("li");
-    listItem.innerText = inputVal;
-
-    userDiv.append(listItem);
-
-    inputElement.value = "";
-  } else {
-    return;
-  }
-}
 
 console.log("------------------1. TypeScript Types---------------------")
 var boolVar: boolean = true;
@@ -896,7 +871,7 @@ console.log("------------------i. Compile-Time Error ---------------------");
 
 let price = "9.99";
 
- // let netPrice = price as number;
+// let netPrice = price as number;
 
 // console.log(netPrice);
 
@@ -907,7 +882,7 @@ let element = document.querySelector("#notInput");
 // We are forcing it as HTMLInputElement
 let inputElement = element as HTMLInputElement;
 
- // console.log(inputElement.value.length);
+// console.log(inputElement.value.length);
 
 
 console.log("------------------iii. Unexpected Behavior ---------------------");
@@ -916,13 +891,262 @@ console.log("------------------iii. Unexpected Behavior ---------------------");
 
 // let num = value as number;
 
- // console.log(num + 1);  
+// console.log(num + 1);  
 
 
 console.log("------------------23. Work with Modules ---------------------");
 
-console.log(additionEvent(32,22));
-console.log(areaOfRectangle(223,44));
-console.log(perimeterRectangle(22,12));
+console.log(additionEvent(32, 22));
+console.log(areaOfRectangle(223, 44));
+console.log(perimeterRectangle(22, 12));
 
- 
+console.log("------------------24. TS Operators---------------------");
+
+console.log("-----i. Arithmetic Operators")
+let a: number = 10;
+let b: number = 5;
+
+console.log("Addition:", a + b);
+console.log("Subtraction:", a - b);
+console.log("Multiplication:", a * b);
+console.log("Division:", a / b);
+console.log("Modulus:", a % b);
+
+console.log("-----ii. Assignment Operators")
+let x: number = 10;
+
+x += 5;
+console.log("+= :", x);
+
+x -= 3;
+console.log("-= :", x);
+
+x *= 2;
+console.log("*= :", x);
+
+x /= 4;
+console.log("/= :", x);
+
+console.log("-----iii. Comparison Operators")
+let num1: number = 10;
+let num2: number = 20;
+
+console.log("Equal:", num1 == num2);
+console.log("Strict Equal:", num1 === num2);
+console.log("Not Equal:", num1 != num2);
+console.log("Greater Than:", num2 > num1);
+console.log("Less Than:", num1 < num2);
+console.log("Greater or Equal:", num1 >= 10);
+
+console.log("-----iv. Logical Operators")
+let isLoggedIn: boolean = true;
+let isAdmin: boolean = false;
+
+console.log("AND:", isLoggedIn && isAdmin);
+console.log("OR:", isLoggedIn || isAdmin);
+console.log("NOT:", !isLoggedIn);
+
+
+console.log("-----v. Increment Decrement Operators");
+let count: number = 5;
+
+count++;
+console.log("Increment:", count);
+
+count--;
+console.log("Decrement:", count);
+console.log("-----vi. Ternary Operator")
+let age: number = 18;
+
+let result = age >= 18 ? "Adult" : "Minor";
+console.log("Ternary:", result);
+
+
+console.log("-----vi. Nullish Coalcing ")
+let inputValue: string | null = null;
+
+let output = inputValue ?? "Default Value";
+console.log("Nullish Coalescing:", output);
+
+console.log("------------------25. Type Annotation---------------------");
+
+var typeannotvariable: string = "";
+console.log("here : is the type annotation creator")
+
+console.log("------------------26. Anonymous Function---------------------");
+
+let functionAnonymouse = function (firstNum: number, secondNum: number): number {
+
+
+  return firstNum * secondNum
+}
+
+console.log(functionAnonymouse(32, 44));
+
+console.log("------------------27. Arrow Function---------------------");
+let multiply = (x: number, y: number): number => {
+  return x * y;
+};
+
+console.log(multiply(4, 5));
+
+console.log("------------------28. Duck Typing---------------------");
+
+interface useraccess {
+  name: string,
+  age: number,
+
+}
+
+interface car {
+  model: "Toyato",
+  color: "blue"
+}
+
+let studentUser = {
+  name: "vasiraja",
+  age: 20,
+  isStudent: true
+
+}
+
+let car = {
+  name: "Volvo",
+  color: "red",
+}
+console.log("car object doesnt works but for studnets user works , eventhough user has extra property becuase it has name and age which already defined in interface but car dont have that .")
+console.log(studentUser)
+console.log(car)
+
+greet(studentUser)
+function greet(person: useraccess) {
+  console.log(`Hello ${person.name}, Age: ${person.age}`);
+}
+
+
+
+console.log("------------------29. KeyOf Type Operator---------------------");
+interface keyPerson {
+  name: string;
+  age: number;
+}
+type keyPersonset = keyof keyPerson
+
+let key: keyof keyPerson;
+key = "name",
+  key = "age",
+
+  console.group("Keyof return the union of property names ");
+
+
+
+function getProperty(obj: keyPerson, key: keyof keyPerson) {
+  return obj[key];
+}
+
+let person = { name: "Rahul", age: 25 };
+console.log(getProperty(person, "name"));
+console.log(getProperty(person, "age"));
+console.log("------------------30. TypeOf Type Operator  ---------------------");
+let str1: string = "TutorialsPoint";
+console.log(typeof str1);
+let num1s: number = 32;
+console.log(typeof num1s);
+let bool1: boolean = true;
+console.log(typeof bool1);
+
+
+
+console.log("------------------31. Indexed Access Types   ---------------------");
+interface accessIndexed {
+  name: string,
+  age: number
+}
+
+
+type stringType = accessIndexed['name'];
+type numberType = accessIndexed['age'];
+
+
+console.log("------------------32. Template Literal Types   ---------------------");
+
+
+
+type assignText = "how are you";
+type Greeting = `Hi, ${assignText}`;
+const greeting: Greeting = "Hi, how are you";
+console.log(greeting);
+
+
+console.log("------------------33. Namespaces   ---------------------");
+//  function firstfunc(){}
+//  function secondfunc(){}
+//  function thirdfunc(){}
+
+
+namespace groupfunctions {
+  export function firstfunc() { }
+  export function secondfunc() { }
+  export function thirdfunc() { }
+}
+
+
+console.log("------------------34. Ambients   ---------------------");
+console.log("WE are telling typescript to this variable already exists so not cause a problem like that way")
+
+var userName ='here Ambients name';
+
+
+declare var userName:string;
+
+
+
+console.log("------------------35. Decorators   ---------------------");
+console.log("before using deorator we need to enable it inside ts.config.js  file")
+function Logger(constructor: Function) {
+  console.log("Decorator called");
+}
+
+@Logger
+class Decorcheck {
+  name = "firstname";
+}
+
+let p = new Decorcheck();
+console.log("Decorator called even created before instance of the class we can use this method and properties also")
+
+
+
+
+
+
+
+
+
+function submitUser(): void {
+
+  const inputElement = document.querySelector<HTMLInputElement>("#inputgiven");
+  const userDiv = document.querySelector<HTMLUListElement>(".userlists");
+
+  if (inputElement && userDiv) {
+    const inputVal = inputElement.value;
+    if (inputVal.trim() === "") return;
+
+    const listItem = document.createElement("li");
+    listItem.innerText = inputVal;
+
+    userDiv.append(listItem);
+    inputElement.value = "";
+  } else {
+    return;
+  }
+}
+
+console.log("We can group code functions into inside through this namespaces")
+
+
+
+
+
+const buttonTri = document.querySelector("#submitusertrigger");
+buttonTri?.addEventListener("click", submitUser)

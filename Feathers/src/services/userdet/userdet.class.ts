@@ -23,3 +23,4 @@ export const getOptions = (app: Application): MongoDBAdapterOptions => {
     Model: app.get('mongodbClient').then(db => db.collection('userdet'))
   }
 }
+ 
