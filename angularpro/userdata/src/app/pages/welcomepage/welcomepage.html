@@ -1,67 +1,87 @@
-
-
-
- 
-
 <h3 style="text-align: center;margin:2rem 0">Welcome User!</h3>
- @for (item of users(); track item._id) {
 
-<div id="userslist">
+<table class="user-table" border="1" width="100%" cellspacing="0" cellpadding="10">
 
-   <input *ngIf="editId === item._id"
-         [(ngModel)]="formInputs.firstname"
-         name="firstname"
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>User Type</th>
+      <th>Age</th>
+      <th> </th>
+    </tr>
+  </thead>
 
-         placeholder="Name" value="firstname">
+  <tbody>
+    @for (item of users(); track item._id) {
 
-  <p *ngIf="editId !== item._id" >
-    {{ item.firstname }} 
-    
-  </p>
+    <tr>
 
-   <input *ngIf="editId === item._id"
-         [(ngModel)]="formInputs.email" name="email" placeholder="Email">
+      <td>
+        <input *ngIf="editId === item._id" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Name">
 
-  <p *ngIf="editId !== item._id">
-    {{ item.email }}
-  </p>
+        <span *ngIf="editId !== item._id">
+          {{ item.firstname }}
+        </span>
+      </td>
 
-  <div class="selectadmintype">
-     <select *ngIf="editId === item._id"
-        [(ngModel)]="formInputs.userType" name="userType"  [disabled]="disabledAction">
-  <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
-</select>
-<!-- 
-<p *ngIf="editId !== item._id">
-  {{ item.userType }}
-</p> -->
+      <td>
+        <input *ngIf="editId === item._id" [(ngModel)]="formInputs.email" name="email" placeholder="Email">
 
-  </div>
- 
-       
+        <span *ngIf="editId !== item._id">
+          {{ item.email }}
+        </span>
+      </td>
 
-  <p *ngIf="editId !== item._id">
-    {{ item.userType }}
-  </p>  
+      <td>
+        <select *ngIf="editId === item._id" [(ngModel)]="formInputs.userType" name="userType"
+          [disabled]="!isLoaded || !isAdmin">
+          <option *ngFor="let type of userTypes" [value]="type">
+            {{ type }}
+          </option>
+        </select>
 
-   <input type="number" *ngIf="editId === item._id"
-         [(ngModel)]="formInputs.age" name="age" placeholder="Age">
+        <span *ngIf="editId !== item._id">
+          {{ item.userType }}
+        </span>
+      </td>
 
-  <p *ngIf="editId !== item._id">
-    {{ item.age }}
-  </p>
+      <td>
+        <input type="number" *ngIf="editId === item._id" [(ngModel)]="formInputs.age" name="age" placeholder="Age">
 
-  <div class="buttoncontainer">
-    <button class="btn btn-danger" *ngIf="editId===null"  [disabled]="disabledAction" id="deluser" (click)="delUser(item._id)">Del</button>   
-    <button class="btn btn-warning"  *ngIf="editId===null"  [disabled]="disabledAction" (click)="editUser(item._id)">Ed</button>
-    <button *ngIf="editId === item._id" class="btn btn-success"
-            (click)="updateUser(item._id)"> 
-      Save
-    </button>
-  </div>
+        <span *ngIf="editId !== item._id">
+          {{ item.age }}
+        </span>
+      </td>
 
-</div>
+      <td id="button-cell">
+<button class="btn btn-danger"
+        *ngIf="editId===null"
+        [disabled]="!isLoaded || !isAdmin"
+        (click)="delUser(item._id)">
+          <i class="fa-solid fa-trash"></i>
+        </button>
 
-} @empty {
-<p>No users found.</p>
-}
+   <button class="btn btn-warning"
+        *ngIf="editId===null"
+        [disabled]="!isLoaded || !isAdmin"
+        (click)="editUser(item._id)">
+          <i class="fa-solid fa-edit"></i>
+        </button>
+
+        <button *ngIf="editId === item._id" class="btn btn-success" (click)="updateUser(item._id)">
+          Save
+        </button>
+      </td>
+
+    </tr>
+
+    } @empty {
+    <tr>
+      <td colspan="5" style="text-align:center;">No users found.</td>
+    </tr>
+    }
+
+  </tbody>
+
+</table>

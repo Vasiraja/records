@@ -41,14 +41,14 @@ export const userdetDataResolver = resolve<UserdetData, HookContext<UserdetServi
   password: passwordHash({ strategy: 'local' })
 })   
 // Schema for updating existing entries
-export const userdetPatchSchema = Type.Partial(userdetSchema, {
+export const userdetPatchSchema = Type.Partial(userdetSchema, { 
   $id: 'UserdetPatch'
-})
+}) 
 export type UserdetPatch = Static<typeof userdetPatchSchema>
 export const userdetPatchValidator = getValidator(userdetPatchSchema, dataValidator)
 export const userdetPatchResolver = resolve<UserdetPatch, HookContext<UserdetService>>({
   password: passwordHash({ strategy: 'local' })
-})
+}) 
 
  export const userdetQueryProperties = Type.Pick(userdetSchema, ['_id', 'email'])
 export const userdetQuerySchema = Type.Intersect( 

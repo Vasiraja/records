@@ -13,7 +13,7 @@ export class Userserv {
 
   getData(): Observable<any> {
     try {
-      const result = this.http.get(`${this.apiUrl}/userdet`);
+      const result = this.http.get(`${this.apiUrl}/userdet?$limit=50`);
       console.log(result)
       return result;
 

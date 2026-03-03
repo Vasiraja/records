@@ -1,12 +1,98 @@
- 
+<div class="login-wrapper">
 
-<div class="loginform">
-      <h4>Login Form</h4>
+  <form class="login-form" 
+        (ngSubmit)="formState === 'login' ? submitLogin() : submitSignup()" 
+        #loginForm="ngForm">
 
-<input type="text" [(ngModel)]="loginEmail" placeholder="Email">
- 
-<input type="password" [(ngModel)]="loginPassword" placeholder="Password">
- 
-<button class="btn btn-primary"  (click)="submitForm()">login</button>
-   
+    <div class="submit-container">
+      <div class="submit-toggle"
+           [ngStyle]="formState === 'signup' 
+              ? { background: 'transparent', color: '#1d4ed8' } 
+              : {}"
+           (click)="toggleState()">
+        Login
+      </div>
+
+      <div class="submit-toggle"
+           [ngStyle]="formState === 'login' 
+              ? { background: 'transparent', color: '#1d4ed8' } 
+              : {}"
+           (click)="toggleState()">
+        Sign Up
+      </div>
+    </div>
+
+     <div class="form-field" *ngIf="formState==='signup'">
+      <label for="name">First Name</label>
+      <input id="name"
+             name="firstname"
+             type="text"
+             [(ngModel)]="firstname"
+             #firstnameRef="ngModel"
+             required
+             minlength="3"
+             placeholder="Enter your name" />
+
+      <span *ngIf="firstnameRef.invalid && firstnameRef.touched">
+        First name must be at least 3 characters
+      </span>
+    </div>
+
+     <div class="form-field">
+      <label for="email">Email Address</label>
+      <input id="email"
+             name="email"
+             type="email"
+             [(ngModel)]="loginEmail"
+             #emailRef="ngModel"
+             required
+             email
+             placeholder="Enter your email" />
+
+      <span *ngIf="emailRef.invalid && emailRef.touched">
+        Enter a valid email address
+      </span>
+    </div>
+
+     <div class="form-field">
+      <label for="password">Password</label>
+      <input id="password"
+             name="password"
+             type="password"
+             [(ngModel)]="loginPassword"
+             #passwordRef="ngModel"
+             required
+             minlength="6"
+             placeholder="Enter your password" />
+
+      <span *ngIf="passwordRef.invalid && passwordRef.touched">
+        Password must be at least 6 characters
+      </span>
+    </div>
+
+     <div class="form-field" *ngIf="formState ==='signup'">
+      <label for="age">Age</label>
+      <input id="age"
+             name="age"
+             type="number"
+             [(ngModel)]="age"
+             #ageRef="ngModel"
+             required
+             min="3"
+             placeholder="Enter your Age" />
+
+      <span *ngIf="ageRef.invalid && ageRef.touched">
+        Please enter valid age
+      </span>
+    </div>
+
+    <div class="form-field">
+      <button type="submit"
+              class="submit-btn"
+              [disabled]="loginForm.invalid">
+        {{ formState === 'signup' ? 'Sign up' : 'Login' }}
+      </button>
+    </div>
+
+  </form>
 </div>

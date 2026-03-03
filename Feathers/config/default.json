@@ -9,7 +9,7 @@
     "default": 10,
     "max": 50
   },
-  "mongodb": "mongodb+srv://vasiraja14122000:Mongodb7@cluster0.nutvxoa.mongodb.net/?appName=Cluster0",
+  "mongodb": "mongodb://127.0.0.1:27017/",
   "authentication": {
     "entity": "userdet",
     "service": "userdet",
@@ -18,13 +18,13 @@
       "jwt",
       "local"
     ],
-    "jwtOptions": {
-      "header": {
+    "jwtOptions": { 
+      "header": { 
         "typ": "access"
-      },
+      }, 
       "audience": "https://yourdomain.com",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "1d" 
     },
     "local": {
       "usernameField": "email",

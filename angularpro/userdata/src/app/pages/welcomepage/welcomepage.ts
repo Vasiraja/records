@@ -16,12 +16,39 @@ export class Welcomepage implements OnInit {
   users = signal<any[]>([]);
   userData: any = {};
   // users:any[]=[];
-  disabledAction: boolean = false;
+  isAdmin = false;
+  isLoaded = false;
 
   constructor(private userdetService: Userserv) { }
+
+
+  getCurrentAdminType() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      this.isLoaded = true;
+      return;
+    }
+
+    const decoded: any = jwtDecode(token);
+    const userId = decoded.sub;
+
+    this.userdetService.getType(userId).subscribe({
+      next: (res: any) => {
+
+        this.isAdmin = res.userType?.trim().toLowerCase() === "admin";
+        console.log(res.userType?.trim().toLowerCase())
+        this.isLoaded = true;
+        // console.log("isAdmin:", this.isAdmin);
+        // console.log("isLoaded:", this.isLoaded);
+      },
+      error: () => {
+        this.isLoaded = true;
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.fetching();
-    // console.log(this.getCurrentAdminType())
 
     this.getCurrentAdminType()
 
@@ -30,31 +57,7 @@ export class Welcomepage implements OnInit {
 
 
   }
-  getCurrentAdminType() {
-    const currentToken: any = localStorage.getItem("token");
-    const currentEmailUser = jwtDecode(currentToken);
 
-    const userId = currentEmailUser.sub;
-
-    this.userdetService.getType(userId).subscribe({
-      next: (res: any) => {
-
-        if (res.userType !== "Admin") {
-          this.disabledAction = true;
-        } else {
-          this.disabledAction = false;
-        }
-
-      },
-      error: (error: any) => {
-        console.error(error);
-        throw error
-      }
-
-    })
-
-
-  }
   editId: string | null = null;
   userTypes = ['Admin', 'User', 'Guest'];
 
