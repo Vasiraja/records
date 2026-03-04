@@ -9,12 +9,72 @@
     align-items: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-.chartwid h4 {
+.dashboard-container h2{
+    padding: 0 1rem;
+}
+ .analysishead {
     margin-bottom: 15px;
     font-size: 18px;
     color: #333333;  
     font-weight: 600;
 }
 
- 
+ .recent-logins {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 20px 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.recent-logins h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e1e2f;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f5;
+  letter-spacing: 0.3px;
+}
+
+ .recent-logins table {
+  width: 100%;
+ }
+
+.recent-logins thead tr {
+  background: #f7f8fc;
+}
+
+.recent-logins th {
+  text-align: left;
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #8888aa;
+}
+
+.recent-logins td {
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #808097;
+  border-bottom: 1px solid #f0f0f5;
+}
+
+ .recent-logins tbody tr:hover {
+  background: #f5f6ff;
+  transition: background 0.2s ease;
+}
+
+/* Last row no border */
+.recent-logins tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Source badge */
+.recent-logins td:last-child {
+  font-size: 12px;
+  font-weight: 500;
+}

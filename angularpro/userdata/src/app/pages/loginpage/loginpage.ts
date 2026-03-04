@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { Userserv } from '../../services/userserv';
 import { Router } from '@angular/router';
- 
+
 @Component({
   selector: 'app-loginpage',
   standalone: true,
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class Loginpage {
 
-  constructor(private userservice: Userserv, private router: Router) {}
+  constructor(private userservice: Userserv, private router: Router) { }
 
   loginEmail: string = "";
   loginPassword: string = "";
@@ -22,7 +22,7 @@ export class Loginpage {
 
   formState: "login" | "signup" = "login";
 
-   submitLogin() {
+  submitLogin() {
 
     if (!this.loginEmail || !this.loginPassword) {
       alert("Please enter email and password");
@@ -32,6 +32,8 @@ export class Loginpage {
     this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
       next: (res: any) => {
         localStorage.setItem("token", res.accessToken);
+        this.userservice.notifyLogin();
+
         console.log("Login Successfully");
         this.router.navigate(['/welcome']);
       },
@@ -41,15 +43,15 @@ export class Loginpage {
     });
   }
 
-   toggleState() {
+  toggleState() {
     this.formState = this.formState === "login" ? "signup" : "login";
-    this.firstname="";
-    this.loginEmail="";
-    this.age=null;
-    this.loginPassword="";
+    this.firstname = "";
+    this.loginEmail = "";
+    this.age = null;
+    this.loginPassword = "";
   }
 
-   submitSignup() {
+  submitSignup() {
 
     if (!this.firstname || !this.loginEmail || !this.loginPassword) {
       alert("Please fill all required fields");
@@ -71,7 +73,7 @@ export class Loginpage {
         console.log("Signup Successfully", res);
         alert("Signup Successfully");
 
-         this.firstname = "";
+        this.firstname = "";
         this.loginEmail = "";
         this.loginPassword = "";
         this.age = null;

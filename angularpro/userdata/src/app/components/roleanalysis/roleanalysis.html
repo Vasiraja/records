@@ -1,4 +1,32 @@
 <div class="chartwid">
-    <h4>Roles Overview</h4>
-    <canvas #pieChart  ></canvas>
+    <h4 class="analysishead">Roles Overview</h4>
+    <canvas #pieCharts  ></canvas>
+</div>
+
+<div class="dashboard-container">
+  <h2 class="analysishead">Login Activity Dashboard</h2>
+ 
+<div class="recent-logins">
+  <h4 class="analysishead">Recent Logins</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Email</th>
+         <th>Login Time </th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let log of recentLogins">
+        <td>{{ log.firstname}}</td>
+        <td>{{ log.email}}</td>
+         <td>{{ log.loginTime }}</td>
+        <td>{{ log.source }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+ 
+
 </div>

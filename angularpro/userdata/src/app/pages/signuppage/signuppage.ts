@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Userserv } from '../../services/userserv';
 import { Router } from '@angular/router';
+import { User } from '../../models/types';
 
 
 @Component({
@@ -17,19 +18,19 @@ export class Signuppage {
   formSignup = new FormGroup({
     firstname: new FormControl("", [Validators.required, Validators.maxLength(4)]),
     email: new FormControl("", [Validators.required, Validators.email]),
-    age: new FormControl("", [Validators.required, Validators.min(10)]),
+ age: new FormControl<number | null>(null, [Validators.required, Validators.min(10)]),
     password: new FormControl("", [Validators.required])
   })
 
   submitform() {
 
     console.log(this.formSignup.value);
-    const userData = { ...this.formSignup.value, userType: "User" };
+    const userData = { ...this.formSignup.value, userType: "User" } as User;
     console.log(userData)
 
 
     this.serviceUser.postData(userData).subscribe({
-      next: (res: any) => {
+      next: (res: User) => {
 
         console.log("Posted Successfully", res);
         alert("Signup Successfully")

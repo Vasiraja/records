@@ -17,11 +17,10 @@ import { UserdetService } from './services/userdet/userdet.class'
 import * as dotenv from 'dotenv';
 dotenv.config();
 const app: Application = koa(feathers())
-
+// app.set('trust proxy', true as any)
 // Load our app configuration (see config/ folder)
 app.configure(configuration(configurationValidator))
-
-// Set up Koa middleware
+ // Set up Koa middleware
 app.use(cors())
 app.use(serveStatic(app.get('public')))
 app.use(errorHandler())
@@ -42,8 +41,7 @@ app.configure(mongodb)
 app.configure(authentication)
 app.configure(services)
 app.configure(channels)
-
-// Register hooks that run on all service methods
+ // Register hooks that run on all service methods
 app.hooks({
   around: {
     all: [logError]

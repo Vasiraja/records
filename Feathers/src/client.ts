@@ -4,6 +4,9 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authenticationClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { loginLogsClient } from './services/logs/logs.shared'
+export type { LoginLogs, LoginLogsData, LoginLogsQuery, LoginLogsPatch } from './services/logs/logs.shared'
+
 import { userdetClient } from './services/userdet/userdet.shared'
 export type { Userdet, UserdetData, UserdetQuery, UserdetPatch } from './services/userdet/userdet.shared'
 
@@ -64,5 +67,6 @@ export const createClient = <Configuration = any,>(
   client.configure(userClient)
   client.configure(userClient)
   client.configure(userdetClient)
+  client.configure(loginLogsClient)
   return client
 }

@@ -15,7 +15,9 @@ export class UserdetService<ServiceParams extends Params = UserdetParams> extend
   UserdetData,
   UserdetParams,
   UserdetPatch
-> {}
+> {
+  
+}
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {

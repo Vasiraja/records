@@ -1,10 +1,11 @@
+import { loginLogs } from './logs/logs'
 import { userdet } from './userdet/userdet'
 
- // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
+// For more information about this file see https://dove.feathersjs.com/guides/cli/application.html#configure-functions
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(loginLogs)
   app.configure(userdet)
-   // All services will be registered here 
+  // All services will be registered here
 }
- 

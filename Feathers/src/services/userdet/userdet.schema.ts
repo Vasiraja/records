@@ -18,6 +18,7 @@ export const userdetSchema = Type.Object(
     firstname:Type.String(),
     age:Type.Number(),
     userType:Type.String(), 
+    lastAction: Type.Optional(Type.String({ format: 'date-time' }))
 
   }, 
   { $id: 'Userdet', additionalProperties: false }
@@ -32,7 +33,7 @@ export const userdetExternalResolver = resolve<Userdet, HookContext<UserdetServi
 })
 
 // Schema for creating new entries 
-export const userdetDataSchema = Type.Pick(userdetSchema, ['email', 'password','firstname','age','userType'], {
+export const userdetDataSchema = Type.Pick(userdetSchema, ['email', 'password','firstname','age','userType','lastAction'], {
   $id: 'UserdetData'    
 })
 export type UserdetData = Static<typeof userdetDataSchema>

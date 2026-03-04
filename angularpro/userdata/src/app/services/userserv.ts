@@ -1,88 +1,53 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import axios from 'axios';
-@Injectable({
-  providedIn: 'root',
-})
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiResponse, User, LoginLog } from '../models/types';   
+
+@Injectable({ providedIn: 'root' })
 export class Userserv {
 
   private apiUrl = "http://localhost:3030";
 
-  constructor(private http: HttpClient) { }
+  private loginWatch = new BehaviorSubject<boolean>(false);
+  loginWatch$ = this.loginWatch.asObservable();
 
-  getData(): Observable<any> {
-    try {
-      const result = this.http.get(`${this.apiUrl}/userdet?$limit=50`);
-      console.log(result)
-      return result;
+  constructor(private http: HttpClient) {}
 
-    }
-    catch (error) {
-      console.error(error);
-      throw error
-    }
-
-
+  notifyLogin() {
+    this.loginWatch.next(true);
   }
-  updateData(id: any, userData: any): Observable<any> {
-    try {
-      const result = this.http.patch(`${this.apiUrl}/userdet/${id}`, userData);
 
-      return result
-    }
-    catch (error) {
-      console.error(error);
-      throw error
-    }
+   getData(): Observable<ApiResponse<User[]>> {
+    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/userdet?$limit=50`);
   }
+
+   getLogs(): Observable<ApiResponse<LoginLog[]>> {
+    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=40`);
+  }
+
+   updateData(id: string, userData: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/userdet/${id}`, userData);
+  }
+
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
-  login(email: any, password: any): Observable<any> {
 
-    try {
-      const loginres = this.http.post(`http://localhost:3030/authentication`, {strategy:"local",email, password});
-      return loginres;
-    }
-    catch (err) {
-      console.error(err);
-      throw err
-    }
-
-
-  }
-  getType(id:any):Observable<any>{
-
-    try{
-      const getType = this.http.get(`${this.apiUrl}/userdet/${id}`);
-      return getType;
-    }
-    catch(error){
-      console.error(error);
-      throw error
-    }
-  }
-  postData(userDetails:any):Observable<any>{
-
-    try{
-      const getType = this.http.post(`${this.apiUrl}/userdet`,userDetails);
-      return getType;
-    }
-    catch(error){
-      console.error(error);
-      throw error 
-    }
-  }
-  deleteUser(id:any):Observable<any>{
-    try{
-      const delType = this.http.delete(`${this.apiUrl}/userdet/${id}`);
-      return delType
-    }
-    catch(error){
-      console.error(error);
-      throw error;
-    }
+   login(email: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/authentication`, {
+      strategy: "local", email, password
+    });
   }
 
+   getType(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/userdet/${id}`);
+  }
+
+   postData(userDetails: Partial<User>): Observable<User> {
+    return this.http.post<User>(`${this.apiUrl}/userdet`, userDetails);
+  }
+
+   deleteUser(id: string): Observable<User> {
+    return this.http.delete<User>(`${this.apiUrl}/userdet/${id}`);
+  }
 }
