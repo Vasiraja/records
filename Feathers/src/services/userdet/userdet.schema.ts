@@ -52,7 +52,7 @@ export const userdetPatchResolver = resolve<UserdetPatch, HookContext<UserdetSer
 
  export const userdetQueryProperties = Type.Pick(userdetSchema, ['_id', 'email'])
 export const userdetQuerySchema = Type.Intersect( 
-  [
+  [ 
     querySyntax(userdetQueryProperties),
      Type.Object({}, { additionalProperties: false })
   ],

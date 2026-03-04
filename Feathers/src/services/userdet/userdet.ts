@@ -24,6 +24,9 @@ export * from './userdet.schema'
 // A configure function that registers the service and its hooks via `app.configure`
 export const userdet = (app: Application) => {
 
+
+
+
   // Register our service on the Feathers application
   app.use(userdetPath, new UserdetService(getOptions(app)), {
     // A list of all methods this service exposes externally

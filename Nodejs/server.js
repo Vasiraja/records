@@ -312,7 +312,7 @@ console.log("-----ii. https example connection")
 // }).on('error', err => {
 //   console.error('Error:', err.message);
 // });
- 
+
 
 console.log("------------------25. HTTP/2 Server in Nodejs---------------------");
 console.log("------ Simple HTTP/2 Client Example ------");
@@ -349,24 +349,24 @@ console.log("------------------25. UDB/datagram---------------------");
 //   console.log(`Message from ${rinfo.address}:${rinfo.port}`);
 //   console.log("Data:", msg.toString());
 // });
- 
+
 // udpserver.bind(process.env.PORT, () => {
 //   console.log("UDP Server listening on port 4000");
 // });
 
 console.log("------------------26. Query String---------------------");
- 
+
 const querystring = require('querystring');
 
 console.log("----- i. parse query string");
-  const parsed = querystring.parse('name=John&age=25');
+const parsed = querystring.parse('name=John&age=25');
 console.log("Parsed:", parsed);
 
- console.log("-----ii.convert object to query string")
+console.log("-----ii.convert object to query string")
 const str = querystring.stringify({ city: 'New York', country: 'USA' });
 console.log("Stringified:", str);
 
- console.log("-----iii. Escape query characters")
+console.log("-----iii. Escape query characters")
 const escaped = querystring.escape('hello world & hi');
 console.log("Escaped:", escaped);
 
@@ -382,8 +382,497 @@ const params = new URLSearchParams({
 
 console.log("Query String:", params.toString());
 
- console.log("Name:", params.get('name'));
+console.log("Name:", params.get('name'));
 
- params.append('city', 'London');
- params.set('name','vicky')
+params.append('city', 'London');
+params.set('name', 'vicky')
 console.log("Updated:", params.toString());
+
+// console.log("------------------27. DNS---------------------");
+
+console.log("-----i. Lookup")
+console.log("find the ip address of a domain name ")
+const dns = require("dns");
+
+dns.lookup('youtube.com', (err, address, version) => {
+  if (err) throw err;
+  console.log('IP Address:', address);
+  console.log('IP Version:', version);
+});
+
+// console.log("-----ii. resolve");
+// console.log("Can get A, AAAA, CNAME infos")
+
+// dns.resolve('google.com', 'CNAME', (err, addresses) => {
+//   if (err) throw err;
+//   console.log('Addresses:', addresses);
+// });
+
+console.log("-----iii. Reverse lookup")
+console.log("Used to find domain name from an ip address")
+dns.reverse('8.8.8.8', (err, hostnames) => {
+  if (err) throw err;
+  console.log('Hostnames:', hostnames);
+});
+
+console.log("-----iv. resolve mx")
+dns.resolveMx('gmail.com', (err, addresses) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+
+  console.log(addresses);
+});
+
+
+console.log("------v. DNS TXT  ------");
+
+
+dns.resolveTxt('google.com', (err, records) => {
+  if (err) throw err;
+  console.log('TXT Records:', records);
+});
+
+
+// console.log("------28. Net/Tcp Creation ------");
+
+// const net = require('net');
+
+//  const server = net.createServer((socket) => {
+
+//   console.log("Client connected");
+
+//   socket.on('data', (data) => {
+//     console.log("Received:", data.toString());
+
+//      socket.write("Hello from TCP Server!");
+//   });
+
+//   socket.on('end', () => {
+//     console.log("Client disconnected");
+//   });
+
+// });
+
+//  server.listen(5000, () => {
+//   console.log("TCP Server running on port 5000");
+// });
+
+
+
+console.log("------29. TLS ------");
+
+// console.log("------ TLS Server Example ------");
+
+// const tls = require('tls');
+// const fs = require('fs');
+
+// // SSL options
+// const options = {
+//   key: fs.readFileSync('key.pem'),
+//   cert: fs.readFileSync('cert.pem')
+// };
+
+// // Create TLS server
+// const server = tls.createServer(options, (socket) => {
+
+//   console.log("Secure client connected");
+
+//   socket.write("Hello Secure Client!");
+
+//   socket.on('data', (data) => {
+//     console.log("Received:", data.toString());
+//   });
+
+// });
+
+// server.listen(6000, () => {
+//   console.log("TLS Server running on port 6000");
+// });
+
+
+console.log("------30. URL Module------");
+ 
+const myUrl = new URL('https://example.com:3000/path?name=John&age=25');
+
+console.log("Hostname:", myUrl.hostname);
+console.log("Port:", myUrl.port);
+console.log("Path:", myUrl.pathname);
+
+console.log("Name:", myUrl.searchParams.get('name'));
+
+myUrl.searchParams.append('city', 'London');
+
+console.log("Updated URL:", myUrl.href);
+
+// console.log("------31. Async Hook------");
+// console.log("------ Async Hooks Example ------");
+
+// const async_hooks = require('async_hooks');
+// const fs = require('fs');
+
+// console.log("-----i. Hook Created")
+// console.log("Through this we can see the flow of settimeout")
+//  const hook = async_hooks.createHook({
+
+//   // 2️ When async resource is created
+//   init(asyncId, type, triggerAsyncId) {
+//     fs.writeSync(1, `Init: ${type} | ID: ${asyncId}\n`);
+//   },
+
+//   // 3️ Before callback
+//   before(asyncId) {
+//     fs.writeSync(1, `Before: ${asyncId}\n`);
+//   },
+
+//   // 4️ After callback
+//   after(asyncId) {
+//     fs.writeSync(1, `After: ${asyncId}\n`);
+//   },
+
+//   // 5️ Destroy
+//   destroy(asyncId) {
+//     fs.writeSync(1, `Destroy: ${asyncId}\n`);
+//   }
+
+// });
+
+//  hook.enable();
+
+//  setTimeout(() => {
+//   console.log("Timeout executed");
+// }, 1000);
+
+
+console.log("------32. Async Context Tracking  ------");
+
+
+
+const { AsyncLocalStorage } = require('async_hooks');
+console.log("Used for multiple operations simultaneously")
+console.log("Easy to store both results")
+
+const asyncLocalStorage = new AsyncLocalStorage();
+
+ function handleRequest(requestId) {
+
+   asyncLocalStorage.run({ id: requestId }, () => {
+
+    console.log("Start Request:", requestId);
+
+    // Async operation
+    setTimeout(() => {
+
+       const store = asyncLocalStorage.getStore();
+      console.log("Inside Timeout, Request ID:", store.id);
+
+    }, 1000);
+  });
+}
+
+// Simulate multiple requests
+handleRequest("REQ-1");
+handleRequest("REQ-2");
+
+
+
+console.log("------33. Worker Threads  ------");
+
+const { Worker, isMainThread } = require('worker_threads');
+console.log("Usually used for heavy calculations");
+if (isMainThread) {
+
+  console.log("Main thread started");
+
+   const worker = new Worker('./worker.js');
+
+   worker.on('message', (result) => {
+    console.log("Result from worker:", result);
+  });
+
+  worker.on('error', (err) => {
+    console.error("Worker error:", err);
+  });
+
+  worker.on('exit', (code) => {
+    console.log("Worker exited with code", code);
+  });
+
+}
+
+
+console.log("------34. Child Process ------");
+console.log("used to create a another nodejs process ")
+
+const {exec,spawn,fork,execFile}=require('child_process');
+const { stdout, stderr } = require("process");
+console.log("-----i. exec()")
+console.log("Used to implement process inside comment line");
+exec('dir',(err,stdout,stderr)=>{
+  console.log(stdout+"sss")
+})
+console.log("-----ii. spawn");
+console.log("Used to stream data continueosly like large running process node files or another" );
+
+const childspawn = spawn ('node',['childcheck.js']);
+
+childspawn.stdout.on('data',(data)=>{
+  console.log(data.toString()+"---->");
+})
+
+
+console.log("-----iii. fork");
+fork('worker.js')
+
+
+console.log("------ iv. execFile() Example ------");
+
+
+execFile('node', ['-v'], (err, stdout) => {
+  console.log("Node Version:", stdout);
+});
+
+console.log("------35. Cluster Module ------");
+// console.log("Cluster usually  used for to handle multiple requests  on mulitple cpu's and run multiple node process")
+// const cluster = require('cluster');
+  
+// if (cluster.isPrimary) {
+//   const cpuCount = os.cpus().length;
+
+//   for (let i = 0; i < cpuCount; i++) {
+//     cluster.fork();
+//   }
+// } else {
+//   http.createServer((req, res) => {
+//     res.end("Handled by worker " + process.pid);
+//   }).listen(process.env.PORT);
+// }
+
+console.log("Cluster fork create another node process")
+console.log("cluster isPrimary check is the cpu main thing primary")
+
+
+console.log("------36. REPL ------");
+console.log("read eval print loop")
+console.log("INstead of creating file we can directly run this code directly in comment")
+console.log(Math.sqrt(16));
+Math.sqrt(16)
+console.log("node start ----->node")
+console.log(" '>'used for store last evaluated value -----> 2+5  _+3  --->results 10")
+console.log("entering into editor mode ------> .editor")
+console.log("saving the file  --------> .save savejs.js")
+console.log("load the file  -------->.load mySession.js")
+
+console.log("------37. TTY ------");
+console.log("Press any key (press q to quit)");
+console.log("For interacting with comment")
+
+if (process.stdin.isTTY) {
+  process.stdin.setRawMode(true);
+}
+
+process.stdin.resume();
+
+process.stdin.on("data", (key) => {
+  const input = key.toString();
+
+  if (input === "q") {
+    console.log("Exiting...");
+    process.exit();
+  }
+
+  console.log("You pressed:", input);
+});
+
+console.log("------38. Crypto ------");
+console.log("-----i. Hashing")
+const crypto = require("crypto");
+const dataInside = "hello private data here";
+const secondData="here the another data";
+const hash = crypto.createHash("sha256")
+hash.update(dataInside);
+hash.update(secondData);
+hash.digest('hex');
+console.log("sha 256: "+hash);
+console.log("sha33")
+console.log("-----ii. hash with secret key");
+const hashwithsecret = "Mysecret123";
+const resulshassecret = crypto.createHmac("sha256",hashwithsecret).update(dataInside).digest('hex');
+console.log(resulshassecret+"secr") 
+
+console.log("-----iii. Generate random bytes")
+const random = crypto.randomBytes(16).toString('hex');
+
+console.log("Random Key:", random); 
+
+console.log("------39. Permissions ------");
+console.log("-----i. File access - fs.access")
+fs.access('test.txt', fs.constants.F_OK | fs.constants.R_OK | fs.constants.W_OK, (err) => {
+  if (err) {
+    console.log('File is not accessible');
+  } else {
+    console.log('File can be read and written');
+  }
+});
+
+
+console.log("-----ii. file permission change - chmod")
+fs.chmod('files/firstfile.txt', 0o644, (err) => {
+  if (err) throw err;
+  console.log('File permissions changed to 644');
+}); 
+ 
+console.log("-----iii. change access for the file - chown")
+fs.chown('files/firstfile.txt', 1000, 1000, (err) => {
+  if (err) {
+    console.log("Cannot change owner (requires admin/root)");
+  } else {
+    console.log("File owner changed successfully");
+  }
+});
+
+
+console.log("------40. Debugger    ------");
+console.log("----- node inspect debugger.js");
+
+
+console.log("------41. Performance and Performance hooks------");
+const { performance, PerformanceObserver } = require("perf_hooks");
+
+console.log("-----i. console.time and console.timeEnd");
+console.time("Loop Time");
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+console.timeEnd("Loop Time");
+
+
+console.log("-----ii. performance.now()");
+const start = performance.now();
+
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+
+const end = performance.now();
+console.log("Execution time: " + (end - start) + " ms");
+
+
+console.log("-----iii. process.hrtime()");
+const startHr = process.hrtime();
+
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+
+const endHr = process.hrtime(startHr);
+console.log("Execution time: " + endHr[0] + " seconds and " + (endHr[1] / 1e6) + " ms");
+
+
+console.log("-----iv. process.memoryUsage()");
+const memory = process.memoryUsage();
+
+console.log("RSS:", memory.rss);
+console.log("Heap Total:", memory.heapTotal);
+console.log("Heap Used:", memory.heapUsed);
+console.log("External:", memory.external);
+
+
+console.log("-----v. perf_hooks performance observer");
+const obs = new PerformanceObserver((list) => {
+  console.log("Measured duration:", list.getEntries()[0].duration + " ms");
+});
+
+obs.observe({ entryTypes: ["measure"] });
+
+performance.mark("startWork");
+
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+
+performance.mark("endWork");
+
+performance.measure("Work Duration", "startWork", "endWork");
+console.log("----- Vi. process.now Example -----");
+
+ 
+function slowFunction() {
+  for (let i = 0; i < 1e7; i++) {}
+}
+
+const starting = performance.now();
+
+slowFunction();
+
+const ending = performance.now();
+
+console.log("Execution time:", (ending - starting).toFixed(3), "ms");
+console.log("----- Vii. process.hrtime Example -----");
+
+function heavyTask() {
+  for (let i = 0; i < 1e7; i++) {}
+}
+
+const startTime = process.hrtime();
+
+heavyTask();
+
+const diff = process.hrtime(startTime);
+
+console.log("Execution time:", diff[0], "seconds", diff[1] / 1e6, "ms");
+
+console.log("------42. Inspector ------");
+
+console.log("node --inspect-brk inspector.js");
+
+
+console.log("------43. Diagnostic Channel ------");
+console.log("Used to create and subscribe to channel")
+
+const dc = require("diagnostics_channel");
+const channel=dc.channel("my-app");
+channel.subscribe((message,name)=>{
+  console.log("Received Message: ",message)
+})
+
+channel.publish({user:"vasi",action:"update"});
+
+
+console.log("------43. Testrunner------");
+
+console.log("node --test testrunner.js");  
+
+
+
+console.log("------44. Trace Event------");
+
+console.log("node --trace-events-enabled traceevent.js");
+console.log("It will crete a node_trace.1.log file ");
+
+console.log("----> open in browser 'https://ui.perfetto.dev' ");
+console.log("------> and upload that node_trace.1.log file");
+
+
+console.log("------ 45.  Report Example ------");
+
+// process.report.writeReport();
+
+// console.log("Report Generated");
+
+ 
+console.log("------ 46. Assertion Testing ------");
+const assert = require('node:assert');
+
+assert.strictEqual(2 + 3, 5);
+ 
+ 
+assert.strictEqual(2 + 3, 5);
+let assertEmail='vasi@gmail.com'
+assert.match(assertEmail, /@gmail\.com$/);
+
+
+
+console.log("Test Passed -----------------------");
+console.log("Test Passed -----------------------");
