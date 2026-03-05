@@ -7,6 +7,7 @@ import { Accesscontrol } from '../../services/accesscontrol';
 import { User } from '../../models/types';
 import { Roleanalysis } from '../../components/roleanalysis/roleanalysis';
 import { Router } from '@angular/router';
+import { Socketserv } from '../../services/socket/socketserv';
 @Component({
   selector: 'app-welcomepage',
   imports: [FormsModule, CommonModule, Roleanalysis],
@@ -20,12 +21,12 @@ export class Welcomepage implements OnInit {
   userData: any = {};
 
 
-  constructor(private userdetService: Userserv, private accessControl: Accesscontrol,private router:Router, private cdr: ChangeDetectorRef) { }
+  constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
   logout() {
-    localStorage.removeItem("token");
+
     this.userdetService.notifyLogOut();
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
-    this.cdr.detectChanges();
   }
 
   getCurrentAdminType() {

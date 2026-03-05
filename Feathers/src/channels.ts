@@ -24,15 +24,27 @@ export const channels = (app: Application) => {
 
       // Add it to the authenticated user channel
       app.channel('authenticated').join(connection)
+      const user = authResult.user;
+      app.channel(`user/${user._id}`).join(connection)
+      logger.info(`${user.firstname} joined authenticated channel`)
+
     }
   })
-
-  // eslint-disable-next-line no-unused-vars
   app.publish((data: any, context: HookContext) => {
-    // Here you can add event publishers to channels set up in `channels.js`
-    // To publish only for a specific event use `app.publish(eventname, () => {})`
+  return [app.channel('authenticated'), app.channel('anonymous')]
+})
+ 
+  // eslint-disable-next-line no-unused-vars
+  // app.publish((data: any, context: HookContext) => {
+  //   // Here you can add event publishers to channels set up in `channels.js`
+  //   // To publish only for a specific event use `app.publish(eventname, () => {})`
 
-    // e.g. to publish all service events to all authenticated users use
-    return app.channel('authenticated')
-  })
-}
+  //   // e.g. to publish all service events to all authenticated users use
+  //   return app.channel('authenticated')
+  // }) 
+
+  // app.service('online-users').publish((data,context)=>{
+  //   return app.channel('authenticated');
+
+  // })
+} 

@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from "@angular/forms";
 import { Userserv } from '../../services/userserv';
 import { Router } from '@angular/router';
 import { Toast } from '../../shared/toast/toast';
+import { Socketserv } from '../../services/socket/socketserv';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { Toast } from '../../shared/toast/toast';
 })
 export class Loginpage {
 
-  constructor(private userservice: Userserv, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(private userservice: Userserv, private router: Router, private socketServ: Socketserv) { }
 
   loginEmail: string = "";
   loginPassword: string = "";
@@ -30,30 +31,40 @@ export class Loginpage {
   @ViewChild(Toast) toast!: Toast;
 
 
-  submitLogin() {
+  async submitLogin() {
 
     if (!this.loginEmail || !this.loginPassword) {
-      alert("Please enter email and password");
+      this.toast.showToast("Error", "Please enter email and password");
       return;
     }
 
     this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
-      next: (res: any) => {
-
-
+      next: async (res: any) => {
 
         this.toast.showToast("Success", "Login Successfully");
 
         localStorage.setItem("token", res.accessToken);
+        localStorage.setItem("user", JSON.stringify(res.data));
         this.userservice.notifyLogin();
+        // this.socketServ.connect();
+        // await this.socketServ.service('online-users').create({
+        //   userId: res._id,
+        //   firstname: res.firstname,
+        //   connectedAt: new Date().toISOString()
+        // });
 
         setTimeout(() => {
           this.router.navigate(['/welcome']);
         }, 1000);
 
       },
+
       error: (err: any) => {
-        console.error("Login Error:", err.error);
+
+        console.error("Login Error:", err);
+
+        this.toast.showToast("Login Failed", "Invalid email or password");
+
       }
     });
   }
@@ -84,18 +95,21 @@ export class Loginpage {
     console.log(userData);
 
     this.userservice.postData(userData).subscribe({
-      next: (res: any) => {
-        this.toast.showToast("Success", "Signup completed successfully");
+      next: async (res: any) => {
+        localStorage.setItem("token", res.accessToken);
+        console.log(res)
+        localStorage.setItem("user", JSON.stringify(res.data));
+        this.userservice.notifyLogin();
 
-        this.loginForm.resetForm();
+        //  await this.socketServ.connect();
 
-        this.firstname = "";
-        this.loginEmail = "";
-        this.loginPassword = "";
-        this.age = null;
+        // await this.socketServ.service('online-users').create({
+        //   userId: res.data._id, 
+        //   firstname: res.data.firstname,
+        //   connectedAt: new Date().toISOString()
+        // });  
 
-        this.formState = "login";
-
+        setTimeout(() => this.router.navigate(['/welcome']), 1000);
       },
       error: (err: any) => {
         console.error("Signup Error:", err.error);

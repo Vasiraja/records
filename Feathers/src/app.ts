@@ -4,6 +4,7 @@ import configuration from '@feathersjs/configuration'
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
 
+import { channels } from './channels';
 import { configurationValidator } from './configuration'
 import type { Application } from './declarations'
 import { logError } from './hooks/log-error'
@@ -11,7 +12,6 @@ import { mongodb } from './mongodb'
 
 import { authentication } from './authentication'
 import { services } from './services/index'
-import { channels } from './channels'
 import { UserdetService } from './services/userdet/userdet.class'
 
 import * as dotenv from 'dotenv';
@@ -29,13 +29,7 @@ app.use(bodyParser())
 
 // Configure services and transports
 app.configure(rest())
-app.configure(
-  socketio({
-    cors: {
-      origin: app.get('origins')
-    }
-  })
-)
+app.configure(socketio())
 app.configure(mongodb)
 
 app.configure(authentication)
@@ -51,7 +45,7 @@ app.hooks({
   error: {}
 })
 // Register application setup and teardown hooks here
-app.hooks({
+app.hooks({ 
   setup: [],
   teardown: []
 })

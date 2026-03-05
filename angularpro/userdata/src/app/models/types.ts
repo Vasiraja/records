@@ -20,3 +20,10 @@ export interface ApiResponse<T>{
     status:number
 
 }
+
+export interface onlineUser{
+    userId:string;
+    firstname:string;
+    socketId:string;
+    connectedAt:string;
+}

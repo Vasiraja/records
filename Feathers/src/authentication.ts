@@ -39,6 +39,6 @@ export const authentication = (app: Application) => {
 
   authentication.register('jwt', new JWTStrategy())
   authentication.register('local', new MyLocalStrategy())
-
+ 
   app.use('authentication', authentication)
-}
+} 
