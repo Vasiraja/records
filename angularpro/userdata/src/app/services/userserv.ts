@@ -16,13 +16,16 @@ export class Userserv {
   notifyLogin() {
     this.loginWatch.next(true);
   }
+  notifyLogOut(){
+    this.loginWatch.next(false);
+  }
 
    getData(): Observable<ApiResponse<User[]>> {
     return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/userdet?$limit=50`);
   }
 
    getLogs(): Observable<ApiResponse<LoginLog[]>> {
-    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=40`);
+    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=240`);
   }
 
    updateData(id: string, userData: Partial<User>): Observable<User> {

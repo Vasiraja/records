@@ -5,10 +5,11 @@ import { Userserv } from '../../services/userserv';
 import { jwtDecode } from 'jwt-decode';
 import { Accesscontrol } from '../../services/accesscontrol';
 import { User } from '../../models/types';
-
+import { Roleanalysis } from '../../components/roleanalysis/roleanalysis';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-welcomepage',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, Roleanalysis],
 
   templateUrl: './welcomepage.html',
   styleUrl: './welcomepage.css',
@@ -17,47 +18,52 @@ export class Welcomepage implements OnInit {
 
   users = signal<any[]>([]);
   userData: any = {};
-  
- 
-  constructor(private userdetService: Userserv,private accessControl:Accesscontrol,private cdr:ChangeDetectorRef) { }
 
 
-getCurrentAdminType() {
-  const token = localStorage.getItem('token');
-  if (!token) return;
+  constructor(private userdetService: Userserv, private accessControl: Accesscontrol,private router:Router, private cdr: ChangeDetectorRef) { }
+  logout() {
+    localStorage.removeItem("token");
+    this.userdetService.notifyLogOut();
+    this.router.navigate(['/login']);
+    this.cdr.detectChanges();
+  }
 
-  const decoded: any = jwtDecode(token);
-  const userId = decoded.sub;
+  getCurrentAdminType() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
 
-  this.userdetService.getType(userId).subscribe({
-    next: (res: any) => {
-      const role = res.userType?.trim().toLowerCase();
-      localStorage.setItem('userType', role);  
-      this.accessControl.refreshRole();          
-       this.cdr.detectChanges()
-    },
-    error: () => {
-      localStorage.setItem('userType', 'guest');
-      this.accessControl.refreshRole();
-      this.cdr.detectChanges();
-      
-    }
-  });
-} 
-  get isAdmin():boolean{
+    const decoded: any = jwtDecode(token);
+    const userId = decoded.sub;
+
+    this.userdetService.getType(userId).subscribe({
+      next: (res: any) => {
+        const role = res.userType?.trim().toLowerCase();
+        localStorage.setItem('userType', role);
+        this.accessControl.refreshRole();
+        this.cdr.detectChanges()
+      },
+      error: () => {
+        localStorage.setItem('userType', 'guest');
+        this.accessControl.refreshRole();
+        this.cdr.detectChanges();
+
+      }
+    });
+  }
+  get isAdmin(): boolean {
     return this.accessControl.isAdmin();
 
   }
-  get isGuest():boolean{
+  get isGuest(): boolean {
     return this.accessControl.isGuest();
   }
-  get isUser():boolean{
+  get isUser(): boolean {
     return this.accessControl.isUser();
   }
-  get canDelete():boolean{
+  get canDelete(): boolean {
     return this.accessControl.canDelete();
   }
-  get canEdit():boolean{
+  get canEdit(): boolean {
     return this.accessControl.canEdit();
   }
 
@@ -106,6 +112,7 @@ getCurrentAdminType() {
       next: (res: any) => {
         console.log("Deleted successfully", res);
         this.fetching();
+        this.cdr.detectChanges();
       },
       error: (error: any) => {
         console.error(error);
@@ -120,7 +127,7 @@ getCurrentAdminType() {
 
   updateUser(id: any) {
 
-    const updatedUser :Partial <User>= {
+    const updatedUser: Partial<User> = {
       ...this.formInputs,
       age: Number(this.formInputs.age)
     };
@@ -132,6 +139,7 @@ getCurrentAdminType() {
         console.log(res.firstname);
 
         console.log("Updated successfully", res);
+        this.cdr.detectChanges();
         this.editId = null;
 
         if (this.editId === null) {

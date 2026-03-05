@@ -1,26 +1,34 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from "@angular/forms";
+import { CommonModule, NgFor } from '@angular/common';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from "@angular/forms";
 import { Userserv } from '../../services/userserv';
 import { Router } from '@angular/router';
+import { Toast } from '../../shared/toast/toast';
+
 
 @Component({
   selector: 'app-loginpage',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, Toast],
   templateUrl: './loginpage.html',
   styleUrl: './loginpage.css',
 })
 export class Loginpage {
 
-  constructor(private userservice: Userserv, private router: Router) { }
+  constructor(private userservice: Userserv, private router: Router, private cdr: ChangeDetectorRef) { }
 
   loginEmail: string = "";
   loginPassword: string = "";
   firstname: string = "";
   age: number | null = null;
 
+
   formState: "login" | "signup" = "login";
+
+  @ViewChild('loginForm')
+  loginForm!: NgForm;
+  @ViewChild(Toast) toast!: Toast;
+
 
   submitLogin() {
 
@@ -31,11 +39,18 @@ export class Loginpage {
 
     this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
       next: (res: any) => {
+
+
+
+        this.toast.showToast("Success", "Login Successfully");
+
         localStorage.setItem("token", res.accessToken);
         this.userservice.notifyLogin();
 
-        console.log("Login Successfully");
-        this.router.navigate(['/welcome']);
+        setTimeout(() => {
+          this.router.navigate(['/welcome']);
+        }, 1000);
+
       },
       error: (err: any) => {
         console.error("Login Error:", err.error);
@@ -70,8 +85,9 @@ export class Loginpage {
 
     this.userservice.postData(userData).subscribe({
       next: (res: any) => {
-        console.log("Signup Successfully", res);
-        alert("Signup Successfully");
+        this.toast.showToast("Success", "Signup completed successfully");
+
+        this.loginForm.resetForm();
 
         this.firstname = "";
         this.loginEmail = "";
@@ -79,6 +95,7 @@ export class Loginpage {
         this.age = null;
 
         this.formState = "login";
+
       },
       error: (err: any) => {
         console.error("Signup Error:", err.error);

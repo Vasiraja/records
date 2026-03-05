@@ -89,10 +89,13 @@
     <div class="form-field">
       <button type="submit"
               class="submit-btn"
-              [disabled]="loginForm.invalid">
+              [disabled]="loginForm.invalid"> 
         {{ formState === 'signup' ? 'Sign up' : 'Login' }}
       </button>
     </div>
 
   </form>
 </div>
+ 
+
+<app-toast></app-toast>

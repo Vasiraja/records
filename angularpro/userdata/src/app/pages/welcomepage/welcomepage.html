@@ -1,3 +1,17 @@
+<nav class="navbar">
+  <div class="nav-container">
+
+    <div class="nav-brand">
+      MyApp
+    </div>
+
+    <button class="logout-btn" (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+</nav>
+
 <h3 style="text-align: center;margin:2rem 0">Welcome User!</h3>
 
 <table class="user-table" border="1" width="100%" cellspacing="0" cellpadding="10">
@@ -53,9 +67,10 @@
           [disabled]="!canEdit"
           (click)="editUser(item._id)">
           <i class="fa-solid fa-edit"></i>
+
         </button>
 
-        <button *ngIf="editId === item._id" class="btn btn-success" (click)="updateUser(item._id)">
+        <button *ngIf="editId === item._id" class="btn btn-primary" (click)="updateUser(item._id)">
           Save
         </button>
       </td>
@@ -71,3 +86,7 @@
   </tbody>
 
 </table>
+
+
+<app-roleanalysis></app-roleanalysis>
+ 

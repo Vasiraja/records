@@ -9,7 +9,7 @@
 #userslist p,#userslist input {
      width: 12rem;
     height: 50px;
- }
+ } 
 #userslist p,#userslist input:focus{
  
 }
