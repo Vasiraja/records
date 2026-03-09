@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Toast } from '../../shared/toast/toast';
 import { Socketserv } from '../../services/socket/socketserv';
 
-
 @Component({
   selector: 'app-loginpage',
   standalone: true,
@@ -43,15 +42,13 @@ export class Loginpage {
 
         this.toast.showToast("Success", "Login Successfully");
 
+        console.log()
         localStorage.setItem("token", res.accessToken);
         localStorage.setItem("user", JSON.stringify(res.data));
+                this.socketServ.connect();
+
         this.userservice.notifyLogin();
-        // this.socketServ.connect();
-        // await this.socketServ.service('online-users').create({
-        //   userId: res._id,
-        //   firstname: res.firstname,
-        //   connectedAt: new Date().toISOString()
-        // });
+    
 
         setTimeout(() => {
           this.router.navigate(['/welcome']);

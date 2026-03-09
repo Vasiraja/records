@@ -18,7 +18,7 @@ export class Userserv {
   loginWatch$ = this.loginWatch.asObservable();
 
   constructor(private http: HttpClient, private socketServ: Socketserv) {
-    this.listenToEvents();
+    // this.listenToEvents();
   }
 
   notifyLogin() {
@@ -33,7 +33,7 @@ export class Userserv {
   }
 
   getLogs(): Observable<ApiResponse<LoginLog[]>> {
-    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=240`);
+    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=440`);
   }
 
   updateData(id: string, userData: Partial<User>): Observable<User> {
@@ -61,14 +61,7 @@ export class Userserv {
   deleteUser(id: string): Observable<User> {
     return this.http.delete<User>(`${this.apiUrl}/userdet/${id}`);
   }
-
-  private listenToEvents() {
-    this.socketServ.listen<onlineUser[]>('online-user-updated').subscribe(users => {
-      this.onlineUsers$.next(users);
-      this.onlineCount = users.length;
-    })
-
-  }
+ 
   isUserOnline(userId: string): boolean {
     return this.onlineUsers$.value
       .some(user => user.userId === userId);

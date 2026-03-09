@@ -2,7 +2,7 @@
   <div class="nav-container">
 
     <div class="nav-brand">
-       
+
     </div>
 
     <button class="logout-btn" (click)="logout()">
@@ -30,10 +30,13 @@
     @for (item of users(); track item._id) {
 
     <tr>
-
       <td>
         <input *ngIf="editId === item._id" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Name">
-        <span *ngIf="editId !== item._id">{{ item.firstname }}</span>
+
+        <span *ngIf="editId !== item._id" class="name-with-status">
+          <span class="status-dot" [ngClass]="item.isOnline ? 'online' : 'offline'"></span>
+          {{ item.firstname }}
+        </span>
       </td>
 
       <td>
@@ -56,16 +59,12 @@
         <span *ngIf="editId !== item._id">{{ item.age }}</span>
       </td>
 
-      <td id="button-cell"  [ngStyle]="{'cursor': (canDelete) ? 'default' : 'not-allowed'}" >
-        <button class="btn btn-danger" *ngIf="editId === null"
-         [disabled]="!canDelete"
-          (click)="delUser(item._id)">
+      <td id="button-cell" [ngStyle]="{'cursor': (canDelete) ? 'default' : 'not-allowed'}">
+        <button class="btn btn-danger" *ngIf="editId === null" [disabled]="!canDelete" (click)="delUser(item._id)">
           <i class="fa-solid fa-trash"></i>
         </button>
 
-        <button class="btn btn-warning" *ngIf="editId === null"
-          [disabled]="!canEdit"
-          (click)="editUser(item._id)">
+        <button class="btn btn-warning" *ngIf="editId === null" [disabled]="!canEdit" (click)="editUser(item._id)">
           <i class="fa-solid fa-edit"></i>
 
         </button>
@@ -89,4 +88,3 @@
 
 
 <app-roleanalysis></app-roleanalysis>
- 

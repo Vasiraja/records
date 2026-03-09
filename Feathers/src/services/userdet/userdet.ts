@@ -1,5 +1,5 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from '@feathersjs/authentication'
+// import { authenticate } from '@feathersjs/authentication'
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
 import {
@@ -100,7 +100,7 @@ export const userdet = (app: Application) => {
       all: [async (context) => {
         const result = context.result as any;
 
-        //    if (result?.age) {
+        //    izf (result?.age) {
         //   throw new Error('No need for age!');
         // } 
 

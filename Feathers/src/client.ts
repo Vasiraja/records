@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { messagesClient } from './services/messages/messages.shared'
+export type {
+  Messages,
+  MessagesData,
+  MessagesQuery,
+  MessagesPatch
+} from './services/messages/messages.shared'
+
 import { onlineUsersClient } from './services/online-users/online-users.shared'
 export type {
   OnlineUsers,
@@ -13,22 +21,11 @@ export type {
 } from './services/online-users/online-users.shared'
 
 import { loginLogsClient } from './services/logs/logs.shared'
-export type {
-  LoginLogs,
-  LoginLogsData,
-  LoginLogsQuery,
-  LoginLogsPatch
-} from './services/logs/logs.shared'
+export type { LoginLogs, LoginLogsData, LoginLogsQuery, LoginLogsPatch } from './services/logs/logs.shared'
 
 import { userdetClient } from './services/userdet/userdet.shared'
-export type {
-  Userdet,
-  UserdetData,
-  UserdetQuery,
-  UserdetPatch
-} from './services/userdet/userdet.shared'
+export type { Userdet, UserdetData, UserdetQuery, UserdetPatch } from './services/userdet/userdet.shared'
 
-  
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
@@ -54,9 +51,10 @@ export const createClient = (
   client.set('connection', connection)
 
   // Register services
-   client.configure(userdetClient)
+  client.configure(userdetClient)
   client.configure(loginLogsClient)
   client.configure(onlineUsersClient)
 
+  client.configure(messagesClient)
   return client
 }

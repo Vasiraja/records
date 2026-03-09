@@ -18,10 +18,11 @@ export const userdetSchema = Type.Object(
     firstname:Type.String(),
     age:Type.Number(),
     userType:Type.String(), 
-    lastAction: Type.Optional(Type.String({ format: 'date-time' }))
+    lastAction: Type.Optional(Type.String({ format: 'date-time' })),
+    isOnline:Type.Optional(Type.Boolean())
 
   }, 
-  { $id: 'Userdet', additionalProperties: false }
+  { $id: 'Userdet', additionalProperties: false } 
 )
 export type Userdet = Static<typeof userdetSchema>
 export const userdetValidator = getValidator(userdetSchema, dataValidator)
@@ -57,7 +58,7 @@ export const userdetQuerySchema = Type.Intersect(
     querySyntax(userdetQueryProperties),
      Type.Object({}, { additionalProperties: false })
   ],
-  { additionalProperties: false }
+  { additionalProperties: false } 
 )
 export type UserdetQuery = Static<typeof userdetQuerySchema>
 export const userdetQueryValidator = getValidator(userdetQuerySchema, queryValidator)

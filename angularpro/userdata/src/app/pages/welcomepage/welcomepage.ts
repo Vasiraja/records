@@ -22,13 +22,36 @@ export class Welcomepage implements OnInit {
 
 
   constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
-  logout() {
+  async logout() {
 
-    this.userdetService.notifyLogOut();
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  const token = localStorage.getItem('token')
+
+  try {
+
+    await fetch('http://localhost:3030/authentication', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        authentication: {
+          strategy: 'jwt'
+        }
+      })
+    })
+
+  } catch (err) {
+    console.log('logout error', err)
   }
 
+  this.socketcon.disconnect()
+
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+
+  this.router.navigate(['/login'])
+}
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -72,8 +95,27 @@ export class Welcomepage implements OnInit {
   ngOnInit(): void {
     this.fetching();
 
-    this.getCurrentAdminType()
+    this.getCurrentAdminType();
+   
 
+  
+  const client = this.socketcon.getClient()
+
+  if (!client) return
+
+  client.service('userdet').on('patched', (updatedUser: any) => {
+
+    const currentUsers = this.users()
+
+    const updated = currentUsers.map((u:any) =>
+      u._id === updatedUser._id
+        ? { ...u, isOnline: updatedUser.isOnline }
+        : u
+    )
+
+    this.users.set(updated)
+
+  })
 
 
 

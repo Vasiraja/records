@@ -3,7 +3,7 @@ import { feathers } from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
-
+import { setupSocketPresence } from './socket-listen'
 import { channels } from './channels';
 import { configurationValidator } from './configuration'
 import type { Application } from './declarations'
@@ -12,7 +12,7 @@ import { mongodb } from './mongodb'
 
 import { authentication } from './authentication'
 import { services } from './services/index'
-import { UserdetService } from './services/userdet/userdet.class'
+ import { UserdetService } from './services/userdet/userdet.class'
 
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -24,25 +24,26 @@ app.configure(configuration(configurationValidator))
 app.use(cors())
 app.use(serveStatic(app.get('public')))
 app.use(errorHandler())
-app.use(parseAuthentication())
+app.use(parseAuthentication()) 
 app.use(bodyParser())
-
 // Configure services and transports
 app.configure(rest())
 app.configure(socketio())
-app.configure(mongodb)
+app.configure(mongodb) 
 
 app.configure(authentication)
 app.configure(services)
 app.configure(channels)
- // Register hooks that run on all service methods
+setupSocketPresence(app)
+
+  // Register hooks that run on all service methods
 app.hooks({
-  around: {
+  around: { 
     all: [logError]
   },
   before: {},
-  after: {},
-  error: {}
+  after: {}, 
+  error: {} 
 })
 // Register application setup and teardown hooks here
 app.hooks({ 

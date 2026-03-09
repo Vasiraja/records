@@ -1,3 +1,4 @@
+import { messages } from './messages/messages'
 import { onlineUsers } from './online-users/online-users'
 import { loginLogs } from './logs/logs'
 import { userdet } from './userdet/userdet'
@@ -6,6 +7,7 @@ import { userdet } from './userdet/userdet'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(messages)
   app.configure(onlineUsers)
   app.configure(loginLogs)
   app.configure(userdet)
