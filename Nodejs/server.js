@@ -493,7 +493,7 @@
 
 
 // console.log("------30. URL Module------");
- 
+
 // const myUrl = new URL('https://example.com:3000/path?name=John&age=25');
 
 // console.log("Hostname:", myUrl.hostname);
@@ -636,7 +636,7 @@
 // console.log("------35. Cluster Module ------");
 // // console.log("Cluster usually  used for to handle multiple requests  on mulitple cpu's and run multiple node process")
 // // const cluster = require('cluster');
-  
+
 // // if (cluster.isPrimary) {
 // //   const cpuCount = os.cpus().length;
 
@@ -722,7 +722,7 @@
 //   if (err) throw err;
 //   console.log('File permissions changed to 644');
 // }); 
- 
+
 // console.log("-----iii. change access for the file - chown")
 // fs.chown('files/firstfile.txt', 1000, 1000, (err) => {
 //   if (err) {
@@ -797,7 +797,7 @@
 // performance.measure("Work Duration", "startWork", "endWork");
 // console.log("----- Vi. process.now Example -----");
 
- 
+
 // function slowFunction() {
 //   for (let i = 0; i < 1e7; i++) {}
 // }
@@ -861,13 +861,13 @@
 
 // // console.log("Report Generated");
 
- 
+
 // console.log("------ 46. Assertion Testing ------");
 // const assert = require('node:assert');
 
 // assert.strictEqual(2 + 3, 5);
- 
- 
+
+
 // assert.strictEqual(2 + 3, 5);
 // let assertEmail='vasi@gmail.com'
 // assert.match(assertEmail, /@gmail\.com$/);
@@ -891,7 +891,7 @@ const server = net.createServer((socket) => {
   socket.write("Welcome! You are connected to the server.\n");
 
   socket.on("data", (data) => {
-    console.log(`📨 Received: ${data.toString().trim()}`);
+    console.log(` Received: ${data.toString().trim()}`);
     socket.write(`Echo: ${data}`);
   });
 
@@ -907,3 +907,227 @@ const server = net.createServer((socket) => {
 server.listen(PORT, HOST, () => {
   console.log(`🚀 Server running on ${HOST}:${PORT}`);
 });
+
+
+console.log("------ 46.  C++ addons ------");
+
+console.log("C++ addons is a way to write a part of nodejs application in C++ and then use in js");
+// #include <node.h>
+
+// using v8::FunctionCallbackInfo;
+// using v8::Value;
+// using v8::Number;
+// using v8::Isolate;
+
+// void Add(const FunctionCallbackInfo<Value>& args) {
+//   Isolate* isolate = args.GetIsolate();
+
+//   double a = args[0]->NumberValue(isolate->GetCurrentContext()).FromJust();
+//   double b = args[1]->NumberValue(isolate->GetCurrentContext()).FromJust();
+
+//   args.GetReturnValue().Set(Number::New(isolate, a + b));
+// }
+
+// void Initialize(v8::Local<v8::Object> exports) {
+//   NODE_SET_METHOD(exports, "add", Add);
+// }
+
+// NODE_MODULE(NODE_GYP_MODULE_NAME, Initialize)
+
+// const addon = require("./build/release/addon")
+// console.log(addon.add(5,3))
+
+
+console.log("------ 47.  C++ addons with node API ------");
+console.log("Node-API (N-API) is a stable interface that lets you write C/C++ native addons without depending directly on the V8 engine.")
+
+console.log("1. create a file name addon.cc")
+// // #include <node_api.h>
+
+// napi_value Add(napi_env env, napi_callback_info info) {
+//   size_t argc = 2;
+//   napi_value args[2];
+//   napi_get_cb_info(env, info, &argc, args, NULL, NULL);
+
+//   double a, b;
+//   napi_get_value_double(env, args[0], &a);
+//   napi_get_value_double(env, args[1], &b);
+
+//   napi_value result;
+//   napi_create_double(env, a + b, &result);
+
+//   return result;
+// }
+
+// napi_value Init(napi_env env, napi_value exports) {
+//   napi_value fn;
+//   napi_create_function(env, NULL, 0, Add, NULL, &fn);
+//   napi_set_named_property(env, exports, "addNumbers", fn);
+//   return exports;
+// }
+
+// NAPI_MODULE(NODE_GYP_MODULE_NAME, Init)
+console.log("2. set targets")
+// {
+//   "targets": [
+//     {
+//       "target_name": "addon",
+//       "sources": [ "addon.cc" ]
+//     }
+//   ]
+// }
+console.log("3. build addon")
+// node-gyp configure
+// node-gyp build
+
+console.log("Above comment create this file build/Release/addon.node ")
+
+console.log("4. Use that wisely in nodejs")
+
+// const addon = require('./build/Release/addon');
+
+// const result = addon.addNumbers(5, 7);
+
+// console.log("Result from C++ Addon:", result);
+
+
+console.log("------ 48.  C++ addons with node API ------");
+
+console.log("The C++ Embedder API refers to the V8 engine’s C++ interface that allows a C++ program to embed the JavaScript engine inside it.")
+
+console.log("------ 49. V8 Engine ------");
+
+console.log("V8 is the JavaScript engine used by Node.js and Google Chrome. It compiles JavaScript code into machine code so it can run very fast.");
+
+
+const v8 = require('v8');
+
+console.log("Heap statistics from V8:");
+console.log(v8.getHeapStatistics());
+
+
+console.log("------ 50. VM Module ------");
+
+console.log("The vm module allows running JavaScript code inside a separate sandboxed environment. It is useful for executing dynamic code safely.");
+
+// Example
+const vm = require('vm');
+
+const code = "2 + 3";
+const result = vm.runInThisContext(code);
+
+console.log("VM execution result:", result);
+
+console.log("------ 51. WASI (WebAssembly System Interface) ------");
+
+console.log("WASI allows WebAssembly programs to run outside the browser and interact with the system, such as files or environment variables. Node.js supports WASI to run WebAssembly modules.");
+
+// Example (basic demonstration)
+const { WASI } = require('wasi');
+
+const wasi = new WASI({
+  args: process.argv,
+  env: process.env
+});
+
+console.log("WASI instance created. It can be used to run WebAssembly modules.");
+
+
+console.log("------ 52. Punycode ------");
+
+console.log("Punycode is used to convert Unicode characters (like international domain names) into ASCII format so they can be used in URLs and DNS systems.");
+
+const punycode = require('punycode');
+
+const unicodeDomain = "mañana.com";
+const asciiDomain = punycode.toASCII(unicodeDomain);
+
+console.log("Unicode Domain:", unicodeDomain);
+console.log("ASCII (Punycode) Domain:", asciiDomain);
+
+
+console.log("------ 52. Punycode ------");
+
+console.log("Punycode is used to convert Unicode characters (like international domain names) into ASCII format so they can be used in URLs and DNS systems.");
+
+const punycode = require('punycode');
+
+const unicodeDomains = "mañana.com";
+const asciiDomains = punycode.toASCII(unicodeDomains);
+
+console.log("Unicode Domain:", unicodeDomains);
+console.log("ASCII (Punycode) Domain:", asciiDomains);
+
+console.log("------ 54. Internationalization ------");
+
+console.log("Internationalization allows formatting numbers, dates, and currencies based on different languages and regions.");
+
+const number = 1234567.89;
+
+const formatted = new Intl.NumberFormat('de-DE').format(number);
+
+console.log("German format:", formatted);
+
+const date = new Date();
+
+const formattedDate = new Intl.DateTimeFormat('en-GB').format(date);
+
+console.log("Formatted Date:", formattedDate);
+
+console.log("------ 55. CommonJS ------");
+
+console.log("CommonJS is the default module system used in Node.js. It allows exporting and importing functionality between files using require() and module.exports.");
+
+
+const add = (a, b) => a + b;
+
+module.exports = { add };
+
+ const math = require('./math');
+
+console.log("Addition result:", math.add(2,3));
+
+
+ console.log("------ 56. ECMAScript Modules ------");
+
+console.log("ECMAScript Modules are the modern JavaScript module system that uses import and export syntax.");
+
+ 
+export function multiply(a, b) {
+  return a * b;
+}
+
+ import { multiply } from './math.mjs';
+
+console.log("Multiplication result:", multiply(3,4));
+
+
+console.log("------ 57. Node Module API ------");
+
+console.log("The Node Module API allows developers to create reusable modules and access built-in Node.js functionality like file systems, networking, and streams.");
+
+ const os = require('os');
+
+console.log("Operating System:", os.platform());
+console.log("CPU Cores:", os.cpus().length);
+
+console.log("------ 58. Packages ------");
+
+console.log("A package in Node.js is a directory that contains code, dependencies, and a package.json file describing the project.");
+
+ const packageInfo = {
+  name: "my-node-app",
+  version: "1.0.0",
+  main: "index.js"
+};
+
+console.log("Example package info:", packageInfo);
+
+
+console.log("------ 59. Single Executable Applications ------");
+
+console.log("Node.js allows bundling an application and its dependencies into a single executable file that can run without installing Node separately.");
+
+ console.log("Example command:");
+console.log("node --experimental-sea-config sea-config.json");
+

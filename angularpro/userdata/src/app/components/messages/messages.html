@@ -1,13 +1,60 @@
-
-<br><br>
 <div class="chat-container">
 
-  <div class="messages">
+  <div class="sidebar">
+    <div class="sidebar-title">Chats</div>
 
-    <div *ngFor="let msg of messages">
+    <div *ngFor="let user of users"
+         (click)="selectUser(user)"
+         class="user-item"
+         [class.active]="selectedUser?._id === user._id">
 
-      <div
-        [ngClass]="msg.senderId === currentUserId ? 'sent' : 'received'">
+      <div class="avatar">
+        {{ user.firstname?.charAt(0) }}
+      </div>
+
+      <div class="user-info">
+        <span class="user-name">{{ user.firstname }}</span>
+
+        <span class="user-status"
+              [class.online]="user.isOnline">
+
+          {{ user.isOnline ? 'Online' : 'Offline' }}
+
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="chat-main" *ngIf="selectedUser; else empty">
+
+    <div class="chat-header">
+
+      <div class="avatar">
+        {{ selectedUser.firstname?.charAt(0) }}
+      </div>
+
+      <div>
+        <div class="header-name">
+          {{ selectedUser.firstname }}
+        </div>
+
+        <div class="header-status"
+             [class.online]="selectedUser.isOnline">
+
+          {{ selectedUser.isOnline ? 'Online' : 'Offline' }}
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="messages-box" #scrollArea>
+
+      <div *ngFor="let msg of messages; trackBy: trackByMsg"
+           class="bubble"
+           [class.sent]="msg.senderId === currentUserId"
+           [class.received]="msg.senderId !== currentUserId">
 
         {{ msg.text }}
 
@@ -15,16 +62,25 @@
 
     </div>
 
+    <div class="chat-input">
+
+      <input
+        [(ngModel)]="messageText"
+        (keyup.enter)="sendMessage()"
+        placeholder="Type a message..." />
+
+      <button (click)="sendMessage()">
+        Send
+      </button>
+
+    </div>
+
   </div>
 
-  <div class="chat-input">
-
-    <input
-      [(ngModel)]="messageText" 
-      placeholder="Type message..." />
-
-    <button (click)="sendMessage()">Send</button>
-
-  </div>
-
+  <ng-template #empty>
+    <div class="empty-state">
+      <p>Select a user to start chatting</p>
+    </div>
+  </ng-template>
+ 
 </div>

@@ -14,11 +14,11 @@ export const channels = (app: Application) => {
 
     console.log("socket12345")
     return[
-      app.channel(`user/${data.senderId}`),
+      app.channel(`user/${data.senderId}`), 
       app.channel(`user/${data.receiverId}`)
     ]
   })
- 
+  
 
  
 

@@ -44,8 +44,8 @@ export class Loginpage {
 
         console.log()
         localStorage.setItem("token", res.accessToken);
-        localStorage.setItem("user", JSON.stringify(res.data));
-                this.socketServ.connect();
+        localStorage.setItem("user", res.userdet._id );
+                 this.socketServ.connect();
 
         this.userservice.notifyLogin();
     
