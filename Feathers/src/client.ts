@@ -4,6 +4,12 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { votesClient } from './services/votes/votes.shared'
+export type { Votes, VotesData, VotesQuery, VotesPatch } from './services/votes/votes.shared'
+
+import { pollsClient } from './services/polls/polls.shared'
+export type { Polls, PollsData, PollsQuery, PollsPatch } from './services/polls/polls.shared'
+
 import { messagesClient } from './services/messages/messages.shared'
 export type {
   Messages,
@@ -56,5 +62,8 @@ export const createClient = (
   client.configure(onlineUsersClient)
 
   client.configure(messagesClient)
+  client.configure(pollsClient)
+  client.configure(votesClient)
   return client
 }
+ 

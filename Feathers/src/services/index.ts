@@ -1,3 +1,5 @@
+import { votes } from './votes/votes'
+import { polls } from './polls/polls'
 import { messages } from './messages/messages'
 import { onlineUsers } from './online-users/online-users'
 import { loginLogs } from './logs/logs'
@@ -7,6 +9,8 @@ import { userdet } from './userdet/userdet'
 import type { Application } from '../declarations'
 
 export const services = (app: Application) => {
+  app.configure(votes)
+  app.configure(polls)
   app.configure(messages)
   app.configure(onlineUsers)
   app.configure(loginLogs)

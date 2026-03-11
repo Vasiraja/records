@@ -1,0 +1,34 @@
+<div class="polls-wrapper">
+ 
+    <div class="polls-header">
+        <h1 class="polls-title">Polls</h1>
+        <p class="polls-subtitle">Pick a poll and cast your vote</p>
+    </div>
+
+     
+     
+   
+
+    <div class="polls-grid" *ngIf="  polls.length">
+ 
+        <div class="poll-card" *ngFor="let poll of polls" [class.inactive]="!poll.isActive"
+            (click)="openPoll(poll._id)">
+
+
+            <h3 class="poll-question">{{ poll.question }}</h3>
+
+            <ul class="poll-options-preview">
+                <li *ngFor="let option of poll.options">{{ option.text }}</li>
+            </ul>
+
+            <div class="poll-card-footer">
+                <span class="option-count">{{ poll.options.length }} options</span>
+                <span class="vote-cta" *ngIf="poll.isActive">Vote →</span>
+                <span class="closed-label" *ngIf="!poll.isActive">Voting closed</span>
+            </div>
+ 
+        </div>
+
+    </div>
+
+</div>

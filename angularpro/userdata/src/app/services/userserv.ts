@@ -16,6 +16,8 @@ export class Userserv {
 
   private loginWatch = new BehaviorSubject<boolean>(false);
   loginWatch$ = this.loginWatch.asObservable();
+  private totalVotess = new BehaviorSubject<number>(0);
+  totalVotess$=this.totalVotess.asObservable();
 
   constructor(private http: HttpClient, private socketServ: Socketserv) {
     // this.listenToEvents();
@@ -34,6 +36,9 @@ export class Userserv {
 
   getLogs(): Observable<ApiResponse<LoginLog[]>> {
     return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=440`);
+  }
+  getPolls(): Observable<ApiResponse<LoginLog[]>> {
+    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/polls?$limit=40`);
   }
 
   updateData(id: string, userData: Partial<User>): Observable<User> {
@@ -65,5 +70,14 @@ export class Userserv {
   isUserOnline(userId: string): boolean {
     return this.onlineUsers$.value
       .some(user => user.userId === userId);
+  }
+
+
+  totalVotes(totalV:number){
+    this.totalVotess.next(totalV)
+
+  }
+  getVotes():any{
+    return this.totalVotess;
   }
 }

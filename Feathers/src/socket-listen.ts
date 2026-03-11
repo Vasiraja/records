@@ -1,25 +1,24 @@
 import type { Application } from './declarations'
+import { Socket } from 'socket.io'
 
 const userSocketMap = new Map<string, any>()
 
-export const setupSocketPresence = (app: Application) => {
-
-  app.on('connection', (connection: any) => {
-    console.log('Socket connected')
-  })
-
+ export const configureSockets = (app: Application) => {
   app.on('login', async (authResult: any, info: any) => {
+    console.log('login triggered')
 
     const user = authResult.userdet
     if (!user?._id) return
 
     const userId = String(user._id)
-
     const connection = info?.connection
 
-     if (connection) {
+    if (connection) {
       connection.user = user
-      userSocketMap.set(userId, connection);
+      userSocketMap.set(userId, connection)
+
+      console.log('User attached')
+
       app.channel(`user/${userId}`).join(connection)
 
       console.log('User attached to socket:', userId)
@@ -32,40 +31,39 @@ export const setupSocketPresence = (app: Application) => {
 
     console.log(`User ${userId} online`)
   })
-
-  app.on('logout', async (authResult: any) => {
-
-    const user = authResult.userdet
-    if (!user?._id) return
-
-    const userId = String(user._id)
-
-    await app.service('userdet').patch(userId, {
-      isOnline: false,
-      lastAction: new Date().toISOString()
-    })
-
-    console.log(`User ${userId} logged out`)
-  })
-
-app.on('disconnect', async (connection: any) => {
-
-  if (!connection?.user?._id) {
-    console.log('No user attached to connection')
-    return
-  }
- 
-  const userId = String(connection.user._id)
-
-  await app.service('userdet').patch(userId, {
-    isOnline: false,
-    lastAction: new Date().toISOString()
-  })
-
-  console.log(`User ${userId} is offline`)
-})
 }
 
-export const getUserSocketId = (userId: string) => {
-  return userSocketMap.get(userId)
+ export const configureSocketEvents = (app: Application) => {
+  const io = (app as any).io
+
+  if (!io) {
+    console.error('Socket.io not ready — make sure configureSocketEvents is called after app.listen()')
+    return
+  }
+
+  io.on('connection', (socket: Socket) => {
+    console.log('Socket connected:', socket.id)
+
+    socket.on('joinPoll', (pollId: string) => {
+      const connection = (socket as any).feathers
+
+      if (!connection) {
+        console.log('Feathers connection not ready')
+        return
+      }
+
+      const room = `poll/${pollId}`
+      console.log('Joining:', room)
+      app.channel(room).join(connection)
+    })
+
+    socket.on('leavePoll', (pollId: string) => {
+      const connection = (socket as any).feathers
+      if (!connection) return
+
+      const room = `poll/${pollId}`
+      console.log('Leaving:', room)
+      app.channel(room).leave(connection)
+    })
+  })
 }

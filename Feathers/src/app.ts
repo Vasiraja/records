@@ -3,7 +3,7 @@ import { feathers } from '@feathersjs/feathers'
 import configuration from '@feathersjs/configuration'
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from '@feathersjs/koa'
 import socketio from '@feathersjs/socketio'
-import { setupSocketPresence } from './socket-listen'
+import { configureSockets } from './socket-listen'
 import { channels } from './channels';
 import { configurationValidator } from './configuration'
 import type { Application } from './declarations'
@@ -28,14 +28,20 @@ app.use(parseAuthentication())
 app.use(bodyParser())
 // Configure services and transports
 app.configure(rest())
-app.configure(socketio())
+app.configure(socketio({
+  cors: {
+    origin: "http://localhost:4200",
+    credentials: true
+  }
+}))
+configureSockets(app)
+
 app.configure(mongodb) 
 
 app.configure(authentication)
 app.configure(services)
 app.configure(channels)
-setupSocketPresence(app)
-
+ 
   // Register hooks that run on all service methods
 app.hooks({
   around: { 

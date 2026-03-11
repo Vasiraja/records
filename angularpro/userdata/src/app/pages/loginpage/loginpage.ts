@@ -30,41 +30,39 @@ export class Loginpage {
   @ViewChild(Toast) toast!: Toast;
 
 
-  async submitLogin() {
+async submitLogin() {
 
-    if (!this.loginEmail || !this.loginPassword) {
-      this.toast.showToast("Error", "Please enter email and password");
-      return;
-    }
-
-    this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
-      next: async (res: any) => {
-
-        this.toast.showToast("Success", "Login Successfully");
-
-        console.log()
-        localStorage.setItem("token", res.accessToken);
-        localStorage.setItem("user", res.userdet._id );
-                 this.socketServ.connect();
-
-        this.userservice.notifyLogin();
-    
-
-        setTimeout(() => {
-          this.router.navigate(['/welcome']);
-        }, 1000);
-
-      },
-
-      error: (err: any) => {
-
-        console.error("Login Error:", err);
-
-        this.toast.showToast("Login Failed", "Invalid email or password");
-
-      }
-    });
+  if (!this.loginEmail || !this.loginPassword) {
+    this.toast.showToast("Error", "Please enter email and password");
+    return;
   }
+
+  this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
+    next: (res: any) => {
+
+      console.log(res);
+
+      this.toast.showToast("Success", "Login Successfully");
+
+      localStorage.setItem("token", res.accessToken);
+      localStorage.setItem("user", res.userdet._id);
+
+      this.socketServ.connect();
+
+      this.userservice.notifyLogin();
+
+      this.router.navigate(['/welcome']);
+
+    },
+
+    error: (err: any) => {
+
+      console.error("Login Error:", err);
+      this.toast.showToast("Login Failed", "Invalid email or password");
+
+    }
+  });
+}
 
   toggleState() {
     this.formState = this.formState === "login" ? "signup" : "login";

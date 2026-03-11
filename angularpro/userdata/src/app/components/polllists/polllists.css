@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap');
+
+.polls-wrapper {
+  min-height: 100vh;
+  background: #f4f3ef;
+  font-family: 'DM Sans', sans-serif;
+  padding: 48px 24px;
+}
+
+/* Header */
+.polls-header {
+  max-width: 760px;
+  margin: 0 auto 32px;
+}
+
+.polls-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #1a1916;
+  margin: 0 0 6px;
+}
+
+.polls-subtitle {
+  font-size: 14px;
+  color: #8a8880;
+  margin: 0;
+}
+
+/* Grid */
+.polls-grid {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Card */
+.poll-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e0d8;
+  border-radius: 14px;
+  padding: 24px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.poll-card:hover:not(.inactive) {
+  border-color: #e05c2a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+}
+
+/* Inactive/closed card */
+.poll-card.inactive {
+  opacity: 0.55;
+  cursor: default;
+  background: #fafaf8;
+}
+
+/* Status badge */
+.poll-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #b0ada6;
+}
+
+.status-dot.active {
+  background: #e05c2a;
+ }
+ 
+
+.status-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: #b0ada6;
+}
+.poll-card.inactive {
+  opacity: 0.55;
+  pointer-events: none; 
+  cursor: default;
+}
+.status-dot.active + .status-text {
+  color: #e05c2a;
+}
+
+ .poll-question {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1916;
+  margin: 0;
+  line-height: 1.45;
+}
+
+ .poll-options-preview {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.poll-options-preview li {
+  font-size: 13px;
+  color: #6b6864;
+  background: #f4f3ef;
+  border-radius: 6px;
+  padding: 7px 12px;
+}
+
+ .poll-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 4px;
+  border-top: 1px solid #f0ede6;
+}
+
+.option-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #b0ada6;
+}
+
+.vote-cta {
+  font-size: 13px;
+  font-weight: 600;
+  color: #e05c2a;
+  transition: letter-spacing 0.2s;
+}
+
+.poll-card:hover .vote-cta {
+  letter-spacing: 0.03em;
+}
+
+.closed-label {
+  font-size: 12px;
+  color: #b0ada6;
+  font-style: italic;
+}
+
+ .polls-loading {
+  max-width: 760px;
+  margin: 48px auto;
+  font-size: 14px;
+  color: #8a8880;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #e2e0d8;
+  border-top-color: #e05c2a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+ 
