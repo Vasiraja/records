@@ -89,13 +89,12 @@ export class Messages implements OnInit, AfterViewChecked {
   }
 
   loadUsers() {
-    console.log("hiii")
-
+ 
     const client = this.socketcon.getClient();
 
     if (!client) return;
 
-    client.service('userdet').find()
+    client.service('users').find()
       .then((res: any) => {
 
         const data = res?.data || res || [];
@@ -168,5 +167,8 @@ export class Messages implements OnInit, AfterViewChecked {
     }
 
   }
+  trackById(index: number, item: any) {
+  return item.id;
+}
 
 }

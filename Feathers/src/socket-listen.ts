@@ -1,30 +1,17 @@
 import type { Application } from './declarations'
 import { Socket } from 'socket.io'
 
-const userSocketMap = new Map<string, any>()
+export const configureSockets = (app: Application) => {
 
- export const configureSockets = (app: Application) => {
   app.on('login', async (authResult: any, info: any) => {
-    console.log('login triggered')
 
-    const user = authResult.userdet
+    const user = authResult.user
+
     if (!user?._id) return
 
     const userId = String(user._id)
-    const connection = info?.connection
 
-    if (connection) {
-      connection.user = user
-      userSocketMap.set(userId, connection)
-
-      console.log('User attached')
-
-      app.channel(`user/${userId}`).join(connection)
-
-      console.log('User attached to socket:', userId)
-    }
-
-    await app.service('userdet').patch(userId, {
+    await app.service('users').patch(userId, {
       isOnline: true,
       lastAction: new Date().toISOString()
     })
@@ -33,7 +20,8 @@ const userSocketMap = new Map<string, any>()
   })
 }
 
- export const configureSocketEvents = (app: Application) => {
+export const configureSocketEvents = (app: Application) => {
+
   const io = (app as any).io
 
   if (!io) {
@@ -42,10 +30,12 @@ const userSocketMap = new Map<string, any>()
   }
 
   io.on('connection', (socket: Socket) => {
+
     console.log('Socket connected:', socket.id)
 
-    socket.on('joinPoll', (pollId: string) => {
-      const connection = (socket as any).feathers
+    const connection = (socket as any).feathers
+
+     socket.on('joinPoll', (pollId: string) => {
 
       if (!connection) {
         console.log('Feathers connection not ready')
@@ -53,17 +43,48 @@ const userSocketMap = new Map<string, any>()
       }
 
       const room = `poll/${pollId}`
+
       console.log('Joining:', room)
+
       app.channel(room).join(connection)
     })
 
-    socket.on('leavePoll', (pollId: string) => {
-      const connection = (socket as any).feathers
+     socket.on('leavePoll', (pollId: string) => {
+
       if (!connection) return
 
       const room = `poll/${pollId}`
+
       console.log('Leaving:', room)
+
       app.channel(room).leave(connection)
     })
+
+     socket.on('userLogout', async (userId: string) => {
+
+      console.log('userLogout received:', userId)
+
+      await app.service('users').patch(userId, {
+        isOnline: false,
+        lastAction: new Date().toISOString()
+      })
+
+      console.log(`User ${userId} offline`)
+    })
+
+     socket.on('disconnect', async () => {
+
+      if (!connection?.user?._id) return
+
+      const userId = String(connection.user._id)
+
+      await app.service('users').patch(userId, {
+        isOnline: false,
+        lastAction: new Date().toISOString()
+      })
+
+      console.log(`User ${userId} disconnected → offline`)
+    })
+
   })
 }

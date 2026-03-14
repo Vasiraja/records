@@ -5,9 +5,11 @@ import { Userserv } from '../../services/userserv';
 import { jwtDecode } from 'jwt-decode';
 import { Accesscontrol } from '../../services/accesscontrol';
 import { User } from '../../models/types';
-import { Roleanalysis } from '../../components/roleanalysis/roleanalysis';
 import { Router } from '@angular/router';
 import { Socketserv } from '../../services/socket/socketserv';
+import { Roleanalysis } from '../../components/roleanalysis/roleanalysis';
+ 
+
 @Component({
   selector: 'app-welcomepage',
   imports: [FormsModule, CommonModule, Roleanalysis],
@@ -20,41 +22,15 @@ export class Welcomepage implements OnInit {
   users = signal<any[]>([]);
   userData: any = {};
 
+  userTypeView:any="";
 
   constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
-  async logout() {
-
-  const token = localStorage.getItem('token')
-
-  try {
-
-    await fetch('http://localhost:3030/authentication', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        authentication: {
-          strategy: 'jwt'
-        }
-      })
-    })
-
-  } catch (err) {
-    console.log('logout error', err)
-  }
-
-  this.socketcon.disconnect()
-
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-
-  this.router.navigate(['/login'])
-}
+ 
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
     if (!token) return;
+
+    
 
     const decoded: any = jwtDecode(token);
     const userId = decoded.sub;
@@ -63,6 +39,7 @@ export class Welcomepage implements OnInit {
       next: (res: any) => {
         const role = res.userType?.trim().toLowerCase();
         localStorage.setItem('userType', role);
+        this.userTypeView=localStorage.getItem('userType');
         this.accessControl.refreshRole();
         this.cdr.detectChanges()
       },
@@ -96,26 +73,27 @@ export class Welcomepage implements OnInit {
     this.fetching();
 
     this.getCurrentAdminType();
-   
 
-  
-  const client = this.socketcon.getClient()
 
-  if (!client) return
 
-  client.service('userdet').on('patched', (updatedUser: any) => {
+    const client = this.socketcon.getClient()
 
-    const currentUsers = this.users()
+    if (!client) return
 
-    const updated = currentUsers.map((u:any) =>
-      u._id === updatedUser._id
-        ? { ...u, isOnline: updatedUser.isOnline }
-        : u
-    )
+    client.service('users').on('patched', (updatedUser: any) => {
 
-    this.users.set(updated)
+  const currentUsers = this.users()
 
-  })
+  const updated = currentUsers.map((u: any) =>
+    u._id === updatedUser._id
+      ? { ...u, isOnline: updatedUser.isOnline }
+      : u
+  )
+
+  this.users.set(updated)
+
+  this.cdr.detectChanges()  
+})
 
 
 

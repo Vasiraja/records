@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ApiResponse, User, LoginLog, onlineUser } from '../models/types';
+import { ApiResponse, User, LoginLog, onlineUser, Polls } from '../models/types';
 import { Socketserv } from './socket/socketserv';
+import { Application } from '@feathersjs/feathers';
 
 @Injectable({ providedIn: 'root' })
 export class Userserv {
@@ -17,7 +18,7 @@ export class Userserv {
   private loginWatch = new BehaviorSubject<boolean>(false);
   loginWatch$ = this.loginWatch.asObservable();
   private totalVotess = new BehaviorSubject<number>(0);
-  totalVotess$=this.totalVotess.asObservable();
+  totalVotess$ = this.totalVotess.asObservable();
 
   constructor(private http: HttpClient, private socketServ: Socketserv) {
     // this.listenToEvents();
@@ -31,18 +32,35 @@ export class Userserv {
   }
 
   getData(): Observable<ApiResponse<User[]>> {
-    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/userdet?$limit=50`);
+    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/users?$limit=50`);
+  }
+  getNames(userId: string): Observable<ApiResponse<User[]>> {
+    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/users/${userId}`);
   }
 
   getLogs(): Observable<ApiResponse<LoginLog[]>> {
-    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs?$limit=440`);
+    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`);
+  }
+
+  postLogs(logPayload: any): Observable<ApiResponse<LoginLog[]>> {
+    return this.http.post<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`, logPayload);
   }
   getPolls(): Observable<ApiResponse<LoginLog[]>> {
-    return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/polls?$limit=40`);
+
+    const usertype = localStorage.getItem('userType') || 'guest';
+
+    return this.http.get<ApiResponse<LoginLog[]>>(
+      `${this.apiUrl}/polls?$limit=50`,
+      {
+        headers: {
+          usertype: usertype
+        }
+      }
+    );
   }
 
   updateData(id: string, userData: Partial<User>): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/userdet/${id}`, userData);
+    return this.http.patch<User>(`${this.apiUrl}/users/${id}`, userData);
   }
 
   isLoggedIn(): boolean {
@@ -56,28 +74,49 @@ export class Userserv {
   }
 
   getType(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/userdet/${id}`);
+    return this.http.get<User>(`${this.apiUrl}/users/${id}`);
   }
 
   postData(userDetails: Partial<User>): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/userdet`, userDetails);
+    return this.http.post<User>(`${this.apiUrl}/users`, userDetails);
+  }
+  postPolls(polldetails: Partial<Polls>): Observable<Polls> {
+    return this.http.post<Polls>(`${this.apiUrl}/polls`, polldetails);
   }
 
   deleteUser(id: string): Observable<User> {
-    return this.http.delete<User>(`${this.apiUrl}/userdet/${id}`);
+    return this.http.delete<User>(`${this.apiUrl}/users/${id}`);
   }
- 
+
   isUserOnline(userId: string): boolean {
     return this.onlineUsers$.value
       .some(user => user.userId === userId);
   }
 
 
-  totalVotes(totalV:number){
+  totalVotes(totalV: number) {
     this.totalVotess.next(totalV)
 
   }
-  getVotes():any{
+  getVotes(): any {
     return this.totalVotess;
   }
-}
+  hidePoll(id: string) {
+
+    const userId = localStorage.getItem('user');
+
+    return this.http.patch(
+      `${this.apiUrl}/polls/${id}`,
+      { hidden: true },
+      {
+        headers: {
+          userid: String(userId)
+        }
+      }
+    );
+  }
+
+  deletePoll(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/polls/${id}`);
+  }
+}  

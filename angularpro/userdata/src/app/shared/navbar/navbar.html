@@ -1,0 +1,25 @@
+<nav class="navbar">
+    <div class="nav-container">
+
+        <div class="nav-brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-chart-simple" style="color:#fff;font-size:13px;"></i>
+            </div>
+            <span class="brand-name">PollApp</span>
+            <span class="brand-tag">Live</span>
+        </div>
+
+        <div class="nav-right">
+            <div class="user-chip">
+                <div class="chip-avatar">{{userInitial }}</div>
+                <span class="chip-name">{{ currentUser }}</span>
+                <span class="status-dot online"></span>
+            </div>
+            <div class="nav-divider"></div>
+            <button class="logout-btn" (click)="logout()" title="Logout">
+                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+        </div>
+
+    </div>
+</nav>

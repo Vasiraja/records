@@ -20,7 +20,8 @@ export class PollsService<ServiceParams extends Params = PollsParams> extends Mo
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
-    paginate: app.get('paginate'),
+    id: '_id',   
+    // paginate: app.get('paginate'),
     Model: app.get('mongodbClient').then(db => db.collection('polls'))
   }
 }

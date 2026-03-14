@@ -25,5 +25,8 @@ onlineUsers: onlineUser[] = [];
   ngOnDestroy() {
     this.sub.unsubscribe();  
   }
+  trackById(index: number, item: any) {
+  return item.id;
+}
 
 }

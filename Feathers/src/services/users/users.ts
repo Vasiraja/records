@@ -1,5 +1,4 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
-import { authenticate } from '@feathersjs/authentication'
 
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
@@ -23,38 +22,102 @@ export * from './users.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const user = (app: Application) => {
-  // Register our service on the Feathers application
+
+  // Register service
   app.use(userPath, new UserService(getOptions(app)), {
-    // A list of all methods this service exposes externally
     methods: userMethods,
-    // You can add additional custom events to be sent to clients here
     events: []
   })
-  // Initialize hooks
+
+  // Hooks
   app.service(userPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(userExternalResolver), schemaHooks.resolveResult(userResolver)],
-      find: [authenticate('jwt')],
-      get: [authenticate('jwt')],
-      create: [],
-      update: [authenticate('jwt')],
-      patch: [authenticate('jwt')],
-      remove: [authenticate('jwt')]
-    },
-    before: {
-      all: [schemaHooks.validateQuery(userQueryValidator), schemaHooks.resolveQuery(userQueryResolver)],
+      all: [
+        schemaHooks.resolveExternal(userExternalResolver),
+        schemaHooks.resolveResult(userResolver)
+      ],
       find: [],
       get: [],
-      create: [schemaHooks.validateData(userDataValidator), schemaHooks.resolveData(userDataResolver)],
-      patch: [schemaHooks.validateData(userPatchValidator), schemaHooks.resolveData(userPatchResolver)],
+      create: [],
+      update: [],
+      patch: [],
       remove: []
     },
-    after: {
-      all: []
+
+    before: {
+      all: [
+        schemaHooks.validateQuery(userQueryValidator),
+        schemaHooks.resolveQuery(userQueryResolver),
+
+        async (context) => {
+          console.log("Service:", context.service)
+          console.log("Method:", context.method)
+          console.log("App:", context.app)
+          console.log("Type:", context.type)
+          console.log("Status Code:", context.statusCode)
+          console.log("ID:", context.id)
+          console.log("Error:", context.error)
+          console.log("Result:", context.result)
+          console.log("Query:", context.params.query)
+
+          return context
+        }
+      ],
+
+      find: [],
+      get: [],
+
+      create: [
+        schemaHooks.validateData(userDataValidator),
+        schemaHooks.resolveData(userDataResolver),
+
+        async (context) => {
+          console.log("Incoming Data:", context.data)
+          console.log("Status before:", context.statusCode)
+
+          context.statusCode = 201
+
+          console.log("Status after:", context.statusCode)
+
+          return context
+        }
+      ],
+
+      patch: [
+        schemaHooks.validateData(userPatchValidator),
+        schemaHooks.resolveData(userPatchResolver)
+      ],
+
+      remove: []
     },
+
+    after: {
+      all: [
+        async (context) => {
+          console.log("Service:", context.service)
+          console.log("Method:", context.method)
+          console.log("App:", context.app)
+          console.log("Type:", context.type)
+          console.log("Status Code:", context.statusCode)
+          console.log("ID:", context.id)
+          console.log("Error:", context.error)
+          console.log("Result:", context.result)
+          console.log("Data:", context.data)
+          console.log("Params:", context.params)
+
+          return context
+        }
+      ]
+    },
+
     error: {
       all: []
     }
+  })
+
+  // Real-time event
+  app.service(userPath).publish('patched', (data: any) => {
+    return app.channel('anonymous')
   })
 }
 

@@ -1,7 +1,7 @@
   <div class="online-panel">
   <h3>🟢 Online Now ({{ onlineUsers.length }})</h3>
 
-  <div *ngFor="let user of onlineUsers" class="user-item">
+  <div *ngFor="let user of onlineUsers trackBy:trackById" class="user-item">
 
      <div class="avatar-wrapper">
       <img [src]="'assets/default-avatar.png'" alt="avatar" />
@@ -9,9 +9,9 @@
     </div>
 
     <span>{{ user.firstname }}</span>
-    <!-- <small>Joined {{ user.connectedAt | date:'shortTime' }}</small> -->
+    <small>Joined {{ user.connectedAt | date:'shortTime' }}</small>
 
-  </div>
-
+  </div> 
+ 
   <p *ngIf="onlineUsers.length === 0">No users online</p>
 </div>  

@@ -11,18 +11,18 @@ import type { UserdetService } from './userdet.class'
 
 // Main data model schema
 export const userdetSchema = Type.Object(
-  { 
+  {
     _id: ObjectIdSchema(),
     email: Type.String(),
     password: Type.Optional(Type.String()),
-    firstname:Type.String(),
-    age:Type.Number(),
-    userType:Type.String(), 
+    firstname: Type.String(),
+    age: Type.Number(),
+    userType: Type.String(),
     lastAction: Type.Optional(Type.String({ format: 'date-time' })),
-    isOnline:Type.Optional(Type.Boolean())
+    isOnline: Type.Optional(Type.Boolean()) 
 
-  }, 
-  { $id: 'Userdet', additionalProperties: false } 
+  },
+  { $id: 'Userdet', additionalProperties: false }
 )
 export type Userdet = Static<typeof userdetSchema>
 export const userdetValidator = getValidator(userdetSchema, dataValidator)
@@ -34,40 +34,42 @@ export const userdetExternalResolver = resolve<Userdet, HookContext<UserdetServi
 })
 
 // Schema for creating new entries 
-export const userdetDataSchema = Type.Pick(userdetSchema, ['email', 'password','firstname','age','userType','lastAction'], {
-  $id: 'UserdetData'    
+export const userdetDataSchema = Type.Pick(userdetSchema, ['email', 'password', 'firstname', 'age', 'userType', 'lastAction'], {
+  $id: 'UserdetData'
 })
 export type UserdetData = Static<typeof userdetDataSchema>
 export const userdetDataValidator = getValidator(userdetDataSchema, dataValidator)
 export const userdetDataResolver = resolve<UserdetData, HookContext<UserdetService>>({
   password: passwordHash({ strategy: 'local' })
-})   
+})
 // Schema for updating existing entries
-export const userdetPatchSchema = Type.Partial(userdetSchema, { 
+export const userdetPatchSchema = Type.Partial(userdetSchema, {
   $id: 'UserdetPatch'
-}) 
+})
 export type UserdetPatch = Static<typeof userdetPatchSchema>
 export const userdetPatchValidator = getValidator(userdetPatchSchema, dataValidator)
 export const userdetPatchResolver = resolve<UserdetPatch, HookContext<UserdetService>>({
   password: passwordHash({ strategy: 'local' })
-}) 
+})
 
- export const userdetQueryProperties = Type.Pick(userdetSchema, ['_id', 'email'])
-export const userdetQuerySchema = Type.Intersect( 
-  [ 
+export const userdetQueryProperties = Type.Pick(userdetSchema, ['_id', 'email'])
+export const userdetQuerySchema = Type.Intersect(
+  [
     querySyntax(userdetQueryProperties),
-     Type.Object({}, { additionalProperties: false })
+    Type.Object({}, { additionalProperties: false })
   ],
-  { additionalProperties: false } 
+  { additionalProperties: false }
 )
 export type UserdetQuery = Static<typeof userdetQuerySchema>
 export const userdetQueryValidator = getValidator(userdetQuerySchema, queryValidator)
 export const userdetQueryResolver = resolve<UserdetQuery, HookContext<UserdetService>>({
-   _id: async (value, user, context) => {
+  _id: async (value, user, context) => {
     if (context.params.user) {
       return context.params.user._id
     }
 
     return value
   }
+
+
 })

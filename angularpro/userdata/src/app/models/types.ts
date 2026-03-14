@@ -7,6 +7,23 @@ export interface User{
     password?:string;
 }
 
+export interface Polls {
+  _id: string;
+  question: string;
+  options: PollOption[];
+  createdBy: string;  
+  hidden: boolean;
+  isActive: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface PollOption {
+  id: string;
+  text: string;
+  votes?: number;
+}
+
 export interface LoginLog{
     userId:string;
     loginAt:string;

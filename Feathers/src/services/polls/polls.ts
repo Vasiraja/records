@@ -11,8 +11,8 @@ import {
   pollsDataResolver,
   pollsPatchResolver,
   pollsQueryResolver,
-  
-  
+
+
 } from './polls.schema'
 
 import type { Application } from '../../declarations'
@@ -38,14 +38,52 @@ export const polls = (app: Application) => {
     },
     before: {
       all: [schemaHooks.validateQuery(pollsQueryValidator), schemaHooks.resolveQuery(pollsQueryResolver)],
-      find: [],
-      get: [],
-      create: [schemaHooks.resolveData(pollsDataResolver),schemaHooks.validateData(pollsDataValidator), schemaHooks.resolveData(pollsDataResolver)
-         
+      find: [async (context: any) => {
+        const usertype = context.params.headers?.usertype;
+        if (usertype !== 'admin') {
+          context.params.query.hidden = false;
+        }
+        return context;
+      }],
+      get: [
+
+
+
       ],
-      patch: [schemaHooks.validateData(pollsPatchValidator), schemaHooks.resolveData(pollsPatchResolver)],
+      create: [schemaHooks.resolveData(pollsDataResolver), schemaHooks.validateData(pollsDataValidator), schemaHooks.resolveData(pollsDataResolver),
+
+
+
+      async (context: any) => {
+
+        console.log("00000");
+        console.log(context.data);
+
+        console.log(context.data.createdBy);
+
+        return context;
+      }
+
+      ],
+      patch: [
+        schemaHooks.validateData(pollsPatchValidator),
+        schemaHooks.resolveData(pollsPatchResolver),
+
+        async (context: any) => {
+
+          const userId = context.params.headers?.userid;
+
+          const poll = await context.service._get(context.id);
+
+          if (String(poll.createdBy) !== String(userId)) {
+            throw new Error('Not authorized');
+          }
+
+          return context;
+        }
+      ],
       remove: []
-    }, 
+    },
     after: {
       all: []
     },

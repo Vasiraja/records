@@ -15,7 +15,7 @@ import { Socketserv } from '../../services/socket/socketserv';
 })
 export class Loginpage {
 
-  constructor(private userservice: Userserv, private router: Router, private socketServ: Socketserv) { }
+  constructor(private userservice: Userserv, private router: Router, private socketServ: Socketserv,private cdr:ChangeDetectorRef) { }
 
   loginEmail: string = "";
   loginPassword: string = "";
@@ -31,7 +31,6 @@ export class Loginpage {
 
 
 async submitLogin() {
-
   if (!this.loginEmail || !this.loginPassword) {
     this.toast.showToast("Error", "Please enter email and password");
     return;
@@ -39,27 +38,36 @@ async submitLogin() {
 
   this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
     next: (res: any) => {
-
       console.log(res);
 
       this.toast.showToast("Success", "Login Successfully");
-
       localStorage.setItem("token", res.accessToken);
-      localStorage.setItem("user", res.userdet._id);
+      localStorage.setItem("user", res.user._id);
 
       this.socketServ.connect();
 
       this.userservice.notifyLogin();
 
-      this.router.navigate(['/welcome']);
+      const logPayload = {
+        userId: res.user._id,
+        loginAt: new Date().toISOString()
+      };
 
+      this.userservice.postLogs(logPayload).subscribe({
+        next: (logRes) => {
+          console.log("Login log saved:", logRes);
+        },
+        error: (logErr) => {
+          console.error("Failed to save login log:", logErr);
+        }
+      });
+
+      this.router.navigate(['/']);
     },
 
     error: (err: any) => {
-
       console.error("Login Error:", err);
       this.toast.showToast("Login Failed", "Invalid email or password");
-
     }
   });
 }
@@ -87,14 +95,19 @@ async submitLogin() {
       userType: "User"
     };
 
-    console.log(userData);
+    // console.log(userData);
 
     this.userservice.postData(userData).subscribe({
       next: async (res: any) => {
+        console.log(res)
         localStorage.setItem("token", res.accessToken);
         console.log(res)
         localStorage.setItem("user", JSON.stringify(res.data));
         this.userservice.notifyLogin();
+        this.formState='login';
+        if(this.formState === "login"){
+          this.cdr.detectChanges();
+        } 
 
         //  await this.socketServ.connect();
 
@@ -104,7 +117,7 @@ async submitLogin() {
         //   connectedAt: new Date().toISOString()
         // });  
 
-        setTimeout(() => this.router.navigate(['/welcome']), 1000);
+        setTimeout(() => this.router.navigate(['/login']), 1000);
       },
       error: (err: any) => {
         console.error("Signup Error:", err.error);

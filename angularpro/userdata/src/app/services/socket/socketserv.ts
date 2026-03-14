@@ -9,7 +9,7 @@ import socketio from '@feathersjs/socketio-client';
 })
 export class Socketserv {
 
-  private socket: Socket | null = null
+  public socket: Socket | null = null
   private client: any
 
   constructor() { }
@@ -31,22 +31,7 @@ export class Socketserv {
 
     this.client.configure(socketio(this.socket))
 
-    // Authentication disabled for polling system
-    /*
-    this.client.configure(authentication({
-      storage: window.localStorage
-    }))
-    */
 
-    // Auth disabled
-    /*
-    try {
-      await this.client.authenticate()
-      console.log('Socket authenticated')
-    } catch (err) {
-      console.error('Auth error', err)
-    }
-    */
 
     return new Promise<void>((resolve) => {
 
@@ -61,11 +46,12 @@ export class Socketserv {
     })
   }
 
+
   disconnect() {
     if (this.socket) {
       this.socket.disconnect()
+      this.socket.off()
       this.socket = null
-      console.log('Socket manually disconnected')
     }
   }
 
@@ -86,7 +72,7 @@ export class Socketserv {
     this.socket.emit('joinPoll', pollId)
 
   }
-
+   
   leavePoll(pollId: string) {
     if (!this.socket) return
     this.socket.emit('leavePoll', pollId)
@@ -100,4 +86,9 @@ export class Socketserv {
     return this.client.service('votes')
   }
 
+  liveMessageService(){
+    return this.client.service('poll-messages')
+  }
+
+  
 }

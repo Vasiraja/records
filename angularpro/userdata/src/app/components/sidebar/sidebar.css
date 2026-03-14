@@ -1,0 +1,152 @@
+:host {
+  display: block;
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.sidebar {
+  width: 240px;
+  height: 100vh;
+  position: fixed;
+  top: 55px;
+  left: 0;
+  background: #fdfcfa;
+  border-right: 1.5px solid #e8e5dd;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* section labels like "MAIN", "MANAGE" */
+.sidebar-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c0bdb5;
+  padding: 0 10px;
+  margin-top: 12px;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #e8e5dd;
+  margin: 8px 0;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #6b6864;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: all 0.18s;
+  position: relative;
+}
+
+.menu li:hover {
+  background: rgba(224, 92, 42, 0.06);
+  color: #e05c2a;
+}
+
+/* active left border accent */
+.menu li.active {
+  background: rgba(224, 92, 42, 0.10);
+  color: #e05c2a;
+  font-weight: 600;
+}
+
+.menu li.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: #e05c2a;
+}
+
+/* icon inside each item */
+.menu-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: 0.65;
+  transition: opacity 0.18s;
+}
+
+.menu li:hover .menu-icon,
+.menu li.active .menu-icon {
+  opacity: 1;
+}
+
+/* notification badge */
+.menu-badge {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  background: rgba(224, 92, 42, 0.12);
+  color: #e05c2a;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* user footer pinned at bottom */
+.sidebar-footer {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f4f3ef;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #e05c2a;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sidebar-user-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1a1916;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-role {
+  font-size: 11px;
+  color: #a8a59e;
+}

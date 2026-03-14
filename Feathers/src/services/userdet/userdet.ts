@@ -137,6 +137,11 @@ export const userdet = (app: Application) => {
     }
   })
 
+
+  
+  app.service(userdetPath).publish('patched', (data: any) => {
+    return app.channel('anonymous')
+  })
 }
 
 // Add this service to the service type index
@@ -144,4 +149,8 @@ declare module '../../declarations' {
   interface ServiceTypes {
     [userdetPath]: UserdetService
   }
+
+
+
+
 }

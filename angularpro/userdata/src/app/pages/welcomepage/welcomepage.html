@@ -1,20 +1,8 @@
-<nav class="navbar">
-  <div class="nav-container">
+ 
 
-    <div class="nav-brand">
+<!-- <h3 style="text-align: center;margin:2rem 0">Welcome User!</h3> -->
 
-    </div>
-
-    <button class="logout-btn" (click)="logout()">
-      <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    </button>
-
-  </div>
-</nav>
-
-<h3 style="text-align: center;margin:2rem 0">Welcome User!</h3>
-
-<table class="user-table" border="1" width="100%" cellspacing="0" cellpadding="10">
+<table class="user-table" border="1" width="100%" cellspacing="0" cellpadding="10" *ngIf="userTypeView.toLowerCase() === 'admin'">
 
   <thead>
     <tr>
@@ -87,4 +75,5 @@
 </table>
 
 
-<app-roleanalysis></app-roleanalysis>
+<app-roleanalysis ></app-roleanalysis> 
+ 

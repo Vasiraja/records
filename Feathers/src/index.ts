@@ -12,3 +12,4 @@ app.listen(port).then(() => {
 
   logger.info(`Feathers app listening on http://${host}:${port}`)
 })
+ 

@@ -38,5 +38,7 @@ export const channels = (app: Application) => {
      app.channel('anonymous').join(connection)
 
   })
+  
+
  
 }

@@ -37,21 +37,18 @@ export const votesDataResolver = resolve<VotesData, HookContext<VotesService>>({
   }
 })
 
-// Schema for updating existing entries
-export const votesPatchSchema = Type.Partial(votesSchema, {
+ export const votesPatchSchema = Type.Partial(votesSchema, {
   $id: 'VotesPatch'
 })
 export type VotesPatch = Static<typeof votesPatchSchema>
 export const votesPatchValidator = getValidator(votesPatchSchema, dataValidator)
 export const votesPatchResolver = resolve<VotesPatch, HookContext<VotesService>>({})
 
-// Schema for allowed query properties
-export const votesQueryProperties = Type.Pick(votesSchema, ['id', 'pollId','userId'])
+ export const votesQueryProperties = Type.Pick(votesSchema, ['id', 'pollId','userId'])
 export const votesQuerySchema = Type.Intersect(
   [
     querySyntax(votesQueryProperties),
-    // Add additional query properties here
-    Type.Object({}, { additionalProperties: false })
+     Type.Object({}, { additionalProperties: false })
   ],
   { additionalProperties: false }
 )

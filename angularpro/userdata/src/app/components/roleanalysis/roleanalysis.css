@@ -1,25 +1,27 @@
 .chartwid {
-    background-color: #ffffff;  
-    border-radius: 12px;       
-     padding: 20px;            
-    width: 300px;             
-    margin: 20px auto;          
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.dashboard-container h2{
-    padding: 0 1rem;
-}
- .analysishead {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #333333;  
-    font-weight: 600;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 300px;
+  margin: 20px 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
- .recent-logins {
+.dashboard-container h2 {
+  padding: 0 1rem;
+}
+
+.analysishead {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333333;
+  font-weight: 600;
+}
+
+.recent-logins {
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -38,9 +40,9 @@
   letter-spacing: 0.3px;
 }
 
- .recent-logins table {
+.recent-logins table {
   width: 100%;
- }
+}
 
 .recent-logins thead tr {
   background: #f7f8fc;
@@ -63,7 +65,7 @@
   border-bottom: 1px solid #f0f0f5;
 }
 
- .recent-logins tbody tr:hover {
+.recent-logins tbody tr:hover {
   background: #f5f6ff;
   transition: background 0.2s ease;
 }
@@ -77,4 +79,52 @@
 .recent-logins td:last-child {
   font-size: 12px;
   font-weight: 500;
+}
+
+.dashboard-container,
+.chartwid {
+  margin-left: 240px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #e8e5dd;
+  border-radius: 8px;
+  background: #fff;
+  color: #6b6864;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: rgba(224, 92, 42, 0.08);
+  color: #e05c2a;
+  border-color: #e05c2a;
+}
+
+.pagination button.active {
+  background: #e05c2a;
+  color: #fff;
+  border-color: #e05c2a;
+  font-weight: 600;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page-info {
+  margin-left: 8px;
+  font-size: 13px;
+  color: #6b6864;
 }

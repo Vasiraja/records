@@ -1,5 +1,4 @@
 <div class="poll-wrapper" *ngIf="poll">
-
   <div class="poll-card">
 
     <div class="poll-header">
@@ -7,26 +6,16 @@
       <h2 class="poll-question">{{ poll.question }}</h2>
     </div>
 
-    <div class="poll-options"> 
-      <button
-        *ngFor="let option of poll.options"
-        class="option-btn"
-        [class.voted]="hasVoted"
-        [disabled]="hasVoted" 
-        (click)="vote(option.id)"
-      >
+    <div class="poll-options">
+      <button *ngFor="let option of poll.options" class="option-btn" [class.voted]="hasVoted" [disabled]="hasVoted"
+        (click)="vote(option.id)">
         <div class="option-content">
           <span class="option-text">{{ option.text }}</span>
           <span class="option-votes">{{ option.votes || 0 }}</span>
         </div>
-
         <div class="option-bar">
-          <div
-            class="option-bar-fill"
-            [style.width.%]="getPercent(option.votes)"
-          ></div>
+          <div class="option-bar-fill" [style.width.%]="getPercent(option.votes)"></div>
         </div>
-
         <span class="option-percent">{{ getPercent(option.votes) }}%</span>
       </button>
     </div>
@@ -35,10 +24,32 @@
       <span class="total-votes">{{ totalVotes }} votes</span>
       <span class="voted-badge" *ngIf="hasVoted">✓ Voted</span>
     </div>
- 
+
+
+
   </div>
+  <div class="chat-panel">
+    <div class="chat-header">
+      <span class="chat-live-dot"></span>
+      <span class="chat-title">Live Chat</span>
+      <span class="chat-count">{{ messages.length }}</span>
+    </div>
 
+    <div class="chat-messages" #chatScroll>
+      <div *ngIf="messages.length === 0" class="chat-empty">No messages yet. Be the first!</div>
+      <div *ngFor="let msg of messages" class="chat-bubble">
+        <div class="chat-avatar">{{ msg.userName?.charAt(0) | uppercase }}</div>
+        <div class="chat-content">
+          <span class="chat-name">{{ msg.userName }}</span>
+          <p class="chat-text">{{ msg.message }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-row">
+      <input class="chat-input" type="text" [(ngModel)]="liveMessage" placeholder="Say something..."
+        (keyup.enter)="sendLiveMessage()" />
+      <button class="chat-send-btn" (click)="sendLiveMessage()">↑</button>
+    </div>
+  </div>
 </div>
- 
-
- 
