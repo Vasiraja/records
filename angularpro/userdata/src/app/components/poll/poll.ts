@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, NgZone, ChangeDetectorRef, Input, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnDestroy, OnInit, NgZone, ChangeDetectorRef, Input, ViewChild, ElementRef } from '@angular/core';
 import { Socketserv } from '../../services/socket/socketserv';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,26 +12,25 @@ import { Userserv } from '../../services/userserv';
   templateUrl: './poll.html',
   styleUrls: ['./poll.css']
 })
-export class Poll implements OnInit, OnDestroy, AfterViewChecked {
-
+export class Poll implements OnInit, OnDestroy {
   poll: any = null
   hasVoted = false
   totalVotes = 0
-  liveMessage: string = "";
+  liveMessage: string = ""
   messages: any[] = []
+  isLoadingMore = false
+  hasMoreMessages = true
+  private currentSkip = 0
+  private readonly PAGE_SIZE = 10
   private userId: string | null = null
   @ViewChild('chatScroll') private chatScroll!: ElementRef;
-
   constructor(
     private socketCon: Socketserv,
     private zone: NgZone,
     private cdr: ChangeDetectorRef,
     private userServ: Userserv
   ) { }
-  ngAfterViewChecked(): void {
-    this.scrollToBottom();
 
-  }
   @Input() pollId!: string
   async ngOnInit() {
 
@@ -48,23 +47,10 @@ export class Poll implements OnInit, OnDestroy, AfterViewChecked {
 
     this.socketCon.joinPoll(this.poll._id)
 
-    const oldMessages: any = await this.socketCon.liveMessageService().find({
-      query: {
-        pollId: String(this.poll._id),
-        $sort: { createdAt: 1 }
-      }
-    })
+    await this.loadLatestMessages()
 
-    this.messages = [];
 
-    for (const msg of oldMessages.data) {
-      const userName = await this.getUserName(msg.userId);
 
-      this.messages.push({
-        ...msg,
-        userName
-      });
-    }
     const votes: any = await this.socketCon.voteService().find({
       query: { pollId: this.poll._id }
     })
@@ -135,13 +121,78 @@ export class Poll implements OnInit, OnDestroy, AfterViewChecked {
 
 
   scrollToBottom(): void {
-
     try {
-      this.chatScroll.nativeElement.scrollTop = this.chatScroll.nativeElement.scrollHeight;
-    }
-    catch (err) { }
+      const container = this.chatScroll.nativeElement
+      container.scrollTop = container.scrollHeight + 100
+    } catch (err) { }
   }
+  async loadLatestMessages() {
+    const result: any = await this.socketCon.liveMessageService().find({
+      query: {
+        pollId: String(this.poll._id),
+        $sort: { createdAt: -1 },
+        $limit: this.PAGE_SIZE,
+        $skip: 0
+      }
+    })
 
+    const batch = result.data.reverse()
+
+    this.messages = []
+
+    for (const msg of batch) {
+      msg.userName = await this.getUserName(msg.userId)
+      this.messages.push(msg)
+    }
+
+    this.currentSkip = this.PAGE_SIZE
+    this.hasMoreMessages = result.total > this.PAGE_SIZE
+
+    this.cdr.detectChanges()
+    setTimeout(() => this.scrollToBottom(), 50)
+  }
+  async loadOlderMessages() {
+    if (this.isLoadingMore || !this.hasMoreMessages) return
+
+    this.isLoadingMore = true
+    this.cdr.detectChanges()
+
+    const result: any = await this.socketCon.liveMessageService().find({
+      query: {
+        pollId: String(this.poll._id),
+        $sort: { createdAt: -1 },
+        $limit: this.PAGE_SIZE,
+        $skip: this.currentSkip
+      }
+    })
+
+    const batch = result.data.reverse()
+
+    const named: any[] = []
+    for (const msg of batch) {
+      msg.userName = await this.getUserName(msg.userId)
+      named.push(msg)
+    }
+
+    const container = this.chatScroll.nativeElement
+    const scrollHeightBefore = container.scrollHeight
+
+    this.messages = [...named, ...this.messages]
+    this.currentSkip += this.PAGE_SIZE
+    this.hasMoreMessages = result.total > this.currentSkip
+
+    this.isLoadingMore = false
+    this.cdr.detectChanges()
+
+    const scrollHeightAfter = container.scrollHeight
+    container.scrollTop = scrollHeightAfter - scrollHeightBefore
+  }
+  onChatScroll() {
+    const container = this.chatScroll.nativeElement
+    if (container.scrollTop <= 20) {
+      this.loadOlderMessages()
+    }
+  }
   async vote(optionId: string) {
     if (this.hasVoted) return
     if (!this.userId) return

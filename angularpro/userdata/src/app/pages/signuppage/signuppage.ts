@@ -25,7 +25,7 @@ export class Signuppage {
   submitform() {
 
     console.log(this.formSignup.value);
-    const userData = { ...this.formSignup.value, userType: "User" } as User;
+    const userData = { ...this.formSignup.value, userType: "Guest" } as User;
     console.log(userData)
 
 

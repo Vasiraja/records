@@ -1,55 +1,95 @@
-<div class="poll-wrapper" *ngIf="poll">
-  <div class="poll-card">
+<div class="page">
 
-    <div class="poll-header">
-      <span class="poll-label">LIVE POLL</span>
-      <h2 class="poll-question">{{ poll.question }}</h2>
+  <div class="page-topbar">
+    <div class="topbar-left">
+      <span class="live-dot"></span>
+      <span class="live-label">LIVE SESSION</span>
     </div>
-
-    <div class="poll-options">
-      <button *ngFor="let option of poll.options" class="option-btn" [class.voted]="hasVoted" [disabled]="hasVoted"
-        (click)="vote(option.id)">
-        <div class="option-content">
-          <span class="option-text">{{ option.text }}</span>
-          <span class="option-votes">{{ option.votes || 0 }}</span>
-        </div>
-        <div class="option-bar">
-          <div class="option-bar-fill" [style.width.%]="getPercent(option.votes)"></div>
-        </div>
-        <span class="option-percent">{{ getPercent(option.votes) }}%</span>
-      </button>
+    <div class="topbar-right">
+      <span class="vote-count">{{ totalVotes }} votes cast</span>
     </div>
-
-    <div class="poll-footer">
-      <span class="total-votes">{{ totalVotes }} votes</span>
-      <span class="voted-badge" *ngIf="hasVoted">✓ Voted</span>
-    </div>
-
-
-
   </div>
-  <div class="chat-panel">
-    <div class="chat-header">
-      <span class="chat-live-dot"></span>
-      <span class="chat-title">Live Chat</span>
-      <span class="chat-count">{{ messages.length }}</span>
-    </div>
 
-    <div class="chat-messages" #chatScroll>
-      <div *ngIf="messages.length === 0" class="chat-empty">No messages yet. Be the first!</div>
-      <div *ngFor="let msg of messages" class="chat-bubble">
-        <div class="chat-avatar">{{ msg.userName?.charAt(0) | uppercase }}</div>
-        <div class="chat-content">
-          <span class="chat-name">{{ msg.userName }}</span>
-          <p class="chat-text">{{ msg.message }}</p>
+  <div class="pollplusmessages">
+
+    <div class="poll-section">
+      <div class="poll-card" *ngIf="poll">
+
+        <div class="poll-meta">
+          <span class="poll-tag">Poll</span>
+          <span class="voted-tag" *ngIf="hasVoted">✓ Voted</span>
         </div>
+
+        <h2 class="poll-question">{{ poll.question }}</h2>
+
+        <div class="poll-options">
+          <button
+            class="option-btn"
+            *ngFor="let option of poll.options"
+            [class.voted]="hasVoted"
+            [disabled]="hasVoted"
+            (click)="vote(option.id)">
+
+            <div class="option-row">
+              <span class="option-text">{{ option.text }}</span>
+              <span class="option-pct">{{ getPercent(option.votes || 0) }}%</span>
+            </div>
+
+            <div class="bar-track">
+              <div class="bar-fill" [style.width.%]="getPercent(option.votes || 0)"></div>
+            </div>
+
+            <span class="option-vote-count">{{ option.votes || 0 }} votes</span>
+
+          </button>
+        </div>
+
+        <p class="poll-hint" *ngIf="!hasVoted">Click an option to cast your vote</p>
+
       </div>
     </div>
 
-    <div class="chat-input-row">
-      <input class="chat-input" type="text" [(ngModel)]="liveMessage" placeholder="Say something..."
-        (keyup.enter)="sendLiveMessage()" />
-      <button class="chat-send-btn" (click)="sendLiveMessage()">↑</button>
+    <div class="chat-section">
+
+      <div class="chat-header">
+        <span class="chat-dot"></span>
+        <span class="chat-title">Live Chat</span>
+        <span class="chat-msg-count">{{ messages.length }} messages</span>
+      </div>
+
+      <div class="chat-messages" #chatScroll (scroll)="onChatScroll()">
+
+        <div class="chat-load-state" *ngIf="isLoadingMore">
+          Loading older messages...
+        </div>
+ 
+        <div class="chat-empty" *ngIf="messages.length === 0">
+          No messages yet — say something!
+        </div>
+
+        <div class="chat-bubble" *ngFor="let msg of messages">
+          <div class="chat-avatar">{{ msg.userName?.charAt(0) | uppercase }}</div>
+          <div class="chat-body">
+            <span class="chat-sender">{{ msg.userName }}</span>
+            <p class="chat-text">{{ msg.message }}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="chat-composer">
+        <input
+          class="chat-input"
+          [(ngModel)]="liveMessage"
+          placeholder="Type a message…"
+          (keyup.enter)="sendLiveMessage()" />
+        <button class="send-btn" (click)="sendLiveMessage()">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+
     </div>
+
   </div>
+
 </div>

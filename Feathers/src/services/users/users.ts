@@ -26,7 +26,7 @@ export const user = (app: Application) => {
   // Register service
   app.use(userPath, new UserService(getOptions(app)), {
     methods: userMethods,
-    events: []
+    events: [],
   })
 
   // Hooks
@@ -84,7 +84,12 @@ export const user = (app: Application) => {
       ],
 
       patch: [
-        schemaHooks.validateData(userPatchValidator),
+        async (context) => {
+          if (!context.id) {
+            return context;
+          }
+          return schemaHooks.validateData(userPatchValidator)(context);
+        },
         schemaHooks.resolveData(userPatchResolver)
       ],
 
@@ -119,6 +124,7 @@ export const user = (app: Application) => {
   app.service(userPath).publish('patched', (data: any) => {
     return app.channel('anonymous')
   })
+
 }
 
 // Add this service to the service type index

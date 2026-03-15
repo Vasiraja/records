@@ -18,12 +18,10 @@ export class UserService<ServiceParams extends Params = UserParams> extends Mong
   UserPatch
 > {}
 
-// MongoDB options
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get('paginate'),
-
-    // Use users collection
+    multi: true,   
     Model: app.get('mongodbClient').then(db => db.collection('userdet'))
   }
 }

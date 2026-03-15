@@ -5,11 +5,12 @@ import { Type, getValidator, querySyntax } from '@feathersjs/typebox'
 import { ObjectIdSchema } from '@feathersjs/typebox'
 import type { Static } from '@feathersjs/typebox'
 import { passwordHash } from '@feathersjs/authentication-local'
+import { ObjectId } from 'mongodb'
 
 import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { UserService } from './users.class'
- 
+
 export const userSchema = Type.Object(
   {
     _id: ObjectIdSchema(),
@@ -29,10 +30,11 @@ export type User = Static<typeof userSchema>
 export const userValidator = getValidator(userSchema, dataValidator)
 
 export const userResolver = resolve<User, HookContext<UserService>>({})
- 
+
 export const userExternalResolver = resolve<User, HookContext<UserService>>({
   password: async () => undefined
-}) 
+})
+
 export const userDataSchema = Type.Pick(
   userSchema,
   ['email', 'password', 'firstname', 'age', 'userType', 'lastAction', 'isOnline'],
@@ -46,7 +48,7 @@ export const userDataValidator = getValidator(userDataSchema, dataValidator)
 export const userDataResolver = resolve<UserData, HookContext<UserService>>({
   password: passwordHash({ strategy: 'local' })
 })
- 
+
 export const userPatchSchema = Type.Partial(userSchema, {
   $id: 'UserPatch'
 })
@@ -58,7 +60,7 @@ export const userPatchValidator = getValidator(userPatchSchema, dataValidator)
 export const userPatchResolver = resolve<UserPatch, HookContext<UserService>>({
   password: passwordHash({ strategy: 'local' })
 })
- 
+
 export const userQueryProperties = Type.Pick(userSchema, [
   '_id',
   'email',
@@ -79,10 +81,25 @@ export type UserQuery = Static<typeof userQuerySchema>
 export const userQueryValidator = getValidator(userQuerySchema, queryValidator)
 
 export const userQueryResolver = resolve<UserQuery, HookContext<UserService>>({
-  _id: async (value, user, context) => {
-    if (context.params.user) {
-      return context.params.user._id
+  _id: async (value, _query, context) => {
+    const currentUser = context.params?.user
+
+     if (currentUser && currentUser.userType?.toLowerCase() !== 'admin') {
+      return currentUser._id
     }
+
+     if (value && typeof value === 'object' && '$in' in (value as any)) {
+      return {
+        $in: (value as any).$in.map((id: string) => {
+          try { return new ObjectId(id) } catch { return id }
+        })
+      }
+    }
+
+     if (value && typeof value === 'string') {
+      try { return new ObjectId(value) } catch { return value }
+    }
+
     return value
   }
 })

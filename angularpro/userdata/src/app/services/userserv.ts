@@ -119,4 +119,22 @@ export class Userserv {
   deletePoll(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/polls/${id}`);
   }
+  getGuests(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users?userType=Guest&$limit=100`);
+  }
+
+ bulkUpdateUsers(ids: string[], role: string): Observable<any> {
+
+  let params = new HttpParams();
+
+  ids.forEach(id => {
+    params = params.append('_id[$in][]', id);
+  });
+
+  return this.http.patch(
+    `${this.apiUrl}/users`,
+    { userType: role },
+    { params }
+  );
+}
 }  

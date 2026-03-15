@@ -8,11 +8,12 @@ import { User } from '../../models/types';
 import { Router } from '@angular/router';
 import { Socketserv } from '../../services/socket/socketserv';
 import { Roleanalysis } from '../../components/roleanalysis/roleanalysis';
- 
+import { BulkRolePopup } from '../../components/bulk-role-popup/bulk-role-popup';
+
 
 @Component({
   selector: 'app-welcomepage',
-  imports: [FormsModule, CommonModule, Roleanalysis],
+  imports: [FormsModule, CommonModule, Roleanalysis, BulkRolePopup],
 
   templateUrl: './welcomepage.html',
   styleUrl: './welcomepage.css',
@@ -22,15 +23,23 @@ export class Welcomepage implements OnInit {
   users = signal<any[]>([]);
   userData: any = {};
 
-  userTypeView:any="";
+  userTypeView: any = "";
+  showBulkPopup = false;
 
+  openBulkGuestPopup() {
+    this.showBulkPopup = true;
+  }
+
+  closeBulkGuestPopup() {
+    this.showBulkPopup = false;
+  }
   constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
- 
+
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
     if (!token) return;
 
-    
+
 
     const decoded: any = jwtDecode(token);
     const userId = decoded.sub;
@@ -39,7 +48,7 @@ export class Welcomepage implements OnInit {
       next: (res: any) => {
         const role = res.userType?.trim().toLowerCase();
         localStorage.setItem('userType', role);
-        this.userTypeView=localStorage.getItem('userType');
+        this.userTypeView = localStorage.getItem('userType');
         this.accessControl.refreshRole();
         this.cdr.detectChanges()
       },
@@ -82,18 +91,23 @@ export class Welcomepage implements OnInit {
 
     client.service('users').on('patched', (updatedUser: any) => {
 
-  const currentUsers = this.users()
+      // Guard: ignore null/undefined or non-object events
+      if (!updatedUser || typeof updatedUser !== 'object' || Array.isArray(updatedUser)) {
+        this.fetching(); // bulk patch — just refetch the full list
+        return;
+      }
 
-  const updated = currentUsers.map((u: any) =>
-    u._id === updatedUser._id
-      ? { ...u, isOnline: updatedUser.isOnline }
-      : u
-  )
+      const currentUsers = this.users();
 
-  this.users.set(updated)
+      const updated = currentUsers.map((u: any) =>
+        u._id === updatedUser._id
+          ? { ...u, ...updatedUser }   
+          : u
+      );
 
-  this.cdr.detectChanges()  
-})
+      this.users.set(updated);
+      this.cdr.detectChanges();
+    })
 
 
 

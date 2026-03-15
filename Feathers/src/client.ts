@@ -37,9 +37,7 @@ export type {
 import { loginLogsClient } from './services/logs/logs.shared'
 export type { LoginLogs, LoginLogsData, LoginLogsQuery, LoginLogsPatch } from './services/logs/logs.shared'
 
-import { userdetClient } from './services/userdet/userdet.shared'
-export type { Userdet, UserdetData, UserdetQuery, UserdetPatch } from './services/userdet/userdet.shared'
-
+ 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
@@ -65,8 +63,7 @@ export const createClient = (
   client.set('connection', connection)
 
   // Register services
-  client.configure(userdetClient)
-  client.configure(loginLogsClient)
+   client.configure(loginLogsClient)
   client.configure(onlineUsersClient)
 
   client.configure(messagesClient)

@@ -11,7 +11,7 @@ export class Toast {
   @ViewChild('liveToast') toastElement!: ElementRef;
 
   constructor(private cdr:ChangeDetectorRef){}
-
+ 
   showToast(title: string, message: string) {
     this.title = title;
     this.message = message;

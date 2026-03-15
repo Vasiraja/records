@@ -1,0 +1,58 @@
+<div class="popup-backdrop">
+    <div class="popup-box">
+        <div class="popup-header">
+            <h3>Bulk Change Guests</h3>
+            <button class="close-btn" (click)="close()">×</button>
+        </div>
+
+        <div class="popup-controls">
+            <label>Change selected guests to:</label>
+            <select [(ngModel)]="selectedRole">
+                <option value="User">User</option>
+                <option value="Admin">Admin</option>
+                <option value="Guest">Guest</option>
+            </select>
+        </div>
+
+        <div class="table-wrapper">
+            <div *ngIf="loading" class="text-center p-3">
+                Loading users...
+            </div>
+
+            <table *ngIf="!loading" class="guest-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" (change)="selectAll($event)">
+                        </th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>
+                            <input type="checkbox" [checked]="isChecked(user._id)"
+                                (change)="toggleUser(user._id, $event)">
+                        </td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.userType }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="popup-actions">
+            <button class="btn btn-secondary" (click)="close()">Cancel</button>
+            <button class="btn btn-primary" (click)="applyRoleChange()">Update</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <app-toast ></app-toast>
+</div> 

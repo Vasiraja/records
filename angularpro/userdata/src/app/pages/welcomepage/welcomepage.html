@@ -1,79 +1,116 @@
- 
+<div class="table-wrapper" *ngIf="userTypeView.toLowerCase() === 'admin'">
 
-<!-- <h3 style="text-align: center;margin:2rem 0">Welcome User!</h3> -->
+  <div class="table-header">
+    <div class="table-title-group">
+      <h2 class="table-title">User Management</h2>
+      <span class="user-count-badge">{{ users().length }} users</span>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="openBulkGuestPopup()">
+    Bulk Change Guests
+  </button>
 
-<table class="user-table" border="1" width="100%" cellspacing="0" cellpadding="10" *ngIf="userTypeView.toLowerCase() === 'admin'">
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Age</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
 
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>User Type</th>
-      <th>Age</th>
-      <th> </th>
-    </tr>
-  </thead>
+    <tbody>
 
-  <tbody>
-    @for (item of users(); track item._id) {
+      @for (item of users(); track item._id) {
 
-    <tr>
-      <td>
-        <input *ngIf="editId === item._id" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Name">
+      <!-- Row: Normal view -->
+      <tr *ngIf="editId !== item._id" class="data-row">
 
-        <span *ngIf="editId !== item._id" class="name-with-status">
-          <span class="status-dot" [ngClass]="item.isOnline ? 'online' : 'offline'"></span>
-          {{ item.firstname }}
-        </span>
-      </td>
+        <td>
+          <div class="user-info">
+            <div class="avatar">{{ item.firstname?.charAt(0) | uppercase }}</div>
+            <span class="user-name">{{ item.firstname }}</span>
+          </div>
+        </td>
 
-      <td>
-        <input *ngIf="editId === item._id" [(ngModel)]="formInputs.email" name="email" placeholder="Email">
-        <span *ngIf="editId !== item._id">{{ item.email }}</span>
-      </td>
+        <td class="text-muted">{{ item.email }}</td>
 
-      <td>
-        <select *ngIf="editId === item._id" [(ngModel)]="formInputs.userType"
-          [ngStyle]="canEdit ?{'cursor':'pointer'}:{'cursor':'not-allowed'}" name="userType" [disabled]="!canEdit">
-          <option *ngFor="let type of userTypes" [value]="type">
-            {{ type }}
-          </option>
-        </select>
-        <span *ngIf="editId !== item._id">{{ item.userType }}</span>
-      </td>
+        <td>
+          <span class="role-badge">{{ item.userType }}</span>
+        </td>
 
-      <td>
-        <input type="number" *ngIf="editId === item._id" [(ngModel)]="formInputs.age" name="age" placeholder="Age">
-        <span *ngIf="editId !== item._id">{{ item.age }}</span>
-      </td>
+        <td class="text-muted">{{ item.age }}</td>
 
-      <td id="button-cell" [ngStyle]="{'cursor': (canDelete) ? 'default' : 'not-allowed'}">
-        <button class="btn btn-danger" *ngIf="editId === null" [disabled]="!canDelete" (click)="delUser(item._id)">
-          <i class="fa-solid fa-trash"></i>
-        </button>
+        <td>
+          <span class="status-pill" [ngClass]="item.isOnline ? 'online' : 'offline'">
+            <span class="status-dot"></span>
+            {{ item.isOnline ? 'Online' : 'Offline' }}
+          </span>
+        </td>
 
-        <button class="btn btn-warning" *ngIf="editId === null" [disabled]="!canEdit" (click)="editUser(item._id)">
-          <i class="fa-solid fa-edit"></i>
+        <td class="button-cell">
+          <button class="btn btn-warning" [disabled]="!canEdit" (click)="editUser(item._id)" title="Edit">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn-danger" [disabled]="!canDelete" (click)="delUser(item._id)" title="Delete">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
 
-        </button>
+      </tr>
 
-        <button *ngIf="editId === item._id" class="btn btn-primary" (click)="updateUser(item._id)">
-          Save
-        </button>
-      </td>
+      <tr *ngIf="editId === item._id" class="data-row edit-row">
 
-    </tr>
+        <td>
+          <input class="table-input" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Full name" />
+        </td>
 
-    } @empty {
-    <tr>
-      <td colspan="5" style="text-align:center;">No users found.</td>
-    </tr>
-    }
+        <td>
+          <input class="table-input" [(ngModel)]="formInputs.email" name="email" placeholder="Email address" />
+        </td>
 
-  </tbody>
+        <td>
+          <select class="table-input" [(ngModel)]="formInputs.userType" name="userType" [disabled]="!canEdit">
+            <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+          </select>
+        </td>
 
-</table>
+        <td>
+          <input class="table-input" type="number" [(ngModel)]="formInputs.age" name="age" placeholder="Age" />
+        </td>
 
+        <td>—</td>
 
-<app-roleanalysis ></app-roleanalysis> 
- 
+        <td class="button-cell">
+          <button class="btn btn-success" (click)="updateUser(item._id)">
+            <i class="fa-solid fa-check"></i> Save
+          </button>
+          <button class="btn btn-secondary" (click)="editId = null">
+            Cancel
+          </button>
+        </td>
+
+      </tr>
+
+      } @empty {
+
+      <tr>
+        <td colspan="6" class="empty-state">
+          <i class="fa-solid fa-users-slash"></i>
+          <p>No users found.</p>
+        </td>
+      </tr>
+
+      }
+
+    </tbody>
+  </table>
+
+</div>
+
+<app-roleanalysis></app-roleanalysis>
+<app-bulk-role-popup *ngIf="showBulkPopup" (closePopup)="closeBulkGuestPopup()" (updated)="fetching()">
+</app-bulk-role-popup>

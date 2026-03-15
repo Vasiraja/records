@@ -11,7 +11,7 @@ import { Navbar } from './shared/navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // Angular 18 uses standalone by default
+  standalone: true, 
   imports: [RouterOutlet, CommonModule, FormsModule, Toast, Sidebar, Navbar],
   templateUrl: './app.html',
 })

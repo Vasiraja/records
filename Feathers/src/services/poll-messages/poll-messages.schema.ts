@@ -15,7 +15,7 @@ export const pollMessagesSchema = Type.Object(
     pollId:Type.String(),
     userId: Type.String() ,
     message:Type.String(),
-    createdAt:Type.String()
+    createdAt:Type.Optional(Type.String())
   },
   { $id: 'PollMessages', additionalProperties: false }
 )
@@ -30,12 +30,14 @@ export const pollMessagesResolver = resolve<PollMessagesQuery, HookContext<PollM
 export const pollMessagesExternalResolver = resolve<PollMessages, HookContext<PollMessagesService>>({})
 
 // Schema for creating new entries
-export const pollMessagesDataSchema = Type.Pick(pollMessagesSchema, ['_id','pollId','userId','message'], {
+export const pollMessagesDataSchema = Type.Pick(pollMessagesSchema, ['_id','pollId','userId','message','createdAt'], {
   $id: 'PollMessagesData'
 })
 export type PollMessagesData = Static<typeof pollMessagesDataSchema>
 export const pollMessagesDataValidator = getValidator(pollMessagesDataSchema, dataValidator)
-export const pollMessagesDataResolver = resolve<PollMessagesData, HookContext<PollMessagesService>>({})
+export const pollMessagesDataResolver = resolve<PollMessagesData, HookContext<PollMessagesService>>({
+  createdAt: async () => new Date().toISOString()
+})
 
 // Schema for updating existing entries
 export const pollMessagesPatchSchema = Type.Partial(pollMessagesSchema, {

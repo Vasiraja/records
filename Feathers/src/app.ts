@@ -12,8 +12,7 @@ import { mongodb } from './mongodb'
 
 import { authentication } from './authentication'
 import { services } from './services/index'
- import { UserdetService } from './services/userdet/userdet.class'
-
+ 
 import * as dotenv from 'dotenv';
 dotenv.config();
 const app: Application = koa(feathers())
