@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap');
+
 :host {
   display: block;
   width: 240px;
   flex-shrink: 0;
+  transition: width 0.25s ease;
+}
+
+:host-context(.collapsed) {
+  width: 64px;
 }
 
 .sidebar {
@@ -18,26 +25,40 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: width 0.25s ease, padding 0.25s ease;
+  overflow: hidden;
 }
 
-/* section labels like "MAIN", "MANAGE" */
-.sidebar-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #c0bdb5;
-  padding: 0 10px;
-  margin-top: 12px;
-  margin-bottom: 2px;
-  display: block;
+.sidebar.collapsed {
+  width: 64px;
+  padding: 24px 10px;
 }
 
-.sidebar-divider {
-  height: 1px;
-  background: #e8e5dd;
-  margin: 8px 0;
+.toggle-btn {
+  align-self: flex-end;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1.5px solid #e8e5dd;
+  background: #f4f3ef;
+  color: #a8a59e;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+  transition: border-color 0.18s, color 0.18s;
+}
+
+.toggle-btn:hover {
+  border-color: #e05c2a;
+  color: #e05c2a;
+}
+
+.sidebar.collapsed .toggle-btn {
+  align-self: center;
 }
 
 .menu {
@@ -61,6 +82,8 @@
   font-weight: 500;
   transition: all 0.18s;
   position: relative;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .menu li:hover {
@@ -68,7 +91,6 @@
   color: #e05c2a;
 }
 
-/* active left border accent */
 .menu li.active {
   background: rgba(224, 92, 42, 0.10);
   color: #e05c2a;
@@ -86,11 +108,11 @@
   background: #e05c2a;
 }
 
-/* icon inside each item */
 .menu-icon {
-  width: 16px;
-  height: 16px;
+  font-size: 14px;
   flex-shrink: 0;
+  width: 16px;
+  text-align: center;
   opacity: 0.65;
   transition: opacity 0.18s;
 }
@@ -100,19 +122,26 @@
   opacity: 1;
 }
 
-/* notification badge */
-.menu-badge {
-  margin-left: auto;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  background: rgba(224, 92, 42, 0.12);
-  color: #e05c2a;
-  padding: 2px 7px;
-  border-radius: 20px;
-  font-weight: 500;
+.menu-text {
+  transition: opacity 0.2s ease;
+  opacity: 1;
 }
 
-/* user footer pinned at bottom */
+.sidebar.collapsed .menu-text {
+  opacity: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.sidebar.collapsed .menu li {
+  justify-content: center;
+  padding: 10px;
+}
+
+.sidebar.collapsed .menu li.active::before {
+  display: none;
+}
+
 .sidebar-footer {
   margin-top: auto;
   padding: 12px;
@@ -121,6 +150,13 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
+  transition: padding 0.25s ease;
+}
+
+.sidebar.collapsed .sidebar-footer {
+  padding: 10px;
+  justify-content: center;
 }
 
 .sidebar-avatar {
@@ -144,9 +180,53 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: opacity 0.2s ease;
 }
 
 .sidebar-user-role {
   font-size: 11px;
   color: #a8a59e;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar.collapsed .sidebar-user-name,
+.sidebar.collapsed .sidebar-user-role {
+  opacity: 0;
+  width: 0;
+}
+
+@media (max-width: 768px) {
+  :host {
+    width: 64px;
+  }
+
+  .sidebar {
+    width: 64px;
+    padding: 24px 10px;
+  }
+
+  .menu-text {
+    opacity: 0;
+    width: 0;
+    pointer-events: none;
+  }
+
+  .menu li {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .sidebar-user-name,
+  .sidebar-user-role {
+    opacity: 0;
+    width: 0;
+  }
+
+  .sidebar-footer {
+    justify-content: center;
+  }
+
+  .toggle-btn {
+    display: none;
+  }
 }

@@ -72,7 +72,18 @@ export class Socketserv {
     this.socket.emit('joinPoll', pollId)
 
   }
-   
+
+  joinMsg(senderId: string, receiverId: string) {
+    if (!this.socket) {
+      console.log("Socket not ready")
+      return
+    }
+
+    console.log("Emitting joinPoll:", senderId,receiverId)
+
+    this.socket.emit('joinMsg', senderId,receiverId);
+
+  }
   leavePoll(pollId: string) {
     if (!this.socket) return
     this.socket.emit('leavePoll', pollId)
@@ -86,9 +97,9 @@ export class Socketserv {
     return this.client.service('votes')
   }
 
-  liveMessageService(){
+  liveMessageService() {
     return this.client.service('poll-messages')
   }
 
-  
+
 }

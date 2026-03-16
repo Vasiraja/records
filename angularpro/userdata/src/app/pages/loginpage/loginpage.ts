@@ -39,6 +39,8 @@ async submitLogin() {
   this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
     next: (res: any) => {
       console.log(res);
+        console.log("Login triggered");
+
 
       this.toast.showToast("Success", "Login Successfully");
       localStorage.setItem("token", res.accessToken);
@@ -92,11 +94,10 @@ async submitLogin() {
       email: this.loginEmail,
       age: this.age ? Number(this.age) : null,
       password: this.loginPassword,
-      userType: "User"
+      userType: "Guest"
     };
 
-    // console.log(userData);
-
+ 
     this.userservice.postData(userData).subscribe({
       next: async (res: any) => {
         console.log(res)

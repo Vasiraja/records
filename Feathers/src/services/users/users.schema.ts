@@ -19,7 +19,7 @@ export const userSchema = Type.Object(
     firstname: Type.String(),
     age: Type.Number(),
     userType: Type.String(),
-    lastAction: Type.Optional(Type.String({ format: 'date-time' })),
+     lastAction: Type.Optional(Type.String({ format: 'date-time' })),
     isOnline: Type.Optional(Type.Boolean())
   },
   { $id: 'User', additionalProperties: false }

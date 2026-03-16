@@ -1,9 +1,8 @@
-import { Component, OnInit, AfterViewChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewChecked, ElementRef, ViewChild, NgZone } from '@angular/core';
 import { Socketserv } from '../../services/socket/socketserv';
 import { Chat } from '../../services/chat';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -13,56 +12,67 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl: './messages.html',
   styleUrls: ['./messages.css']
 })
-export class Messages implements OnInit, AfterViewChecked {
+export class Messages implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('scrollArea') private scrollArea!: ElementRef;
 
-  constructor(private socketcon: Socketserv, private chatServ: Chat, private cdr: ChangeDetectorRef) { }
-
   messages: any[] = [];
   messageText = '';
+  searchText = '';
   users: any[] = [];
-
-  currentUserId: string = '';
-  receiverId: string = '';
+  currentUserId = '';
+  receiverId = '';
   selectedUser: any = null;
-
   shouldScroll = false;
+
+  constructor(
+    private socketcon: Socketserv,
+    private chatServ: Chat,
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
+  ) { }
 
   ngOnInit() {
     const raw = localStorage.getItem('user');
-
-    if (raw) {
-      this.currentUserId = raw;
-    }
-
-    console.log('currentUserId:', this.currentUserId);
-
+    if (raw) this.currentUserId = raw;
     this.initSocket();
   }
 
-  initSocket() {
-
+  ngOnDestroy() {
     const client = this.socketcon.getClient();
+    if (client) {
+      client.service('messages').off('created');
+    }
+  }
 
+  initSocket() {
+    const client = this.socketcon.getClient();
     if (!client) {
-      console.log("Waiting for socket...");
       setTimeout(() => this.initSocket(), 500);
       return;
     }
 
-    console.log("Socket ready");
-
     this.loadUsers();
 
-    this.chatServ.startListening();
+    client.service('messages').off('created');
 
-    this.chatServ.messages$.subscribe((msgs: any[]) => {
+    client.service('messages').on('created', (msg: any) => {
 
-      if (!msgs) return;
+      this.zone.run(() => {
 
-      this.messages = [...msgs];
-      this.shouldScroll = true;
+        const senderIsOther = String(msg.senderId) === String(this.receiverId);
+        const receiverIsMe = String(msg.receiverId) === String(this.currentUserId);
+
+        if (!senderIsOther || !receiverIsMe) return;
+
+        const alreadyExists = this.messages.some(m => String(m._id) === String(msg._id));
+        if (alreadyExists) return;
+
+        this.messages = [...this.messages, msg];
+        this.shouldScroll = true;
+        this.cdr.detectChanges();
+
+      });
 
     });
 
@@ -78,47 +88,35 @@ export class Messages implements OnInit, AfterViewChecked {
   scrollToBottom() {
     try {
       const el = this.scrollArea?.nativeElement;
-      if (el) {
-        el.scrollTop = el.scrollHeight;
-      }
+      if (el) el.scrollTop = el.scrollHeight;
     } catch (e) { }
   }
 
-  trackByMsg(index: number, item: any) {
-    return item._id || index;
+  filteredUsers() {
+    if (!this.searchText.trim()) return this.users;
+    return this.users.filter(u =>
+      u.firstname?.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   loadUsers() {
- 
     const client = this.socketcon.getClient();
-
     if (!client) return;
-
     client.service('users').find()
       .then((res: any) => {
-
         const data = res?.data || res || [];
-
         this.users = data.filter((u: any) => u._id !== this.currentUserId);
         this.cdr.detectChanges();
-
       })
-      .catch((err: any) => {
-        console.error('Failed to load users:', err);
-      });
-
+      .catch((err: any) => console.error(err));
   }
 
   loadConversation() {
-
     if (!this.receiverId) return;
-
     const client = this.socketcon.getClient();
-
-    console.log("Query:", this.currentUserId, this.receiverId);
-
     client.service('messages').find({
       query: {
+        $limit: 500,
         $or: [
           { senderId: this.currentUserId, receiverId: this.receiverId },
           { senderId: this.receiverId, receiverId: this.currentUserId }
@@ -128,47 +126,55 @@ export class Messages implements OnInit, AfterViewChecked {
     })
       .then((res: any) => {
         this.messages = res.data || res;
-        this.shouldScroll = true;
         this.cdr.detectChanges();
-
+        setTimeout(() => this.scrollToBottom(), 0);
       })
-      .catch((err: any) => {
-        console.error('Find error:', err);
-      });
+      .catch((err: any) => console.error(err));
   }
 
   selectUser(user: any) {
     this.selectedUser = user;
     this.receiverId = user._id;
-
-    localStorage.setItem('selectedUser', JSON.stringify(user));
-
-    this.messages = [];   // reset UI
+    this.messages = [];
     this.loadConversation();
   }
 
   sendMessage() {
-
     const text = this.messageText.trim();
-
     if (!text || !this.receiverId) return;
 
-    const checkSend = this.chatServ.sendMessage({
+    const tempId = crypto.randomUUID();
+
+    const tempMsg = {
+      _id: tempId,
+      _isTemp: true,
+      senderId: this.currentUserId,
+      receiverId: this.receiverId,
+      text,
+      createdAt: new Date().toISOString()
+    };
+
+    this.messages = [...this.messages, tempMsg];
+    this.shouldScroll = true;
+    this.messageText = '';
+    this.cdr.detectChanges();
+
+    this.chatServ.sendMessage({
       senderId: this.currentUserId,
       receiverId: this.receiverId,
       text
-    });
-
-    if (checkSend) {
-      // this.loadConversation()
-
-      this.messageText = '';
+    }).then((saved: any) => {
+      this.messages = this.messages
+        .filter(m => m._id !== tempId)
+        .concat(saved);
       this.shouldScroll = true;
-    }
-
+      this.cdr.detectChanges();
+    }).catch(() => {
+      this.messages = this.messages.filter(m => m._id !== tempId);
+      this.cdr.detectChanges();
+    });
   }
-  trackById(index: number, item: any) {
-  return item.id;
-}
 
+  trackById(index: number, item: any) { return item._id || index; }
+  trackByMsg(index: number, item: any) { return item._id || index; }
 }

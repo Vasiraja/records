@@ -1,86 +1,98 @@
-<div class="chat-container">
+<div class="ms-root">
 
-  <div class="sidebar">
-    <div class="sidebar-title">Chats</div>
-
-    <div *ngFor="let user of users ; trackBy:trackById"
-         (click)="selectUser(user)"
-         class="user-item"
-         [class.active]="selectedUser?._id === user._id">
-
-      <div class="avatar">
-        {{ user.firstname?.charAt(0) }}
+  <aside class="ms-sidebar">
+    <div class="ms-sidebar-top">
+      <h2 class="ms-sidebar-title">Direct Messages</h2>
+      <div class="ms-search-wrap">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input [(ngModel)]="searchText" placeholder="Find someone..." class="ms-search" />
       </div>
-
-      <div class="user-info">
-        <span class="user-name">{{ user.firstname }}</span>
-
-        <span class="user-status"
-              [class.online]="user.isOnline">
-
-          {{ user.isOnline ? 'Online' : 'Offline' }}
-
-        </span>
-      </div>
-
     </div>
-  </div>
 
-  <div class="chat-main" *ngIf="selectedUser; else empty">
-
-    <div class="chat-header">
-
-      <div class="avatar">
-        {{ selectedUser.firstname?.charAt(0) }}
-      </div>
-
-      <div>
-        <div class="header-name">
-          {{ selectedUser.firstname }}
+    <div class="ms-contacts">
+      <div *ngFor="let user of filteredUsers(); trackBy: trackById"
+           class="ms-contact"
+           [class.ms-contact--active]="selectedUser?._id === user._id"
+           (click)="selectUser(user)">
+        <div class="ms-contact-av">
+          {{ user.firstname?.charAt(0) }}
+          <span class="ms-contact-dot" [class.ms-contact-dot--on]="user.isOnline"></span>
         </div>
-
-        <div class="header-status"
-             [class.online]="selectedUser.isOnline">
-
-          {{ selectedUser.isOnline ? 'Online' : 'Offline' }}
-
+        <div class="ms-contact-info">
+          <span class="ms-contact-name">{{ user.firstname }}</span>
+          <span class="ms-contact-status" [class.ms-contact-status--on]="user.isOnline">
+            {{ user.isOnline ? 'Active now' : 'Offline' }}
+          </span>
         </div>
       </div>
 
-    </div>
-
-    <div class="messages-box" #scrollArea>
-
-      <div *ngFor="let msg of messages; trackBy: trackByMsg"
-           class="bubble"
-           [class.sent]="msg.senderId === currentUserId"
-           [class.received]="msg.senderId !== currentUserId">
-
-        {{ msg.text }}
-
+      <div class="ms-empty-contacts" *ngIf="filteredUsers().length === 0">
+        <i class="fa-solid fa-user-slash"></i>
+        <span>No users found</span>
       </div>
-
     </div>
+  </aside>
 
-    <div class="chat-input">
+  <main class="ms-main">
 
-      <input
-        [(ngModel)]="messageText"
-        (keyup.enter)="sendMessage()"
-        placeholder="Type a message..." />
+    <ng-container *ngIf="selectedUser; else msEmpty">
 
-      <button (click)="sendMessage()"> 
-        Send
-      </button>
+      <header class="ms-topbar">
+        <div class="ms-topbar-av">{{ selectedUser.firstname?.charAt(0) }}</div>
+        <div class="ms-topbar-info">
+          <span class="ms-topbar-name">{{ selectedUser.firstname }}</span>
+          <span class="ms-topbar-status" [class.ms-topbar-status--on]="selectedUser.isOnline">
+            <span class="ms-topbar-dot"></span>
+            {{ selectedUser.isOnline ? 'Active now' : 'Offline' }}
+          </span>
+        </div>
+      </header>
 
-    </div>
+      <section class="ms-feed" #scrollArea>
 
-  </div>
+        <div class="ms-feed-start" *ngIf="!messages.length">
+          <div class="ms-feed-start-av">{{ selectedUser.firstname?.charAt(0) }}</div>
+          <p class="ms-feed-start-name">{{ selectedUser.firstname }}</p>
+         </div>
 
-  <ng-template #empty>
-    <div class="empty-state">
-      <p>Select a user to start chatting</p>
-    </div>
-  </ng-template>
- 
+        <div *ngFor="let msg of messages; trackBy: trackByMsg"
+             class="ms-msg"
+             [class.ms-msg--out]="msg.senderId === currentUserId"
+             [class.ms-msg--in]="msg.senderId !== currentUserId">
+          <div class="ms-msg-av" *ngIf="msg.senderId !== currentUserId">
+            {{ selectedUser.firstname?.charAt(0) }}
+          </div>
+          <div class="ms-msg-body">
+            <div class="ms-msg-bubble">{{ msg.text }}</div>
+          </div>
+        </div>
+
+      </section>
+
+      <footer class="ms-composer">
+        <input class="ms-composer-input"
+               [(ngModel)]="messageText"
+               (keyup.enter)="sendMessage()"
+               placeholder="Message {{ selectedUser.firstname }}..." />
+        <button class="ms-composer-send"
+                (click)="sendMessage()"
+                [disabled]="!messageText.trim()">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </footer>
+
+    </ng-container>
+
+    <ng-template #msEmpty>
+      <div class="ms-placeholder">
+        <div class="ms-placeholder-icon">
+          <i class="fa-regular fa-comments"></i>
+        </div>
+        <h3 class="ms-placeholder-title">No conversation selected</h3>
+        <p class="ms-placeholder-sub">Choose someone from the left to start chatting</p>
+      </div>
+    </ng-template>
+
+  </main>
+
 </div>

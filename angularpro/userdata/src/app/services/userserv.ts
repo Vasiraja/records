@@ -45,16 +45,16 @@ export class Userserv {
   postLogs(logPayload: any): Observable<ApiResponse<LoginLog[]>> {
     return this.http.post<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`, logPayload);
   }
-  getPolls(): Observable<ApiResponse<LoginLog[]>> {
+  getPolls(): Observable<ApiResponse<Polls[]>> {
 
     const usertype = localStorage.getItem('userType') || 'guest';
 
-    return this.http.get<ApiResponse<LoginLog[]>>(
+    return this.http.get<ApiResponse<Polls[]>>(
       `${this.apiUrl}/polls?$limit=50`,
       {
         headers: {
           usertype: usertype
-        }
+        } 
       }
     );
   }
@@ -123,18 +123,18 @@ export class Userserv {
     return this.http.get(`${this.apiUrl}/users?userType=Guest&$limit=100`);
   }
 
- bulkUpdateUsers(ids: string[], role: string): Observable<any> {
+  bulkUpdateUsers(ids: string[], role: string): Observable<any> {
 
-  let params = new HttpParams();
+    let params = new HttpParams();
 
-  ids.forEach(id => {
-    params = params.append('_id[$in][]', id);
-  });
+    ids.forEach(id => {
+      params = params.append('_id[$in][]', id);
+    });
 
-  return this.http.patch(
-    `${this.apiUrl}/users`,
-    { userType: role },
-    { params }
-  );
-}
+    return this.http.patch(
+      `${this.apiUrl}/users`,
+      { userType: role },
+      { params }
+    );
+  }
 }  

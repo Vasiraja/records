@@ -1,4 +1,3 @@
-// For more information about this file see https://dove.feathersjs.com/guides/cli/service.html
 
 import { hooks as schemaHooks } from '@feathersjs/schema'
 
@@ -10,9 +9,7 @@ import {
   pollsExternalResolver,
   pollsDataResolver,
   pollsPatchResolver,
-  pollsQueryResolver,
-
-
+  pollsQueryResolver
 } from './polls.schema'
 
 import type { Application } from '../../declarations'
@@ -26,62 +23,96 @@ export * from './polls.schema'
 export const polls = (app: Application) => {
   // Register our service on the Feathers application
   app.use(pollsPath, new PollsService(getOptions(app)), {
-    // A list of all methods this service exposes externally
     methods: pollsMethods,
-    // You can add additional custom events to be sent to clients here
     events: []
   })
+
+  // Poll expiry checker
+  setInterval(async () => {
+    try {
+      const now = new Date().toISOString()
+
+      const result = await app.service(pollsPath).find({
+        paginate: false,
+        query: {
+          isActive: true,
+          expiresAt: {
+            $lt: now
+          }
+        }
+      })
+
+      const expiredPolls = Array.isArray(result) ? result : []
+
+      for (const poll of expiredPolls) {
+        await app.service(pollsPath).patch((poll as any)._id, {
+          isActive: false
+        })
+      }
+    } catch (error) {
+      console.error('Poll expiry checker error:', error)
+    }
+  }, 1000)
+
   // Initialize hooks
   app.service(pollsPath).hooks({
     around: {
-      all: [schemaHooks.resolveExternal(pollsExternalResolver), schemaHooks.resolveResult(pollsResolver)]
+      all: [
+        schemaHooks.resolveExternal(pollsExternalResolver),
+        schemaHooks.resolveResult(pollsResolver)
+      ]
     },
     before: {
-      all: [schemaHooks.validateQuery(pollsQueryValidator), schemaHooks.resolveQuery(pollsQueryResolver)],
-      find: [async (context: any) => {
-        const usertype = context.params.headers?.usertype;
-        if (usertype !== 'admin') {
-          context.params.query.hidden = false;
+      all: [
+        schemaHooks.validateQuery(pollsQueryValidator),
+        schemaHooks.resolveQuery(pollsQueryResolver)
+      ],
+
+      find: [
+        async (context: any) => {
+          const usertype = context.params.headers?.usertype
+
+          if (usertype !== 'admin') {
+            context.params.query.hidden = false
+          }
+
+          return context
         }
-        return context;
-      }],
-      get: [
-
-
-
       ],
-      create: [schemaHooks.resolveData(pollsDataResolver), schemaHooks.validateData(pollsDataValidator), schemaHooks.resolveData(pollsDataResolver),
 
+      get: [],
 
+      create: [
+        schemaHooks.validateData(pollsDataValidator),
 
-      async (context: any) => {
+        schemaHooks.resolveData(pollsDataResolver),
 
-        console.log("00000");
-        console.log(context.data);
-
-        console.log(context.data.createdBy);
-
-        return context;
-      }
-
+        async (context: any) => {
+          console.log('Creating poll:')
+          console.log(context.data)
+          console.log('createdBy:', context.data.createdBy)
+          return context
+        }
       ],
+
       patch: [
         schemaHooks.validateData(pollsPatchValidator),
         schemaHooks.resolveData(pollsPatchResolver),
 
         async (context: any) => {
+          if (!context.params.provider) return context;
 
-          const userId = context.params.headers?.userid;
-
-          const poll = await context.service._get(context.id);
+          const userId = context.params.headers?.userid
+          const poll = await context.service._get(context.id)
 
           if (String(poll.createdBy) !== String(userId)) {
-            throw new Error('Not authorized');
+            throw new Error('Not authorized')
           }
 
-          return context;
+          return context
         }
       ],
+
       remove: []
     },
     after: {

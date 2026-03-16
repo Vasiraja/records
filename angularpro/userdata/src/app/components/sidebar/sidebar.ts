@@ -3,11 +3,14 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink,RouterLinkActive],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
 export class Sidebar {
+  isCollapsed = false
 
+  toggle() {
+    this.isCollapsed = !this.isCollapsed
+  }
 }
- 

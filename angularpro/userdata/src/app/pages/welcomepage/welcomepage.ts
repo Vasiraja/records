@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Userserv } from '../../services/userserv';
 import { jwtDecode } from 'jwt-decode';
@@ -18,7 +18,7 @@ import { BulkRolePopup } from '../../components/bulk-role-popup/bulk-role-popup'
   templateUrl: './welcomepage.html',
   styleUrl: './welcomepage.css',
 })
-export class Welcomepage implements OnInit {
+export class Welcomepage implements OnInit, OnDestroy {
 
   users = signal<any[]>([]);
   userData: any = {};
@@ -29,11 +29,20 @@ export class Welcomepage implements OnInit {
   openBulkGuestPopup() {
     this.showBulkPopup = true;
   }
+  showDeletePopup = false;
+  deleteUserId: string | null = null;
 
   closeBulkGuestPopup() {
     this.showBulkPopup = false;
   }
   constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
+  ngOnDestroy(): void {
+    const client = this.socketcon.getClient()
+
+    if (client) {
+      client.service('users').removeAllListeners('patched')
+    }
+  }
 
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
@@ -80,7 +89,6 @@ export class Welcomepage implements OnInit {
 
   ngOnInit(): void {
     this.fetching();
-
     this.getCurrentAdminType();
 
 
@@ -89,11 +97,22 @@ export class Welcomepage implements OnInit {
 
     if (!client) return
 
+    window.addEventListener('beforeunload', () => {
+
+      const token = localStorage.getItem('token')
+      if (!token) return
+
+      const decoded: any = jwtDecode(token)
+      const userId = decoded.sub
+
+      client.io.emit('userLogout', userId)
+
+    })
+
     client.service('users').on('patched', (updatedUser: any) => {
 
-      // Guard: ignore null/undefined or non-object events
       if (!updatedUser || typeof updatedUser !== 'object' || Array.isArray(updatedUser)) {
-        this.fetching(); // bulk patch — just refetch the full list
+        this.fetching();
         return;
       }
 
@@ -101,7 +120,7 @@ export class Welcomepage implements OnInit {
 
       const updated = currentUsers.map((u: any) =>
         u._id === updatedUser._id
-          ? { ...u, ...updatedUser }   
+          ? { ...u, ...updatedUser }
           : u
       );
 
@@ -146,6 +165,7 @@ export class Welcomepage implements OnInit {
     this.userdetService.deleteUser(id).subscribe({
       next: (res: any) => {
         console.log("Deleted successfully", res);
+        
         this.fetching();
         this.cdr.detectChanges();
       },
@@ -153,6 +173,24 @@ export class Welcomepage implements OnInit {
         console.error(error);
       }
     })
+  }
+  confirmDelete(id: string) {
+    this.deleteUserId = id;
+    this.showDeletePopup = true;
+  }
+  deleteConfirmed() {
+
+    if (!this.deleteUserId) return;
+
+    this.userdetService.deleteUser(this.deleteUserId).subscribe({
+      next: () => {
+        this.fetching();
+        this.showDeletePopup = false;
+        this.deleteUserId = null;
+      },
+      error: (err) => console.error(err)
+    });
+
   }
   usertypechange(id: any) {
     console.log(id);

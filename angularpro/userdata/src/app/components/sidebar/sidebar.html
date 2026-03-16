@@ -1,17 +1,31 @@
-<div class="sidebar">
+<div class="sidebar" [class.collapsed]="isCollapsed">
+
+  <button class="toggle-btn" (click)="isCollapsed = !isCollapsed">
+    <i class="fa-solid" [class.fa-chevron-left]="!isCollapsed" [class.fa-chevron-right]="isCollapsed"></i>
+  </button>
+
   <ul class="menu">
 
     <li routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-      Dashboard
+      <i class="fa-solid fa-house menu-icon"></i>
+      <span class="menu-text">Dashboard</span>
     </li>
 
     <li routerLink="/polllist" [queryParams]="{tab:'view'}" routerLinkActive="active">
-      Polls
+      <i class="fa-solid fa-chart-bar menu-icon"></i>
+      <span class="menu-text">Polls</span>
     </li>
 
     <li routerLink="/polllist" [queryParams]="{tab:'create'}" routerLinkActive="active">
-      Create Poll
+      <i class="fa-solid fa-plus menu-icon"></i>
+      <span class="menu-text">Create Poll</span>
+    </li>
+
+    <li routerLink="/messages" routerLinkActive="active">
+      <i class="fa-solid fa-message menu-icon"></i>
+      <span class="menu-text">Messages</span>
     </li>
 
   </ul>
+
 </div>

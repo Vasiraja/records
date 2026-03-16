@@ -1,53 +1,87 @@
-<div class="chartwid" *ngIf="userTypeView.toLowerCase() === 'admin'">
-  <h4 class="analysishead">Roles Overview</h4>
-  <canvas #pieChart></canvas>
-</div>
+<div class="analysis-wrapper" *ngIf="userTypeView.toLowerCase() === 'admin'">
 
-<div class="dashboard-container" *ngIf="userTypeView.toLowerCase() === 'admin'">
-  <h2 class="analysishead">Login Activity Dashboard</h2>
+  <div class="analysis-top">
 
-  <div class="recent-logins" *ngIf="userTypeView.toLowerCase() === 'admin'">
-  <h4 class="analysishead">Recent Logins</h4>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>User ID</th>
-        <th>Email</th>
-        <th>Login Time</th>
-       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let log of paginatedLogins">
-        <td>{{ log.firstname }}</td>
-        <td>{{ log.email }}</td>
-        <td>{{ log.loginTime }}</td>
-       </tr>
-    </tbody>
-  </table>
+    <div class="chart-card">
+      <h4 class="card-title">Roles Overview</h4>
+      <div class="chart-wrap">
+        <canvas #pieChart></canvas>
+      </div>
+    </div>
 
-   <div class="pagination">
-    <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
-      ← Prev
-    </button>
+    <div class="stats-card">
+      <h4 class="card-title">User Breakdown</h4>
+      <div class="stats-grid">
 
-    <button
-      *ngFor="let page of totalPagesArray"
-      (click)="goToPage(page)"
-      [class.active]="page === currentPage">
-      {{ page }}
-    </button>
+        <div class="stat-item">
+          <span class="stat-value">{{ userCounts.user }}</span>
+          <span class="stat-label">Users</span>
+        </div>
 
-    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
-      Next →
-    </button>
+        <div class="stat-item">
+          <span class="stat-value">{{ userCounts.guest }}</span>
+          <span class="stat-label">Guests</span>
+        </div>
 
-    <span class="page-info">
-      Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, recentLogins.length) }} of {{ recentLogins.length }}
-    </span>
+        <div class="stat-item">
+          <span class="stat-value">{{ userCounts.admin }}</span>
+          <span class="stat-label">Admins</span>
+        </div>
+
+      </div>
+    </div>
   </div>
-</div>
 
-  <!-- <app-messages></app-messages> -->
+  <div class="logins-card">
+
+    <div class="logins-header">
+      <h4 class="card-title">Recent Logins</h4>
+      <span class="logins-count">{{ recentLogins.length }} records</span>
+    </div>
+
+    <div class="table-scroll">
+      <table class="logins-table">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Login Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of paginatedLogins" class="login-row">
+            <td>
+              <div class="login-user">
+                <div class="login-avatar">{{ log.firstname?.charAt(0) | uppercase }}</div>
+                 <span>{{ log.firstname }}</span>
+              </div>
+            </td>
+            <td class="text-muted">{{ log.email }}</td>
+            <td class="text-muted login-time">{{ log.loginTime }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <button *ngFor="let page of totalPagesArray" (click)="goToPage(page)" [class.active]="page === currentPage">
+        {{ page }}
+      </button>
+
+      <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <span class="page-info">
+        {{ (currentPage - 1) * pageSize + 1 }}–{{ Math.min(currentPage * pageSize, recentLogins.length) }}
+        of {{ recentLogins.length }}
+      </span>
+    </div>
+
+  </div>
 
 </div>

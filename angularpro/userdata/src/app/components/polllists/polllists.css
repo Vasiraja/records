@@ -224,7 +224,10 @@
   margin: 0 0 5px;
   letter-spacing: -0.02em;
 }
-
+.duration-select{
+  width: 70px;
+  height: 30px;
+}
 .creator-subtitle {
   font-size: 13.5px;
   color: #8a8880;

@@ -27,8 +27,8 @@ export const messages = (app: Application) => {
   app.use(messagesPath, new MessagesService(getOptions(app)), {
     // A list of all methods this service exposes externally
     methods: messagesMethods,
-    // You can add additional custom events to be sent to clients here
-    events: []
+
+    events: ['created']
   })
   // Initialize hooks
   app.service(messagesPath).hooks({
@@ -73,8 +73,12 @@ export const messages = (app: Application) => {
       all: []
     }
   })
+ app.use(messagesPath, new MessagesService(getOptions(app)), {
+  methods: messagesMethods,
+  events: ['created']
+})
 }
-
+  
 // Add this service to the service type index
 declare module '../../declarations' {
   interface ServiceTypes {

@@ -18,7 +18,7 @@ export class Roleanalysis implements OnInit, AfterViewInit {
   @ViewChild('pieChart', { static: false }) pieChart!: ElementRef;
 
   recentLogins: {
-    firstname: string, loginTime: string, source: string, email: string;
+    firstname?: string, loginTime: string, source: string, email: string;
   }[] = [];
 
   totalLogins = 0;
@@ -29,19 +29,25 @@ export class Roleanalysis implements OnInit, AfterViewInit {
   pageSize = 10;
   currentPage = 1;
   Math = Math;
+  userCounts = { admin: 0, user: 0, guest: 0 }
   constructor(private userDet: Userserv, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.userDet.loginWatch$.subscribe(() => {
-      this.buildRecentLogins();
+      this.buildRecentLogins(); 
     })
     this.getCurrentAdminType()
-      setTimeout(() => this.buildPieChart(), 0);
-
+    setTimeout(() => this.buildPieChart(), 0);
+ 
   }
 
   ngAfterViewInit(): void {
     this.buildPieChart();
+  }
+  getUserCount(role: string): number {
+    return this.recentLogins.filter(
+      (u: any) => u.userType?.toLowerCase() === role
+    ).length
   }
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
@@ -86,37 +92,38 @@ export class Roleanalysis implements OnInit, AfterViewInit {
   }
 
   buildPieChart(): void {
-    this.userDet.getData().subscribe((res: any) => {
-      let count = { admin: 0, user: 0, guest: 0 };
+  this.userDet.getData().subscribe((res: any) => {
+    let count = { admin: 0, user: 0, guest: 0 }
 
-      res.data.forEach((item: any) => {
-        const role = (item.userType || '').toLowerCase();
-        if (role === 'admin') count.admin++;
-        else if (role === 'user') count.user++;
-        else if (role === 'guest') count.guest++;
-      });
+    res.data.forEach((item: any) => {
+      const role = (item.userType || '').toLowerCase()
+      if (role === 'admin') count.admin++
+      else if (role === 'user') count.user++
+      else if (role === 'guest') count.guest++
+    })
 
-      if (!this.pieChart?.nativeElement) return; // ← guard clause
+    this.userCounts = count
 
-      new Chart(this.pieChart.nativeElement, {
-        type: 'pie',
-        data: {
-          labels: ['Admin', 'User', 'Guest'],
-          datasets: [{
-            label: 'Roles',
-            data: [count.admin, count.user, count.guest],
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-          }]
-        }
-      });
-    });
-  }
+    if (!this.pieChart?.nativeElement) return
+
+    new Chart(this.pieChart.nativeElement, {
+      type: 'pie',
+      data: {
+        labels: ['Admin', 'User', 'Guest'],
+        datasets: [{
+          label: 'Roles',
+          data: [count.admin, count.user, count.guest],
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }]
+      }
+    })
+  })
+}
   buildRecentLogins(): void {
     this.userDet.getLogs().subscribe((logsRes: any) => {
       this.userDet.getData().subscribe((usersRes: any) => {
 
-        // handle both paginated {data:[]} and plain array response
-        const logsData: any[] = Array.isArray(logsRes) ? logsRes : logsRes.data;
+         const logsData: any[] = Array.isArray(logsRes) ? logsRes : logsRes.data;
         const usersData: any[] = Array.isArray(usersRes) ? usersRes : usersRes.data;
 
         const userMap: { [id: string]: { name: string, email: string } } = {};
