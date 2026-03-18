@@ -11,7 +11,7 @@ export const messagesSchema = Type.Object(
   {
     _id: Type.Optional(ObjectIdSchema()),
     senderId: ObjectIdSchema(),
-    receiverId: ObjectIdSchema(),
+    receiverId: ObjectIdSchema(), 
     text: Type.String(),
     createdAt: Type.Optional(Type.String()),
     isSeen: Type.Optional(Type.Boolean())
@@ -32,12 +32,11 @@ export const messagesDataSchema = Type.Pick(
 )
 export type MessagesData = Static<typeof messagesDataSchema>
 export const messagesDataValidator = getValidator(messagesDataSchema, dataValidator)
-export const messagesDataResolver = resolve<MessagesData, HookContext<MessagesService>>({})
-
-export const messageDataResolv = resolve<MessagesData, HookContext<MessagesService>>({
+export const messagesDataResolver = resolve<MessagesData, HookContext<MessagesService>>({
   createdAt: async () => new Date().toISOString(),
   isSeen: async () => false
 })
+
 
 export const messagesPatchSchema = Type.Partial(messagesSchema, {
   $id: 'MessagesPatch'

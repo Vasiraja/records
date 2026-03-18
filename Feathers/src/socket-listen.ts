@@ -12,6 +12,7 @@ export const configureSockets = (app: Application) => {
 
     const userId = String(user._id)
 
+
     const count = userConnections.get(userId) || 0
     userConnections.set(userId, count + 1)
 
@@ -41,6 +42,7 @@ export const configureSocketEvents = (app: Application) => {
     const connection = (socket as any).feathers
 
     socket.on('joinPoll', (pollId: string) => {
+      console.log("joinpoll")
 
       if (!connection) {
         console.log('Feathers connection not ready')
@@ -53,6 +55,29 @@ export const configureSocketEvents = (app: Application) => {
 
       app.channel(room).join(connection)
     })
+    socket.on('joinMsgRoom', (data: any) => {
+      console.log('RAW:', data);
+      console.log(typeof data, data)
+
+      const { senderId, receiverId } = data || {};
+
+      if (!senderId || !receiverId) {
+        console.log('Invalid payload');
+        return;
+      }
+
+      const connection = (socket as any).feathers;
+
+      if (!connection) {
+        console.log('Feathers connection not ready');
+        return;
+      }
+
+      console.log('Joining msg rooms:', senderId, receiverId);
+
+      app.channel(`msg/${senderId}`).join(connection);
+      app.channel(`msg/${receiverId}`).join(connection);
+    });
 
     socket.on('leavePoll', (pollId: string) => {
 

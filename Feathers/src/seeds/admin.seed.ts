@@ -54,8 +54,8 @@ export async function seedAdmins() {
 
   for (const admin of admins) {
 
-    const existing = await users.find({
-      query: { email: admin.email }
+    const existing = await users.find({               
+      query: { email: admin.email }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
     })
 
     if ((existing as any).total > 0) {

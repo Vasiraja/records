@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { chatservClient } from './services/chatserv/chatserv.shared'
+export type {
+  Chatserv,
+  ChatservData,
+  ChatservQuery,
+  ChatservPatch
+} from './services/chatserv/chatserv.shared'
+
 import { pollMessagesClient } from './services/poll-messages/poll-messages.shared'
 export type {
   PollMessages,
@@ -37,7 +45,6 @@ export type {
 import { loginLogsClient } from './services/logs/logs.shared'
 export type { LoginLogs, LoginLogsData, LoginLogsQuery, LoginLogsPatch } from './services/logs/logs.shared'
 
- 
 export interface Configuration {
   connection: TransportConnection<ServiceTypes>
 }
@@ -63,12 +70,13 @@ export const createClient = (
   client.set('connection', connection)
 
   // Register services
-   client.configure(loginLogsClient)
+  client.configure(loginLogsClient)
   client.configure(onlineUsersClient)
 
   client.configure(messagesClient)
   client.configure(pollsClient)
   client.configure(votesClient)
   client.configure(pollMessagesClient)
+  client.configure(chatservClient)
   return client
 }

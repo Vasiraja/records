@@ -22,7 +22,8 @@ export class Welcomepage implements OnInit, OnDestroy {
 
   users = signal<any[]>([]);
   userData: any = {};
-
+  polls = signal<any[]>([]);
+  currentUserId: string = localStorage.getItem('user') || '';
   userTypeView: any = "";
   showBulkPopup = false;
 
@@ -82,6 +83,8 @@ export class Welcomepage implements OnInit, OnDestroy {
   get canDelete(): boolean {
     return this.accessControl.canDelete();
   }
+
+
   get canEdit(): boolean {
     return this.accessControl.canEdit();
   }
@@ -89,6 +92,7 @@ export class Welcomepage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.fetching();
+    this.fetchMyPolls();
     this.getCurrentAdminType();
 
 
@@ -105,7 +109,7 @@ export class Welcomepage implements OnInit, OnDestroy {
       const decoded: any = jwtDecode(token)
       const userId = decoded.sub
 
-      client.io.emit('userLogout', userId)
+      // client.io.emit('userLogout', userId)
 
     })
 
@@ -165,7 +169,7 @@ export class Welcomepage implements OnInit, OnDestroy {
     this.userdetService.deleteUser(id).subscribe({
       next: (res: any) => {
         console.log("Deleted successfully", res);
-        
+
         this.fetching();
         this.cdr.detectChanges();
       },
@@ -173,6 +177,31 @@ export class Welcomepage implements OnInit, OnDestroy {
         console.error(error);
       }
     })
+  }
+  fetchMyPolls() {
+    this.userdetService.getPolls().subscribe({
+      next: (res: any) => {
+        const allmypolls = res?.data || [];
+        this.polls.set(allmypolls.filter((p: any) =>{ 
+          console.log(p.createdBy);
+          console.log(this.currentUserId);
+          
+          return p.createdBy === this.currentUserId
+        }));
+        
+        this.cdr.detectChanges();
+        console.log(res)
+      },
+      error: (err) => console.error('Polls fetch error:', err)
+    });
+  }
+
+  getTimeLeft(expiresAt: string): string {
+    const remaining = new Date(expiresAt).getTime() - Date.now();
+    if (remaining <= 0) return 'Expired';
+    const h = Math.floor(remaining / 3600000);
+    const m = Math.floor((remaining % 3600000) / 60000);
+    return h > 0 ? `${h}h ${m}m left` : `${m}m left`;
   }
   confirmDelete(id: string) {
     this.deleteUserId = id;

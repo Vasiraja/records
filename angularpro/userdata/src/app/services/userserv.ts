@@ -42,9 +42,9 @@ export class Userserv {
     return this.http.get<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`);
   }
 
-  postLogs(logPayload: any): Observable<ApiResponse<LoginLog[]>> {
-    return this.http.post<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`, logPayload);
-  }
+  // postLogs(logPayload: any): Observable<ApiResponse<LoginLog[]>> {
+  //   return this.http.post<ApiResponse<LoginLog[]>>(`${this.apiUrl}/logs`, logPayload);
+  // }
   getPolls(): Observable<ApiResponse<Polls[]>> {
 
     const usertype = localStorage.getItem('userType') || 'guest';

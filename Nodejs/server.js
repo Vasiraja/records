@@ -1018,45 +1018,33 @@ const result = vm.runInThisContext(code);
 
 console.log("VM execution result:", result);
 
-console.log("------ 51. WASI (WebAssembly System Interface) ------");
+// console.log("------ 51. WASI (WebAssembly System Interface) ------");
 
-console.log("WASI allows WebAssembly programs to run outside the browser and interact with the system, such as files or environment variables. Node.js supports WASI to run WebAssembly modules.");
+// console.log("WASI allows WebAssembly programs to run outside the browser and interact with the system, such as files or environment variables. Node.js supports WASI to run WebAssembly modules.");
 
-// Example (basic demonstration)
-const { WASI } = require('wasi');
+// // Example (basic demonstration)
+// const { WASI } = require('wasi');
 
-const wasi = new WASI({
-  args: process.argv,
-  env: process.env
-});
+// const wasi = new WASI({
+//   args: process.argv,
+//   env: process.env
+// });
 
-console.log("WASI instance created. It can be used to run WebAssembly modules.");
+// console.log("WASI instance created. It can be used to run WebAssembly modules.");
 
+ 
 
-console.log("------ 52. Punycode ------");
+// console.log("------ 52. Punycode ------");
 
-console.log("Punycode is used to convert Unicode characters (like international domain names) into ASCII format so they can be used in URLs and DNS systems.");
+// console.log("Punycode is used to convert Unicode characters (like international domain names) into ASCII format so they can be used in URLs and DNS systems.");
 
-const punycode = require('punycode');
+// const punycode = require('punycode');
 
-const unicodeDomain = "mañana.com";
-const asciiDomain = punycode.toASCII(unicodeDomain);
+// const unicodeDomains = "mañana.com";
+// const asciiDomains = punycode.toASCII(unicodeDomains);
 
-console.log("Unicode Domain:", unicodeDomain);
-console.log("ASCII (Punycode) Domain:", asciiDomain);
-
-
-console.log("------ 52. Punycode ------");
-
-console.log("Punycode is used to convert Unicode characters (like international domain names) into ASCII format so they can be used in URLs and DNS systems.");
-
-const punycode = require('punycode');
-
-const unicodeDomains = "mañana.com";
-const asciiDomains = punycode.toASCII(unicodeDomains);
-
-console.log("Unicode Domain:", unicodeDomains);
-console.log("ASCII (Punycode) Domain:", asciiDomains);
+// console.log("Unicode Domain:", unicodeDomains);
+// console.log("ASCII (Punycode) Domain:", asciiDomains);
 
 console.log("------ 54. Internationalization ------");
 
@@ -1093,13 +1081,13 @@ console.log("Addition result:", math.add(2,3));
 console.log("ECMAScript Modules are the modern JavaScript module system that uses import and export syntax.");
 
  
-export function multiply(a, b) {
-  return a * b;
-}
+// export function multiply(a, b) {
+//   return a * b;
+// }
 
- import { multiply } from './math.mjs';
+//  import { multiply } from './math.mjs';
 
-console.log("Multiplication result:", multiply(3,4));
+// console.log("Multiplication result:", multiply(3,4));
 
 
 console.log("------ 57. Node Module API ------");

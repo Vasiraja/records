@@ -6,10 +6,7 @@ import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { PollsService } from './polls.class'
 
-/* ==============================
-   MAIN POLL MODEL
-================================ */
-
+ 
 export const pollsSchema = Type.Object(
   {
     id: Type.String(),
@@ -22,7 +19,7 @@ export const pollsSchema = Type.Object(
     ),
     createdBy: Type.String(),
     hidden: Type.Boolean({ default: false }),
-    duration: Type.Number({ default: 2 }),   // ✅ plain type, no Type.Optional
+    duration: Type.Number({ default: 2 }),    
     isActive: Type.Boolean(),
     createdAt: Type.String({ format: 'date-time' }),
     expiresAt: Type.String({ format: 'date-time' })

@@ -11,13 +11,16 @@
 
         <div class="nav-right">
             <div class="user-chip">
-                <div class="chip-avatar">{{userInitial }}</div>
-                <span class="chip-name">{{ currentUser }}</span>
+                <div class="chip-avatar">{{ userInitial }}</div>
+                <div class="chip-info">
+                    <span class="chip-name">{{ userName }}</span>
+                    <span class="chip-role">{{ currentUser }}</span>
+                </div>
                 <span class="status-dot online"></span>
             </div>
             <div class="nav-divider"></div>
             <button class="logout-btn" (click)="logout()" title="Logout">
-                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
 

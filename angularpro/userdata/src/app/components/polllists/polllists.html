@@ -1,85 +1,99 @@
-<div class="polls-wrapper" *ngIf="activeTab === 'view'">
+<ng-container *ngIf="loaded">
+
+  <div class="polls-wrapper" *ngIf="activeTab === 'view'">
     <div class="polls-header">
-        <h1 class="polls-title">Polls</h1>
-        <p class="polls-subtitle">Pick a poll and cast your vote</p>
+      <h1 class="polls-title">Polls</h1>
+      <p class="polls-subtitle">Pick a poll and cast your vote</p>
     </div>
 
     <div class="polls-grid" *ngIf="polls.length">
-        <div class="poll-card" *ngFor="let poll of polls" [class.inactive]="!poll.isActive"
-            (click)="openPoll(poll._id)">
+      <div class="poll-card" *ngFor="let poll of polls" [class.inactive]="!poll.isActive"
+        (click)="openPoll(poll._id)">
 
-            <h3 class="poll-question">{{ poll.question }}</h3>
+        <h3 class="poll-question">{{ poll.question }}</h3>
 
-            <ul class="poll-options-preview">
-                <li *ngFor="let option of poll.options">{{ option.text }}</li>
-            </ul>
+        <ul class="poll-options-preview">
+          <li *ngFor="let option of poll.options">{{ option.text }}</li>
+        </ul>
 
-            <div class="poll-card-footer">
-                <span class="option-count">{{ poll.options.length }} options</span>
+        <div class="poll-card-footer">
+          <span class="option-count">{{ poll.options.length }} options</span>
 
-                <span class="timer-badge" *ngIf="poll.isActive && timers[poll._id]">
-                    <i class="fa-regular fa-clock"></i>
-                    {{ timers[poll._id] }}
-                </span>
-                <span class="vote-cta" *ngIf="poll.isActive">Vote →</span>
+          <span class="timer-badge" *ngIf="poll.isActive && timers[poll._id]">
+            <i class="fa-regular fa-clock"></i>
+            {{ timers[poll._id] }}
+          </span>
+          <span class="vote-cta" *ngIf="poll.isActive">Vote →</span>
 
-                <button *ngIf="canDelete(poll)" (click)="$event.stopPropagation(); deletePoll(poll._id)"
-                    class="delete-btn" [title]="usertype === 'admin' ? 'Delete Poll' : 'Remove Poll'">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
+          <button *ngIf="canDelete(poll)"
+            (click)="$event.stopPropagation(); deletePoll(poll._id)"
+            class="delete-btn"
+            [class.delete-btn--on-closed]="!poll.isActive"
+            [title]="usertype === 'admin' ? 'Delete Poll' : 'Remove Poll'">
+            <i class="fa-solid fa-trash"></i>
+          </button>
 
-                <span class="closed-label" *ngIf="!poll.isActive">Voting closed</span>
-            </div>
-
+          <span class="closed-label" *ngIf="!poll.isActive">Poll Expired</span>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="polls-creator" *ngIf="activeTab === 'create'">
+  <div class="polls-creator" *ngIf="activeTab === 'create' && usertype !== 'guest'">
     <div class="creator-header">
-        <h2 class="creator-title">Create a Poll</h2>
-        <p class="creator-subtitle">Add a question and at least two options</p>
+      <h2 class="creator-title">Create a Poll</h2>
+      <p class="creator-subtitle">Add a question and at least two options</p>
     </div>
 
     <div class="creator-body">
-        <div class="poll-field">
-            <label class="field-label">Question</label>
-            <textarea [(ngModel)]="question" placeholder="e.g. What should we focus on next sprint?"
-                rows="3"></textarea>
+      <div class="poll-field">
+        <label class="field-label">Question</label>
+        <textarea [(ngModel)]="question" placeholder="Type Question"
+          rows="3"></textarea>
+      </div>
+
+      <div class="options-section">
+        <label class="field-label">Options</label>
+
+        <div class="option-row" *ngFor="let option of options; let i = index; trackBy: trackByIndex">
+          <span class="option-index">{{ letters[i] }}</span>
+          <input type="text" [(ngModel)]="options[i]" [placeholder]="'Option ' + (i + 1)" />
+          <button type="button" class="remove-btn" *ngIf="options.length > 2"
+            (click)="removeOption(i)">✕</button>
         </div>
 
-        <div class="options-section">
-            <label class="field-label">Options</label>
+        <button type="button" class="add-option-btn" *ngIf="options.length < 4" (click)="addOption()">
+          + Add Option
+        </button>
+      </div>
 
-            <div class="option-row" *ngFor="let option of options; let i = index; trackBy: trackByIndex">
-                <span class="option-index">{{ letters[i] }}</span>
-                <input type="text" [(ngModel)]="options[i]" [placeholder]="'Option ' + (i + 1)" />
-                <button type="button" class="remove-btn" *ngIf="options.length > 2" (click)="removeOption(i)">✕</button>
-            </div>
+      <div class="poll-field">
+        <label class="field-label">Poll Duration</label>
+        <select [(ngModel)]="duration" class="duration-select">
+          <option [value]="1">1 Hour</option>
+          <option [value]="2">2 Hours</option>
+          <option [value]="4">4 Hours</option>
+          <option [value]="8">8 Hours</option>
+          <option [value]="24">24 Hours</option>
+        </select>
+      </div>
 
-            <button type="button" class="add-option-btn" *ngIf="options.length < 4" (click)="addOption()">
-                + Add Option
-            </button>
-        </div>
-
-        <div class="poll-field">
-            <label class="field-label">Poll Duration</label>
-            <select [(ngModel)]="duration" class="duration-select">
-                <option [value]="1">1 Hour</option>
-                <option [value]="2">2 Hours</option>
-                <option [value]="4">4 Hours</option>
-                <option [value]="8">8 Hours</option>
-                <option [value]="24">24 Hours</option>
-            </select>
-        </div>
-
-        <div class="submit-section">
-            <button type="button" class="submit-btn" (click)="createPoll()">
-                Create Poll
-            </button>
-        </div>
+      <div class="submit-section">
+        <button type="button" class="submit-btn" (click)="createPoll()">
+          Create Poll
+        </button>
+      </div>
     </div>
-</div>
+  </div>
+
+  <div class="guest-create-block" *ngIf="activeTab === 'create' && usertype === 'guest'">
+    <div class="guest-lock-icon">
+      <i class="fa-solid fa-lock"></i>
+    </div>
+    <h3 class="guest-lock-title">Login to Create Polls</h3>
+    <p class="guest-lock-sub">You need an account to publish polls for your session.</p>
+  </div>
+
+</ng-container>
 
 <app-toast></app-toast>
- 

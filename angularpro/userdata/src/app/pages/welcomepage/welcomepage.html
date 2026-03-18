@@ -28,87 +28,88 @@
 
         @for (item of users(); track item._id) {
 
-          <tr *ngIf="editId !== item._id" class="data-row">
+        <tr *ngIf="editId !== item._id" class="data-row">
 
-            <td>
-              <div class="user-info">
-                <div class="avatar">{{ item.firstname?.charAt(0) | uppercase }}</div>
-                <div class="user-meta">
-                  <span class="user-name">{{ item.firstname }}</span>
-                  <span class="user-email-mobile hide-sm-show">{{ item.email }}</span>
-                </div>
+          <td>
+            <div class="user-info">
+              <div class="avatar">{{ item.firstname?.charAt(0) | uppercase }}</div>
+              <div class="user-meta">
+                <span class="user-name">{{ item.firstname }}</span>
+                <span class="user-email-mobile hide-sm-show">{{ item.email }}</span>
               </div>
-            </td>
+            </div>
+          </td>
 
-            <td class="text-muted hide-sm">{{ item.email }}</td>
+          <td class="text-muted hide-sm">{{ item.email }}</td>
 
-            <td>
-              <span class="role-badge">{{ item.userType }}</span>
-            </td>
+          <td>
+            <span class="role-badge">{{ item.userType }}</span>
+          </td>
 
-            <td class="text-muted hide-md">{{ item.age }}</td>
+          <td class="text-muted hide-md">{{ item.age }}</td>
 
-            <td class="hide-sm">
-              <span class="status-pill" [ngClass]="item.isOnline ? 'online' : 'offline'">
-                <span class="status-dot"></span>
-                {{ item.isOnline ? 'Online' : 'Offline' }}
-              </span>
-            </td>
+          <td class="hide-sm">
+            <span class="status-pill" [ngClass]="item.isOnline ? 'online' : 'offline'">
+              <span class="status-dot"></span>
+              {{ item.isOnline ? 'Online' : 'Offline' }}
+            </span>
+          </td>
 
-            <td class="button-cell">
-              <button class="btn btn-warning" [disabled]="!canEdit" (click)="editUser(item._id)" title="Edit">
-                <i class="fa-solid fa-pen-to-square"></i>
-              </button>
-              <button class="btn btn-danger" [disabled]="!canDelete" (click)="confirmDelete(item._id)" title="Delete">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            </td>
+          <td class="button-cell">
+            <button class="btn btn-warning" [disabled]="!canEdit" (click)="editUser(item._id)" title="Edit">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button class="btn btn-danger" [disabled]="!canDelete" (click)="confirmDelete(item._id)" title="Delete">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
 
-          </tr>
+        </tr>
 
-          <tr *ngIf="editId === item._id" class="data-row edit-row">
+        <tr *ngIf="editId === item._id" class="data-row edit-row">
 
-            <td>
-              <input class="table-input" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Full name" />
-            </td>
+          <td>
+            <input class="table-input" [(ngModel)]="formInputs.firstname" name="firstname" placeholder="Full name" />
+          </td>
 
-            <td class="hide-sm">
-              <input class="table-input" [(ngModel)]="formInputs.email" name="email" placeholder="Email address" />
-            </td>
+          <td class="hide-sm">
+            <input class="table-input" [(ngModel)]="formInputs.email" name="email" placeholder="Email address" />
+          </td>
 
-            <td>
-              <select class="table-input" [(ngModel)]="formInputs.userType" name="userType" [disabled]="!canEdit">
-                <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
-              </select>
-            </td>
+          <td>
+            <select class="table-input" [(ngModel)]="formInputs.userType" name="userType" [disabled]="!canEdit">
+              <option *ngFor="let type of userTypes" [value]="type">{{ type }}</option>
+            </select>
+          </td>
 
-            <td class="hide-md">
-              <input class="table-input" type="number" [(ngModel)]="formInputs.age" name="age" placeholder="Age" />
-            </td>
+          <td class="hide-md">
+            <input class="table-input" type="number" [(ngModel)]="formInputs.age" name="age" placeholder="Age" />
+          </td>
 
-            <td class="hide-sm">—</td>
+          <td class="hide-sm">—</td>
 
-            <td class="button-cell">
-              <button class="btn btn-success" (click)="updateUser(item._id)">
-                <i class="fa-solid fa-check"></i>
-              </button>
-              <button class="btn btn-secondary" (click)="editId = null">
-                <i class="fa-solid fa-xmark"></i>
-              </button>
-            </td>
+          <td class="button-cell">
+            <button class="btn btn-success" (click)="updateUser(item._id)">
+              <i class="fa-solid fa-check"></i>
+            </button>
+            <button class="btn btn-secondary" (click)="editId = null">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </td>
 
-          </tr>
+        </tr>
 
         } @empty {
 
-          <tr>
-            <td colspan="6" class="empty-state">
-              <i class="fa-solid fa-users-slash"></i>
-              <p>No users found.</p>
-            </td>
-          </tr>
+        <tr>
+          <td colspan="6" class="empty-state">
+            <i class="fa-solid fa-users-slash"></i>
+            <p>No users found.</p>
+          </td>
+        </tr>
 
-        }
+        
+      }
 
       </tbody>
     </table>
@@ -122,17 +123,58 @@
       <i class="fa-solid fa-triangle-exclamation"></i>
     </div>
     <h3 class="title">Delete User?</h3>
-    <p class="sub">This action cannot be undone.</p>
-    <div class="popup-actions">
+     <div class="popup-actions">
       <button class="btn btn-secondary" (click)="showDeletePopup = false">Cancel</button>
       <button class="btn btn-danger" (click)="deleteConfirmed()">Yes, Delete</button>
     </div>
   </div>
 </div>
 
+ <div class="my-polls-wrapper" *ngIf="!isGuest">
+
+  <div class="my-polls-header">
+    <div class="table-title-group">
+      <h2 class="table-title">My Polls</h2>
+      <span class="user-count-badge">{{ polls().length }} polls</span>
+    </div>
+  </div>
+
+  <div class="my-polls-empty" *ngIf="polls().length === 0">
+    <i class="fa-solid fa-chart-simple"></i>
+    <p>You haven't created any polls yet.</p>
+  </div>
+
+  <div class="my-polls-grid" *ngIf="polls().length">
+    <div class="my-poll-card" *ngFor="let poll of polls()">
+
+      <div class="my-poll-card-top">
+        <span class="my-poll-status-dot" [class.active]="poll.isActive"></span>
+        <span class="my-poll-status-text">{{ poll.isActive ? 'Active' : 'Closed' }}</span>
+        <span class="my-poll-timer" *ngIf="poll.isActive && poll.expiresAt">
+          <i class="fa-regular fa-clock"></i> {{ getTimeLeft(poll.expiresAt) }}
+        </span>
+      </div>
+
+      <p class="my-poll-question">{{ poll.question }}</p>
+
+      <ul class="my-poll-options">
+        <li *ngFor="let opt of $any(poll).options | slice:0:3">{{ $any(opt).text }}</li>
+        <li class="more-label" *ngIf="$any(poll).options.length > 3">
+          +{{ $any(poll).options.length - 3 }} more
+        </li>
+      </ul>
+
+      <div class="my-poll-footer">
+        <span class="my-poll-meta">{{ poll.options.length }} options</span>
+        <span class="my-poll-closed" *ngIf="!poll.isActive">Poll Expired</span>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
 <app-roleanalysis></app-roleanalysis>
 <app-bulk-role-popup *ngIf="showBulkPopup" (closePopup)="closeBulkGuestPopup()" (updated)="fetching()">
 </app-bulk-role-popup>
-
-
-
+ 

@@ -25,8 +25,7 @@ export class Loginpage {
 
   formState: "login" | "signup" = "login";
 
-  @ViewChild('loginForm')
-  loginForm!: NgForm;
+   loginForm!: NgForm;
   @ViewChild(Toast) toast!: Toast;
 
 
@@ -55,14 +54,7 @@ async submitLogin() {
         loginAt: new Date().toISOString()
       };
 
-      this.userservice.postLogs(logPayload).subscribe({
-        next: (logRes) => {
-          console.log("Login log saved:", logRes);
-        },
-        error: (logErr) => {
-          console.error("Failed to save login log:", logErr);
-        }
-      });
+    
 
       this.router.navigate(['/']);
     },
@@ -94,7 +86,7 @@ async submitLogin() {
       email: this.loginEmail,
       age: this.age ? Number(this.age) : null,
       password: this.loginPassword,
-      userType: "Guest"
+      userType: "User"
     };
 
  
@@ -111,7 +103,6 @@ async submitLogin() {
         } 
 
         //  await this.socketServ.connect();
-
         // await this.socketServ.service('online-users').create({
         //   userId: res.data._id, 
         //   firstname: res.data.firstname,

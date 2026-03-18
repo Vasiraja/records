@@ -32,52 +32,32 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
     private zone: NgZone
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const raw = localStorage.getItem('user');
     if (raw) this.currentUserId = raw;
-    this.initSocket();
+
+    await this.socketcon.connect();
+
+    this.loadUsers();
+    this.listenToMessages();
+
+    const lastSelected = localStorage.getItem('selectedUser');
+
+    if (lastSelected && raw) {
+      this.receiverId = lastSelected;
+
+      this.socketcon.joinMsg(this.currentUserId, this.receiverId);
+
+      this.loadConversation();
+    }
   }
 
   ngOnDestroy() {
     const client = this.socketcon.getClient();
     if (client) {
-      client.service('messages').off('created');
+      client.service('chatserv').removeAllListeners('created');
     }
   }
-
-  initSocket() {
-    const client = this.socketcon.getClient();
-    if (!client) {
-      setTimeout(() => this.initSocket(), 500);
-      return;
-    }
-
-    this.loadUsers();
-
-    client.service('messages').off('created');
-
-    client.service('messages').on('created', (msg: any) => {
-
-      this.zone.run(() => {
-
-        const senderIsOther = String(msg.senderId) === String(this.receiverId);
-        const receiverIsMe = String(msg.receiverId) === String(this.currentUserId);
-
-        if (!senderIsOther || !receiverIsMe) return;
-
-        const alreadyExists = this.messages.some(m => String(m._id) === String(msg._id));
-        if (alreadyExists) return;
-
-        this.messages = [...this.messages, msg];
-        this.shouldScroll = true;
-        this.cdr.detectChanges();
-
-      });
-
-    });
-
-  }
-
   ngAfterViewChecked() {
     if (this.shouldScroll) {
       this.scrollToBottom();
@@ -98,6 +78,38 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
       u.firstname?.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
+  listenToMessages() {
+    const client = this.socketcon.getClient();
+    if (!client) return;
+
+    const service = client.service('chatserv');
+
+    service.removeAllListeners('created');
+
+    service.on('created', (msg: any) => {
+      console.log("created...")
+      console.log(msg.senderId);
+      console.log(msg.receiverId);
+      console.log(this.currentUserId)
+      this.zone.run(() => {
+
+
+        const isRelevant =
+          (msg.senderId == this.currentUserId && msg.receiverId == this.receiverId) ||
+          (msg.senderId == this.receiverId && msg.receiverId == this.currentUserId);
+
+        if (!isRelevant) return;
+
+        const exists = this.messages.some(m => m._id === msg._id);
+        if (exists) return;
+
+        this.messages = [...this.messages, msg];
+        this.shouldScroll = true;
+
+        this.cdr.detectChanges();
+      });
+    });
+  }
 
   loadUsers() {
     const client = this.socketcon.getClient();
@@ -111,68 +123,65 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
       .catch((err: any) => console.error(err));
   }
 
-  loadConversation() {
+  async loadConversation() {
     if (!this.receiverId) return;
-    const client = this.socketcon.getClient();
-    client.service('messages').find({
-      query: {
-        $limit: 500,
-        $or: [
-          { senderId: this.currentUserId, receiverId: this.receiverId },
-          { senderId: this.receiverId, receiverId: this.currentUserId }
-        ],
-        $sort: { createdAt: 1 }
-      }
-    })
-      .then((res: any) => {
-        this.messages = res.data || res;
-        this.cdr.detectChanges();
-        setTimeout(() => this.scrollToBottom(), 0);
-      })
-      .catch((err: any) => console.error(err));
+
+    try {
+      const result: any = await this.socketcon.messageService().find({
+        query: {
+          $limit: 500,
+          $or: [
+            {
+              senderId: String(this.currentUserId),
+              receiverId: String(this.receiverId)
+            },
+            {
+              senderId: String(this.receiverId),
+              receiverId: String(this.currentUserId)
+            }
+          ],
+          $sort: { createdAt: 1 }
+        }
+      });
+
+      this.messages = result?.data || result || [];
+
+      this.shouldScroll = true;
+      this.cdr.detectChanges();
+
+      setTimeout(() => this.scrollToBottom(), 0);
+
+    } catch (err) {
+      console.error(" loadConversation error:", err);
+    }
   }
 
   selectUser(user: any) {
     this.selectedUser = user;
     this.receiverId = user._id;
+
+    localStorage.setItem('selectedUser', user._id);
+
     this.messages = [];
+
+    this.socketcon.joinMsg(this.currentUserId, this.receiverId);
+
     this.loadConversation();
   }
 
-  sendMessage() {
+  async sendMessage() {
     const text = this.messageText.trim();
     if (!text || !this.receiverId) return;
 
-    const tempId = crypto.randomUUID();
-
-    const tempMsg = {
-      _id: tempId,
-      _isTemp: true,
-      senderId: this.currentUserId,
-      receiverId: this.receiverId,
-      text,
-      createdAt: new Date().toISOString()
-    };
-
-    this.messages = [...this.messages, tempMsg];
-    this.shouldScroll = true;
     this.messageText = '';
-    this.cdr.detectChanges();
 
-    this.chatServ.sendMessage({
+    const client = this.socketcon.getClient();
+
+    await client.service('chatserv').create({
       senderId: this.currentUserId,
       receiverId: this.receiverId,
       text
-    }).then((saved: any) => {
-      this.messages = this.messages
-        .filter(m => m._id !== tempId)
-        .concat(saved);
-      this.shouldScroll = true;
-      this.cdr.detectChanges();
-    }).catch(() => {
-      this.messages = this.messages.filter(m => m._id !== tempId);
-      this.cdr.detectChanges();
-    });
+    }).catch((err: any) => console.error(err));
   }
 
   trackById(index: number, item: any) { return item._id || index; }

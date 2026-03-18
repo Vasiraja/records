@@ -11,7 +11,6 @@ import {
   messagesDataResolver,
   messagesPatchResolver,
   messagesQueryResolver,
-  messageDataResolv
 } from './messages.schema'
 
 import type { Application } from '../../declarations'
@@ -21,16 +20,12 @@ import { messagesPath, messagesMethods } from './messages.shared'
 export * from './messages.class'
 export * from './messages.schema'
 
-// A configure function that registers the service and its hooks via `app.configure`
 export const messages = (app: Application) => {
-  // Register our service on the Feathers application
   app.use(messagesPath, new MessagesService(getOptions(app)), {
-    // A list of all methods this service exposes externally
     methods: messagesMethods,
 
     events: ['created']
   })
-  // Initialize hooks
   app.service(messagesPath).hooks({
     around: {
       all: [
@@ -41,24 +36,36 @@ export const messages = (app: Application) => {
     before: {
       all: [
         schemaHooks.validateQuery(messagesQueryValidator),
-        schemaHooks.resolveQuery(messagesQueryResolver)
+        schemaHooks.resolveQuery(messagesQueryResolver),
+
+
       ],
       find: [],
-      get: [],
+      get: [
+        async () => {
+          console.log("")
+        }
+      ],
       create: [
         schemaHooks.validateData(messagesDataValidator),
         schemaHooks.resolveData(messagesDataResolver),
-        resolveData(messageDataResolv as any),
-        //         async (context) => {
-        //           console.log("----90")
-        // console.log(context)
-        //           if (!context.data) return context
+        async (context) => {
+          console.log("✅ create reached")
 
-        //           // context.data.createdAt = new Date().toISOString()
-        //           // context.data.isSeen = false
+          console.log("----90");
+          console.log("here trigger")
+          console.log("provider:", context.params.provider)
 
-        //           return context
-        //         },
+          console.log(context)
+
+          console.log(context)
+          if (!context.data) return context
+
+          // context.data.createdAt = new Date().toISOString()
+          // context.data.isSeen = false
+
+          return context
+        },
       ],
       patch: [
         schemaHooks.validateData(messagesPatchValidator),
@@ -73,13 +80,31 @@ export const messages = (app: Application) => {
       all: []
     }
   })
- app.use(messagesPath, new MessagesService(getOptions(app)), {
-  methods: messagesMethods,
-  events: ['created']
-})
+
+
+  app.service(messagesPath).publish((data: any, context: any) => {
+
+    if (context.event !== 'created') return [];
+
+    console.log(" publish triggered");
+
+    const senderId = data.senderId.toString();
+    const receiverId = data.receiverId.toString();
+
+    console.log("Channels exist?",
+      app.channel(`msg/${senderId}`).connections.length,
+      app.channel(`msg/${receiverId}`).connections.length
+    );
+
+    return [
+      app.channel(`msg/${senderId}`),
+      app.channel(`msg/${receiverId}`)
+    ];
+  });
+
+
 }
-  
-// Add this service to the service type index
+
 declare module '../../declarations' {
   interface ServiceTypes {
     [messagesPath]: MessagesService

@@ -5,10 +5,10 @@ import type { MongoDBAdapterParams, MongoDBAdapterOptions } from '@feathersjs/mo
 
 import type { Application } from '../../declarations'
 import type { Messages, MessagesData, MessagesPatch, MessagesQuery } from './messages.schema'
-
+ 
 export type { Messages, MessagesData, MessagesPatch, MessagesQuery }
 
-export interface MessagesParams extends MongoDBAdapterParams<MessagesQuery> {}
+export interface MessagesParams extends MongoDBAdapterParams<MessagesQuery> { }
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
 export class MessagesService<ServiceParams extends Params = MessagesParams> extends MongoDBService<
@@ -16,7 +16,9 @@ export class MessagesService<ServiceParams extends Params = MessagesParams> exte
   MessagesData,
   MessagesParams,
   MessagesPatch
-> {}
+> {
+   
+}
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {

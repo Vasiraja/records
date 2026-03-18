@@ -9,7 +9,8 @@ process.on('unhandledRejection', reason => logger.error('Unhandled Rejection %O'
 configureSockets(app)
 app.listen(port).then(() => {
     configureSocketEvents(app)
+  console.log('channels:', app.channel('everybody').length)
 
-  logger.info(`Feathers app listening on http://${host}:${port}`)
+  logger.info(`Feathers app listening on http://${host}:${port}`) 
 })
  

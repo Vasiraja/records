@@ -27,15 +27,29 @@
 
 
 import type { Application } from './declarations'
+import { services } from './services'
 
 export const channels = (app: Application) => {
-
   app.on('connection', (connection: any) => {
-    app.channel('anonymous').join(connection)
+    console.log('connection joined everybody')
+    app.channel('everybody').join(connection)
   })
 
-  app.publish('created', data => {
-    return app.channel('anonymous')
+  app.service("messages").publish('created', (data: any) => {
+    const senderId = data.senderId.toString()
+    const receiverId = data.receiverId.toString()
+
+    console.log(" publish  triggered")
+
+    console.log("Channels exist?",
+      app.channel(`msg/${senderId}`).connections.length,
+      app.channel(`msg/${receiverId}`).connections.length
+    )
+
+    return [
+      app.channel(`msg/${senderId}`),
+      app.channel(`msg/${receiverId}`)
+    ]
   })
 
-}
+} 

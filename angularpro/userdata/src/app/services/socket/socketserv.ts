@@ -15,35 +15,23 @@ export class Socketserv {
   constructor() { }
 
   async connect() {
-
-    if (this.socket) {
-      return
-    }
-
-    // const token = localStorage.getItem('feathers-jwt')
-    // if (!token) return
+    if (this.socket) return;
 
     this.socket = io('http://localhost:3030', {
-      transports: ['websocket'], withCredentials: false
-    })
+      transports: ['websocket']
+    });
 
-    this.client = feathers()
+    this.client = feathers();
+    this.client.configure(socketio(this.socket));
 
-    this.client.configure(socketio(this.socket))
+    return new Promise<void>((resolve, reject) => {
+      this.socket!.on('connect', () => {
+        console.log(" Socket connected:", this.socket!.id);
+        resolve();
+      });
 
-
-
-    return new Promise<void>((resolve) => {
-
-      this.socket!.once('connect', () => {
-
-        console.log("Socket connected")
-
-        resolve()
-
-      })
-
-    })
+      this.socket!.on('connect_error', reject);
+    });
   }
 
 
@@ -74,15 +62,19 @@ export class Socketserv {
   }
 
   joinMsg(senderId: string, receiverId: string) {
-    if (!this.socket) {
-      console.log("Socket not ready")
-      return
+    if (!this.socket?.connected) {
+      console.log("Socket not ready");
+      return;
     }
 
-    console.log("Emitting joinPoll:", senderId,receiverId)
+    this.socket.emit('joinMsgRoom', {
+      senderId,
+      receiverId
+    });
+  }
 
-    this.socket.emit('joinMsg', senderId,receiverId);
-
+  messageService() {
+    return this.client.service('chatserv');
   }
   leavePoll(pollId: string) {
     if (!this.socket) return
@@ -100,6 +92,8 @@ export class Socketserv {
   liveMessageService() {
     return this.client.service('poll-messages')
   }
+
+  
 
 
 }

@@ -63,12 +63,12 @@ export const pollMessages = (app: Application) => {
   })
 
 
-  
- app.service(pollMessagesPath).publish('created', (data: any) => {
-  console.log("PUBLISH TRIGGERED", data)
+
+  app.service("poll-messages").publish('created', (data: any) => {
+    console.log("PUBLISH TRIGGERED", data)
 
     const pollRoom = `poll/${data.pollId}`
- 
+
     return app.channel(pollRoom)
 
   })

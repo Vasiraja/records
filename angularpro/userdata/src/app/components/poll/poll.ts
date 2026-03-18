@@ -24,6 +24,8 @@ export class Poll implements OnInit, OnDestroy {
   private readonly PAGE_SIZE = 10
   private userId: string | null = null
   @ViewChild('chatScroll') private chatScroll!: ElementRef;
+  usertype: string = localStorage.getItem('userType') || 'guest'
+
   constructor(
     private socketCon: Socketserv,
     private zone: NgZone,
@@ -194,6 +196,7 @@ export class Poll implements OnInit, OnDestroy {
     }
   }
   async vote(optionId: string) {
+    if (this.usertype === 'guest') return
     if (this.hasVoted) return
     if (!this.userId) return
 
@@ -235,9 +238,13 @@ export class Poll implements OnInit, OnDestroy {
     if (!this.totalVotes) return 0
     return Math.round((votes / this.totalVotes) * 100)
   }
+  showGuestNudge() {
 
+    alert('You dont have access yet')
+  }
   async sendLiveMessage() {
 
+    if (this.usertype === 'guest') return
     try {
 
       const pollIdSend = localStorage.getItem("pollid")

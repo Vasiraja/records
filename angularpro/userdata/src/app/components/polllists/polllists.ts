@@ -22,11 +22,12 @@ export class Polllists implements OnInit, OnDestroy {
   duration: number = 2;
   polls: any[] = [];
   letters: string[] = ['A', 'B', 'C', 'D', 'E', 'F'];
-  usertype: string = localStorage.getItem('userType') || 'guest';
-  currentUserId: string = localStorage.getItem('user') || '';
+  usertype: string = '';
+  currentUserId: string = '';
   activeTab = "view";
+  loaded = false;
 
-   timers: { [pollId: string]: string } = {};
+  timers: { [pollId: string]: string } = {};
   private timerInterval: any;
 
   constructor(
@@ -37,20 +38,27 @@ export class Polllists implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.initialPolls();
-
     this.route.queryParams.subscribe(params => {
       this.activeTab = params['tab'] || 'view';
     });
+
+    setTimeout(() => {
+      this.usertype = (localStorage.getItem('userType') || 'guest').toLowerCase().trim();
+      this.currentUserId = localStorage.getItem('user') || '';
+      this.loaded = true;
+      this.cdr.detectChanges();
+      this.initialPolls();
+    }, 0);
   }
 
   ngOnDestroy(): void {
-     if (this.timerInterval) {
+    if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
   }
 
   initialPolls() {
+    this.usertype = (localStorage.getItem('userType') || 'guest').toLowerCase().trim();
     this.userServ.getPolls().subscribe({
       next: (data: any) => {
         this.polls = data?.data || data;
@@ -63,31 +71,26 @@ export class Polllists implements OnInit, OnDestroy {
     });
   }
 
-   startTimers() {
+  startTimers() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
-
     this.updateTimers();
-
     this.timerInterval = setInterval(() => {
       this.updateTimers();
       this.cdr.detectChanges();
     }, 1000);
   }
 
-   updateTimers() {
+  updateTimers() {
     const now = new Date().getTime();
-
     for (const poll of this.polls) {
       if (!poll.isActive || !poll.expiresAt) {
         this.timers[poll._id] = '';
         continue;
       }
-
       const expires = new Date(poll.expiresAt).getTime();
       const remaining = expires - now;
-
       if (remaining <= 0) {
         this.timers[poll._id] = 'Expired';
         poll.isActive = false;
@@ -97,19 +100,14 @@ export class Polllists implements OnInit, OnDestroy {
     }
   }
 
-   formatRemaining(ms: number): string {
+  formatRemaining(ms: number): string {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
-
-    if (hours > 0) {
-      return `${hours}h ${minutes}m ${seconds}s`;
-    } else if (minutes > 0) {
-      return `${minutes}m ${seconds}s`;
-    } else {
-      return `${seconds}s`;
-    }
+    if (hours > 0) return `${hours}h ${minutes}m ${seconds}s`;
+    if (minutes > 0) return `${minutes}m ${seconds}s`;
+    return `${seconds}s`;
   }
 
   trackByIndex(index: number): number {
@@ -131,15 +129,16 @@ export class Polllists implements OnInit, OnDestroy {
   }
 
   createPoll() {
+    if (this.usertype === 'guest') {
+      this.toast.showToast("Restricted", "You don't have access.");
+      return;
+    }
     const polldetails = {
       id: crypto.randomUUID(),
       question: this.question,
       options: this.options
         .filter(o => o.trim() !== '')
-        .map(text => ({
-          id: crypto.randomUUID(),
-          text
-        })),
+        .map(text => ({ id: crypto.randomUUID(), text })),
       createdBy: this.currentUserId,
       hidden: false,
       duration: Number(this.duration) || 2
@@ -161,8 +160,9 @@ export class Polllists implements OnInit, OnDestroy {
   }
 
   canDelete(poll: any): boolean {
+    if (!this.currentUserId) return false;
     if (this.usertype === 'admin') return true;
-    return String(poll.createdBy) === String(this.currentUserId);
+    return poll.isActive && poll.createdBy === this.currentUserId;
   }
 
   deletePoll(pollId: string) {

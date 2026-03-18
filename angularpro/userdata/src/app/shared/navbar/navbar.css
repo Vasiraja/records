@@ -135,3 +135,23 @@
 .offline {
   background: #ff3d00;
 }
+
+.chip-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.chip-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1916;
+}
+
+.chip-role {
+  font-size: 10px;
+  color: #8a8880;
+  text-transform: capitalize;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.05em;
+}
