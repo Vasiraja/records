@@ -1,0 +1,151 @@
+<h3 class="topics">1. Signals</h3>
+
+<p>State Management without using rxjs</p>
+
+<p>{{ valueChange() }}</p>
+
+<button (click)="decrement()">dec</button>
+<button (click)="reset()">reset</button>
+<button (click)="increment()">inc</button>
+
+
+<h3 class="topics">2. computed</h3>
+
+<p>Derived value from another signal</p>
+<p>Auto updates when dependency changes, no manual subscription needed</p>
+
+<p>{{ doubleCount() }}</p>
+
+
+<h3 class="topics">3. effects</h3>
+<p>Run side effects when the signal changes</p>
+
+
+<h3 class="topics">5. input (signals)</h3>
+<p>Derived from the parent through signal input</p>
+
+<p>{{ derivedInputSignal() }}</p>
+
+
+<h3 class="topics">6. output (signals)</h3>
+<p>Send event or data from child to parent</p>
+
+<p>{{ derivedInputSignal() }}</p>
+
+<button (click)="triggerOutputSignal()">output signal</button>
+
+
+<h3 class="topics">7. model (signals)</h3>
+<p>Handle data transfer between parent and child in two-way binding</p>
+
+<p>{{ modelSignal() }}</p>
+<button (click)="updateModelSignal()">update model</button>
+
+
+<h3 class="topics">
+    8. if + for + switch
+</h3>
+
+@if (products.length > 0) {
+
+  @for (product of products; track product.id; let i = $index) {
+
+    <p>{{ i + 1 }}. {{ product.name }} - ₹{{ product.price }}</p>
+
+    @switch (true) {
+
+      @case (product.price > 1000) {
+        <span> - Expensive</span>
+      }
+
+      @case (product.price <= 1000 && product.price > 500) {
+        <span> - Medium</span>
+      }
+
+      @default {
+        <span> - Cheap</span>
+      }
+
+    }
+
+  }
+
+} @else {
+  <p>No products available</p>
+}
+
+
+<h3 class="topics">9. Dependency Injection</h3>
+
+<h3 class="topics">
+    Dependency Injection
+    <span>inject service into component</span>
+</h3>
+
+<h4 class="subtopics">Create Service</h4>
+
+<!-- @Injectable({
+providedIn: 'root'
+}) -->
+
+<h4 class="subtopics">Use in Component</h4>
+
+<!-- constructor(private service: DataService) -->
+
+<!-- <p>{{ service.getMessage() }}</p> -->
+
+<h4 class="subtopics">inject</h4>
+
+<p>Without constructor we can use inject method to inject service into component</p>
+
+<p>dataService = inject(DataService)</p>
+<p>this.dataService.post()</p>
+
+
+<h3 class="topics">10. Zone and Zoneless</h3>
+
+<p>Initially Angular monitors change detection using zone.js</p>
+
+<p>
+Now using signals, no need for zone-based monitoring.
+Signals handle reactive updates efficiently.
+</p>
+<p>
+We can disable zone.js using:
+</p>
+
+<pre>
+bootstrapApplication(AppComponent, {{ '{' }}
+  providers: [
+    provideZoneChangeDetection({{ '{' }} eventCoalescing: true {{ '}' }})
+  ]
+{{ '}' }});
+</pre>
+<p>
+After this, Angular stops auto checking everything.
+Only updates when signals change.
+</p>
+
+
+<h3 class="topics">SSR</h3>
+<p>SSR = rendering Angular app on server instead of browser</p>
+
+<h3 class="topics">Hydration</h3>
+<p>Attaching Angular logic to already rendered HTML</p>
+
+<p>
+Flow → server renders HTML → browser shows HTML → Angular hydrates (adds events, logic)
+</p>
+
+<p>Enable using: ng add @angular/ssr</p>
+<p>
+Config:
+</p>
+
+<pre>
+bootstrapApplication(AppComponent, {{ '{' }}
+  providers: [
+    provideClientHydration()
+  ]
+{{ '}' }});
+</pre>

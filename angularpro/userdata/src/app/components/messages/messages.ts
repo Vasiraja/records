@@ -40,14 +40,14 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
 
     this.loadUsers();
     this.listenToMessages();
+    this.shouldScroll = true;
+
 
     const lastSelected = localStorage.getItem('selectedUser');
 
     if (lastSelected && raw) {
       this.receiverId = lastSelected;
-
       this.socketcon.joinMsg(this.currentUserId, this.receiverId);
-
       this.loadConversation();
     }
   }
@@ -114,7 +114,11 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
   loadUsers() {
     const client = this.socketcon.getClient();
     if (!client) return;
-    client.service('users').find()
+    client.service('users').find({
+      query: {
+        $limit: 1001,
+      }
+    })
       .then((res: any) => {
         const data = res?.data || res || [];
         this.users = data.filter((u: any) => u._id !== this.currentUserId);

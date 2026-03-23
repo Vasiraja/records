@@ -19,16 +19,13 @@ import { pollsPath, pollsMethods } from './polls.shared'
 export * from './polls.class'
 export * from './polls.schema'
 
-// A configure function that registers the service and its hooks via `app.configure`
-export const polls = (app: Application) => {
-  // Register our service on the Feathers application
-  app.use(pollsPath, new PollsService(getOptions(app)), {
+ export const polls = (app: Application) => {
+   app.use(pollsPath, new PollsService(getOptions(app)), {
     methods: pollsMethods,
     events: []
   })
 
-  // Poll expiry checker
-  setInterval(async () => {
+   setInterval(async () => {
     try {
       const now = new Date().toISOString()
 
@@ -54,8 +51,7 @@ export const polls = (app: Application) => {
     }
   }, 1000)
 
-  // Initialize hooks
-  app.service(pollsPath).hooks({
+   app.service(pollsPath).hooks({
     around: {
       all: [
         schemaHooks.resolveExternal(pollsExternalResolver),
@@ -124,8 +120,7 @@ export const polls = (app: Application) => {
   })
 }
 
-// Add this service to the service type index
-declare module '../../declarations' {
+ declare module '../../declarations' {
   interface ServiceTypes {
     [pollsPath]: PollsService
   }

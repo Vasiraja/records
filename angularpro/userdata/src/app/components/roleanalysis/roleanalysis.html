@@ -75,11 +75,7 @@
       <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">
         <i class="fa-solid fa-chevron-right"></i>
       </button>
-
-      <span class="page-info">
-        {{ (currentPage - 1) * pageSize + 1 }}-{{ Math.min(currentPage * pageSize, recentLogins.length) }}
-        of {{ recentLogins.length }}
-      </span>
+ 
     </div>
 
   </div>

@@ -329,7 +329,46 @@
   justify-content: center;
   padding: 9px;
 }
+.superadmin-section{
+  display: flex;
+   width: 25%;
+  justify-content: space-between;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 1rem;
+} 
 
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+ .pagination button:hover:not(:disabled) {
+  background: rgba(224, 92, 42, 0.08);
+  color: #e05c2a;
+  border-color: #e05c2a;
+}
+
+ .pagination button.active {
+  background: #e05c2a;
+  color: #fff;
+  border-color: #e05c2a;
+}
+
+ .pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 @media (max-width: 1024px) {
   .table-wrapper {
     margin-left: 64px;

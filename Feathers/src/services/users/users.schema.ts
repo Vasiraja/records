@@ -19,8 +19,10 @@ export const userSchema = Type.Object(
     firstname: Type.String(),
     age: Type.Number(),
     userType: Type.String(),
-     lastAction: Type.Optional(Type.String({ format: 'date-time' })),
-    isOnline: Type.Optional(Type.Boolean())
+    lastAction: Type.Optional(Type.String({ format: 'date-time' })),
+    isOnline: Type.Optional(Type.Boolean()),
+    isSuperAdmin: Type.Optional(Type.Boolean()),
+
   },
   { $id: 'User', additionalProperties: false }
 )
@@ -37,7 +39,7 @@ export const userExternalResolver = resolve<User, HookContext<UserService>>({
 
 export const userDataSchema = Type.Pick(
   userSchema,
-  ['email', 'password', 'firstname', 'age', 'userType', 'lastAction', 'isOnline'],
+  ['email', 'password', 'firstname', 'age', 'userType', 'lastAction', 'isOnline','isSuperAdmin'],
   { $id: 'UserData' }
 )
 
@@ -65,7 +67,8 @@ export const userQueryProperties = Type.Pick(userSchema, [
   '_id',
   'email',
   'firstname',
-  'userType'
+  'userType',
+  'isSuperAdmin'
 ])
 
 export const userQuerySchema = Type.Intersect(
@@ -84,11 +87,11 @@ export const userQueryResolver = resolve<UserQuery, HookContext<UserService>>({
   _id: async (value, _query, context) => {
     const currentUser = context.params?.user
 
-     if (currentUser && currentUser.userType?.toLowerCase() !== 'admin') {
+    if (currentUser && currentUser.userType?.toLowerCase() !== 'admin') {
       return currentUser._id
     }
 
-     if (value && typeof value === 'object' && '$in' in (value as any)) {
+    if (value && typeof value === 'object' && '$in' in (value as any)) {
       return {
         $in: (value as any).$in.map((id: string) => {
           try { return new ObjectId(id) } catch { return id }
@@ -96,7 +99,7 @@ export const userQueryResolver = resolve<UserQuery, HookContext<UserService>>({
       }
     }
 
-     if (value && typeof value === 'string') {
+    if (value && typeof value === 'string') {
       try { return new ObjectId(value) } catch { return value }
     }
 

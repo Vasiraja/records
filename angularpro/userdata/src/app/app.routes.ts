@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth-guard';
+import { Trial } from './pages/trial/trial';
 
 export const routes: Routes = [
 
@@ -50,6 +51,10 @@ export const routes: Routes = [
 
     loadComponent: () =>
       import('./components/poll/poll').then(m => m.Poll)
+  },
+  {
+    path: "tr",
+    component:Trial
   }
 
 ];

@@ -48,7 +48,7 @@ export const chatserv = (app: Application) => {
         schemaHooks.validateData(chatservDataValidator),
         schemaHooks.resolveData(chatservDataResolver),
         async (context) => {
-          console.log("✅ create reached")
+          console.log(" create reached")
 
           console.log("----90");
           console.log("here trigger")
@@ -78,25 +78,22 @@ export const chatserv = (app: Application) => {
       all: []
     }
   })
+
   app.service(chatservPath).publish((data: any, context: any) => {
-  
-      if (context.event !== 'created') return [];
-  
-      console.log(" publish triggered");
-  
-      const senderId = data.senderId.toString();
-      const receiverId = data.receiverId.toString();
-  
-      console.log("Channels exist?",
-        app.channel(`msg/${senderId}`).connections.length,
-        app.channel(`msg/${receiverId}`).connections.length
-      );
-  
-      return [
-        app.channel(`msg/${senderId}`),
-        app.channel(`msg/${receiverId}`)
-      ];
-    });
+    console.log(' PUBLISH FIRED', context.method, context.event)
+
+    const senderId = data.senderId?.toString()
+    const receiverId = data.receiverId?.toString()
+
+    const senderCh = app.channel(`msg/${senderId}`)
+    const receiverCh = app.channel(`msg/${receiverId}`)
+
+    console.log('sender connections:', senderCh.connections.length)   // if 0, joinMsgRoom never ran
+    console.log('receiver connections:', receiverCh.connections.length)
+
+    return [senderCh, receiverCh]
+  })
+
 }
 
 // Add this service to the service type index

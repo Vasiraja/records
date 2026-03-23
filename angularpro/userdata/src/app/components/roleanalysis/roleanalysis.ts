@@ -34,11 +34,11 @@ export class Roleanalysis implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.userDet.loginWatch$.subscribe(() => {
-      this.buildRecentLogins(); 
+      this.buildRecentLogins();
     })
     this.getCurrentAdminType()
     setTimeout(() => this.buildPieChart(), 0);
- 
+
   }
 
   ngAfterViewInit(): void {
@@ -78,9 +78,14 @@ export class Roleanalysis implements OnInit, AfterViewInit {
   }
 
   get totalPagesArray(): number[] {
-    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
-  }
+    const pages: number[] = [];
 
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+
+    return pages;
+  }
   get paginatedLogins() {
     const start = (this.currentPage - 1) * this.pageSize;
     return this.recentLogins.slice(start, start + this.pageSize);
@@ -92,38 +97,38 @@ export class Roleanalysis implements OnInit, AfterViewInit {
   }
 
   buildPieChart(): void {
-  this.userDet.getData().subscribe((res: any) => {
-    let count = { admin: 0, user: 0, guest: 0 }
+    this.userDet.getData().subscribe((res: any) => {
+      let count = { admin: 0, user: 0, guest: 0 }
 
-    res.data.forEach((item: any) => {
-      const role = (item.userType || '').toLowerCase()
-      if (role === 'admin') count.admin++
-      else if (role === 'user') count.user++
-      else if (role === 'guest') count.guest++
+      res.data.forEach((item: any) => {
+        const role = (item.userType || '').toLowerCase()
+        if (role === 'admin') count.admin++
+        else if (role === 'user') count.user++
+        else if (role === 'guest') count.guest++
+      })
+
+      this.userCounts = count
+
+      if (!this.pieChart?.nativeElement) return
+
+      new Chart(this.pieChart.nativeElement, {
+        type: 'pie',
+        data: {
+          labels: ['Admin', 'User', 'Guest'],
+          datasets: [{
+            label: 'Roles',
+            data: [count.admin, count.user, count.guest],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        }
+      })
     })
-
-    this.userCounts = count
-
-    if (!this.pieChart?.nativeElement) return
-
-    new Chart(this.pieChart.nativeElement, {
-      type: 'pie',
-      data: {
-        labels: ['Admin', 'User', 'Guest'],
-        datasets: [{
-          label: 'Roles',
-          data: [count.admin, count.user, count.guest],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
-        }]
-      }
-    })
-  })
-}
+  }
   buildRecentLogins(): void {
     this.userDet.getLogs().subscribe((logsRes: any) => {
       this.userDet.getData().subscribe((usersRes: any) => {
 
-         const logsData: any[] = Array.isArray(logsRes) ? logsRes : logsRes.data;
+        const logsData: any[] = Array.isArray(logsRes) ? logsRes : logsRes.data;
         const usersData: any[] = Array.isArray(usersRes) ? usersRes : usersRes.data;
 
         const userMap: { [id: string]: { name: string, email: string } } = {};

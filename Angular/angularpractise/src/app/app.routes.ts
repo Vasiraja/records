@@ -17,6 +17,7 @@ import { UnsavedChangesGuard } from './guards/unsaved-changes-guard';
 import { Rxjsangular } from './components/rxjsangular/rxjsangular';
 import { Inputoutputdec } from './components/inputoutputdec/inputoutputdec';
 import { Rxjstask } from './components/rxjstask/rxjstask';
+import { Angulareighteen } from './components/angulareighteen/angulareighteen';
  
 export const routes: Routes = [
 
@@ -49,6 +50,9 @@ export const routes: Routes = [
     },
     {
         path: "rxjs", component: Rxjsangular
+    },
+    {
+        path: "18", component: Angulareighteen
     },
 
 

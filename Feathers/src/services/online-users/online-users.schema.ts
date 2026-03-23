@@ -8,8 +8,7 @@ import type { HookContext } from '../../declarations'
 import { dataValidator, queryValidator } from '../../validators'
 import type { OnlineUsersService } from './online-users.class'
 
-// Main data model schema
-export const onlineUsersSchema = Type.Object(
+ export const onlineUsersSchema = Type.Object(
   {
     _id: ObjectIdSchema(),  
     userId: Type.String(),
@@ -24,8 +23,7 @@ export const onlineUsersResolver = resolve<OnlineUsers, HookContext<OnlineUsersS
 
 export const onlineUsersExternalResolver = resolve<OnlineUsers, HookContext<OnlineUsersService>>({})
 
-// Schema for creating new entries
-export const onlineUsersDataSchema = Type.Pick(onlineUsersSchema, ['userId','firstname','connectedAt'], {
+ export const onlineUsersDataSchema = Type.Pick(onlineUsersSchema, ['userId','firstname','connectedAt'], {
   $id: 'OnlineUsersData'
 })
 export type OnlineUsersData = Static<typeof onlineUsersDataSchema>

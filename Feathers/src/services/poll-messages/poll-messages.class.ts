@@ -13,7 +13,7 @@ import type {
 
 export type { PollMessages, PollMessagesData, PollMessagesPatch, PollMessagesQuery }
 
-export interface PollMessagesParams extends MongoDBAdapterParams<PollMessagesQuery> {}
+export interface PollMessagesParams extends MongoDBAdapterParams<PollMessagesQuery> { }
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
 export class PollMessagesService<ServiceParams extends Params = PollMessagesParams> extends MongoDBService<
@@ -21,11 +21,13 @@ export class PollMessagesService<ServiceParams extends Params = PollMessagesPara
   PollMessagesData,
   PollMessagesParams,
   PollMessagesPatch
-> {}
+> { }
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
-    paginate: app.get('paginate'),
-    Model: app.get('mongodbClient').then(db => db.collection('poll-messages'))
+    paginate: {
+      default: 10,
+      max: 500
+    }, Model: app.get('mongodbClient').then(db => db.collection('poll-messages'))
   }
 }

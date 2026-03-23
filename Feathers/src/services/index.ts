@@ -1,3 +1,4 @@
+import { adminAccess } from './admin-access/admin-access'
 import { chatserv } from './chatserv/chatserv'
 import { pollMessages } from './poll-messages/poll-messages'
 import { votes } from './votes/votes'
@@ -11,6 +12,7 @@ import type { Application } from '../declarations'
 import { user } from './users/users'
 
 export const services = (app: Application) => {
+  app.configure(adminAccess)
   app.configure(chatserv)
   app.configure(pollMessages)
   app.configure(votes)

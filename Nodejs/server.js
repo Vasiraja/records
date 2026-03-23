@@ -602,36 +602,36 @@
 // }
 
 
-// console.log("------34. Child Process ------");
-// console.log("used to create a another nodejs process ")
+console.log("------34. Child Process ------");
+console.log("used to create a another nodejs process ")
 
-// const {exec,spawn,fork,execFile}=require('child_process');
-// const { stdout, stderr } = require("process");
-// console.log("-----i. exec()")
-// console.log("Used to implement process inside comment line");
-// exec('dir',(err,stdout,stderr)=>{
-//   console.log(stdout+"sss")
-// })
-// console.log("-----ii. spawn");
-// console.log("Used to stream data continueosly like large running process node files or another" );
+const {exec,spawn,fork,execFile}=require('child_process');
+const { stdout, stderr } = require("process");
+console.log("-----i. exec()")
+console.log("Used to implement process inside comment line");
+exec('dir',(err,stdout,stderr)=>{
+  console.log(stdout+"sss")
+})
+console.log("-----ii. spawn");
+console.log("Used to stream data continueosly like large running process node files or another" );
 
-// const childspawn = spawn ('node',['childcheck.js']);
+const childspawn = spawn ('node',['childcheck.js']);
 
-// childspawn.stdout.on('data',(data)=>{
-//   console.log(data.toString()+"---->");
-// })
+childspawn.stdout.on('data',(data)=>{
+  console.log(data.toString()+"---->");
+})
 
 
 // console.log("-----iii. fork");
 // fork('worker.js')
 
 
-// console.log("------ iv. execFile() Example ------");
+console.log("------ iv. execFile() Example ------");
 
 
-// execFile('node', ['-v'], (err, stdout) => {
-//   console.log("Node Version:", stdout);
-// });
+execFile('node', ['-v'], (err, stdout) => {
+  console.log("Node Version:", stdout);
+});
 
 // console.log("------35. Cluster Module ------");
 // // console.log("Cluster usually  used for to handle multiple requests  on mulitple cpu's and run multiple node process")
@@ -879,39 +879,39 @@
 
 
 
-// server.js
-const net = require("net");
+// // server.js
+// const net = require("net");
 
-const PORT = 3000;
-const HOST = "127.0.0.1";
+// const PORT = 3000;
+// const HOST = "127.0.0.1";
 
-const server = net.createServer((socket) => {
-  console.log(` Client connected: ${socket.remoteAddress}:${socket.remotePort}`);
+// const server = net.createServer((socket) => {
+//   console.log(` Client connected: ${socket.remoteAddress}:${socket.remotePort}`);
 
-  socket.write("Welcome! You are connected to the server.\n");
+//   socket.write("Welcome! You are connected to the server.\n");
 
-  socket.on("data", (data) => {
-    console.log(` Received: ${data.toString().trim()}`);
-    socket.write(`Echo: ${data}`);
-  });
+//   socket.on("data", (data) => {
+//     console.log(` Received: ${data.toString().trim()}`);
+//     socket.write(`Echo: ${data}`);
+//   });
 
-  socket.on("end", () => {
-    console.log("🔌 Client disconnected.");
-  });
+//   socket.on("end", () => {
+//     console.log("🔌 Client disconnected.");
+//   });
 
-  socket.on("error", (err) => {
-    console.error(`❌ Socket error: ${err.message}`);
-  });
-});
+//   socket.on("error", (err) => {
+//     console.error(`❌ Socket error: ${err.message}`);
+//   });
+// });
 
-server.listen(PORT, HOST, () => {
-  console.log(`🚀 Server running on ${HOST}:${PORT}`);
-});
+// server.listen(PORT, HOST, () => {
+//   console.log(`🚀 Server running on ${HOST}:${PORT}`);
+// });
 
 
-console.log("------ 46.  C++ addons ------");
+// console.log("------ 46.  C++ addons ------");
 
-console.log("C++ addons is a way to write a part of nodejs application in C++ and then use in js");
+// console.log("C++ addons is a way to write a part of nodejs application in C++ and then use in js");
 // #include <node.h>
 
 // using v8::FunctionCallbackInfo;
@@ -967,7 +967,7 @@ console.log("1. create a file name addon.cc")
 // }
 
 // NAPI_MODULE(NODE_GYP_MODULE_NAME, Init)
-console.log("2. set targets")
+// console.log("2. set targets")
 // {
 //   "targets": [
 //     {
@@ -980,9 +980,9 @@ console.log("3. build addon")
 // node-gyp configure
 // node-gyp build
 
-console.log("Above comment create this file build/Release/addon.node ")
+// console.log("Above comment create this file build/Release/addon.node ")
 
-console.log("4. Use that wisely in nodejs")
+// console.log("4. Use that wisely in nodejs")
 
 // const addon = require('./build/Release/addon');
 
@@ -991,32 +991,32 @@ console.log("4. Use that wisely in nodejs")
 // console.log("Result from C++ Addon:", result);
 
 
-console.log("------ 48.  C++ addons with node API ------");
+// console.log("------ 48.  C++ addons with node API ------");
 
-console.log("The C++ Embedder API refers to the V8 engine’s C++ interface that allows a C++ program to embed the JavaScript engine inside it.")
+// console.log("The C++ Embedder API refers to the V8 engine’s C++ interface that allows a C++ program to embed the JavaScript engine inside it.")
 
-console.log("------ 49. V8 Engine ------");
+// console.log("------ 49. V8 Engine ------");
 
-console.log("V8 is the JavaScript engine used by Node.js and Google Chrome. It compiles JavaScript code into machine code so it can run very fast.");
-
-
-const v8 = require('v8');
-
-console.log("Heap statistics from V8:");
-console.log(v8.getHeapStatistics());
+// console.log("V8 is the JavaScript engine used by Node.js and Google Chrome. It compiles JavaScript code into machine code so it can run very fast.");
 
 
-console.log("------ 50. VM Module ------");
+// const v8 = require('v8');
 
-console.log("The vm module allows running JavaScript code inside a separate sandboxed environment. It is useful for executing dynamic code safely.");
+// console.log("Heap statistics from V8:");
+// console.log(v8.getHeapStatistics());
 
-// Example
-const vm = require('vm');
 
-const code = "2 + 3";
-const result = vm.runInThisContext(code);
+// console.log("------ 50. VM Module ------");
 
-console.log("VM execution result:", result);
+// console.log("The vm module allows running JavaScript code inside a separate sandboxed environment. It is useful for executing dynamic code safely.");
+
+// // Example
+// const vm = require('vm');
+
+// const code = "2 + 3";
+// const result = vm.runInThisContext(code);
+
+// console.log("VM execution result:", result);
 
 // console.log("------ 51. WASI (WebAssembly System Interface) ------");
 
@@ -1046,76 +1046,76 @@ console.log("VM execution result:", result);
 // console.log("Unicode Domain:", unicodeDomains);
 // console.log("ASCII (Punycode) Domain:", asciiDomains);
 
-console.log("------ 54. Internationalization ------");
+// console.log("------ 54. Internationalization ------");
 
-console.log("Internationalization allows formatting numbers, dates, and currencies based on different languages and regions.");
+// console.log("Internationalization allows formatting numbers, dates, and currencies based on different languages and regions.");
 
-const number = 1234567.89;
+// const number = 1234567.89;
 
-const formatted = new Intl.NumberFormat('de-DE').format(number);
+// const formatted = new Intl.NumberFormat('de-DE').format(number);
 
-console.log("German format:", formatted);
+// console.log("German format:", formatted);
 
-const date = new Date();
+// const date = new Date();
 
-const formattedDate = new Intl.DateTimeFormat('en-GB').format(date);
+// const formattedDate = new Intl.DateTimeFormat('en-GB').format(date);
 
-console.log("Formatted Date:", formattedDate);
+// console.log("Formatted Date:", formattedDate);
 
-console.log("------ 55. CommonJS ------");
+// console.log("------ 55. CommonJS ------");
 
-console.log("CommonJS is the default module system used in Node.js. It allows exporting and importing functionality between files using require() and module.exports.");
-
-
-const add = (a, b) => a + b;
-
-module.exports = { add };
-
- const math = require('./math');
-
-console.log("Addition result:", math.add(2,3));
+// console.log("CommonJS is the default module system used in Node.js. It allows exporting and importing functionality between files using require() and module.exports.");
 
 
- console.log("------ 56. ECMAScript Modules ------");
+// const add = (a, b) => a + b;
 
-console.log("ECMAScript Modules are the modern JavaScript module system that uses import and export syntax.");
+// module.exports = { add };
+
+//  const math = require('./math');
+
+// console.log("Addition result:", math.add(2,3));
+
+
+//  console.log("------ 56. ECMAScript Modules ------");
+
+// console.log("ECMAScript Modules are the modern JavaScript module system that uses import and export syntax.");
 
  
-// export function multiply(a, b) {
-//   return a * b;
-// }
+// // export function multiply(a, b) {
+// //   return a * b;
+// // }
 
-//  import { multiply } from './math.mjs';
+// //  import { multiply } from './math.mjs';
 
-// console.log("Multiplication result:", multiply(3,4));
-
-
-console.log("------ 57. Node Module API ------");
-
-console.log("The Node Module API allows developers to create reusable modules and access built-in Node.js functionality like file systems, networking, and streams.");
-
- const os = require('os');
-
-console.log("Operating System:", os.platform());
-console.log("CPU Cores:", os.cpus().length);
-
-console.log("------ 58. Packages ------");
-
-console.log("A package in Node.js is a directory that contains code, dependencies, and a package.json file describing the project.");
-
- const packageInfo = {
-  name: "my-node-app",
-  version: "1.0.0",
-  main: "index.js"
-};
-
-console.log("Example package info:", packageInfo);
+// // console.log("Multiplication result:", multiply(3,4));
 
 
-console.log("------ 59. Single Executable Applications ------");
+// console.log("------ 57. Node Module API ------");
 
-console.log("Node.js allows bundling an application and its dependencies into a single executable file that can run without installing Node separately.");
+// console.log("The Node Module API allows developers to create reusable modules and access built-in Node.js functionality like file systems, networking, and streams.");
 
- console.log("Example command:");
-console.log("node --experimental-sea-config sea-config.json");
+//  const os = require('os');
+
+// console.log("Operating System:", os.platform());
+// console.log("CPU Cores:", os.cpus().length);
+
+// console.log("------ 58. Packages ------");
+
+// console.log("A package in Node.js is a directory that contains code, dependencies, and a package.json file describing the project.");
+
+//  const packageInfo = {
+//   name: "my-node-app",
+//   version: "1.0.0",
+//   main: "index.js"
+// };
+
+// console.log("Example package info:", packageInfo);
+
+
+// console.log("------ 59. Single Executable Applications ------");
+
+// console.log("Node.js allows bundling an application and its dependencies into a single executable file that can run without installing Node separately.");
+
+//  console.log("Example command:");
+// console.log("node --experimental-sea-config sea-config.json");
 

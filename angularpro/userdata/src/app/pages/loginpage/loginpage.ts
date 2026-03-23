@@ -15,7 +15,7 @@ import { Socketserv } from '../../services/socket/socketserv';
 })
 export class Loginpage {
 
-  constructor(private userservice: Userserv, private router: Router, private socketServ: Socketserv,private cdr:ChangeDetectorRef) { }
+  constructor(private userservice: Userserv, private router: Router, private socketServ: Socketserv, private cdr: ChangeDetectorRef) { }
 
   loginEmail: string = "";
   loginPassword: string = "";
@@ -25,46 +25,46 @@ export class Loginpage {
 
   formState: "login" | "signup" = "login";
 
-   loginForm!: NgForm;
+  loginForm!: NgForm;
   @ViewChild(Toast) toast!: Toast;
 
 
-async submitLogin() {
-  if (!this.loginEmail || !this.loginPassword) {
-    this.toast.showToast("Error", "Please enter email and password");
-    return;
-  }
+  async submitLogin() {
+    if (!this.loginEmail || !this.loginPassword) {
+      this.toast.showToast("Error", "Please enter email and password");
+      return;
+    }
 
-  this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
-    next: (res: any) => {
-      console.log(res);
+    this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
+      next: (res: any) => {
+        console.log(res);
         console.log("Login triggered");
 
 
-      this.toast.showToast("Success", "Login Successfully");
-      localStorage.setItem("token", res.accessToken);
-      localStorage.setItem("user", res.user._id);
+        this.toast.showToast("Success", "Login Successfully");
+        localStorage.setItem("token", res.accessToken);
+        localStorage.setItem("user", res.user._id);
 
-      this.socketServ.connect();
+        this.socketServ.connect();
 
-      this.userservice.notifyLogin();
+        this.userservice.notifyLogin();
 
-      const logPayload = {
-        userId: res.user._id,
-        loginAt: new Date().toISOString()
-      };
+        const logPayload = {
+          userId: res.user._id,
+          loginAt: new Date().toISOString()
+        };
 
-    
 
-      this.router.navigate(['/']);
-    },
 
-    error: (err: any) => {
-      console.error("Login Error:", err);
-      this.toast.showToast("Login Failed", "Invalid email or password");
-    }
-  });
-}
+        this.router.navigate(['/']);
+      },
+
+      error: (err: any) => {
+        console.error("Login Error:", err);
+        this.toast.showToast("Login Failed", "Invalid email or password");
+      }
+    });
+  }
 
   toggleState() {
     this.formState = this.formState === "login" ? "signup" : "login";
@@ -86,10 +86,10 @@ async submitLogin() {
       email: this.loginEmail,
       age: this.age ? Number(this.age) : null,
       password: this.loginPassword,
-      userType: "User"
+      userType: "Guest"
     };
 
- 
+
     this.userservice.postData(userData).subscribe({
       next: async (res: any) => {
         console.log(res)
@@ -97,10 +97,10 @@ async submitLogin() {
         console.log(res)
         localStorage.setItem("user", JSON.stringify(res.data));
         this.userservice.notifyLogin();
-        this.formState='login';
-        if(this.formState === "login"){
+        this.formState = 'login';
+        if (this.formState === "login") {
           this.cdr.detectChanges();
-        } 
+        }
 
         //  await this.socketServ.connect();
         // await this.socketServ.service('online-users').create({

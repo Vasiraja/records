@@ -4,6 +4,14 @@ import type { TransportConnection, Application } from '@feathersjs/feathers'
 import authClient from '@feathersjs/authentication-client'
 import type { AuthenticationClientOptions } from '@feathersjs/authentication-client'
 
+import { adminAccessClient } from './services/admin-access/admin-access.shared'
+export type {
+  AdminAccess,
+  AdminAccessData,
+  AdminAccessQuery,
+  AdminAccessPatch
+} from './services/admin-access/admin-access.shared'
+
 import { chatservClient } from './services/chatserv/chatserv.shared'
 export type {
   Chatserv,
@@ -78,5 +86,6 @@ export const createClient = (
   client.configure(votesClient)
   client.configure(pollMessagesClient)
   client.configure(chatservClient)
+  client.configure(adminAccessClient)
   return client
 }

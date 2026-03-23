@@ -5,10 +5,17 @@
       <h2 class="table-title">User Management</h2>
       <span class="user-count-badge">{{ users().length }} users</span>
     </div>
-    <button class="btn btn-outline" (click)="openBulkGuestPopup()">
-      <i class="fa-solid fa-users-gear"></i>
-      <span class="btn-label">Bulk Change</span>
-    </button>
+    <div *ngIf="isSuperAdmin" class="superadmin-section">
+
+      <button class="btn btn-outline" (click)="openBulkGuestPopup()">
+        Bulk Change
+      </button>
+
+      <button class="btn btn-outline" (click)="downloadUsersAsXML()">
+        XML Download
+      </button>
+
+    </div>
   </div>
 
   <div class="table-scroll">
@@ -26,7 +33,7 @@
 
       <tbody>
 
-        @for (item of users(); track item._id) {
+        @for (item of getPaginateUsers; track item._id) {
 
         <tr *ngIf="editId !== item._id" class="data-row">
 
@@ -108,10 +115,30 @@
           </td>
         </tr>
 
-        
-      }
+
+        }
+
+
 
       </tbody>
+
+      <div class="pagination">
+
+        <button (click)="goToPrev()" [disabled]="currentPage === 1">
+                  <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <button *ngFor="let page of paginateButtons" (click)="gotoPage(page)" [class.active]="page === currentPage">
+          {{ page }}
+        </button>
+
+        <button (click)="goToNext()" [disabled]="currentPage === noOfPages">
+                  <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+      </div>
     </table>
   </div>
 
@@ -123,14 +150,14 @@
       <i class="fa-solid fa-triangle-exclamation"></i>
     </div>
     <h3 class="title">Delete User?</h3>
-     <div class="popup-actions">
+    <div class="popup-actions">
       <button class="btn btn-secondary" (click)="showDeletePopup = false">Cancel</button>
       <button class="btn btn-danger" (click)="deleteConfirmed()">Yes, Delete</button>
     </div>
   </div>
 </div>
 
- <div class="my-polls-wrapper" *ngIf="!isGuest">
+<div class="my-polls-wrapper" *ngIf="!isGuest">
 
   <div class="my-polls-header">
     <div class="table-title-group">
@@ -177,4 +204,3 @@
 <app-roleanalysis></app-roleanalysis>
 <app-bulk-role-popup *ngIf="showBulkPopup" (closePopup)="closeBulkGuestPopup()" (updated)="fetching()">
 </app-bulk-role-popup>
- 

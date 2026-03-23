@@ -202,7 +202,7 @@ export class Poll implements OnInit, OnDestroy {
 
     this.hasVoted = true
     this.totalVotes++
-    const option = this.poll.options.find((o: any) => o.id === optionId)
+    const option = this.poll.options.find((item: any) => item.id === optionId)
     if (option) option.votes = (option.votes || 0) + 1
     this.cdr.detectChanges()
 

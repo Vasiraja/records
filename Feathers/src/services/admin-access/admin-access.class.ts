@@ -4,25 +4,25 @@ import { MongoDBService } from '@feathersjs/mongodb'
 import type { MongoDBAdapterParams, MongoDBAdapterOptions } from '@feathersjs/mongodb'
 
 import type { Application } from '../../declarations'
-import type { Chatserv, ChatservData, ChatservPatch, ChatservQuery } from './chatserv.schema'
+import type { AdminAccess, AdminAccessData, AdminAccessPatch, AdminAccessQuery } from './admin-access.schema'
 
-export type { Chatserv, ChatservData, ChatservPatch, ChatservQuery }
+export type { AdminAccess, AdminAccessData, AdminAccessPatch, AdminAccessQuery }
 
-export interface ChatservParams extends MongoDBAdapterParams<ChatservQuery> {}
+export interface AdminAccessParams extends MongoDBAdapterParams<AdminAccessQuery> {}
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
-export class ChatservService<ServiceParams extends Params = ChatservParams> extends MongoDBService<
-  Chatserv,
-  ChatservData,
-  ChatservParams,
-  ChatservPatch
+export class AdminAccessService<ServiceParams extends Params = AdminAccessParams> extends MongoDBService<
+  AdminAccess,
+  AdminAccessData,
+  AdminAccessParams,
+  AdminAccessPatch
 > {
-  
+ 
 }
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
     paginate: app.get('paginate'),
-    Model: app.get('mongodbClient').then(db => db.collection('messages'))
+    Model: app.get('mongodbClient').then(db => db.collection('admin-access'))
   }
 }

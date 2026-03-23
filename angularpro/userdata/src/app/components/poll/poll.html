@@ -39,8 +39,7 @@
 
             <div class="option-row">
               <span class="option-text">{{ option.text }}</span>
-              <!-- ✅ CHANGE 5: Hide % for guests -->
-              <span class="option-pct" *ngIf="usertype !== 'guest'">
+               <span class="option-pct" *ngIf="usertype !== 'guest'">
                 {{ getPercent(option.votes || 0) }}%
               </span>
             </div>

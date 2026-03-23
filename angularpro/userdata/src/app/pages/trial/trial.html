@@ -1,0 +1,43 @@
+<div class="clear">
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>age</th>
+                <th>gender</th>
+
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+            @for (item of PaginatedLogins; track item.email) {
+
+            <tr>
+
+                <td> {{item.firstname}}</td>
+
+                <td>{{item.age}}</td>
+                <td>{{item.gender}}</td>
+            </tr>
+
+
+
+
+            }
+        </tbody>
+
+
+        <div>
+
+            <button *ngFor="let page of PageArray" (click)="goToPage(page)">{{page}}</button>
+
+        </div>
+    </table>
+
+    <button (click)="goToPrevious()">prev</button>
+    <button (click)="goToNext()">next</button>
+</div>

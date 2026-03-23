@@ -75,3 +75,94 @@
 </app-inputoutputdec>
 
 <button (click)="increaseParentCount()">increase parent count </button>
+
+
+
+
+<app-angulareighteen  [derivedInputSignal]="passValue" (derivedOutputSignal)="triggerParent($event)" [(modelSignal)]="parentSideModel"   ></app-angulareighteen>
+
+
+<p>Output signal received message: {{receivedMessage}}</p>
+
+<p>parent Side model : {{parentSideModel}}</p>
+
+ <button #btn>Load Section</button>
+
+@defer (on interaction(btn)) {
+  <app-heavycomponent></app-heavycomponent>
+} @placeholder {
+  <p>Click to load</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Loads content when user interacts (click, input, etc.)</p>
+
+
+<h4>On Idle</h4>
+
+@defer (on idle) {
+  <app-heavycomponent></app-heavycomponent>
+} @placeholder {
+  <p>Loads when browser is idle</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Automatically loads when browser is free (no user activity)</p>
+
+
+<h4>On Viewport</h4>
+
+@defer (on viewport) {
+  <app-heavycomponent style="background-color: red;"></app-heavycomponent>
+} @placeholder {
+  <p>Scroll down to load</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Loads when element enters visible screen area (scroll trigger)</p>
+
+
+<h4>On Hover</h4>
+
+<div #hoverArea style="padding:20px; border:1px solid black;">
+  Hover here
+</div>
+
+@defer (on hover(hoverArea)) {
+  <app-heavycomponent></app-heavycomponent>
+} @placeholder {
+  <p>Hover to load</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Loads when user hovers over the element</p>
+
+
+<h4>On Timer</h4>
+
+@defer (on timer(3s)) {
+  <app-heavycomponent></app-heavycomponent>
+} @placeholder {
+  <p>Loads after 3 seconds</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Loads automatically after specified time delay</p>
+
+
+<h4>Multiple Triggers</h4>
+
+@defer (on interaction(btn); on timer(5s)) {
+  <app-heavycomponent></app-heavycomponent>
+} @placeholder {
+  <p>load if any conditions is met</p>
+} @loading {
+  <p>Loading...</p>
+}
+
+<p><b>Definition:</b> Loads when any one of the conditions is satisfied</p>

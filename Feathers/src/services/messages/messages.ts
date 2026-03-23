@@ -50,7 +50,7 @@ export const messages = (app: Application) => {
         schemaHooks.validateData(messagesDataValidator),
         schemaHooks.resolveData(messagesDataResolver),
         async (context) => {
-          console.log("✅ create reached")
+          console.log(" create reached")
 
           console.log("----90");
           console.log("here trigger")
@@ -81,26 +81,17 @@ export const messages = (app: Application) => {
     }
   })
 
+  app.service('chatserv').publish('created', (data:any, context:any) => {
+    const senderId = String(data.senderId)
+    const receiverId = String(data.receiverId)
 
-  app.service(messagesPath).publish((data: any, context: any) => {
-
-    if (context.event !== 'created') return [];
-
-    console.log(" publish triggered");
-
-    const senderId = data.senderId.toString();
-    const receiverId = data.receiverId.toString();
-
-    console.log("Channels exist?",
-      app.channel(`msg/${senderId}`).connections.length,
-      app.channel(`msg/${receiverId}`).connections.length
-    );
+    console.log(`Publishing message to msg/${senderId} and msg/${receiverId}`)
 
     return [
       app.channel(`msg/${senderId}`),
       app.channel(`msg/${receiverId}`)
-    ];
-  });
+    ]
+  })
 
 
 }

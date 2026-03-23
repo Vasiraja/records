@@ -26,6 +26,8 @@ export class Welcomepage implements OnInit, OnDestroy {
   currentUserId: string = localStorage.getItem('user') || '';
   userTypeView: any = "";
   showBulkPopup = false;
+  isSuperAdmin: boolean | undefined;
+
 
   openBulkGuestPopup() {
     this.showBulkPopup = true;
@@ -44,12 +46,9 @@ export class Welcomepage implements OnInit, OnDestroy {
       client.service('users').removeAllListeners('patched')
     }
   }
-
   getCurrentAdminType() {
     const token = localStorage.getItem('token');
     if (!token) return;
-
-
 
     const decoded: any = jwtDecode(token);
     const userId = decoded.sub;
@@ -57,16 +56,20 @@ export class Welcomepage implements OnInit, OnDestroy {
     this.userdetService.getType(userId).subscribe({
       next: (res: any) => {
         const role = res.userType?.trim().toLowerCase();
+
         localStorage.setItem('userType', role);
-        this.userTypeView = localStorage.getItem('userType');
+        this.userTypeView = role;
+
+        this.isSuperAdmin = res.isSuperAdmin === true;
+
         this.accessControl.refreshRole();
-        this.cdr.detectChanges()
+        this.cdr.detectChanges();
       },
       error: () => {
         localStorage.setItem('userType', 'guest');
+        this.isSuperAdmin = false;
         this.accessControl.refreshRole();
         this.cdr.detectChanges();
-
       }
     });
   }
@@ -88,6 +91,60 @@ export class Welcomepage implements OnInit, OnDestroy {
   get canEdit(): boolean {
     return this.accessControl.canEdit();
   }
+
+  pagePerUserCount = 8;
+
+  get pageUsers() {
+    return this.users().length;
+  }
+
+  get noOfPages() {
+    const totalusers: number = this.users().length;
+    return Math.ceil(totalusers / this.pagePerUserCount);
+  }
+  currentPage = 1;
+
+
+  get getPaginateUsers() {
+
+    const start = (this.currentPage - 1) * this.pagePerUserCount;
+    const end = start + this.pagePerUserCount;
+    return this.users().slice(start, end);
+
+  }
+  get paginateButtons() {
+    let overallButtons: number[] = [];
+
+    for (let i = 1; i <= this.noOfPages; i++) {
+      overallButtons.push(i);
+
+    }
+    return overallButtons;
+  }
+
+  gotoPage(page: number) {
+
+    if (page < 1 || page > this.noOfPages) return
+    this.currentPage = page;
+
+  }
+
+  goToNext() {
+    if (this.currentPage < this.noOfPages) {
+      this.currentPage++;
+    }
+
+
+  }
+  goToPrev() {
+    if (this.currentPage > 1) {
+      this.currentPage--
+
+    }
+  }
+
+
+
 
 
   ngOnInit(): void {
@@ -178,23 +235,16 @@ export class Welcomepage implements OnInit, OnDestroy {
       }
     })
   }
-  fetchMyPolls() {
-    this.userdetService.getPolls().subscribe({
-      next: (res: any) => {
-        const allmypolls = res?.data || [];
-        this.polls.set(allmypolls.filter((p: any) =>{ 
-          console.log(p.createdBy);
-          console.log(this.currentUserId);
-          
-          return p.createdBy === this.currentUserId
-        }));
-        
-        this.cdr.detectChanges();
-        console.log(res)
-      },
-      error: (err) => console.error('Polls fetch error:', err)
-    });
-  }
+fetchMyPolls(): void {
+  this.userdetService.getMyPolls(this.currentUserId).subscribe({
+    next: (res: any) => {
+      const allPolls = Array.isArray(res) ? res : res?.data ?? [];
+      this.polls.set(allPolls);
+      this.cdr.detectChanges();
+    },
+    error: (err: any) => console.error('Polls fetch error:', err)
+  });
+}
 
   getTimeLeft(expiresAt: string): string {
     const remaining = new Date(expiresAt).getTime() - Date.now();
@@ -256,7 +306,30 @@ export class Welcomepage implements OnInit, OnDestroy {
   }
 
 
+  downloadUsersAsXML() {
+    const usersData = this.users();
 
+    const xmlRows = usersData.map(user => `
+    <user>
+      <id>${user._id ?? ''}</id>
+      <firstname>${user.firstname ?? ''}</firstname>
+      <email>${user.email ?? ''}</email>
+      <age>${user.age ?? ''}</age>
+      <userType>${user.userType ?? ''}</userType>
+    </user>`).join('');
+
+    const xmlString = `<?xml version="1.0" encoding="UTF-8"?>\n<users>${xmlRows}\n</users>`;
+
+    const blob = new Blob([xmlString], { type: 'application/xml' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'users.xml';
+    a.click();
+
+    URL.revokeObjectURL(url);
+  }
   fetching() {
     this.userdetService.getData().subscribe({
       next: (res: any) => {

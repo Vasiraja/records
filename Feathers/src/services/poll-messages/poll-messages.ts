@@ -22,8 +22,7 @@ export * from './poll-messages.schema'
 
 // A configure function that registers the service and its hooks via `app.configure`
 export const pollMessages = (app: Application) => {
-  // Register our service on the Feathers application
-  app.use(pollMessagesPath, new PollMessagesService(getOptions(app)), {
+   app.use(pollMessagesPath, new PollMessagesService(getOptions(app)), {
     // A list of all methods this service exposes externally
     methods: pollMessagesMethods,
     // You can add additional custom events to be sent to clients here

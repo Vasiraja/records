@@ -1,0 +1,22 @@
+export const ansValues: any[] = [
+  { firstname: "vasi", email: "vasiraja12@gmail.com", gender: "male", age: 12 },
+  { firstname: "arun", email: "arun123@gmail.com", gender: "male", age: 25 },
+  { firstname: "meena", email: "meena45@gmail.com", gender: "female", age: 22 },
+  { firstname: "kiran", email: "kiran.dev@gmail.com", gender: "male", age: 30 },
+  { firstname: "divya", email: "divya89@gmail.com", gender: "female", age: 27 },
+  { firstname: "rahul", email: "rahul007@gmail.com", gender: "male", age: 35 },
+  { firstname: "anita", email: "anita.k@gmail.com", gender: "female", age: 28 },
+  { firstname: "suresh", email: "suresh12@gmail.com", gender: "male", age: 40 },
+  { firstname: "priya", email: "priya123@gmail.com", gender: "female", age: 21 },
+  { firstname: "vijay", email: "vijayv@gmail.com", gender: "male", age: 33 },
+  { firstname: "latha", email: "latha.m@gmail.com", gender: "female", age: 29 },
+  { firstname: "ajay", email: "ajay99@gmail.com", gender: "male", age: 26 },
+  { firstname: "kavya", email: "kavya.dev@gmail.com", gender: "female", age: 24 },
+  { firstname: "ramesh", email: "ramesh007@gmail.com", gender: "male", age: 45 },
+  { firstname: "pooja", email: "pooja88@gmail.com", gender: "female", age: 23 },
+  { firstname: "manoj", email: "manojk@gmail.com", gender: "male", age: 31 },
+  { firstname: "swathi", email: "swathi@gmail.com", gender: "female", age: 20 },
+  { firstname: "deepak", email: "deepak.dev@gmail.com", gender: "male", age: 36 },
+  { firstname: "nisha", email: "nisha123@gmail.com", gender: "female", age: 19 },
+  { firstname: "harish", email: "harish@gmail.com", gender: "male", age: 38 }
+];

@@ -23,14 +23,12 @@ export * from './users.schema'
 // A configure function that registers the service and its hooks via `app.configure`
 export const user = (app: Application) => {
 
-  // Register service
-  app.use(userPath, new UserService(getOptions(app)), {
+   app.use(userPath, new UserService(getOptions(app)), {
     methods: userMethods,
     events: [],
   })
-
-  // Hooks
-  app.service(userPath).hooks({
+ 
+   app.service(userPath).hooks({
     around: {
       all: [
         schemaHooks.resolveExternal(userExternalResolver),
@@ -120,15 +118,13 @@ export const user = (app: Application) => {
     }
   })
 
-  // Real-time event
-  app.service(userPath).publish('patched', (data: any) => {
+   app.service(userPath).publish('patched', (data: any) => {
     return app.channel('anonymous')
   })
 
 }
 
-// Add this service to the service type index
-declare module '../../declarations' {
+ declare module '../../declarations' {
   interface ServiceTypes {
     [userPath]: UserService
   }

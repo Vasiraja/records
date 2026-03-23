@@ -33,10 +33,10 @@ export class BulkRolePopup implements OnInit {
 
     this.loading = true;
 
-    this.userServ.getGuests().subscribe({
+    this.userServ.getUsersConverAdmin().subscribe({
       next: (res: any) => {
 
-        console.log("Users response:", res);
+        console.log("Users response:",res);
 
         if (res && res.data) {
           this.users = res.data;

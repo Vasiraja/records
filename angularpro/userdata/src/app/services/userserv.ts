@@ -47,18 +47,25 @@ export class Userserv {
   // }
   getPolls(): Observable<ApiResponse<Polls[]>> {
 
-    const usertype = localStorage.getItem('userType') || 'guest';
+    const usertype = localStorage.getItem('userType') || '';
 
     return this.http.get<ApiResponse<Polls[]>>(
-      `${this.apiUrl}/polls?$limit=50`,
+      `${this.apiUrl}/polls?$limit=500`,
       {
         headers: {
           usertype: usertype
-        } 
+        }
       }
     );
   }
+   getMyPolls(userId: string): Observable<ApiResponse<Polls[]>> {
+    const usertype = localStorage.getItem('userType') || '';
 
+    return this.http.get<ApiResponse<Polls[]>>(
+      `${this.apiUrl}/polls?createdBy=${userId}&$limit=500`,
+      { headers: { usertype } }
+    );
+  }
   updateData(id: string, userData: Partial<User>): Observable<User> {
     return this.http.patch<User>(`${this.apiUrl}/users/${id}`, userData);
   }
@@ -119,7 +126,7 @@ export class Userserv {
   deletePoll(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/polls/${id}`);
   }
-  getGuests(): Observable<any> {
+  getUsersConverAdmin(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users?userType=Guest&$limit=100`);
   }
 
