@@ -1,0 +1,36 @@
+<p>dom-apis works!</p>
+
+<h3 class="topics">Using DOM APIs</h3>
+
+<h4 class="subtopics">1. ElementRef</h4>
+<p>Get reference to host element directly</p>
+
+<input #myBox type="text" placeholder="Type something..." />
+<button (click)="getInputValue()">Get Value</button>
+<button (click)="focusInput()">Focus Input</button>
+<button (click)="changeInputStyle()">Change Style</button>
+<p>Value: {{ value }}</p>
+
+
+
+<h4 class="subtopics">2. afterRender</h4>
+<p>Runs after every render — every time Angular updates DOM</p>
+
+<button (click)="updateCount()">Update Count</button>
+<p>Count: {{ count }}</p>
+<p>Check console — afterRender logs every time count changes</p>
+
+<h4 class="subtopics">3. afterNextRender</h4>
+<p>Runs only ONCE after next render — then never runs again</p>
+
+<button (click)="updateCount()">Update Count</button>
+<p>Count: {{ count }}</p>
+<p>Check console — afterNextRender logs only ONCE</p>
+
+
+<h4 class="subtopics">4. Renderer2</h4>
+<p>Safe way to manipulate DOM — works with SSR(server sidE RenderinG) too</p>
+
+<div #myBox2>This is a box</div>
+<button (click)="addStyle()">Add Style</button>
+<button (click)="removeStyle()">Remove Style</button>

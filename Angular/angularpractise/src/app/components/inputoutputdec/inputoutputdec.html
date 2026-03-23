@@ -2,26 +2,55 @@
 
 {{childVar}}
 
+<button (click)="implementOutputtrigger()">getstocks and send parent</button>
 
+<ng-content select="[contentforinputoutput]"></ng-content>
 
-<button (click)="implementOutputtrigger()" >getstocks and send parent</button>
-
-<ng-content select ="[contentforinputoutput]"></ng-content>
-
-
-
-<p class="outvariable" >{{outVariableName |  uppercase }} </p>
+<p class="outvariable">{{outVariableName | uppercase }}</p>
 
 <button (click)="alerting()">click</button>
-
-
 
 <p>{{price | currency:'USD'}}</p>
 <button (click)="passPrice()">send price</button>
 
-
-
-<input type="text" (input)="searchaction()" [(ngModel)]="searchVar"> 
+<input type="text" (input)="searchaction()" [(ngModel)]="searchVar">
 
 <p>{{passCount}}</p>
 <button (click)="triggering()">train</button>
+
+<h3 class="topics">2. @input required</h3>
+<p>{{requiredInputs}}</p>
+
+<h3 class="topics">3. @input transform</h3>
+<p>sliced content: "{{description}}"</p>
+
+<h3 class="topics">4. Built in transforms @input</h3>
+<p>booleanAttribute - used to convert string to boolean ex. disabled ="true"</p>
+
+<h3 class="topics">5. Built in transforms @input</h3>
+<p>numberAttribute - used to convert string to number ex. step = "10"</p>
+
+<h3 class="topics">6. alias @input</h3>
+<p>Using this we can declare name as alias</p>
+<p>&#64;Input(&#123; alias: 'sliderValue' &#125;) value = 0;</p>
+<p>we can use this for the sensitive case like
+  here value is like already used html templates like that
+  but instead of that we can use as alias sliderValue
+</p>
+
+<h3 class="topics">7. get and set @input</h3>
+<!-- ngNonBindable stops Angular from parsing {{ }} inside this block -->
+<code ngNonBindable>
+private _value = 0;
+
+// get → called when template reads {{ value }}
+get value(): number &#123;
+  return this._value;
+&#125;
+
+// @Input on setter → called when parent passes [value]="150"
+@Input()
+set value(val: number) &#123;
+  this._value = Math.min(100, Math.max(0, val));
+&#125;
+</code>

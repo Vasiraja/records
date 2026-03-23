@@ -3,37 +3,37 @@
 
 <h3 class="topics">1. Hooks</h3>
 
-<h4 class="subtopics">i  ..ngoninit.. </h4>
+<h4 class="subtopics">i ..ngoninit.. </h4>
 
 <h5 class="tiny">Rendering Items through ngoninit Hook</h5>
 
-<div *ngFor="let item of randomUsers" >
-    <p>{{item.email}}</p>
-    <p>{{item.name.first}}</p>
-    
+<div *ngFor="let item of randomUsers">
+  <p>{{item.email}}</p>
+  <p>{{item.name.first}}</p>
 
-</div> 
 
-<h4 class="subtopics">ii  ..ngonchanges..</h4>
+</div>
+
+<h4 class="subtopics">ii ..ngonchanges..</h4>
 <h5 class="tiny">trigger ngonchanges through input decorator</h5>
 <button (click)="triggerNgOnChanges()">ngOnchanges </button>
 
-<h4 class="subtopics">iii  ..ngdocheck..</h4>
+<h4 class="subtopics">iii ..ngdocheck..</h4>
 
 <h5 class="tiny">Monitor change detection through timers</h5>
 <p>{{timer}}</p>
- <button (click)="ngdochecktrigger()">ngdocheck</button>
+<button (click)="ngdochecktrigger()">ngdocheck</button>
 
-   <app-homechild [childVariable]="childPass" *ngIf="triggeredChild">
-     <p #parentproperty> Hi i am outside content from the parent: {{timer}}</p> 
+<app-homechild [childVariable]="childPass" *ngIf="triggeredChild">
+  <p #parentproperty> Hi i am outside content from the parent: {{timer}}</p>
 
- </app-homechild>  
-<h4 class="subtopics">vi   ..ngondestroy..</h4>
+</app-homechild>
+<h4 class="subtopics">vi ..ngondestroy..</h4>
 
-<h5 class="tiny">triggered the ngdestroy from parent to child to remove the child  </h5>
-  
- <button (click)="removechild()">ngdestroy child</button>
- <div>Outside Component</div>
+<h5 class="tiny">triggered the ngdestroy from parent to child to remove the child </h5>
+
+<button (click)="removechild()">ngdestroy child</button>
+<div>Outside Component</div>
 
 <app-encapsulation></app-encapsulation>
 
@@ -48,27 +48,30 @@
     <h3>This is for multi slot content project through select inside ng-content</h3>
 
   </div>
-  <p newsubpara>this is also multi slot content projection through select inside ng-content but name is --newsubpara--</p>
-  <ng-container  >
-  <ng-content></ng-content>
-</ng-container>
+  <p newsubpara>this is also multi slot content projection through select inside ng-content but name is --newsubpara--
+  </p>
+  <ng-container>
+    <ng-content></ng-content>
+  </ng-container>
 </app-contentprojection>
 
 
- 
- <!-- parent.component.html -->
+
+<!-- parent.component.html -->
 <button (click)="showContent = !showContent">Toggle Projected Content</button>
 
 <ng-container *ngIf="showContent">
   <app-contentprojection>
     <p>This content is projected from parent</p>
-  </app-contentprojection> 
+  </app-contentprojection>
 </ng-container>
 
 
 
 
-<app-inputoutputdec *ngIf="countPar>2" [passCount]="countPar" [childVar]="parentVar" [outVariableName]="'outVariableName'" [price]="23000" (stocksget)="noOfStocks($event)" (priceClicked)="priceGot($event)"   > 
+<app-inputoutputdec *ngIf="countPar>2" [passCount]="countPar" [childVar]="parentVar"
+  [outVariableName]="'outVariableName'" [price]="23000" (stocksget)="noOfStocks($event)"
+  (priceClicked)="priceGot($event)" [requiredInputs]="parentRequiredInput" [description]="trimNeededVal">
 
   <p contentforinputoutput> here input output </p>
 
@@ -79,21 +82,22 @@
 
 
 
-<app-angulareighteen  [derivedInputSignal]="passValue" (derivedOutputSignal)="triggerParent($event)" [(modelSignal)]="parentSideModel"   ></app-angulareighteen>
+<app-angulareighteen [derivedInputSignal]="passValue" (derivedOutputSignal)="triggerParent($event)"
+  [(modelSignal)]="parentSideModel"></app-angulareighteen>
 
 
 <p>Output signal received message: {{receivedMessage}}</p>
 
 <p>parent Side model : {{parentSideModel}}</p>
 
- <button #btn>Load Section</button>
+<button #btn>Load Section</button>
 
 @defer (on interaction(btn)) {
-  <app-heavycomponent></app-heavycomponent>
+<app-heavycomponent></app-heavycomponent>
 } @placeholder {
-  <p>Click to load</p>
+<p>Click to load</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Loads content when user interacts (click, input, etc.)</p>
@@ -102,11 +106,11 @@
 <h4>On Idle</h4>
 
 @defer (on idle) {
-  <app-heavycomponent></app-heavycomponent>
+<app-heavycomponent></app-heavycomponent>
 } @placeholder {
-  <p>Loads when browser is idle</p>
+<p>Loads when browser is idle</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Automatically loads when browser is free (no user activity)</p>
@@ -115,11 +119,11 @@
 <h4>On Viewport</h4>
 
 @defer (on viewport) {
-  <app-heavycomponent style="background-color: red;"></app-heavycomponent>
+<app-heavycomponent style="background-color: red;"></app-heavycomponent>
 } @placeholder {
-  <p>Scroll down to load</p>
+<p>Scroll down to load</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Loads when element enters visible screen area (scroll trigger)</p>
@@ -132,11 +136,11 @@
 </div>
 
 @defer (on hover(hoverArea)) {
-  <app-heavycomponent></app-heavycomponent>
+<app-heavycomponent></app-heavycomponent>
 } @placeholder {
-  <p>Hover to load</p>
+<p>Hover to load</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Loads when user hovers over the element</p>
@@ -145,11 +149,11 @@
 <h4>On Timer</h4>
 
 @defer (on timer(3s)) {
-  <app-heavycomponent></app-heavycomponent>
+<app-heavycomponent></app-heavycomponent>
 } @placeholder {
-  <p>Loads after 3 seconds</p>
+<p>Loads after 3 seconds</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Loads automatically after specified time delay</p>
@@ -158,11 +162,33 @@
 <h4>Multiple Triggers</h4>
 
 @defer (on interaction(btn); on timer(5s)) {
-  <app-heavycomponent></app-heavycomponent>
+<app-heavycomponent></app-heavycomponent>
 } @placeholder {
-  <p>load if any conditions is met</p>
+<p>load if any conditions is met</p>
 } @loading {
-  <p>Loading...</p>
+<p>Loading...</p>
 }
 
 <p><b>Definition:</b> Loads when any one of the conditions is satisfied</p>
+
+
+
+
+
+<h3 class="topics">hostelement purpose</h3>
+<app-hostelem role="slider" class="active" tabindex="0">
+  your template here
+</app-hostelem>
+
+
+
+<app-queries>
+
+  <input #projectedInput type="text" placeholder="Projected Input" />
+   <input #projectedInputs type="text" placeholder="Projected Input 2" />
+  <input #projectedInputs type="text" placeholder="Projected Input 3" />
+</app-queries>
+
+<app-inheritance></app-inheritance>
+
+

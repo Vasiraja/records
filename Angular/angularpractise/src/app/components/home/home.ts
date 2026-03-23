@@ -7,10 +7,15 @@ import { Contentprojection } from '../contentprojection/contentprojection';
 import { Inputoutputdec } from '../inputoutputdec/inputoutputdec';
 import { Angulareighteen } from '../angulareighteen/angulareighteen';
 import { Heavycomponent } from '../heavycomponent/heavycomponent';
+import { Hostelem } from '../hostelem/hostelem';
+import { Queries } from '../queries/queries';
+import { Inheritance } from '../inheritance/inheritance';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, Homechild, Encapsulation, Contentprojection, Inputoutputdec, Angulareighteen , Heavycomponent],
+  imports: [CommonModule, Homechild, Encapsulation, Contentprojection, Inputoutputdec, Angulareighteen, Heavycomponent, Hostelem, Queries,
+    Inheritance
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -22,8 +27,9 @@ export class Home implements OnInit, DoCheck {
   passValue = "Parent User";
   receivedMessage: string | undefined;
   parentSideModel: string = ""
+  parentRequiredInput: string = "passed parent required input ";
 
-
+  
 
 
   removechild() {
@@ -39,6 +45,7 @@ export class Home implements OnInit, DoCheck {
   randomUsers: any[] = [];
   childPass: any | undefined;
   timer: any = 0;
+  trimNeededVal: any = "angular";
 
   ngOnInit(): void {
     this.ngdochecktrigger();

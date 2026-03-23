@@ -14,7 +14,15 @@ export class Inputoutputdec {
 
 
   @Input() price: number = 0;
+
+  @Input() requiredInputs: string = "";
   @Output() priceClicked = new EventEmitter<number>();
+
+  @Input({ transform: stringChangeTrim }) description = "";
+
+
+
+
   @Input() passCount: number = 0;
   searchVar: string = "";
 
@@ -58,25 +66,30 @@ export class Inputoutputdec {
   }
 
   triggering() {
-    of(14,22,65,22,55,33).pipe(
-      exhaustMap(x=>of(x).pipe(delay(1000)))
+    of(14, 22, 65, 22, 55, 33).pipe(
+      exhaustMap(x => of(x).pipe(delay(1000)))
     ).subscribe(console.log);
 
 
 
-    of(14,22,65,22,55,33).pipe(
-      switchMap(x=>of(x).pipe(delay(1000)))
+    of(14, 22, 65, 22, 55, 33).pipe(
+      switchMap(x => of(x).pipe(delay(1000)))
     ).subscribe(console.log)
-    of(14,22,65,22,55,33).pipe(
-      mergeMap(x=>of(x).pipe(delay(1000)))
+    of(14, 22, 65, 22, 55, 33).pipe(
+      mergeMap(x => of(x).pipe(delay(1000)))
     ).subscribe(console.log)
-    
-    of(14,22,65,22,55,33).pipe(
-      concatMap(x=>of(x).pipe(delay(1000)))
+
+    of(14, 22, 65, 22, 55, 33).pipe(
+      concatMap(x => of(x).pipe(delay(1000)))
     ).subscribe(console.log)
-    
+
   }
 
 
 
 }
+function stringChangeTrim(value: string | undefined): string {
+  return value?.slice(3,7) ?? '';
+
+}
+

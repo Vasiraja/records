@@ -1,8 +1,8 @@
 import { Component, computed, signal, effect, input, output, model } from '@angular/core';
-
+ 
 @Component({
   selector: 'app-angulareighteen',
-  imports: [],
+  imports: [ ],
   templateUrl: './angulareighteen.html',
   styleUrl: './angulareighteen.css',
 })
@@ -12,7 +12,7 @@ export class Angulareighteen {
   products = [
   { id: 1, name: 'Laptop', price: 1500 },
   { id: 2, name: 'Phone', price: 800 },
-  { id: 3, name: 'Mouse', price: 300 }
+  { id: 3, name: 'Mouse', price: 300 }, 
 ];
 
   derivedInputSignal = input("default user");

@@ -1,0 +1,39 @@
+<p>queries works!</p>
+
+<h3 class="topics">Referencing Component Children with Queries</h3>
+
+<h4 class="subtopics">1. @ViewChild</h4>
+<p>Grab html element and put actions and note: it will initialise after view init hook only</p>
+
+<input #myInput type="text" placeholder="Type something..." />
+<button (click)="focusInput()">Focus Input</button>
+<button (click)="getValue()">Get Value</button>
+<p>Input Value: {{ inputvalue }}</p>
+
+
+<h4 class="subtopics">2. @ViewChildren</h4>
+<p>Get reference to multiple child elements inside template</p>
+
+<input #viewInput type="text" placeholder="Input 1" />
+<input #viewInputs type="text" placeholder="Input 2" />
+<input #viewInputs type="text" placeholder="Input 3" />
+<button (click)="focusAll()">Focus All</button>
+<button (click)="clearAll()">Clear All</button>
+
+<p>view children and viewchild defined by you like elements </p>
+
+
+<h4 class="subtopics">3. @ContentChild</h4>
+<p>Get reference to one projected content element from parent</p>
+
+<ng-content></ng-content>
+
+
+<h4 class="subtopics">4. @ContentChildren</h4>
+<p>Get reference to multiple projected content elements</p>
+
+<ng-content></ng-content>
+<button (click)="highlightAll()">Highlight All</button>
+<button (click)="clearAlls()">Clear All</button>
+
+<p>content children and contentchild defined by parent </p>

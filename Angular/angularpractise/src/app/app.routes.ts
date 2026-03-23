@@ -18,7 +18,11 @@ import { Rxjsangular } from './components/rxjsangular/rxjsangular';
 import { Inputoutputdec } from './components/inputoutputdec/inputoutputdec';
 import { Rxjstask } from './components/rxjstask/rxjstask';
 import { Angulareighteen } from './components/angulareighteen/angulareighteen';
- 
+import { Hostelem } from './components/hostelem/hostelem';
+import { Queries } from './components/queries/queries';
+import { Domapi } from './components/domapi/domapi';
+import { Inheritance } from './components/inheritance/inheritance';
+
 export const routes: Routes = [
 
     { path: "", component: Home },
@@ -28,18 +32,18 @@ export const routes: Routes = [
     { path: "pipes", component: Pipes },
     { path: "contentprojection", component: Contentprojection },
     { path: "binding", component: Bindings },
-    {path:"inputoutput",component:Inputoutputdec},
-    {path:"rxjst",component:Rxjstask},
+    { path: "inputoutput", component: Inputoutputdec },
+    { path: "rxjst", component: Rxjstask },
 
 
 
 
 
-    { path: "login", component: Login,canDeactivate:[UnsavedChangesGuard]  },
+    { path: "login", component: Login, canDeactivate: [UnsavedChangesGuard] },
     {
         path: 'dashboard',
         component: Dashboard,
-        canActivateChild: [dashboardchildGuard], 
+        canActivateChild: [dashboardchildGuard],
         children: [
             { path: 'reports', component: Reports },
             { path: 'analytics', component: Analytics },
@@ -53,6 +57,18 @@ export const routes: Routes = [
     },
     {
         path: "18", component: Angulareighteen
+    },
+    {
+        path: "host", component: Hostelem
+    },
+    {
+        path: "query", component: Queries
+    },
+    {
+        path: "dom", component: Domapi
+    },
+    {
+        path: "inher", component: Inheritance
     },
 
 

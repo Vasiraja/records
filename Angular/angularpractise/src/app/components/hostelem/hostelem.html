@@ -1,0 +1,38 @@
+<p>hostelem works!</p>
+
+
+
+
+
+<h4 class="subtopics">3. @HostBinding</h4>
+<p>Dynamically change styles on the host tag itself</p>
+<p>Check DevTools — styles apply on &lt;app-hostelem&gt; tag directly</p>
+
+<button (click)="changeStyle()">Change Host Style</button>
+<button (click)="resetStyle()">Reset</button>
+
+
+
+<p>Realtime usecase when the component act as element like input, button that time we can easily change hostelement
+    problerites through this host and hostbindings</p>
+
+
+
+
+<h4 class="subtopics">4. @HostListener</h4>
+<p>Listening to events on the host tag itself</p>
+<p>Hover over this component → background changes</p>
+<p>Click anywhere on this component → check console</p>
+
+<h4 class="subtopics">5. Binding Collisions</h4>
+ 
+<p>Rule 1 — both static → parent wins</p>
+<p>Ex. parent says role="group" and host says role="slider" → role="group" parent wins</p>
+
+<p>Rule 2 — one static one dynamic → dynamic wins</p>
+<p>Ex. parent says role="group" (static) and host says [attr.role]="myRole" (dynamic) → dynamic host wins</p>
+
+<p>Rule 3 — both dynamic → host wins</p>
+<p>Ex. parent says [id]="parentId" and host says [id]="hostId" → host wins</p>
+
+<p>Check DevTools to see which value is applied on &lt;app-hostelem&gt; tag</p>
