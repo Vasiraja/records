@@ -89,6 +89,68 @@
     <button onclick="getLocationWithError()">Get Location With Error Handling</button>
     <p id="geoError"></p>
 
+    <!-- 56. Drag and Drop API - Basic Introduction -->
+    <!-- Drag and Drop API allows the user to click, drag, move and drop elements inside the browser -->
+    <h3>56. Drag and Drop API - Basic</h3>
+    <p>Drag and Drop API is used to move elements from one place to another using mouse interaction.</p>
+
+
+    <h3>57. Draggable Element</h3>
+    <div draggable="true" style="width:150px; padding:20px; background-color:lightblue; margin-bottom:10px;">
+        Drag Me
+    </div>
+    <p>Div draggable through draggable:true</p>
+
+
+    <h3>58. Drag Start Event</h3>
+    <div id="dragBox1" draggable="true" ondragstart="dragStartExample(event)"
+        style="width:150px; padding:20px; background-color:violet; color:white; margin-bottom:10px;">
+        Drag Start Box
+    </div>
+    <p>when you start drag it will trigger specific function through this ondragstart </p>
+    <p id="dragStartOutput"></p>
+
+    <script>
+        function dragStartExample(event) {
+            document.getElementById("dragStartOutput").innerHTML =
+                "Dragging has started for element with id: " + event.target.id;
+
+            console.log("dragstart event fired");
+            console.log("Dragged Element ID:", event.target.id);
+        }
+    </script>
+
+
+    <h3>59. Drag Over Event</h3>
+    <div id="dragBox2" draggable="true" ondragstart="dragStartForDrop(event)"
+        style="width:120px; padding:20px; background-color:purple; color:white; margin-bottom:10px;">
+        Drag This
+    </div>
+
+    <div ondragover="allowDrop(event)" id="dragOverBox"
+        style="width:250px; height:120px; background-color:#02f12a; border:2px dashed black; padding:10px;">
+        Drop Area
+    </div>
+
+    <p>The dragover event allows an element to become a valid drop target.</p>
+
+
+
+    <h3>60. Drop Event</h3>
+    <div id="dragBox3" draggable="true" ondragstart="dragStartDrop(event)"
+        style="width:120px; padding:20px; background-color:teal; color:white; margin-bottom:10px;">
+        Drop Me
+    </div>
+
+    <div id="dropZone1" ondragover="allowDrop(event)" ondrop="dropElement(event)"
+        style="width:250px; height:120px; background-color:#ffe4b5; border:2px dashed black; padding:10px;">
+        Drop Here
+    </div>
+
+    <p id="dropOutput"></p>
+
+
+
     <script>
         function getLocationWithError() {
             console.log("getLocationWithError() function called");
@@ -199,6 +261,33 @@
 
             document.getElementById("geoBasic").innerHTML =
                 "Location fetched successfully.";
+        }
+        function dragStartDrop(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("Drop drag started:", event.target.id);
+        }
+
+        function dropElement(event) {
+            event.preventDefault();
+
+            let draggedElementId = event.dataTransfer.getData("text");
+            let draggedElement = document.getElementById(draggedElementId);
+
+            event.target.appendChild(draggedElement);
+
+
+            console.log("drop event fired");
+            console.log("Dropped Element ID:", draggedElementId);
+
+        }
+        function allowDrop(event) {
+            event.preventDefault();
+            console.log("dragover event fired");
+        }
+
+        function dragStartForDrop(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("drag started for:", event.target.id);
         }
 
     </script>

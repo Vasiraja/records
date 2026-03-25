@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple WebSocket Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        input,
+        button {
+            padding: 8px;
+            margin-top: 10px;
+        }
+
+        #messages {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            min-height: 120px;
+            background: #f9f9f9;
+        }
+
+        .msg {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Simple WebSocket Example</h2>
+    <p id="status">Status: Not Connected</p>
+
+    <button onclick="connectSocket()">Connect</button>
+    <button onclick="disconnectSocket()">Disconnect</button>
+    <br><br>
+
+    <input type="text" id="messageInput" placeholder="Type message here" />
+    <button onclick="sendMessage()">Send</button>
+
+    <div id="messages"></div>
+
+    <script>
+        let socket;
+
+        function connectSocket() {
+            socket = new WebSocket("wss://ws.ifelse.io");
+            socket.onopen = function () {
+                document.getElementById("status").innerHTML = "Status: Connected";
+                addMessage("Connected to WebSocket server");
+                console.log("WebSocket connected");
+            };
+
+            socket.onmessage = function (event) {
+                addMessage("Received: " + event.data);
+                console.log("Message from server:", event.data);
+            };
+
+            socket.onerror = function (error) {
+                addMessage("WebSocket error occurred");
+                console.log("WebSocket error:", error);
+            };
+
+            socket.onclose = function () {
+                document.getElementById("status").innerHTML = "Status: Disconnected";
+                addMessage("Connection closed");
+                console.log("WebSocket disconnected");
+            };
+        }
+
+        function sendMessage() {
+            const message = document.getElementById("messageInput").value;
+
+            if (socket && socket.readyState === 1) {
+                socket.send(message);
+                addMessage("Sent: " + message);
+                console.log("Message sent:", message);
+            } else {
+                addMessage("Socket is not connected");
+            }
+        }
+
+        function disconnectSocket() {
+            if (socket) {
+                socket.close();
+            }
+        }
+
+        function addMessage(text) {
+            const messageBox = document.getElementById("messages");
+            const p = document.createElement("p");
+            p.className = "msg";
+            p.textContent = text;
+            messageBox.appendChild(p);
+        }
+    </script>
+
+</body>
+
+</html>
