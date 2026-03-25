@@ -36,7 +36,7 @@ export class Loginpage {
     }
 
     this.userservice.login(this.loginEmail, this.loginPassword).subscribe({
-      next: (res: any) => {
+      next: async (res: any) => {
         console.log(res);
         console.log("Login triggered");
 
@@ -45,7 +45,9 @@ export class Loginpage {
         localStorage.setItem("token", res.accessToken);
         localStorage.setItem("user", res.user._id);
 
-        this.socketServ.connect();
+        await this.socketServ.connect();
+        this.socketServ.socket?.emit('userOnline', res.user._id)
+
 
         this.userservice.notifyLogin();
 

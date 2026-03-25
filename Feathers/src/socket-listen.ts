@@ -21,7 +21,7 @@ export const configureSockets = (app: Application) => {
       lastAction: new Date().toISOString()
     })
 
-    console.log(`User ${userId} online | connections: ${count + 1}`)
+    console.log(`User   online   ${count + 1}`)
 
   })
 }

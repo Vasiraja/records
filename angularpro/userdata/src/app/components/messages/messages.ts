@@ -42,6 +42,16 @@ export class Messages implements OnInit, OnDestroy, AfterViewChecked {
     this.listenToMessages();
     this.shouldScroll = true;
 
+    this.socketcon.userService().on('patched', (updatedUser: any) => {
+      this.zone.run(() => {
+        this.users = this.users.map((u: any) =>
+          u._id === updatedUser._id ? updatedUser : u
+        )
+        this.cdr.detectChanges()
+      })
+    })
+
+
 
     const lastSelected = localStorage.getItem('selectedUser');
 

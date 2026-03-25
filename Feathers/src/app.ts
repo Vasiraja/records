@@ -32,15 +32,12 @@ app.configure(socketio({
     credentials: true
   }
 }))
-configureSockets(app)
-
+ 
 app.configure(mongodb)
 app.configure(services)
-
-app.configure(authentication)
-
+app.configure(authentication) 
 app.configure(channels)
- 
+configureSockets(app) 
 
 
 app.hooks({

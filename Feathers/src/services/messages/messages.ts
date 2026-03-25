@@ -81,17 +81,17 @@ export const messages = (app: Application) => {
     }
   })
 
-  app.service('chatserv').publish('created', (data:any, context:any) => {
-    const senderId = String(data.senderId)
-    const receiverId = String(data.receiverId)
+  // app.service('chatserv').publish('created', (data:any, context:any) => {
+  //   const senderId = String(data.senderId)
+  //   const receiverId = String(data.receiverId)
 
-    console.log(`Publishing message to msg/${senderId} and msg/${receiverId}`)
+  //   console.log(`Publishing message to msg/${senderId} and msg/${receiverId}`)
 
-    return [
-      app.channel(`msg/${senderId}`),
-      app.channel(`msg/${receiverId}`)
-    ]
-  })
+  //   return [
+  //     app.channel(`msg/${senderId}`),
+  //     app.channel(`msg/${receiverId}`)
+  //   ]
+  // })
 
 
 }

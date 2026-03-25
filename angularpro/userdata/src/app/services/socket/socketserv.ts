@@ -72,7 +72,7 @@ export class Socketserv {
       receiverId
     });
 
- 
+
   }
 
   messageService() {
@@ -94,8 +94,12 @@ export class Socketserv {
   liveMessageService() {
     return this.client.service('poll-messages')
   }
+  userService() {
+    return this.client.service('users')
+  }
 
-  
+
+
 
 
 }

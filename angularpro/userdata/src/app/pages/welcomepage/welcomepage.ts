@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Userserv } from '../../services/userserv';
 import { jwtDecode } from 'jwt-decode';
@@ -38,7 +38,7 @@ export class Welcomepage implements OnInit, OnDestroy {
   closeBulkGuestPopup() {
     this.showBulkPopup = false;
   }
-  constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv) { }
+  constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv,private zone:NgZone) { }
   ngOnDestroy(): void {
     const client = this.socketcon.getClient()
 
@@ -170,23 +170,20 @@ export class Welcomepage implements OnInit, OnDestroy {
 
     })
 
-    client.service('users').on('patched', (updatedUser: any) => {
-
-      if (!updatedUser || typeof updatedUser !== 'object' || Array.isArray(updatedUser)) {
-        this.fetching();
-        return;
-      }
-
-      const currentUsers = this.users();
-
-      const updated = currentUsers.map((u: any) =>
-        u._id === updatedUser._id
-          ? { ...u, ...updatedUser }
-          : u
-      );
-
-      this.users.set(updated);
-      this.cdr.detectChanges();
+    this.socketcon.userService().on('patched', (updatedUser: any) => {
+      this.users.set(
+        this.users().map((u: any) =>
+          u._id === updatedUser._id ? updatedUser : u
+        )
+      )
+    })
+    this.socketcon.userService().on('removed', (deletedUser: any) => {
+      this.zone.run(() => {
+        this.users.set(
+          this.users().filter((u: any) => u._id !== deletedUser._id)
+        )
+        this.cdr.detectChanges()
+      })
     })
 
 
@@ -235,16 +232,16 @@ export class Welcomepage implements OnInit, OnDestroy {
       }
     })
   }
-fetchMyPolls(): void {
-  this.userdetService.getMyPolls(this.currentUserId).subscribe({
-    next: (res: any) => {
-      const allPolls = Array.isArray(res) ? res : res?.data ?? [];
-      this.polls.set(allPolls);
-      this.cdr.detectChanges();
-    },
-    error: (err: any) => console.error('Polls fetch error:', err)
-  });
-}
+  fetchMyPolls(): void {
+    this.userdetService.getMyPolls(this.currentUserId).subscribe({
+      next: (res: any) => {
+        const allPolls = Array.isArray(res) ? res : res?.data ?? [];
+        this.polls.set(allPolls);
+        this.cdr.detectChanges();
+      },
+      error: (err: any) => console.error('Polls fetch error:', err)
+    });
+  }
 
   getTimeLeft(expiresAt: string): string {
     const remaining = new Date(expiresAt).getTime() - Date.now();

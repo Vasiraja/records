@@ -63,14 +63,7 @@ export const pollMessages = (app: Application) => {
 
 
 
-  app.service("poll-messages").publish('created', (data: any) => {
-    console.log("PUBLISH TRIGGERED", data)
-
-    const pollRoom = `poll/${data.pollId}`
-
-    return app.channel(pollRoom)
-
-  })
+  
 }
 
 // Add this service to the service type index

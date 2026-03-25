@@ -79,20 +79,7 @@ export const chatserv = (app: Application) => {
     }
   })
 
-  app.service(chatservPath).publish((data: any, context: any) => {
-    console.log(' PUBLISH FIRED', context.method, context.event)
-
-    const senderId = data.senderId?.toString()
-    const receiverId = data.receiverId?.toString()
-
-    const senderCh = app.channel(`msg/${senderId}`)
-    const receiverCh = app.channel(`msg/${receiverId}`)
-
-    console.log('sender connections:', senderCh.connections.length)   // if 0, joinMsgRoom never ran
-    console.log('receiver connections:', receiverCh.connections.length)
-
-    return [senderCh, receiverCh]
-  })
+  
 
 }
 

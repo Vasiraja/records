@@ -8,7 +8,7 @@ import type { Chatserv, ChatservData, ChatservPatch, ChatservQuery } from './cha
 
 export type { Chatserv, ChatservData, ChatservPatch, ChatservQuery }
 
-export interface ChatservParams extends MongoDBAdapterParams<ChatservQuery> {}
+export interface ChatservParams extends MongoDBAdapterParams<ChatservQuery> { }
 
 // By default calls the standard MongoDB adapter service methods but can be customized with your own functionality.
 export class ChatservService<ServiceParams extends Params = ChatservParams> extends MongoDBService<
@@ -17,7 +17,19 @@ export class ChatservService<ServiceParams extends Params = ChatservParams> exte
   ChatservParams,
   ChatservPatch
 > {
-  
+  async setup(app: Application, path: string) {
+    app.service('chatserv').publish((data: any, context: any) => {
+      console.log('PUBLISH FIRED')
+
+      const senderId = data.senderId?.toString()
+      const receiverId = data.receiverId?.toString()
+
+      const senderCh = app.channel(`msg/${senderId}`)
+      const receiverCh = app.channel(`msg/${receiverId}`)
+
+      return [senderCh, receiverCh]
+    })
+  }
 }
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {

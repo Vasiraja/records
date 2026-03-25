@@ -21,7 +21,19 @@ export class PollMessagesService<ServiceParams extends Params = PollMessagesPara
   PollMessagesData,
   PollMessagesParams,
   PollMessagesPatch
-> { }
+> {
+  async setup(app: Application, path: string) {
+    app.service("poll-messages").publish('created', (data: any) => {
+      console.log("PUBLISH TRIGGERED", data)
+
+      const pollRoom = `poll/${data.pollId}`
+
+      return app.channel(pollRoom)
+
+
+    })
+  }
+}
 
 export const getOptions = (app: Application): MongoDBAdapterOptions => {
   return {
