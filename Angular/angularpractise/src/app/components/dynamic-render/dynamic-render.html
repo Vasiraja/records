@@ -1,0 +1,23 @@
+<p>dynamic-render works!</p>
+
+<h3 class="topics">Programmatically Rendering Components
+  <span>Dynamically render components in template or TypeScript</span>
+</h3>
+
+<h4 class="subtopics">1. NgComponentOutlet</h4>
+<p>Dynamically render component based on condition</p>
+<p>Only ONE component loads at a time — whichever is needed</p>
+
+<button (click)="showAdmin()">Show Admin</button>
+<button (click)="showStandard()">Show Standard</button>
+
+<ng-container *ngComponentOutlet="getBioComponent()" />
+
+
+
+<h4 class="subtopics">2. ViewContainerRef</h4>
+<p>Dynamically create component from TypeScript code</p>
+<p>Component renders as next sibling of this component</p>
+
+<button (click)="loadContent()">Load Content</button>
+<button (click)="clearContent()">Clear</button>

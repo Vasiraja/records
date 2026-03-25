@@ -1,0 +1,35 @@
+<p>change-detection works!</p>
+
+<h3 class="topics">Change Detection</h3>
+
+<h4 class="subtopics">1. Default — checks always</h4>
+<app-default-comp />
+
+<h4 class="subtopics">2. OnPush — checks only when input changes</h4>
+<app-onpush-comp />
+
+<button (click)="triggerAppEvent()">Trigger App Event</button>
+<p>Click this button — watch checkCount difference above </p>
+
+
+
+<h4 class="subtopics">3. PreserveWhitespaces</h4>
+<p>false → removes spaces between elements</p>
+<p>true → keeps spaces between elements</p>
+<app-whitespace-false />
+<app-whitespace-true />
+
+
+
+<h4 class="subtopics">4. CUSTOM_ELEMENTS_SCHEMA</h4>
+<p>Allows unknown HTML elements without error</p>
+<p>Useful when using web components or third party elements</p>
+
+<custom-element> here allowes this</custom-element>
+<another-element>tag introexplain some element with custom names here</another-element>
+
+
+<h4 class="topics">Using Custom elements</h4>
+<p>npm install @angular/elements --save through this we can create custom element and use it</p>
+
+ <app-popup message="Hello from Custom Element!"></app-popup>

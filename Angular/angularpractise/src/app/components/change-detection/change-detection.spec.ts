@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Rxjsangular } from './rxjsangular';
+import { ChangeDetection } from './change-detection';
 
-describe('Rxjsangular', () => {
-  let component: Rxjsangular;
-  let fixture: ComponentFixture<Rxjsangular>;
+describe('ChangeDetection', () => {
+  let component: ChangeDetection;
+  let fixture: ComponentFixture<ChangeDetection>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Rxjsangular]
+      imports: [ChangeDetection]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Rxjsangular);
+    fixture = TestBed.createComponent(ChangeDetection);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,5 +20,4 @@ describe('Rxjsangular', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

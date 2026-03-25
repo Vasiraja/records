@@ -2,16 +2,16 @@
 
 
 <h3 class="topics">2. Directives</h3>
-<h4 class="subtopics">i  ..Component Directive.. </h4>
+<h4 class="subtopics">i ..Component Directive.. </h4>
 <h5 class="tiny">Every Componenet with template consider as a component directive</h5>
 
 
-<h4 class="subtopics">ii  ..Structural Directive.. </h4>
- <p>i. ngIf</p>
- <h5 class="tiny">toggle through ngif</h5>
+<h4 class="subtopics">ii ..Structural Directive.. </h4>
+<p>i. ngIf</p>
+<h5 class="tiny">toggle through ngif</h5>
 
- <div  *ngIf="showngif" style="background-color: red;">ngif content</div>
- <button (click)="removediv()">toggle through ngif</button>
+<div *ngIf="showngif" style="background-color: red;">ngif content</div>
+<button (click)="removediv()">toggle through ngif</button>
 <p>ii. ngfor</p>
 <h5 class="tiny">retrieve array of users through ngfor</h5>
 
@@ -19,14 +19,14 @@
     <!-- <p>{{items.first}}</p>
     <p>{{items.email}}</p> -->
 
- <p>{{items.name.first}}</p>
- <p>{{items.email}}</p>
+    <p>{{items.name.first}}</p>
+    <p>{{items.email}}</p>
 </div>
 
- 
 
 
-<p>iii.  ngswitchcase</p>
+
+<p>iii. ngswitchcase</p>
 <h5 class="tiny">change role access based switch case</h5>
 
 <select [(ngModel)]="role">
@@ -37,7 +37,7 @@
 
 <div [ngSwitch]="role">
     <p *ngSwitchCase="'user'">Wlecome User</p>
-    <p  *ngSwitchCase="'admin'">Wlecome Admin</p>
+    <p *ngSwitchCase="'admin'">Wlecome Admin</p>
     <p *ngSwitchDefault>Hello, Login Required</p>
 
 </div>
@@ -58,13 +58,13 @@
 
 
 
-<p>ii.  ngStyle</p>
+<p>ii. ngStyle</p>
 <h5 class="tiny">Change the style property with ngStyle</h5>
 
 <button (click)="activedeactive()">activetoggle</button>
 <p [ngStyle]="{color:stylecheck?'green':'red'}">
 
-   {{stylecheck ?'Activated':'Deactivated'}}
+    {{stylecheck ?'Activated':'Deactivated'}}
 </p>
 
 <p> iii. ngModel</p>
@@ -73,4 +73,11 @@
 <input type="text" placeholder="Type Anything" [(ngModel)]="ngmodelVal">
 <p>{{ngmodelVal}}</p>
 
- <div style="width: 200px;height:200px;">f</div>
+<div style="width: 200px;height:200px;"> </div>
+
+
+
+<p> iv. Custom directive </p>
+
+<p appHighlight>custom attribute directive for hightlight just hover mouse here</p>
+<p *appRepeat="5">custom structural directive for repeating same text</p>

@@ -25,6 +25,7 @@ export class Poll implements OnInit, OnDestroy {
   private userId: string | null = null
   @ViewChild('chatScroll') private chatScroll!: ElementRef;
   usertype: string = localStorage.getItem('userType') || 'guest'
+  votedOptionId: string | null = null
 
   constructor(
     private socketCon: Socketserv,
@@ -69,6 +70,7 @@ export class Poll implements OnInit, OnDestroy {
 
       if (String(vote.userId) === String(this.userId)) {
         this.hasVoted = true
+        this.votedOptionId = vote.optionId
       }
 
     })
@@ -201,6 +203,7 @@ export class Poll implements OnInit, OnDestroy {
     if (!this.userId) return
 
     this.hasVoted = true
+    this.votedOptionId = optionId
     this.totalVotes++
     const option = this.poll.options.find((item: any) => item.id === optionId)
     if (option) option.votes = (option.votes || 0) + 1
@@ -214,6 +217,7 @@ export class Poll implements OnInit, OnDestroy {
       })
     } catch (err) {
       this.hasVoted = false
+      this.votedOptionId = null
       this.totalVotes--
       if (option) option.votes = (option.votes || 0) - 1
       this.cdr.detectChanges()

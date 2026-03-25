@@ -101,7 +101,84 @@ providedIn: 'root'
     <p>dataService = inject(DataService)</p>
     <p>this.dataService.post()</p>
 
+ 
+    <p>
+        Angular uses Dependency Injection (DI) to provide services automatically instead of creating them manually.
+    </p>
 
+    <p>
+        Services can exist at different levels in Angular. This is called Injector Hierarchy.
+    </p>
+
+    <p>
+        The hierarchy looks like this:
+        Child Component → Parent Component → Root (Application level)
+    </p>
+
+    <p>
+        When Angular looks for a service, it always searches from bottom to top:
+        Child → Parent → Root
+    </p>
+
+    <hr>
+
+    <h3> Default Behavior</h3>
+
+    <p>
+        If a service is available in the child component, Angular will use that first.
+    </p>
+
+    <p>
+        If not found, it will move to parent, then finally to root.
+    </p>
+
+    <hr>
+
+    <h3> Modifiers (Control the Search Behavior)</h3>
+
+    <p>
+        @Self(): Angular will look ONLY in the current component.
+        It will not check parent or root.
+    </p>
+
+    <p>
+        @SkipSelf(): Angular will skip the current component and start searching from the parent.
+    </p>
+
+    <p>
+        @Optional(): If Angular cannot find the service, it will return null instead of throwing an error.
+    </p>
+
+    <p>
+        @Host(): Angular will search only up to the host component and will not go beyond that boundary.
+    </p>
+
+    <hr>
+
+    <h3> Simple Understanding</h3>
+
+    <p>
+        Self → check only here if child has needed service only get there not go to parent
+    </p>
+
+    <p>
+        SkipSelf → skip here, check above like skip child service and go for parent service to take
+    </p>
+
+    <p>
+        Optional → don't throw error if not found, like if no service found just stop and dont cause error
+    </p>
+
+    <p>
+        Host → don't go outside boundary , if not found doesn't go beyond boundry
+    </p>
+
+    <hr>
+
+ 
+    <p>
+        Angular DI works using a hierarchy, and modifiers help control where Angular searches for a service.
+    </p>
     <h3 class="topics">10. Zone and Zoneless</h3>
 
     <p>Initially Angular monitors change detection using zone.js</p>
@@ -149,6 +226,7 @@ bootstrapApplication(AppComponent, {{ '{' }}
   ]
 {{ '}' }});
 </pre>
+
 
 
 

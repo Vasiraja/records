@@ -15,6 +15,6 @@ session.post('Profiler.enable', () => {
       console.log("CPU Profile collected");
       session.disconnect();
     });
-
   });
 });
+ 

@@ -22,6 +22,10 @@ import { Hostelem } from './components/hostelem/hostelem';
 import { Queries } from './components/queries/queries';
 import { Domapi } from './components/domapi/domapi';
 import { Inheritance } from './components/inheritance/inheritance';
+import { DynamicRender } from './components/dynamic-render/dynamic-render';
+import { ChangeDetection } from './components/change-detection/change-detection';
+import { CustomElementComponent } from './components/custom-element/custom-element';
+import { Eventlisteners } from './components/eventlisteners/eventlisteners';
 
 export const routes: Routes = [
 
@@ -69,6 +73,18 @@ export const routes: Routes = [
     },
     {
         path: "inher", component: Inheritance
+    },
+    {
+        path: "dynamicrender", component: DynamicRender
+    },
+    {
+        path: "changedetection", component: ChangeDetection
+    },
+    {
+        path: "customelement", component: CustomElementComponent
+    },
+    {
+        path: "event", component: Eventlisteners
     },
 
 

@@ -6,7 +6,7 @@
       <span class="live-label">LIVE SESSION</span>
     </div>
     <div class="topbar-right">
-       <span class="vote-count" *ngIf="usertype !== 'guest'">{{ totalVotes }} votes cast</span>
+      <span class="vote-count" *ngIf="usertype !== 'guest'">{{ totalVotes }} votes cast</span>
       <span class="vote-count guest-vote-count" *ngIf="usertype === 'guest'">
         <i class="fa-solid fa-lock"></i> Login to see votes
       </span>
@@ -21,7 +21,7 @@
         <div class="poll-meta">
           <span class="poll-tag">Poll</span>
           <span class="voted-tag" *ngIf="hasVoted">✓ Voted</span>
-           <span class="guest-tag" *ngIf="usertype === 'guest'">
+          <span class="guest-tag" *ngIf="usertype === 'guest'">
             <i class="fa-solid fa-lock"></i> Guest
           </span>
         </div>
@@ -29,33 +29,33 @@
         <h2 class="poll-question">{{ poll.question }}</h2>
 
         <div class="poll-options">
-          <button
-            class="option-btn"
-            *ngFor="let option of poll.options"
-            [class.voted]="hasVoted"
-            [class.guest-locked]="usertype === 'guest'"  
-            [disabled]="hasVoted || usertype === 'guest'"  
-            (click)="vote(option.id)">
+          <button class="option-btn" *ngFor="let option of poll.options" [class.voted]="hasVoted"
+            [class.guest-locked]="usertype === 'guest'" [disabled]="hasVoted || usertype === 'guest'"
+            (click)="vote(option.id)" [class.my-vote]="votedOptionId === option.id">
+
 
             <div class="option-row">
               <span class="option-text">{{ option.text }}</span>
-               <span class="option-pct" *ngIf="usertype !== 'guest'">
+              <span class="my-vote-badge" *ngIf="votedOptionId === option.id">
+                <i class="fa-solid fa-circle-check"></i> Your vote
+              </span>
+              <span class="option-pct" *ngIf="usertype !== 'guest'">
                 {{ getPercent(option.votes || 0) }}%
               </span>
             </div>
 
-             <div class="bar-track" *ngIf="usertype !== 'guest'">
+            <div class="bar-track" *ngIf="usertype !== 'guest'">
               <div class="bar-fill" [style.width.%]="getPercent(option.votes || 0)"></div>
             </div>
 
-             <span class="option-vote-count" *ngIf="usertype !== 'guest'">
+            <span class="option-vote-count" *ngIf="usertype !== 'guest'">
               {{ option.votes || 0 }} votes
             </span>
 
           </button>
         </div>
 
-         <p class="poll-hint" *ngIf="!hasVoted && usertype !== 'guest'">Click an option to cast your vote</p>
+        <p class="poll-hint" *ngIf="!hasVoted && usertype !== 'guest'">Click an option to cast your vote</p>
         <p class="poll-hint guest-hint" *ngIf="usertype === 'guest'">
           <i class="fa-solid fa-lock"></i> Login to vote and see live results
         </p>
@@ -91,21 +91,15 @@
 
       </div>
 
-       <div class="chat-composer" [class.composer-locked]="usertype === 'guest'">
-        <input
-          class="chat-input"
-          [(ngModel)]="liveMessage"
-          [placeholder]="usertype === 'guest' ? 'Login to chat…' : 'Type a message…'"
-          [disabled]="usertype === 'guest'"
+      <div class="chat-composer" [class.composer-locked]="usertype === 'guest'">
+        <input class="chat-input" [(ngModel)]="liveMessage"
+          [placeholder]="usertype === 'guest' ? 'Login to chat…' : 'Type a message…'" [disabled]="usertype === 'guest'"
           (keyup.enter)="sendLiveMessage()" />
-        <button
-          class="send-btn"
-          (click)="sendLiveMessage()"
-          [disabled]="usertype === 'guest'">
+        <button class="send-btn" (click)="sendLiveMessage()" [disabled]="usertype === 'guest'">
           <i class="fa-solid fa-paper-plane"></i>
         </button>
 
-         <div class="guest-overlay" *ngIf="usertype === 'guest'" (click)="showGuestNudge()">
+        <div class="guest-overlay" *ngIf="usertype === 'guest'" (click)="showGuestNudge()">
           <i class="fa-solid fa-lock"></i>&nbsp; Login to chat
         </div>
       </div>

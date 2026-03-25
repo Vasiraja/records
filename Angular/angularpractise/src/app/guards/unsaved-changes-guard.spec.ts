@@ -1,17 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { UnsavedChangesGuard } from './unsaved-changes-guard';
 
-import { unsavedChangesGuard } from './unsaved-changes-guard';
-
-describe('unsavedChangesGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => unsavedChangesGuard(...guardParameters));
+describe('UnsavedChangesGuard', () => {
+  let guard: UnsavedChangesGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [UnsavedChangesGuard]
+    });
+
+    guard = TestBed.inject(UnsavedChangesGuard);
   });
 
   it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+    expect(guard).toBeTruthy();
   });
 });

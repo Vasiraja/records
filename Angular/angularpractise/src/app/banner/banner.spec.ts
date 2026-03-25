@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Rxjsangular } from './rxjsangular';
+import { Banner } from './banner';
 
-describe('Rxjsangular', () => {
-  let component: Rxjsangular;
-  let fixture: ComponentFixture<Rxjsangular>;
+describe('Banner', () => {
+  let component: Banner;
+  let fixture: ComponentFixture<Banner>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Rxjsangular]
+      imports: [Banner]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Rxjsangular);
+    fixture = TestBed.createComponent(Banner);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,5 +20,4 @@ describe('Rxjsangular', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

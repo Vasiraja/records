@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, ChangeDetectorRef, ViewChild, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Userserv } from '../../services/userserv';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Socketserv } from '../../services/socket/socketserv';
 import { Toast } from '../../shared/toast/toast';
 
 @Component({
@@ -26,7 +27,8 @@ export class Polllists implements OnInit, OnDestroy {
   currentUserId: string = '';
   activeTab = "view";
   loaded = false;
-
+  voteCounts: Record<string, number> = {};
+  voteOptions: Record<string, any[]> = {};
   timers: { [pollId: string]: string } = {};
   private timerInterval: any;
 
@@ -34,7 +36,9 @@ export class Polllists implements OnInit, OnDestroy {
     private userServ: Userserv,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private socketCon: Socketserv,
+    private zone: NgZone
   ) { }
 
   ngOnInit(): void {
@@ -42,11 +46,12 @@ export class Polllists implements OnInit, OnDestroy {
       this.activeTab = params['tab'] || 'view';
     });
 
-    setTimeout(() => {
+    setTimeout(async () => {
       this.usertype = (localStorage.getItem('userType') || 'guest').toLowerCase().trim();
       this.currentUserId = localStorage.getItem('user') || '';
       this.loaded = true;
       this.cdr.detectChanges();
+      await this.socketCon.connect();
       this.initialPolls();
     }, 0);
   }
@@ -55,20 +60,68 @@ export class Polllists implements OnInit, OnDestroy {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+    this.socketCon.voteService().off('created');
   }
 
-  initialPolls() {
+  async initialPolls() {
     this.usertype = (localStorage.getItem('userType') || 'guest').toLowerCase().trim();
     this.userServ.getPolls().subscribe({
-      next: (data: any) => {
+      next: async (data: any) => {
         this.polls = data?.data || data;
         this.startTimers();
+        await this.loadAllVoteCounts();
+        this.listenForLiveVotes();
         this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("API Error:", err);
       }
     });
+  }
+
+  async loadAllVoteCounts() {
+    for (const poll of this.polls) {
+      const result: any = await this.socketCon.voteService().find({
+        query: { pollId: poll._id }
+      });
+
+      this.voteCounts[poll._id] = result.data.length;
+
+      const optionCounts: Record<string, number> = {};
+      poll.options.forEach((o: any) => (optionCounts[o.id] = 0));
+      result.data.forEach((vote: any) => {
+        if (optionCounts[vote.optionId] !== undefined)
+          optionCounts[vote.optionId]++;
+      });
+      this.voteOptions[poll._id] = poll.options.map((o: any) => ({
+        ...o,
+        votes: optionCounts[o.id] || 0
+      }));
+    }
+    this.cdr.detectChanges();
+  }
+
+  listenForLiveVotes() {
+    this.socketCon.voteService().off('created');
+    this.socketCon.voteService().on('created', (vote: any) => {
+      this.zone.run(() => {
+        if (this.voteCounts[vote.pollId] !== undefined) {
+          this.voteCounts[vote.pollId]++;
+          const opts = this.voteOptions[vote.pollId];
+          if (opts) {
+            const opt = opts.find((o: any) => String(o.id) === String(vote.optionId));
+            if (opt) opt.votes++;
+          }
+        }
+        this.cdr.detectChanges();
+      });
+    });
+  }
+
+  getPercent(pollId: string, optionVotes: number): number {
+    const total = this.voteCounts[pollId] || 0;
+    if (!total) return 0;
+    return Math.round((optionVotes / total) * 100);
   }
 
   startTimers() {

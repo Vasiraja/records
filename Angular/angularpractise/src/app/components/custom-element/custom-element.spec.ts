@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Rxjsangular } from './rxjsangular';
+import { CustomElementComponent } from './custom-element';
 
-describe('Rxjsangular', () => {
-  let component: Rxjsangular;
-  let fixture: ComponentFixture<Rxjsangular>;
+describe('CustomElement', () => {
+  let component: CustomElementComponent;
+  let fixture: ComponentFixture<CustomElementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Rxjsangular]
+      imports: [CustomElementComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Rxjsangular);
+    fixture = TestBed.createComponent(CustomElementComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,5 +20,4 @@ describe('Rxjsangular', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

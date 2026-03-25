@@ -577,61 +577,61 @@
 
 
 
-// console.log("------33. Worker Threads  ------");
+console.log("------33. Worker Threads  ------");
 
-// const { Worker, isMainThread } = require('worker_threads');
-// console.log("Usually used for heavy calculations");
-// if (isMainThread) {
+const { Worker, isMainThread } = require('worker_threads');
+console.log("Usually used for heavy calculations");
+if (isMainThread) {
 
-//   console.log("Main thread started");
+  console.log("Main thread started");
 
-//    const worker = new Worker('./worker.js');
+   const worker = new Worker('./worker.js');
 
-//    worker.on('message', (result) => {
-//     console.log("Result from worker:", result);
-//   });
+   worker.on('message', (result) => {
+    console.log("Result from worker:", result);
+  });
 
-//   worker.on('error', (err) => {
-//     console.error("Worker error:", err);
-//   });
+  worker.on('error', (err) => {
+    console.error("Worker error:", err);
+  });
 
-//   worker.on('exit', (code) => {
-//     console.log("Worker exited with code", code);
-//   });
+  worker.on('exit', (code) => {
+    console.log("Worker exited with code", code);
+  });
 
-// }
+}
 
 
-console.log("------34. Child Process ------");
-console.log("used to create a another nodejs process ")
+// console.log("------34. Child Process ------");
+// console.log("used to create a another nodejs process ")
 
-const {exec,spawn,fork,execFile}=require('child_process');
-const { stdout, stderr } = require("process");
-console.log("-----i. exec()")
-console.log("Used to implement process inside comment line");
-exec('dir',(err,stdout,stderr)=>{
-  console.log(stdout+"sss")
-})
-console.log("-----ii. spawn");
-console.log("Used to stream data continueosly like large running process node files or another" );
+// const {exec,spawn,fork,execFile}=require('child_process');
+// const { stdout, stderr } = require("process");
+// console.log("-----i. exec()")
+// console.log(" runs shell command and give final output");
+// exec('dir',(err,stdout,stderr)=>{
+//   console.log(stdout+"sss")
+// })
+// console.log("-----ii. spawn");
+// console.log("Used to stream data continueosly like large running process node files or another" );
 
-const childspawn = spawn ('node',['childcheck.js']);
+// const childspawn = spawn ('node',['node server.js']);
 
-childspawn.stdout.on('data',(data)=>{
-  console.log(data.toString()+"---->");
-})
+// childspawn.stdout.on('data',(data)=>{
+//   console.log(data.toString()+"---->");
+// })
 
 
 // console.log("-----iii. fork");
 // fork('worker.js')
 
 
-console.log("------ iv. execFile() Example ------");
+// console.log("------ iv. execFile() Example ------");
 
 
-execFile('node', ['-v'], (err, stdout) => {
-  console.log("Node Version:", stdout);
-});
+// execFile('node', ['-v'], (err, stdout) => {
+//   console.log("Node Version:", stdout);
+// });
 
 // console.log("------35. Cluster Module ------");
 // // console.log("Cluster usually  used for to handle multiple requests  on mulitple cpu's and run multiple node process")
@@ -684,27 +684,35 @@ execFile('node', ['-v'], (err, stdout) => {
 
 //   console.log("You pressed:", input);
 // });
+// const crypto = require("crypto");
 
 // console.log("------38. Crypto ------");
-// console.log("-----i. Hashing")
-// const crypto = require("crypto");
+
+// console.log("-----i. Hashing");
 // const dataInside = "hello private data here";
-// const secondData="here the another data";
-// const hash = crypto.createHash("sha256")
+// const secondData = "here the another data";
+
+// const hash = crypto.createHash("sha256");
 // hash.update(dataInside);
 // hash.update(secondData);
-// hash.digest('hex');
-// console.log("sha 256: "+hash);
-// console.log("sha33")
-// console.log("-----ii. hash with secret key");
+
+// const finalHash = hash.digest("hex");
+// console.log(hash)
+// console.log("SHA-256:", finalHash);
+
+// console.log("-----ii. Hash with secret key (HMAC)");
 // const hashwithsecret = "Mysecret123";
-// const resulshassecret = crypto.createHmac("sha256",hashwithsecret).update(dataInside).digest('hex');
-// console.log(resulshassecret+"secr") 
 
-// console.log("-----iii. Generate random bytes")
-// const random = crypto.randomBytes(16).toString('hex');
+// const resultHashSecret = crypto
+//   .createHmac("sha256", hashwithsecret)
+//   .update(dataInside)
+//   .digest("hex");
 
-// console.log("Random Key:", random); 
+// console.log("HMAC SHA-256:", resultHashSecret);
+
+// console.log("-----iii. Generate random bytes");
+// const random = crypto.randomBytes(16).toString("hex");
+// console.log("Random Key:", random);
 
 // console.log("------39. Permissions ------");
 // console.log("-----i. File access - fs.access")
@@ -737,65 +745,65 @@ execFile('node', ['-v'], (err, stdout) => {
 // console.log("----- node inspect debugger.js");
 
 
-// console.log("------41. Performance and Performance hooks------");
-// const { performance, PerformanceObserver } = require("perf_hooks");
+console.log("------41. Performance and Performance hooks------");
+const { performance, PerformanceObserver } = require("perf_hooks");
 
-// console.log("-----i. console.time and console.timeEnd");
-// console.time("Loop Time");
-// for(let i = 0; i < 1e6; i++){
-//   Math.sqrt(i);
-// }
-// console.timeEnd("Loop Time");
-
-
-// console.log("-----ii. performance.now()");
-// const start = performance.now();
-
-// for(let i = 0; i < 1e6; i++){
-//   Math.sqrt(i);
-// }
-
-// const end = performance.now();
-// console.log("Execution time: " + (end - start) + " ms");
+console.log("-----i. console.time and console.timeEnd");
+console.time("Loop Time");
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+console.timeEnd("Loop Time");
 
 
-// console.log("-----iii. process.hrtime()");
-// const startHr = process.hrtime();
+console.log("-----ii. performance.now()");
+const start = performance.now();
 
-// for(let i = 0; i < 1e6; i++){
-//   Math.sqrt(i);
-// }
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
 
-// const endHr = process.hrtime(startHr);
-// console.log("Execution time: " + endHr[0] + " seconds and " + (endHr[1] / 1e6) + " ms");
-
-
-// console.log("-----iv. process.memoryUsage()");
-// const memory = process.memoryUsage();
-
-// console.log("RSS:", memory.rss);
-// console.log("Heap Total:", memory.heapTotal);
-// console.log("Heap Used:", memory.heapUsed);
-// console.log("External:", memory.external);
+const end = performance.now();
+console.log("Execution time: " + (end - start) + " ms");
 
 
-// console.log("-----v. perf_hooks performance observer");
-// const obs = new PerformanceObserver((list) => {
-//   console.log("Measured duration:", list.getEntries()[0].duration + " ms");
-// });
+console.log("-----iii. process.hrtime()");
+const startHr = process.hrtime();
 
-// obs.observe({ entryTypes: ["measure"] });
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
 
-// performance.mark("startWork");
+const endHr = process.hrtime(startHr);
+console.log("Execution time: " + endHr[0] + " seconds and " + (endHr[1] / 1e6) + " ms");
 
-// for(let i = 0; i < 1e6; i++){
-//   Math.sqrt(i);
-// }
 
-// performance.mark("endWork");
+console.log("-----iv. process.memoryUsage()");
+const memory = process.memoryUsage();
 
-// performance.measure("Work Duration", "startWork", "endWork");
-// console.log("----- Vi. process.now Example -----");
+console.log("RSS:", memory.rss);
+console.log("Heap Total:", memory.heapTotal);
+console.log("Heap Used:", memory.heapUsed);
+console.log("External:", memory.external);
+
+
+console.log("-----v. perf_hooks performance observer");
+const obs = new PerformanceObserver((list) => {
+  console.log("Measured duration:", list.getEntries()[0].duration + " ms");
+});
+
+obs.observe({ entryTypes: ["measure"] });
+
+performance.mark("startWork");
+
+for(let i = 0; i < 1e6; i++){
+  Math.sqrt(i);
+}
+
+performance.mark("endWork");
+
+performance.measure("Work Duration", "startWork", "endWork");
+console.log("----- Vi. process.now Example -----");
 
 
 // function slowFunction() {
@@ -857,9 +865,9 @@ execFile('node', ['-v'], (err, stdout) => {
 
 // console.log("------ 45.  Report Example ------");
 
-// // process.report.writeReport();
+// process.report.writeReport();
 
-// // console.log("Report Generated");
+// console.log("Report Generated");
 
 
 // console.log("------ 46. Assertion Testing ------");
@@ -938,10 +946,10 @@ execFile('node', ['-v'], (err, stdout) => {
 // console.log(addon.add(5,3))
 
 
-console.log("------ 47.  C++ addons with node API ------");
-console.log("Node-API (N-API) is a stable interface that lets you write C/C++ native addons without depending directly on the V8 engine.")
+// console.log("------ 47.  C++ addons with node API ------");
+// console.log("Node-API (N-API) is a stable interface that lets you write C/C++ native addons without depending directly on the V8 engine.")
 
-console.log("1. create a file name addon.cc")
+// console.log("1. create a file name addon.cc")
 // // #include <node_api.h>
 
 // napi_value Add(napi_env env, napi_callback_info info) {

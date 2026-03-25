@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { Component, signal } from '@angular/core';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import {
   BehaviorSubject, catchError, combineLatest, concatAll, concatMap,
@@ -12,7 +14,7 @@ import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-rxjsangular',
-  imports: [FormsModule],
+  imports: [FormsModule,NgOptimizedImage],
   templateUrl: './rxjsangular.html',
   styleUrl: './rxjsangular.css',
 })
@@ -29,9 +31,27 @@ export class Rxjsangular {
   searchInput: string = "";
   searchSubject = new Subject<string>();
 
-  
 
+  constructor() {
+    this.count$.subscribe((val: any) => {
+      console.log('Observable value from signal:', val);
+    });
 
+  }
+  counter$ = interval(1000).pipe(
+    map(val => val + 1)
+  );
+
+  counterSignal = toSignal(this.counter$, { initialValue: 0 });
+
+  count = signal(0);
+
+  count$ = toObservable(this.count);
+
+  increment() {
+    this.count.set(this.count() + 1);
+
+  }
   startObserver() {
     const obs = new Observable<string>((observable) => {
 
@@ -94,11 +114,11 @@ export class Rxjsangular {
     of(1, 2, 3)
       .pipe(
         map(num => {
-         if (num === 2) {
-           throw new Error('Something went wrong at 2');
-         }
-         return num * 10;
-       }),
+          if (num === 2) {
+            throw new Error('Something went wrong at 2');
+          }
+          return num * 10;
+        }),
         tap(x => console.log('After map:', x)),
         catchError(err => {
           console.log('Caught error:', err.message);
@@ -139,12 +159,12 @@ export class Rxjsangular {
 
     const sub = new Subject<number>();
 
-    sub.subscribe(console.log); 
+    sub.subscribe(console.log);
     sub.next(43);
     sub.next(432);
     sub.next(409);
     sub.complete();
- 
+
   }
   triggercombinelatest() {
 
@@ -153,7 +173,7 @@ export class Rxjsangular {
       console.log('a value: ' + a);
       console.log('b value: ' + b);
 
- 
+
     });
 
 
@@ -314,8 +334,8 @@ export class Rxjsangular {
     ).pipe(last())
 
       .subscribe(console.log)
-  } 
-   
+  }
+
   take() {
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
       tap(() => console.log("--Taking first values with count")),
@@ -331,7 +351,7 @@ export class Rxjsangular {
       tap(() => console.log("Taking values from last")),
       takeLast(4),
     ).subscribe(console.log);
-  } 
+  }
   skiptrigger() {
 
     of(1, 2, 3, 4, 5, 6, 7, 8).pipe(
@@ -372,13 +392,13 @@ export class Rxjsangular {
       delayWhen(val => timer(val * 1000))
     ).subscribe(console.log)
   }
- 
+
   repeatfunc() {
     of(1, 2, 3).pipe(
       repeat(4)
     ).subscribe(console.log)
   }
- 
+
   retry() {
 
     of(1, 2, 3)
@@ -393,20 +413,20 @@ export class Rxjsangular {
         next: v => console.log(v),
         error: e => console.log('Final Error:', e.message)
       });
-  } 
+  }
 }
 
 
 const obsiden = new Subject<any>();
 obsiden.subscribe({
-  next:(data)=>{
+  next: (data) => {
     console.log(data)
   },
-  error:(err)=>{
+  error: (err) => {
     console.error(err)
   },
-  complete:()=>{
+  complete: () => {
     console.log("Observable completed")
   }
 
- })
+})

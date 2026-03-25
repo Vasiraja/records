@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { interval, map } from 'rxjs';
+import { ReversePipe } from '../../pipes/reverse-pipe';
  
 @Component({
   selector: 'app-pipes',
-  imports: [ CommonModule],
+  imports: [ CommonModule,ReversePipe],
   templateUrl: './pipes.html',
   styleUrl: './pipes.css',
 })

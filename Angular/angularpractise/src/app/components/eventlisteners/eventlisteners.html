@@ -1,0 +1,66 @@
+<h2> Angular Event Listeners Demo</h2>
+
+<h4>1. Click Event</h4>
+<button (click)="onClick()">Click Me</button>
+
+<h4>2. Keyup Event</h4>
+<input type="text" (keyup)="onKeyUp($event)" placeholder="Type something" />
+
+<h4>3. Enter Key Event</h4>
+<input type="text" (keyup.enter)="onEnter()" placeholder="Press Enter" />
+
+<h4>4. Shift + Enter</h4>
+<input type="text" (keyup.shift.enter)="onShiftEnter()" placeholder="Shift + Enter" />
+
+<h4>5. Ctrl + A</h4>
+<input type="text" (keydown.control.a)="onCtrlA()" placeholder="Ctrl + A" />
+
+<h4>6. Alt + S</h4>
+<input type="text" (keydown.alt.s)="onAltS()" placeholder="Alt + S" />
+
+<h4>7. Mouse Events</h4>
+<div style="padding:10px; background:#ddd; width:200px;" (mouseenter)="onHover()" (mouseleave)="onLeave()">
+    Hover over me
+</div>
+
+<h4>8. Focus & Blur</h4>
+<input type="text" (focus)="onFocus()" (blur)="onBlur()" placeholder="Click and leave" />
+
+
+
+<h2> for Special Variables Demo</h2>
+
+<ul>
+    @for (student of students; track $index;
+    let i = $index;
+    let isFirst = $first;
+    let isLast = $last;
+    let isEven = $even;
+    let count = $count;
+    let isOdd = $odd) {
+
+    <li>
+        {{ student }} | First: {{ isFirst }}
+        {{ student }} | last: {{ isLast }}
+        {{ student }} | even: {{ isEven }}
+        {{ student }} | Odd: {{ isOdd }}
+        overallcount: {{count}}
+    </li>
+
+    }
+</ul>
+
+
+
+<p>for variabes in template reference</p>
+@let price = 100;
+@let tax = 20;
+
+<p>Total Price: {{ price + tax }}</p>
+
+@if (true) {
+@let discount = 10;
+
+<p>Discount Applied: {{ discount }}</p>
+<p>Final Price: {{ price + tax - discount }}</p>
+}

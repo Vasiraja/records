@@ -457,3 +457,22 @@
   color: #6366f1;
   cursor: pointer;
 }
+
+.option-btn.my-vote {
+  border: 2px solid var(--accent, #6c63ff);
+  background: rgba(108, 99, 255, 0.12);
+}
+
+.option-btn.my-vote .bar-fill {
+  background: var(--accent, #6c63ff);
+}
+
+.my-vote-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent, #6c63ff);
+  margin-right: 8px;
+}

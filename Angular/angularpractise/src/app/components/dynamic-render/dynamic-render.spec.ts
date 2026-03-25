@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Rxjsangular } from './rxjsangular';
+import { DynamicRender } from './dynamic-render';
 
-describe('Rxjsangular', () => {
-  let component: Rxjsangular;
-  let fixture: ComponentFixture<Rxjsangular>;
+describe('DynamicRender', () => {
+  let component: DynamicRender;
+  let fixture: ComponentFixture<DynamicRender>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Rxjsangular]
+      imports: [DynamicRender]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Rxjsangular);
+    fixture = TestBed.createComponent(DynamicRender);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,5 +20,4 @@ describe('Rxjsangular', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
 });

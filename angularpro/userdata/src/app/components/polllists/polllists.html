@@ -8,34 +8,55 @@
 
     <div class="polls-grid" *ngIf="polls.length">
       <div class="poll-card" *ngFor="let poll of polls" [class.inactive]="!poll.isActive"
-        (click)="openPoll(poll._id)">
+  (click)="openPoll(poll._id)">
 
-        <h3 class="poll-question">{{ poll.question }}</h3>
+  <h3 class="poll-question">{{ poll.question }}</h3>
 
-        <ul class="poll-options-preview">
-          <li *ngFor="let option of poll.options">{{ option.text }}</li>
-        </ul>
-
-        <div class="poll-card-footer">
-          <span class="option-count">{{ poll.options.length }} options</span>
-
-          <span class="timer-badge" *ngIf="poll.isActive && timers[poll._id]">
-            <i class="fa-regular fa-clock"></i>
-            {{ timers[poll._id] }}
-          </span>
-          <span class="vote-cta" *ngIf="poll.isActive">Vote →</span>
-
-          <button *ngIf="canDelete(poll)"
-            (click)="$event.stopPropagation(); deletePoll(poll._id)"
-            class="delete-btn"
-            [class.delete-btn--on-closed]="!poll.isActive"
-            [title]="usertype === 'admin' ? 'Delete Poll' : 'Remove Poll'">
-            <i class="fa-solid fa-trash"></i>
-          </button>
-
-          <span class="closed-label" *ngIf="!poll.isActive">Poll Expired</span>
+   <ul class="poll-options-preview" *ngIf="usertype !== 'guest'">
+    <li *ngFor="let option of (voteOptions[poll._id] || poll.options)">
+      <div class="option-row-mini">
+        <span class="option-text-mini">{{ option.text }}</span>
+        <span class="option-pct-mini">{{ getPercent(poll._id, option.votes || 0) }}%</span>
+      </div>
+      <div class="mini-bar-track">
+        <div class="mini-bar-fill"
+          [style.width.%]="getPercent(poll._id, option.votes || 0)">
         </div>
       </div>
+    </li>
+  </ul>
+
+   <ul class="poll-options-preview" *ngIf="usertype === 'guest'">
+    <li *ngFor="let option of poll.options">{{ option.text }}</li>
+  </ul>
+
+  <div class="poll-card-footer">
+    <span class="option-count">{{ poll.options.length }} options</span>
+
+     <span class="vote-tally" *ngIf="usertype !== 'guest'">
+       {{ voteCounts[poll._id]  }} votes
+    </span>
+    <span class="vote-tally guest-tally" *ngIf="usertype === 'guest'">
+      <i class="fa-solid fa-lock"></i> Login to see votes
+    </span>
+
+    <span class="timer-badge" *ngIf="poll.isActive && timers[poll._id]">
+      <i class="fa-regular fa-clock"></i>
+      {{ timers[poll._id] }}
+    </span>
+    <span class="vote-cta" *ngIf="poll.isActive">Vote →</span>
+
+    <button *ngIf="canDelete(poll)"
+      (click)="$event.stopPropagation(); deletePoll(poll._id)"
+      class="delete-btn"
+      [class.delete-btn--on-closed]="!poll.isActive"
+      [title]="usertype === 'admin' ? 'Delete Poll' : 'Remove Poll'">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+
+    <span class="closed-label" *ngIf="!poll.isActive">Poll Expired</span>
+  </div>
+</div>
     </div>
   </div>
 
