@@ -1,9 +1,11 @@
+
 import { additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
 
 
-
-
 console.log("------------------1. TypeScript Types---------------------")
+
+
+
 var boolVar: boolean = true;
 console.log("Boolean: " + boolVar)
 // var bigIntVar:bigint=2320923923423n;
@@ -95,15 +97,15 @@ console.log("------------------6. TypeScript Object---------------------");
 
 console.log("-----i. Simple Object")
 const objUser = {
-  name: "Rashith haroon",
-  designation: "Testing",
-  dob: "12/03/1999"
+    name: "Rashith haroon",
+    designation: "Testing",
+    dob: "12/03/1999"
 }
 
 const objInferenceObj: { name: string, designation: string, phone: number } = {
-  name: "rajuvicky",
-  designation: "Testing",
-  phone: 9324513210
+    name: "rajuvicky",
+    designation: "Testing",
+    phone: 9324513210
 
 }
 
@@ -114,8 +116,8 @@ console.log("-----ii. Object Optional Property");
 console.log("We can define the property name inside the param type with optional case so no need to mention inside the object, we can directly modify outside of the object")
 const optionalVar: { fileName: string, fileType: string, nooffiles?: number } = {
 
-  fileName: "caset",
-  fileType: "csv",
+    fileName: "caset",
+    fileType: "csv",
 
 }
 optionalVar.nooffiles = 80;
@@ -136,14 +138,14 @@ console.log("------------------7. TypeScript Enums---------------------");
 console.log("We can store predefined values inside enum and access through enum properties, And using this we can limit the typo errors ")
 console.log("And we can manage multiple values group together")
 enum orderstatus {
-  pending = "PENDING",
-  shipped = "SHIPPED",
-  delivered = "DELIVERED",
-  cancelled = "CANCELLED"
+    pending = "PENDING",
+    shipped = "SHIPPED",
+    delivered = "DELIVERED",
+    cancelled = "CANCELLED"
 }
 
 function trackOrder(status: orderstatus) {
-  console.log(status)
+    console.log(status)
 }
 
 trackOrder(orderstatus.shipped);
@@ -169,20 +171,20 @@ console.log("Interface also same as Alias like we can give name for the type but
 
 interface OS {
 
-  osName: string,
-  osRam: number,
-  osStock: boolean
+    osName: string,
+    osRam: number,
+    osStock: boolean
 };
 
 const system: OS = {
-  osName: "Linux",
-  osRam: 246,
-  osStock: true
+    osName: "Linux",
+    osRam: 246,
+    osStock: true
 }
 const newSystem: OS = {
-  osName: "Windows",
-  osRam: 512,
-  osStock: false
+    osName: "Windows",
+    osRam: 512,
+    osStock: false
 }
 console.log(system, newSystem);
 
@@ -191,18 +193,18 @@ console.log("-----iii. Extending Interface")
 
 interface measurements {
 
-  height: number,
-  breadth: number,
+    height: number,
+    breadth: number,
 
 }
 interface addedmeasurements extends measurements {
-  width: number
+    width: number
 }
 
 const house: addedmeasurements = {
-  height: 300,
-  breadth: 220,
-  width: 100
+    height: 300,
+    breadth: 220,
+    width: 100
 }
 
 console.log("House: ", house)
@@ -211,7 +213,7 @@ console.log("House: ", house)
 console.log("------------------9. TypeScript Union Types---------------------");
 console.log("Here two type of variable types allowed due to union or operator")
 function printStatusCode(output: string | number) {
-  console.log(output)
+    console.log(output)
 }
 
 printStatusCode("200")
@@ -225,12 +227,12 @@ console.log("------------------10. Typescript Functions---------------------");
 console.log("-----i. Simple Functions");
 
 function getValue(): number {
-  var length: number = 12;
-  var width: number = 12;
-  var value = length * width;
+    var length: number = 12;
+    var width: number = 12;
+    var value = length * width;
 
 
-  return value;
+    return value;
 }
 
 console.log("Simple function declaration with return type number: " + getValue());
@@ -239,7 +241,7 @@ console.log("Simple function declaration with return type number: " + getValue()
 console.log("-----ii. void return type")
 
 function funcreturnvoid(): void {
-  console.log("return nothing becuase of void")
+    console.log("return nothing becuase of void")
 }
 
 
@@ -248,7 +250,7 @@ console.log("-----iii. Optional parameter");
 function optionalFunc(a: number, b: number, c?: number, d = 3900) {
 
 
-  return a * b * d
+    return a * b * d
 }
 console.log("We use ? optional case for parameter if need that will use if not we dont need to use and error also will not arise")
 console.log(optionalFunc(3, 5))
@@ -264,8 +266,8 @@ console.log(optionalFunc(23, 44))
 console.log("-----v. Rest Parameter");
 
 function restFunc(a: number, b: number, ...rest: number[]): any {
-  console.log("rest in function in ts it will take group of rest parameters");
-  return a * b * rest.reduce((prev, items) => prev + items, 0);
+    console.log("rest in function in ts it will take group of rest parameters");
+    return a * b * rest.reduce((prev, items) => prev + items, 0);
 }
 console.log(restFunc(43, 23, 55, 11, 21, 32, 55, 42, 23, 12, 44, 4));
 
@@ -275,12 +277,12 @@ console.log("we can give the name of the parameter inside function");
 
 
 function namedFunc(
-  { name: firstinput, age: secondinput }: { name: string; age: number }
+    { name: firstinput, age: secondinput }: { name: string; age: number }
 ) {
-  return firstinput + secondinput;
+    return firstinput + secondinput;
 }
 console.log(
-  namedFunc({ name: "vasi", age: 25 })
+    namedFunc({ name: "vasi", age: 25 })
 );
 
 
@@ -300,7 +302,7 @@ console.log("------------------12. Typescript Classes---------------------");
 
 console.log("-----i. Simple Class")
 class Classroot {
-  firstname!: string;
+    firstname!: string;
 }
 
 const newclass = new Classroot()
@@ -311,20 +313,20 @@ console.log(newclass.firstname);
 console.log("-----ii. Inheritance");
 
 class Shape {
-  constructor(
-    protected width: number,
-    protected height: number
-  ) { }
+    constructor(
+        protected width: number,
+        protected height: number
+    ) { }
 
-  public getArea(): number {
-    return 0;
-  }
+    public getArea(): number {
+        return 0;
+    }
 }
 
 class Rectangle extends Shape {
-  public getArea(): number {
-    return this.width * this.height;
-  }
+    public getArea(): number {
+        return this.width * this.height;
+    }
 }
 
 const myRect = new Rectangle(10, 20);
@@ -337,29 +339,29 @@ console.log("Private variable accessible only inside the class");
 console.log("protected variable only accessible inside class and subclass");
 
 class Person {
-  public name: string;
-  private age: number;
-  protected designation: string;
+    public name: string;
+    private age: number;
+    protected designation: string;
 
-  constructor(name: string, age: number, designation: string) {
-    this.name = name;
-    this.age = age;
-    this.designation = designation;
-  }
+    constructor(name: string, age: number, designation: string) {
+        this.name = name;
+        this.age = age;
+        this.designation = designation;
+    }
 
-  public getAge() {
-    return this.age;
-  }
+    public getAge() {
+        return this.age;
+    }
 }
 
 class Employee extends Person {
-  constructor(name: string, age: number, designation: string) {
-    super(name, age, designation);
-  }
+    constructor(name: string, age: number, designation: string) {
+        super(name, age, designation);
+    }
 
-  public getRole() {
-    return this.designation;
-  }
+    public getRole() {
+        return this.designation;
+    }
 }
 
 const emp = new Employee("Vasi", 25, "Developer");
@@ -374,12 +376,12 @@ console.log("-----iv. implements");
 console.log("Mostly used for interface to use that predefined type structure reuse for the functionalities")
 
 interface notifySound {
-  getSound(): void;
+    getSound(): void;
 }
 class Mob implements notifySound {
-  getSound(): void {
-    console.log("Mob notify sound")
-  }
+    getSound(): void {
+        console.log("Mob notify sound")
+    }
 }
 const setSound = new Mob();
 console.log(setSound.getSound());
@@ -387,33 +389,33 @@ console.log(setSound.getSound());
 console.log("-----v. extends");
 
 class phoneScreen {
-  width: number;
-  height: number;
-  constructor(width: number, height: number) {
+    width: number;
+    height: number;
+    constructor(width: number, height: number) {
 
-    this.width = width;
-    this.height = height;
-  }
+        this.width = width;
+        this.height = height;
+    }
 
 
 
 }
 class realmeScreen extends phoneScreen {
-  breadth: number;
-  static noOfObjects: any = 0;
-  constructor(width: number, height: number, breadth: number, noOfObjects: any) {
-    super(width, height);
-    this.breadth = breadth;
-    // this.noOfObjects=noOfObjects; //  static can't even able to access
+    breadth: number;
+    static noOfObjects: any = 0;
+    constructor(width: number, height: number, breadth: number, noOfObjects: any) {
+        super(width, height);
+        this.breadth = breadth;
+        // this.noOfObjects=noOfObjects; //  static can't even able to access
 
-  }
-  getOverallValue(): number {
+    }
+    getOverallValue(): number {
 
-    let finalValue = this.width + this.height + this.breadth;
+        let finalValue = this.width + this.height + this.breadth;
 
-    return finalValue;
+        return finalValue;
 
-  }
+    }
 }
 
 const newSet = new realmeScreen(22, 33, 211, 42);
@@ -424,15 +426,15 @@ console.log(newSet.getOverallValue());
 console.log("-----vi. override")
 console.log("In below parent and child we access the parent functionality and modify and resue inside child")
 class Parent {
-  greet() {
-    console.log("Hello from Parent");
-  }
+    greet() {
+        console.log("Hello from Parent");
+    }
 }
 
 class Child extends Parent {
-  override greet() {
-    console.log("Hello from Child");
-  }
+    override greet() {
+        console.log("Hello from Child");
+    }
 }
 
 const obj = new Child();
@@ -445,8 +447,8 @@ console.log("------i. Generic Type")
 function genericReturn<T>(value: T): T {
 
 
-  // console.log(value.length)
-  return value;
+    // console.log(value.length)
+    return value;
 }
 
 console.log(genericReturn(43));
@@ -460,8 +462,8 @@ console.log("We can't acces result's lenght in normal generic type but we can do
 function genericLenghtReturn<T extends { length: number }>(value: T): T {
 
 
-  console.log(value.length);
-  return value;
+    console.log(value.length);
+    return value;
 
 }
 
@@ -471,18 +473,18 @@ genericLenghtReturn("this is the string value");
 console.log("------iii. Generic Interface");
 console.log("We can use this for the predefined interface functionalities ")
 interface ApiResponse<T> {
-  data: T;
-  status: number
+    data: T;
+    status: number
 
 }
 const response1: ApiResponse<string> = {
-  data: "Success",
-  status: 200
+    data: "Success",
+    status: 200
 };
 
 const response2: ApiResponse<number> = {
-  data: 500,
-  status: 200
+    data: 500,
+    status: 200
 };
 
 console.log(response1);
@@ -493,16 +495,16 @@ console.log("------iv. Generic Class");
 
 class genericClassAccess<T> {
 
-  value: T;
+    value: T;
 
-  constructor(value: T) {
-    this.value = value;
+    constructor(value: T) {
+        this.value = value;
 
 
-  }
-  getValuResult(): T {
-    return this.value;
-  }
+    }
+    getValuResult(): T {
+        return this.value;
+    }
 
 }
 
@@ -524,15 +526,15 @@ console.log("-----i. Partial");
 console.log("We can use predefined types and with partial we dont need to use all properties ")
 
 type Students = {
-  name: string;
-  age: number;
-  designation: string
+    name: string;
+    age: number;
+    designation: string
 
 }
 
 const user1: Partial<Students> = {
 
-  name: "Umesh"
+    name: "Umesh"
 }
 console.log(user1);
 
@@ -540,9 +542,9 @@ console.log("-----ii. Required");
 console.log("Unlike partial every properties need to be existed in this")
 
 const student1: Required<Students> = {
-  name: "Vasi",
-  age: 25,
-  designation: "developer"
+    name: "Vasi",
+    age: 25,
+    designation: "developer"
 };
 
 console.log(student1);
@@ -550,9 +552,9 @@ console.log(student1);
 console.log("-----iii. Readonly");
 console.log("Using this readonly property we cant able to modify any properties inside")
 const studentreadonly: Readonly<Students> = {
-  name: "Vasi",
-  age: 25,
-  designation: "developer"
+    name: "Vasi",
+    age: 25,
+    designation: "developer"
 };
 
 // studentreadonly.name="changed name";
@@ -562,7 +564,7 @@ console.log("-----iv. Pick");
 console.log("Like select query, we determain what exactly we want")
 
 const studentPick: Pick<Students, "age"> = {
-  age: 25
+    age: 25
 };
 
 console.log(studentPick);
@@ -571,8 +573,8 @@ console.log("-----v. Omit");
 console.log("We can remove which data we dont needed")
 
 const studentOmit: Omit<Students, "age"> = {
-  name: "vasi",
-  designation: "developer"
+    name: "vasi",
+    designation: "developer"
 };
 
 
@@ -585,8 +587,8 @@ console.log("We can group data into one for switch roles")
 type Role = "admin" | "user";
 
 const rolePermissions: Record<Role, string> = {
-  admin: "ALL ACCESS",
-  user: "LIMITED ACCESS"
+    admin: "ALL ACCESS",
+    user: "LIMITED ACCESS"
 };
 
 console.log(rolePermissions);
@@ -596,14 +598,14 @@ console.log(rolePermissions);
 console.log("-----vii. ReturnType");
 console.log("We can dynamicaly change the type thorugh that function return value ")
 function getMarks() {
-  return { name: "Jane", marks: 85 };
+    return { name: "Jane", marks: 85 };
 }
 
 type MarksType = ReturnType<typeof getMarks>;
 
 const marksObj: MarksType = {
-  name: "Jane",
-  marks: 85
+    name: "Jane",
+    marks: 85
 };
 
 console.log(marksObj);
@@ -611,7 +613,7 @@ console.log(marksObj);
 console.log("-----viii. Parameters");
 console.log("We could extract input from the function and reuse the function through this")
 function add(a: number, b: number) {
-  return a + b;
+    return a + b;
 }
 
 type AddParams = Parameters<typeof add>;
@@ -629,21 +631,21 @@ let targetVal: any = "mon";
 
 
 switch (targetVal) {
-  case 'tue':
-    console.log("Tuesday");
-    break;
-  case 'mon':
-    console.log("Monday")
-    break;
-  case 'sun':
-    console.log("Sunday")
-    break;
+    case 'tue':
+        console.log("Tuesday");
+        break;
+    case 'mon':
+        console.log("Monday")
+        break;
+    case 'sun':
+        console.log("Sunday")
+        break;
 
-  case 'wed':
-    console.log("wednesday")
-    break;
-  default:
-    console.log("Inputs wrong");
+    case 'wed':
+        console.log("wednesday")
+        break;
+    default:
+        console.log("Inputs wrong");
 
 }
 
@@ -654,32 +656,32 @@ let i: number = 1;
 let check = i.toString().length;
 
 while (check < 2) {
-  check = i.toString().length;
-  if (i % 2 !== 0) {
-    console.log(i);
-  }
-  else {
+    check = i.toString().length;
+    if (i % 2 !== 0) {
+        console.log(i);
+    }
+    else {
+        i++;
+        continue;
+    }
     i++;
-    continue;
-  }
-  i++;
 
-  if (check <= 0)
-    break;
+    if (check <= 0)
+        break;
 }
 
 
 let dowhilei: number = 1;
 
 do {
-  console.log(dowhilei);
+    console.log(dowhilei);
 
-  if (dowhilei === 5) {
-    break;
-  }
+    if (dowhilei === 5) {
+        break;
+    }
 
 
-  dowhilei++;
+    dowhilei++;
 } while (dowhilei < 10);
 
 console.log("Loop ended");
@@ -691,17 +693,17 @@ console.log("------------------16. Function OverLoading ---------------------");
 
 const addSeries: any = (a: number, b: number, c?: number) => {
 
-  if (c) {
-    let result: any = a + b + c;
-    console.log("result for three: " + result)
-  }
-  else if (!c) {
-    let result: any = a + b;
-    console.log("result for two: " + result)
-  }
+    if (c) {
+        let result: any = a + b + c;
+        console.log("result for three: " + result)
+    }
+    else if (!c) {
+        let result: any = a + b;
+        console.log("result for two: " + result)
+    }
 
 
-  return 0;
+    return 0;
 
 }
 
@@ -714,25 +716,25 @@ console.log("------------------17. Getter, Setter Method ---------------------")
 
 class studentDet {
 
-  private _name: string = "";
+    private _name: string = "";
 
 
-  get name(): string {
-    if (this._name.includes("va")) {
-      throw new Error("va must not inherit here")
+    get name(): string {
+        if (this._name.includes("va")) {
+            throw new Error("va must not inherit here")
+
+        }
+        return this._name;
 
     }
-    return this._name;
+    set name(value: string) {
+        this._name = value;
+        if (value.length < 3) {
+            throw new Error("Name must be maximum 3 characters")
+        }
+        this._name = value.toUpperCase();
 
-  }
-  set name(value: string) {
-    this._name = value;
-    if (value.length < 3) {
-      throw new Error("Name must be maximum 3 characters")
     }
-    this._name = value.toUpperCase();
-
-  }
 }
 const studentassign = new studentDet();
 const secondstudent = new studentDet();
@@ -746,9 +748,9 @@ console.log("------------------18. Abstract class Method ---------------------")
 
 abstract class confidentialUsers {
 
-  detailsHidden() {
-    console.log("Details Are accessed here-----------------")
-  }
+    detailsHidden() {
+        console.log("Details Are accessed here-----------------")
+    }
 }
 
 
@@ -756,10 +758,10 @@ abstract class confidentialUsers {
 
 class accessInside extends confidentialUsers {
 
-  accessmethod() {
-    console.log("Hidden details accessed");
+    accessmethod() {
+        console.log("Hidden details accessed");
 
-  }
+    }
 
 }
 
@@ -770,18 +772,18 @@ confid.detailsHidden();
 console.log("------------------19. Intersection Types ---------------------");
 
 interface identity {
-  id: string;
-  name: string;
+    id: string;
+    name: string;
 
 }
 interface designation {
-  department: string;
-  noofassets: number;
+    department: string;
+    noofassets: number;
 
 }
 interface workersDetail {
-  assignedWork: string;
-  assignedArea: string;
+    assignedWork: string;
+    assignedArea: string;
 
 }
 
@@ -790,17 +792,17 @@ type Workers = identity & workersDetail;
 
 let empfirst: Employees = {
 
-  id: "EC01243",
-  name: "vasi",
-  department: "Development",
-  noofassets: 2
+    id: "EC01243",
+    name: "vasi",
+    department: "Development",
+    noofassets: 2
 
 }
 let workerfirst: Workers = {
-  id: "WE339402",
-  name: "rakki",
-  assignedArea: "stagearea",
-  assignedWork: "NA"
+    id: "WE339402",
+    name: "rakki",
+    assignedArea: "stagearea",
+    assignedWork: "NA"
 }
 
 console.log(empfirst);
@@ -811,13 +813,13 @@ console.log("Type guard implemented below for string and number without arising 
 
 function returnedValue(value: string | number) {
 
-  if (typeof (value) === 'string') {
-    return value.toUpperCase();
-  }
-  else if (typeof (value) === 'number') {
+    if (typeof (value) === 'string') {
+        return value.toUpperCase();
+    }
+    else if (typeof (value) === 'number') {
 
-    return value.toFixed(-1 * -2);
-  }
+        return value.toFixed(-1 * -2);
+    }
 
 }
 
@@ -827,28 +829,28 @@ console.log(returnedValue(5030));
 console.log("------------------21. Instance of (like type guards for classobjects) ---------------------");
 
 class Withdraw {
-  amountMoney(amount: number) {
-    console.log("Withdrawal Amount: " + amount);
-  }
+    amountMoney(amount: number) {
+        console.log("Withdrawal Amount: " + amount);
+    }
 }
 
 class Deposit {
-  amountMoney(amount: number) {
-    console.log("Deposited Amount: " + amount);
-  }
+    amountMoney(amount: number) {
+        console.log("Deposited Amount: " + amount);
+    }
 }
 
 function processFunction(
-  transaction: Withdraw | Deposit,
-  amount: number
+    transaction: Withdraw | Deposit,
+    amount: number
 ) {
 
-  if (transaction instanceof Withdraw) {
-    transaction.amountMoney(amount);
-  }
-  else if (transaction instanceof Deposit) {
-    transaction.amountMoney(amount);
-  }
+    if (transaction instanceof Withdraw) {
+        transaction.amountMoney(amount);
+    }
+    else if (transaction instanceof Deposit) {
+        transaction.amountMoney(amount);
+    }
 
 }
 
@@ -978,14 +980,14 @@ console.log("------------------26. Anonymous Function---------------------");
 let functionAnonymouse = function (firstNum: number, secondNum: number): number {
 
 
-  return firstNum * secondNum
+    return firstNum * secondNum
 }
 
 console.log(functionAnonymouse(32, 44));
 
 console.log("------------------27. Arrow Function---------------------");
 let multiply = (x: number, y: number): number => {
-  return x * y;
+    return x * y;
 };
 
 console.log(multiply(4, 5));
@@ -993,26 +995,26 @@ console.log(multiply(4, 5));
 console.log("------------------28. Duck Typing---------------------");
 
 interface useraccess {
-  name: string,
-  age: number,
+    name: string,
+    age: number,
 
 }
 
 interface car {
-  model: "Toyato",
-  color: "blue"
+    model: "Toyato",
+    color: "blue"
 }
 
 let studentUser = {
-  name: "vasiraja",
-  age: 20,
-  isStudent: true
+    name: "vasiraja",
+    age: 20,
+    isStudent: true
 
 }
 
 let car = {
-  name: "Volvo",
-  color: "red",
+    name: "Volvo",
+    color: "red",
 }
 console.log("car object doesnt works but for studnets user works , eventhough user has extra property becuase it has name and age which already defined in interface but car dont have that .")
 console.log(studentUser)
@@ -1020,28 +1022,28 @@ console.log(car)
 
 greet(studentUser)
 function greet(person: useraccess) {
-  console.log(`Hello ${person.name}, Age: ${person.age}`);
+    console.log(`Hello ${person.name}, Age: ${person.age}`);
 }
 
 
 
 console.log("------------------29. KeyOf Type Operator---------------------");
 interface keyPerson {
-  name: string;
-  age: number;
+    name: string;
+    age: number;
 }
 type keyPersonset = keyof keyPerson
 
 let key: keyof keyPerson;
 key = "name",
-  key = "age",
+    key = "age",
 
-  console.group("Keyof return the union of property names ");
+    console.group("Keyof return the union of property names ");
 
 
 
 function getProperty(obj: keyPerson, key: keyof keyPerson) {
-  return obj[key];
+    return obj[key];
 }
 
 let person = { name: "Rahul", age: 25 };
@@ -1059,8 +1061,8 @@ console.log(typeof bool1);
 
 console.log("------------------31. Indexed Access Types   ---------------------");
 interface accessIndexed {
-  name: string,
-  age: number
+    name: string,
+    age: number
 }
 
 
@@ -1085,31 +1087,31 @@ console.log("------------------33. Namespaces   ---------------------");
 
 
 namespace groupfunctions {
-  export function firstfunc() { }
-  export function secondfunc() { }
-  export function thirdfunc() { }
+    export function firstfunc() { }
+    export function secondfunc() { }
+    export function thirdfunc() { }
 }
 
 
 console.log("------------------34. Ambients   ---------------------");
 console.log("WE are telling typescript to this variable already exists so not cause a problem like that way")
 
-var userName ='here Ambients name';
+var userName = 'here Ambients name';
 
 
-declare var userName:string;
+declare var userName: string;
 
 
 
 console.log("------------------35. Decorators   ---------------------");
 console.log("before using deorator we need to enable it inside ts.config.js  file")
 function Logger(constructor: Function) {
-  console.log("Decorator called");
+    console.log("Decorator called");
 }
 
 @Logger
 class Decorcheck {
-  name = "firstname";
+    name = "firstname";
 }
 
 let p = new Decorcheck();
@@ -1125,21 +1127,21 @@ console.log("Decorator called even created before instance of the class we can u
 
 function submitUser(): void {
 
-  const inputElement = document.querySelector<HTMLInputElement>("#inputgiven");
-  const userDiv = document.querySelector<HTMLUListElement>(".userlists");
+    const inputElement = document.querySelector<HTMLInputElement>("#inputgiven");
+    const userDiv = document.querySelector<HTMLUListElement>(".userlists");
 
-  if (inputElement && userDiv) {
-    const inputVal = inputElement.value;
-    if (inputVal.trim() === "") return;
+    if (inputElement && userDiv) {
+        const inputVal = inputElement.value;
+        if (inputVal.trim() === "") return;
 
-    const listItem = document.createElement("li");
-    listItem.innerText = inputVal;
+        const listItem = document.createElement("li");
+        listItem.innerText = inputVal;
 
-    userDiv.append(listItem);
-    inputElement.value = "";
-  } else {
-    return;
-  }
+        userDiv.append(listItem);
+        inputElement.value = "";
+    } else {
+        return;
+    }
 }
 
 console.log("We can group code functions into inside through this namespaces")

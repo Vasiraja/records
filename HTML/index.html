@@ -6,8 +6,8 @@
    <meta name="description" content="HTML practice file">
    <meta name="keywords" content="html, css, javascript">
    <meta name="author" content="creator">
-     <meta http-equiv="cookie" content="userid=xyz; expires=Wednesday, 08-Aug-15 23:59:59 GMT;" />
-     <!-- Above we can store cookie along with expiration data to automatically remove and helps for the seo optimization content related also  -->
+   <meta http-equiv="cookie" content="userid=xyz; expires=Wednesday, 08-Aug-15 23:59:59 GMT;" />
+   <!-- Above we can store cookie along with expiration data to automatically remove and helps for the seo optimization content related also  -->
    <!-- <base href="https://www.w3schools.com/" target="_blank"> -->
 
    <link rel="icon" type="image/png" href="https://github.com/favicon.ico">
@@ -72,15 +72,15 @@
    <mark>Marked text</mark>
    <sub>Sub text</sub>
    <sup>super Text</sup>
-         <samp>samp tag used when the old data removed and inserted new data we represent through this tag</samp>
+   <samp>samp tag used when the old data removed and inserted new data we represent through this tag</samp>
 
    <p>Is that work done, <q>I wish to finish that </q>. </p>
 
 
- <code>This is the code different from normal text and seems like computer code </code>
-<kbd>This is the keyboard text </kbd>
-<p><var>x</var> + <var>y</var> = 10</p>
-</p>
+   <code>This is the code different from normal text and seems like computer code </code>
+   <kbd>This is the keyboard text </kbd>
+   <p><var>x</var> + <var>y</var> = 10</p>
+   </p>
 
    <!-- 8. HTML Quotations -->
    <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>
@@ -114,15 +114,15 @@
 
    <!-- 13. HTML Tables -->
    <table style="border-color:red" cellpadding="6" cellspacing="0" border="1">
-    <colgroup>
-    <col style="width:180px;background-color:rgb(171, 116, 223);" >        
-    <col style="width:180px;background-color: aqua;" >          
-    <col>                           
-    <col style="background-color: rgb(31, 176, 212);">                              
-    <col style="background-color:rgb(58, 78, 168)"> 
-    <col style="background-color:rgb(221, 221, 142)">  
-    <col style="width:130px">    
-  </colgroup>
+      <colgroup>
+         <col style="width:180px;background-color:rgb(171, 116, 223);">
+         <col style="width:180px;background-color: aqua;">
+         <col>
+         <col style="background-color: rgb(31, 176, 212);">
+         <col style="background-color:rgb(58, 78, 168)">
+         <col style="background-color:rgb(221, 221, 142)">
+         <col style="width:130px">
+      </colgroup>
       <caption><strong>Employee Details</strong></caption>
 
       <thead>
@@ -304,12 +304,17 @@
       <input type="text" maxlength="5" placeholder="five letters" autofocus>
       <input type="number" max="30" min="1" step="5">
       <input type="date" min="2000-12-14">
-      <input type="file" multiple accept = "image/*" >
+      <input type="file" multiple accept="image/*">
       <input type="checkbox" checked> Agree
       <input type="radio" name="gender"> Male
       <input type="radio" name="gender"> Female
       <input type="range" min="0" max="100">
       <input type="color">
+      <input type="tel" placeholder="Phone number">
+      <input type="url" placeholder="Website">
+      <input type="search" placeholder="Search...">
+      <input type="datetime-local">
+      <input type="hidden" name="user_id" value="123">
       <button type="submit" formtarget="_blank">submit</button>
    </form>
 
@@ -333,19 +338,28 @@
       <option value="Edge">
       <option value="Safari">
    </datalist>
+   <label for="cars">Choose a car:</label>
+   <select name="cars" id="cars">
+      <optgroup label="Swedish Cars">
+         <option value="volvo">Volvo</option>
+         <option value="saab">Saab</option>
+      </optgroup>
+      <optgroup label="German Cars">
+         <option value="mercedes">Mercedes</option>
+         <option value="audi">Audi</option>
+      </optgroup>
+   </select>
 
    <!-- 28. Audio and Video -->
    <audio controls>
       <source src="audio.mp3" type="audio/mpeg">
    </audio>
-      <embed src = "../largefile.mp4" 
-          type = "audio/mp3" 
-          width="450" 
-          height="250">
+   <embed src="../largefile.mp4" type="audio/mp3" width="450" height="250">
    </embed>
 
-   <video controls width="250">
-      <source src="../largefile.mp4" type="video/mp4">
+   <video poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb" controls width="250">
+      <source src="myvideo.mp4" type="video/mp4">
+      <track src="subtitles.vtt" kind="subtitles" srclang="en" label="English" default>
    </video>
 
    <!-- 29. Figure and Figcaption -->
@@ -394,8 +408,8 @@
 
    <p><a href="https://www.youtube.com/">click it</a></p>
    <a href="https://www.youtube.com/">
-   <img src="./bgv.webp" alt="alternative text">
-</a>
+      <img src="./bgv.webp" alt="alternative text">
+   </a>
 
    <div class="redcube"></div>
 
@@ -439,7 +453,7 @@
       <div></div>
       <div></div>
       <div></div>
-      <div></div> 
+      <div></div>
       <div id="individual">flex grow implemeneted</div>
    </div><br><br>
 
@@ -466,7 +480,7 @@
 
 
 
-         var userName = "This value rendered from script "
+      var userName = "This value rendered from script "
 
    </script>
    <h3>grid</h3>
@@ -537,7 +551,7 @@
          coords="64,250,63,106,90,109,188,183,196,230,159,260,145,258,129,252,161,260,115,252,91,258,80,251,120,256,91,248,111,254,292,256,121,254,162,248"
          shape="poly">
    </map>
-   
+
 
 </body>
 

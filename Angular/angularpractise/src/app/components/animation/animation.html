@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Angular Animation Concepts</h2>
+
+  <div class="box" [@boxState]="boxSize" (click)="toggleSize()">
+    Click to Resize (State)
+  </div>
+
+  <hr>
+
+  <button (click)="showPanel = !showPanel">Toggle Panel (Enter/Leave)</button>
+  <div *ngIf="showPanel" @slideInOut class="panel">
+    I slide in and out!
+  </div>
+
+  <hr>
+
+  <button (click)="triggerWobble()">Wobble Me (Keyframes)</button>
+  <div [@wobble]="wobbleState" class="circle">W</div>
+
+  <hr>
+
+  <h3>The Staggered List</h3>
+  <div [@listAnimation]="items.length" class="list-container">
+    <div *ngFor="let item of items" class="list-item">
+      {{ item }}
+    </div>
+  </div>
+</div>

@@ -6,6 +6,40 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<style>
+    #dragBox {
+        width: 120px;
+        height: 120px;
+        background-color: royalblue;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    #dropZone {
+        width: 250px;
+        height: 150px;
+        border: 3px solid gray;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        margin-top: 20px;
+        font-size: 16px;
+        color: gray;
+        transition: background 0.2s;
+    }
+
+    #dropZone.hover {
+        background-color: #e0ffe0;
+        border-color: green;
+        color: green;
+    }
+</style>
 
 <body>
     <form action="">
@@ -89,65 +123,129 @@
     <button onclick="getLocationWithError()">Get Location With Error Handling</button>
     <p id="geoError"></p>
 
-    <!-- 56. Drag and Drop API - Basic Introduction -->
-    <!-- Drag and Drop API allows the user to click, drag, move and drop elements inside the browser -->
-    <h3>56. Drag and Drop API - Basic</h3>
-    <p>Drag and Drop API is used to move elements from one place to another using mouse interaction.</p>
+    <h3>51. Drag Events</h3>
 
 
-    <h3>57. Draggable Element</h3>
-    <div draggable="true" style="width:150px; padding:20px; background-color:lightblue; margin-bottom:10px;">
+    <div id="dragBox" draggable="true" ondragstart="handleDragStart(event)" ondrag="handleDrag(event)"
+        ondragend="handleDragEnd(event)">
         Drag Me
     </div>
-    <p>Div draggable through draggable:true</p>
 
-
-    <h3>58. Drag Start Event</h3>
-    <div id="dragBox1" draggable="true" ondragstart="dragStartExample(event)"
-        style="width:150px; padding:20px; background-color:violet; color:white; margin-bottom:10px;">
-        Drag Start Box
-    </div>
-    <p>when you start drag it will trigger specific function through this ondragstart </p>
-    <p id="dragStartOutput"></p>
-
-    <script>
-        function dragStartExample(event) {
-            document.getElementById("dragStartOutput").innerHTML =
-                "Dragging has started for element with id: " + event.target.id;
-
-            console.log("dragstart event fired");
-            console.log("Dragged Element ID:", event.target.id);
-        }
-    </script>
-
-
-    <h3>59. Drag Over Event</h3>
-    <div id="dragBox2" draggable="true" ondragstart="dragStartForDrop(event)"
-        style="width:120px; padding:20px; background-color:purple; color:white; margin-bottom:10px;">
-        Drag This
-    </div>
-
-    <div ondragover="allowDrop(event)" id="dragOverBox"
-        style="width:250px; height:120px; background-color:#02f12a; border:2px dashed black; padding:10px;">
-        Drop Area
-    </div>
-
-    <p>The dragover event allows an element to become a valid drop target.</p>
-
-
-
-    <h3>60. Drop Event</h3>
-    <div id="dragBox3" draggable="true" ondragstart="dragStartDrop(event)"
-        style="width:120px; padding:20px; background-color:teal; color:white; margin-bottom:10px;">
-        Drop Me
-    </div>
-
-    <div id="dropZone1" ondragover="allowDrop(event)" ondrop="dropElement(event)"
-        style="width:250px; height:120px; background-color:#ffe4b5; border:2px dashed black; padding:10px;">
+    <!-- Drop Zone -->
+    <div id="dropZone" ondragenter="handleDragEnter(event)" ondragover="handleDragOver(event)"
+        ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
         Drop Here
     </div>
 
-    <p id="dropOutput"></p>
+    <p id="dragStatus" style="margin-top: 15px; font-size: 15px; color: #333;"></p>
+
+
+
+
+    <h3>52. Dialog</h3>
+
+    <button id="openDialog">to open dialog</button>
+
+    <dialog id="myDialog">
+        <form method="dialog">
+            <h2>Confirm Action</h2>
+            <p>Are you sure you want to continue?</p>
+            <button value="cancel">Cancel</button>
+            <button value="ok">OK</button>
+        </form>
+    </dialog>
+
+    <h3>53. Menu</h3>
+    <menu>
+        <li><button>Save</button></li>
+        <li><button>Delete</button></li>
+        <li><button>Share</button></li>
+
+    </menu>
+    <h3 class="topics">output </h3>
+    <form oninput="result.value = Number(a.value) + Number(b.value)">
+        <input type="number" id="a" name="a" value="2">
+        +
+        <input type="number" id="b" name="b" value="3">
+        =
+        <output name="result">5</output>
+    </form>
+
+
+    <h3>54. template</h3>
+    <p>does not render immediately used for dynamic js implementation</p>
+    <template id="cardTemplate">
+        <div class="card">
+            <h2>Title</h2>
+            <p>Description</p>
+        </div>
+    </template>
+
+    <div id="container"></div>
+    </div>
+    <script>
+        const template = document.getElementById("cardTemplate");
+        const clone = template.content.cloneNode(true);
+        document.getElementById("container").appendChild(clone);
+
+
+        const dialogButton = document.getElementById("openDialog");
+        if (dialogButton) {
+            dialogButton.addEventListener("click", () => {
+                console.log("dialog trigger");
+                const myDialog = document.getElementById("myDialog");
+                if (myDialog) {
+                    myDialog.showModal();
+                }
+
+            })
+        }
+
+
+
+        const status = document.getElementById("dragStatus");
+        const dropZone = document.getElementById("dropZone");
+
+        function handleDragStart(event) {
+            event.dataTransfer.setData("text/plain", event.target.id);
+            status.textContent = " ondragstart — Drag started!";
+        }
+
+        function handleDrag(event) {
+            status.textContent = " ondrag — Dragging...";
+        }
+
+        function handleDragEnd(event) {
+            status.textContent = " ondragend — Drag ended.";
+            dropZone.classList.remove("hover");
+        }
+
+        function handleDragEnter(event) {
+            event.preventDefault();
+            dropZone.classList.add("hover");
+            status.textContent = " ondragenter — Entered drop zone!";
+        }
+
+        function handleDragOver(event) {
+            event.preventDefault();
+            status.textContent = " ondragover — Over drop zone...";
+        }
+
+        function handleDragLeave(event) {
+            dropZone.classList.remove("hover");
+            status.textContent = " ondragleave — Left drop zone.";
+        }
+
+        function handleDrop(event) {
+            event.preventDefault();
+            const draggedId = event.dataTransfer.getData("text/plain");
+            const draggedEl = document.getElementById(draggedId);
+            dropZone.appendChild(draggedEl);
+            dropZone.classList.remove("hover");
+            dropZone.style.borderStyle = "solid";
+            status.textContent = " ondrop — Element dropped successfully!";
+        }
+    </script>
 
 
 
@@ -261,33 +359,6 @@
 
             document.getElementById("geoBasic").innerHTML =
                 "Location fetched successfully.";
-        }
-        function dragStartDrop(event) {
-            event.dataTransfer.setData("text", event.target.id);
-            console.log("Drop drag started:", event.target.id);
-        }
-
-        function dropElement(event) {
-            event.preventDefault();
-
-            let draggedElementId = event.dataTransfer.getData("text");
-            let draggedElement = document.getElementById(draggedElementId);
-
-            event.target.appendChild(draggedElement);
-
-
-            console.log("drop event fired");
-            console.log("Dropped Element ID:", draggedElementId);
-
-        }
-        function allowDrop(event) {
-            event.preventDefault();
-            console.log("dragover event fired");
-        }
-
-        function dragStartForDrop(event) {
-            event.dataTransfer.setData("text", event.target.id);
-            console.log("drag started for:", event.target.id);
         }
 
     </script>

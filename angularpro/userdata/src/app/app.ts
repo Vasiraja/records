@@ -11,28 +11,32 @@ import { Navbar } from './shared/navbar/navbar';
 
 @Component({
   selector: 'app-root',
-  standalone: true, 
+  standalone: true,
   imports: [RouterOutlet, CommonModule, FormsModule, Toast, Sidebar, Navbar],
   templateUrl: './app.html',
 })
 export class App implements OnInit {
-
   isLoginRoute = false;
+
+   private userserv = inject(Userserv);
+
+   intreceptorImplement = this.userserv.isLoading;
 
   constructor(private socketserv: Socketserv, private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        console.log('Current route:', event.urlAfterRedirects);
         this.isLoginRoute = event.urlAfterRedirects === '/login';
       }
     });
   }
+
   ngOnInit(): void {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     if (token) {
       this.socketserv.connect();
     }
   }
+
 
 
 

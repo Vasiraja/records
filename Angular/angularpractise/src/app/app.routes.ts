@@ -27,6 +27,9 @@ import { ChangeDetection } from './components/change-detection/change-detection'
 import { CustomElementComponent } from './components/custom-element/custom-element';
 import { Eventlisteners } from './components/eventlisteners/eventlisteners';
 import { canactivegGuard } from './canactiveg-guard';
+import { UserDashboard } from './user-dashboard/user-dashboard';
+import { resolverFn } from './resolved.service';
+import { Animation } from './components/animation/animation';
 
 export const routes: Routes = [
 
@@ -101,7 +104,14 @@ export const routes: Routes = [
     {
         path: "", redirectTo: "/login", pathMatch: "full"
     },
-
+    {
+        path: "resolveuser/:id",
+        component: UserDashboard,
+        resolve: { fetched: resolverFn }
+    },
+     {
+        path: "animation", component:Animation
+    },
 ];
 
 

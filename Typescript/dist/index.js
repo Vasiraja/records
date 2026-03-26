@@ -1,3 +1,41 @@
+var __esDecorate = (this && this.__esDecorate) || function (ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+    function accept(f) { if (f !== void 0 && typeof f !== "function") throw new TypeError("Function expected"); return f; }
+    var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+    var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+    var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+    var _, done = false;
+    for (var i = decorators.length - 1; i >= 0; i--) {
+        var context = {};
+        for (var p in contextIn) context[p] = p === "access" ? {} : contextIn[p];
+        for (var p in contextIn.access) context.access[p] = contextIn.access[p];
+        context.addInitializer = function (f) { if (done) throw new TypeError("Cannot add initializers after decoration has completed"); extraInitializers.push(accept(f || null)); };
+        var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+        if (kind === "accessor") {
+            if (result === void 0) continue;
+            if (result === null || typeof result !== "object") throw new TypeError("Object expected");
+            if (_ = accept(result.get)) descriptor.get = _;
+            if (_ = accept(result.set)) descriptor.set = _;
+            if (_ = accept(result.init)) initializers.unshift(_);
+        }
+        else if (_ = accept(result)) {
+            if (kind === "field") initializers.unshift(_);
+            else descriptor[key] = _;
+        }
+    }
+    if (target) Object.defineProperty(target, contextIn.name, descriptor);
+    done = true;
+};
+var __runInitializers = (this && this.__runInitializers) || function (thisArg, initializers, value) {
+    var useValue = arguments.length > 2;
+    for (var i = 0; i < initializers.length; i++) {
+        value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+    }
+    return useValue ? value : void 0;
+};
+var __setFunctionName = (this && this.__setFunctionName) || function (f, name, prefix) {
+    if (typeof name === "symbol") name = name.description ? "[".concat(name.description, "]") : "";
+    return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
+};
 import { additionEvent, areaOfRectangle, perimeterRectangle } from "./arithmeticmodule.js";
 console.log("------------------1. TypeScript Types---------------------");
 var boolVar = true;
@@ -589,7 +627,7 @@ let result = age >= 18 ? "Adult" : "Minor";
 console.log("Ternary:", result);
 console.log("-----vi. Nullish Coalcing ");
 let inputValue = null;
-let output = inputValue !== null && inputValue !== void 0 ? inputValue : "Default Value";
+let output = inputValue ?? "Default Value";
 console.log("Nullish Coalescing:", output);
 console.log("------------------25. Type Annotation---------------------");
 var typeannotvariable = "";
@@ -641,8 +679,51 @@ let bool1 = true;
 console.log(typeof bool1);
 console.log("------------------31. Indexed Access Types   ---------------------");
 console.log("------------------32. Template Literal Types   ---------------------");
-const greeting = "Hi, h ow are you";
+const greeting = "Hi, how are you";
 console.log(greeting);
+console.log("------------------33. Namespaces   ---------------------");
+//  function firstfunc(){}
+//  function secondfunc(){}
+//  function thirdfunc(){}
+var groupfunctions;
+(function (groupfunctions) {
+    function firstfunc() { }
+    groupfunctions.firstfunc = firstfunc;
+    function secondfunc() { }
+    groupfunctions.secondfunc = secondfunc;
+    function thirdfunc() { }
+    groupfunctions.thirdfunc = thirdfunc;
+})(groupfunctions || (groupfunctions = {}));
+console.log("------------------34. Ambients   ---------------------");
+console.log("WE are telling typescript to this variable already exists so not cause a problem like that way");
+var userName = 'here Ambients name';
+console.log("------------------35. Decorators   ---------------------");
+console.log("before using deorator we need to enable it inside ts.config.js  file");
+function Logger(constructor) {
+    console.log("Decorator called");
+}
+let Decorcheck = (() => {
+    let _classDecorators = [Logger];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    var Decorcheck = _classThis = class {
+        constructor() {
+            this.name = "firstname";
+        }
+    };
+    __setFunctionName(_classThis, "Decorcheck");
+    (() => {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        Decorcheck = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers(_classThis, _classExtraInitializers);
+    })();
+    return Decorcheck = _classThis;
+})();
+let p = new Decorcheck();
+console.log("Decorator called even created before instance of the class we can use this method and properties also");
 function submitUser() {
     const inputElement = document.querySelector("#inputgiven");
     const userDiv = document.querySelector(".userlists");
@@ -659,6 +740,7 @@ function submitUser() {
         return;
     }
 }
+console.log("We can group code functions into inside through this namespaces");
 const buttonTri = document.querySelector("#submitusertrigger");
-buttonTri === null || buttonTri === void 0 ? void 0 : buttonTri.addEventListener("click", submitUser);
+buttonTri?.addEventListener("click", submitUser);
 //# sourceMappingURL=index.js.map

@@ -7,6 +7,17 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
+    "paths": {
+      "my-lib": [
+        "./dist/my-lib"
+      ],
+      "my-libs": [
+        "./dist/my-libs"
+      ],
+      "mypro": [
+        "./dist/mypro"
+      ]
+    },
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "isolatedModules": true,
@@ -28,6 +39,24 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/my-lib/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/my-lib/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/my-libs/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/my-libs/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/mypro/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/mypro/tsconfig.spec.json"
     }
   ]
 }

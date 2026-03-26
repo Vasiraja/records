@@ -1,3 +1,9 @@
+@if (intreceptorImplement()) {
+<div class="spinner-overlay">
+  <div class="loader">Loading API Data...</div>
+</div>
+
+}
 <app-navbar *ngIf="!isLoginRoute"></app-navbar>
 <div class="layout">
   <app-sidebar *ngIf="!isLoginRoute"></app-sidebar>
@@ -8,5 +14,5 @@
 </div>
 
 <div class="toast-container position-fixed top-0 end-0 p-3">
-  <app-toast ></app-toast>
-</div> 
+  <app-toast></app-toast>
+</div>

@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse, User, LoginLog, onlineUser, Polls } from '../models/types';
 import { Socketserv } from './socket/socketserv';
@@ -20,9 +20,13 @@ export class Userserv {
   private totalVotess = new BehaviorSubject<number>(0);
   totalVotess$ = this.totalVotess.asObservable();
 
+  public isLoading = signal(false);
+
   constructor(private http: HttpClient, private socketServ: Socketserv) {
     // this.listenToEvents();
   }
+  show() { this.isLoading.set(true) }
+  hide() { this.isLoading.set(false) }
 
   notifyLogin() {
     this.loginWatch.next(true);
@@ -58,7 +62,7 @@ export class Userserv {
       }
     );
   }
-   getMyPolls(userId: string): Observable<ApiResponse<Polls[]>> {
+  getMyPolls(userId: string): Observable<ApiResponse<Polls[]>> {
     const usertype = localStorage.getItem('userType') || '';
 
     return this.http.get<ApiResponse<Polls[]>>(
@@ -144,4 +148,6 @@ export class Userserv {
       { params }
     );
   }
+
+
 }  

@@ -7,9 +7,10 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "es6",
-    "target": "es6",
-  
+    "module": "es2020",
+    "target": "es2020",
+    "baseUrl": ".",
+    
     "types": [],
     // For nodejs:
     // "lib": ["esnext"],
@@ -39,7 +40,8 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
-    "moduleDetection": "auto",
+    "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  
 }
