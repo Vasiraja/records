@@ -1,0 +1,128 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <h3>Ancestors</h3>
+    <div id="grandparent" style="padding:10px; border:1px solid black;">grandparent
+        <div id="parentdiv" style="padding:10px; border:1px solid black; margin:5px;">parent
+            <div id="parentuntill" style="padding:10px; border:1px solid black; margin:5px;">parentsUntil (click me)
+                <div id="parent" style="padding:10px; border:1px solid black; margin:5px;">parent() - click me</div>
+                <div id="parents" style="padding:10px; border:1px solid black; margin:5px;">parents() - click me</div>
+            </div>
+        </div>
+    </div>
+
+    <h3>Descendants & Siblings</h3>
+    <div id="parentbox" style="padding:10px; border:1px solid black; margin:5px;">parentbox
+        <div id="first" style="padding:5px; border:1px solid black; margin:5px;">first</div>
+        <div id="second" style="padding:5px; border:1px solid black; margin:5px;">second</div>
+        <div id="middle" style="padding:5px; border:1px solid black; margin:5px; background:lightyellow;">
+            middle (target) <span style="background:white; padding:3px;">span inside</span>
+        </div>
+        <div id="fourth" style="padding:5px; border:1px solid black; margin:5px;">fourth</div>
+        <p id="last" style="padding:5px; border:1px solid black; margin:5px;">last (p tag)</p>
+    </div>
+
+    <button id="btnchildren">children()</button>
+    <button id="btnchildrenp">children("div")</button>
+    <button id="btnfind">find("span")</button>
+    <button id="btnsiblings">siblings()</button>
+    <button id="btnnext">next()</button>
+    <button id="btnnextall">nextAll()</button>
+    <button id="btnnextuntil">nextUntil(#last)</button>
+    <button id="btnprev">prev()</button>
+    <button id="btnprevall">prevAll()</button>
+    <button id="btnprevuntil">prevUntil(#first)</button>
+    <button id="btnreset">reset</button>
+
+
+    <script>
+        console.log("-----17. Traversing - finding elements based on their relation to other elements");
+
+        console.log("-----18. Ancestors - traversing UP the DOM tree");
+
+        // parent() - only direct parent (1 level up)
+        $("#parent").click(function () {
+            $(this).parent().css("border", "4px solid red");
+            console.log("parent() - only direct parent 1 level up");
+        });
+
+        $("#parents").click(function () {
+            $(this).parents().css("border", "4px solid blue");
+            console.log("parents() - all ancestors up to html");
+        });
+
+        $("#parentuntill").click(function () {
+            $(this).parentsUntil("#grandparent").css("border", "4px solid orange");
+            console.log("parentsUntil() - ancestors between child and grandparent, grandparent not included");
+        });
+
+        console.log("-----19. Descendants and Siblings");
+
+        $("#btnchildren").click(function () {
+            $("#parentbox").children().css("background", "lightblue");
+            console.log("children() - only direct children");
+        });
+
+        $("#btnchildrenp").click(function () {
+            $("#parentbox").children("div").css("background", "lightgreen");
+            console.log("children('div') - only direct div children");
+        });
+
+        $("#btnfind").click(function () {
+            $("#parentbox").find("span").css("background", "yellow");
+            console.log("find('span') - all span elements inside parentbox at any depth");
+        });
+
+        $("#btnsiblings").click(function () {
+            $("#middle").siblings().css("background", "plum");
+            console.log("siblings() - all elements at same level as middle");
+        });
+
+        $("#btnnext").click(function () {
+            $("#middle").next().css("background", "red");
+            console.log("next() - only immediate next sibling");
+        });
+
+        $("#btnnextall").click(function () {
+            $("#middle").nextAll().css("background", "lightblue");
+            console.log("nextAll() - all siblings after middle");
+        });
+
+        $("#btnnextuntil").click(function () {
+            $("#middle").nextUntil("#last").css("background", "orange");
+            console.log("nextUntil('#last') - siblings after middle, last not included");
+        });
+
+        $("#btnprev").click(function () {
+            $("#middle").prev().css("background", "pink");
+            console.log("prev() - only immediate previous sibling");
+        });
+
+        $("#btnprevall").click(function () {
+            $("#middle").prevAll().css("background", "lightpink");
+            console.log("prevAll() - all siblings before middle");
+        });
+
+        $("#btnprevuntil").click(function () {
+            $("#middle").prevUntil("#first").css("background", "lightgreen");
+            console.log("prevUntil('#first') - siblings before middle, first not included");
+        });
+
+        $("#btnreset").click(function () {
+            $("#parentbox").find("*").css({ background: "", border: "", color: "" });
+            $("#grandparent").find("*").css({ border: "" });
+            console.log("reset - all styles cleared");
+        });
+    </script>
+
+</body>
+
+</html>
