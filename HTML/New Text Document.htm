@@ -1,18 +1,298 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<form action="">
+    <form action="">
 
-    <input type="text">
+        <input type="text">
 
-    <input type="reset" value="sub">
-</form> 
+        <input type="reset" value="sub">
+
+    </form>
+
+    <!-- 46. HTML Progress Tag -->
+    <!-- Used to show task progress / loading progress / completion status -->
+    <h4>Progress Tag</h4>
+    <label for="fileProgress">File Upload Progress:</label>
+    <progress id="fileProgress" value="70" max="100"></progress>
+
+
+    <!-- 47. HTML Meter Tag -->
+    <!-- Used to represent a known range value like disk usage, battery level, score etc -->
+    <h4>Meter Tag</h4>
+    <label for="diskUsage">Disk Usage:</label>
+    <meter id="diskUsage" value="0.6">60%</meter>
+    <p>Meter tag is used for measured data like 60% disk used.</p>
+
+
+    <!-- 48. HTML Time Tag -->
+    <!-- Used to represent date and time in a machine-readable semantic way -->
+    <h4>Time Tag</h4>
+    <p>Today date is <time datetime="2026-03-25">March 25, 2026</time></p>
+    <p>Meeting starts at <time datetime="18:00">6:00 PM</time></p>
+
+
+    <!-- 49. HTML Picture Tag -->
+    <!-- Used for responsive images. Different images can load based on screen size -->
+    <h4>Picture Tag</h4>
+    <picture>
+        <source media="(max-width: 600px)" srcset="bgv.jpg">
+        <source media="(max-width: 1000px)" srcset="bgv.webp">
+        <img src="https://via.placeholder.com/600x300" alt="Responsive Example Image">
+    </picture>
+    <p>Picture tag helps load different images for different screen sizes.</p>
+
+
+    <!-- 50. HTML Object Tag -->
+    <!-- Used to embed external resources like pdf, html pages, multimedia or other files -->
+    <h4>Object Tag</h4>
+    <object data="index.html" type="application/html" width="300" height="200">
+        PDF file preview not supported in this browser.
+    </object>
+    <p>Object tag is mainly used to embed files like pdf or another resource.</p>
+
+    <!-- 46. Geolocation API - Basic Introduction -->
+    <!-- Geolocation API is used to get the user's current physical location -->
+    <h3>46. Geolocation API - Basic</h3>
+    <p>Geolocation API helps websites access the user's current location like latitude and longitude.</p>
+
+
+    <!-- 47. Check Browser Support for Geolocation -->
+    <!-- navigator.geolocation is used to check whether browser supports location access -->
+    <h3>47. Check Geolocation Support</h3>
+    <p id="geoSupport"></p>
+
+
+    <!-- 48. Get Current Location using Button -->
+    <!-- When user clicks button, browser asks permission to access current location -->
+    <h3>48. Get Current Location</h3>
+    <button onclick="getLocationBasic()">Get My Location</button>
+    <p id="geoBasic"></p>
+
+
+
+    <!-- 49. Show Latitude and Longitude -->
+    <!-- position.coords.latitude and position.coords.longitude are used to access coordinates -->
+    <h3>49. Show Latitude and Longitude</h3>
+    <button onclick="showCoordinates()">Show Coordinates</button>
+    <p id="geoCoords"></p>
+
+    <!-- 50. Geolocation Error Handling -->
+    <!-- If permission denied or GPS unavailable, proper error messages can be shown -->
+    <h3>50. Geolocation Error Handling</h3>
+    <button onclick="getLocationWithError()">Get Location With Error Handling</button>
+    <p id="geoError"></p>
+
+    <!-- 56. Drag and Drop API - Basic Introduction -->
+    <!-- Drag and Drop API allows the user to click, drag, move and drop elements inside the browser -->
+    <h3>56. Drag and Drop API - Basic</h3>
+    <p>Drag and Drop API is used to move elements from one place to another using mouse interaction.</p>
+
+
+    <h3>57. Draggable Element</h3>
+    <div draggable="true" style="width:150px; padding:20px; background-color:lightblue; margin-bottom:10px;">
+        Drag Me
+    </div>
+    <p>Div draggable through draggable:true</p>
+
+
+    <h3>58. Drag Start Event</h3>
+    <div id="dragBox1" draggable="true" ondragstart="dragStartExample(event)"
+        style="width:150px; padding:20px; background-color:violet; color:white; margin-bottom:10px;">
+        Drag Start Box
+    </div>
+    <p>when you start drag it will trigger specific function through this ondragstart </p>
+    <p id="dragStartOutput"></p>
+
+    <script>
+        function dragStartExample(event) {
+            document.getElementById("dragStartOutput").innerHTML =
+                "Dragging has started for element with id: " + event.target.id;
+
+            console.log("dragstart event fired");
+            console.log("Dragged Element ID:", event.target.id);
+        }
+    </script>
+
+
+    <h3>59. Drag Over Event</h3>
+    <div id="dragBox2" draggable="true" ondragstart="dragStartForDrop(event)"
+        style="width:120px; padding:20px; background-color:purple; color:white; margin-bottom:10px;">
+        Drag This
+    </div>
+
+    <div ondragover="allowDrop(event)" id="dragOverBox"
+        style="width:250px; height:120px; background-color:#02f12a; border:2px dashed black; padding:10px;">
+        Drop Area
+    </div>
+
+    <p>The dragover event allows an element to become a valid drop target.</p>
+
+
+
+    <h3>60. Drop Event</h3>
+    <div id="dragBox3" draggable="true" ondragstart="dragStartDrop(event)"
+        style="width:120px; padding:20px; background-color:teal; color:white; margin-bottom:10px;">
+        Drop Me
+    </div>
+
+    <div id="dropZone1" ondragover="allowDrop(event)" ondrop="dropElement(event)"
+        style="width:250px; height:120px; background-color:#ffe4b5; border:2px dashed black; padding:10px;">
+        Drop Here
+    </div>
+
+    <p id="dropOutput"></p>
+
+
+
+    <script>
+        function getLocationWithError() {
+            console.log("getLocationWithError() function called");
+
+            if (navigator.geolocation) {
+                console.log("Geolocation is supported");
+                navigator.geolocation.getCurrentPosition(showGeoPosition, showGeoError);
+            } else {
+                console.log("Geolocation is NOT supported");
+                document.getElementById("geoError").innerHTML =
+                    "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showGeoPosition(position) {
+            console.log("Location fetched successfully");
+            console.log("Full Position Object:", position);
+            console.log("Latitude:", position.coords.latitude);
+            console.log("Longitude:", position.coords.longitude);
+
+            document.getElementById("geoError").innerHTML =
+                "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+
+        function showGeoError(error) {
+            console.log("Error object:", error);
+            console.log("Error code:", error.code);
+            console.log("Error message:", error.message);
+
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    console.log("User denied the request for Geolocation.");
+                    document.getElementById("geoError").innerHTML =
+                        "User denied the request for Geolocation.";
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+                    console.log("Location information is unavailable.");
+                    document.getElementById("geoError").innerHTML =
+                        "Location information is unavailable.";
+                    break;
+
+                case error.TIMEOUT:
+                    console.log("The request to get user location timed out.");
+                    document.getElementById("geoError").innerHTML =
+                        "The request to get user location timed out.";
+                    break;
+
+                case error.UNKNOWN_ERROR:
+                    console.log("An unknown error occurred.");
+                    document.getElementById("geoError").innerHTML =
+                        "An unknown error occurred.";
+                    break;
+            }
+        }
+
+        function showCoordinates() {
+            console.log("showCoordinates() function called");
+
+            if (navigator.geolocation) {
+                console.log("Fetching coordinates...");
+                navigator.geolocation.getCurrentPosition(displayCoordinates);
+            } else {
+                console.log("Geolocation not supported");
+                document.getElementById("geoCoords").innerHTML =
+                    "Geolocation is not supported.";
+            }
+        }
+
+        function displayCoordinates(position) {
+            console.log("Coordinates fetched");
+            console.log("Latitude:", position.coords.latitude);
+            console.log("Longitude:", position.coords.longitude);
+            console.log("Accuracy:", position.coords.accuracy);
+
+            document.getElementById("geoCoords").innerHTML =
+                "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+        }
+
+        if (navigator.geolocation) {
+            console.log("Browser supports Geolocation API");
+            document.getElementById("geoSupport").innerHTML =
+                "Geolocation is supported by this browser.";
+        } else {
+            console.log("Browser does NOT support Geolocation API");
+            document.getElementById("geoSupport").innerHTML =
+                "Geolocation is NOT supported by this browser.";
+        }
+
+        function getLocationBasic() {
+            console.log("getLocationBasic() function called");
+
+            if (navigator.geolocation) {
+                console.log("Trying to fetch basic location...");
+                navigator.geolocation.getCurrentPosition(showBasicLocation);
+            } else {
+                console.log("Geolocation not supported");
+                document.getElementById("geoBasic").innerHTML =
+                    "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showBasicLocation(position) {
+            console.log("Basic location fetched successfully");
+            console.log("Position object:", position);
+
+            document.getElementById("geoBasic").innerHTML =
+                "Location fetched successfully.";
+        }
+        function dragStartDrop(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("Drop drag started:", event.target.id);
+        }
+
+        function dropElement(event) {
+            event.preventDefault();
+
+            let draggedElementId = event.dataTransfer.getData("text");
+            let draggedElement = document.getElementById(draggedElementId);
+
+            event.target.appendChild(draggedElement);
+
+
+            console.log("drop event fired");
+            console.log("Dropped Element ID:", draggedElementId);
+
+        }
+        function allowDrop(event) {
+            event.preventDefault();
+            console.log("dragover event fired");
+        }
+
+        function dragStartForDrop(event) {
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("drag started for:", event.target.id);
+        }
+
+    </script>
 
 
 </body>
+
 </html>
