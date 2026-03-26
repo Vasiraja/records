@@ -26,6 +26,7 @@ import { DynamicRender } from './components/dynamic-render/dynamic-render';
 import { ChangeDetection } from './components/change-detection/change-detection';
 import { CustomElementComponent } from './components/custom-element/custom-element';
 import { Eventlisteners } from './components/eventlisteners/eventlisteners';
+import { canactivegGuard } from './canactiveg-guard';
 
 export const routes: Routes = [
 
@@ -86,12 +87,25 @@ export const routes: Routes = [
     {
         path: "event", component: Eventlisteners
     },
-
-
-
-
+    {
+        path: 'homeadminoruser',
+        canMatch: [canactivegGuard],
+        loadComponent: () => import('./admin-dashboard/admin-dashboard')
+            .then(m => m.AdminDashboard)
+    },
+    {
+        path: 'homeadminoruser',
+        loadComponent: () => import('./user-dashboard/user-dashboard')
+            .then(m => m.UserDashboard)
+    },
     {
         path: "", redirectTo: "/login", pathMatch: "full"
     },
 
 ];
+
+
+
+
+
+

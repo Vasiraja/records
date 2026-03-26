@@ -1,29 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
 
-  isLoggedIn=false;
+  userRole = signal<'admin' | 'user'>('user');
 
-  login(){
-    this.isLoggedIn=true;
-    localStorage.setItem("isLoggedIn","true");
+  isLoggedIn = false;
 
-  }
-  logout(){
-    this.isLoggedIn=false;
-        localStorage.setItem("isLoggedIn","false");
+  login() {
+    this.isLoggedIn = true;
+    localStorage.setItem("isLoggedIn", "true");
 
   }
-   isAuthenticated() {
-     this.isLoggedIn=false;
-     this.isLoggedIn=localStorage.getItem("isLoggedIn") === "true"
+  logout() {
+    this.isLoggedIn = false;
+    localStorage.setItem("isLoggedIn", "false");
 
-     
-     return this.isLoggedIn;
   }
+
+
+  isAuthenticated() {
+    this.isLoggedIn = false;
+    this.isLoggedIn = localStorage.getItem("isLoggedIn") === "true"
  
-  
+    return this.isLoggedIn;
+  }
+
+
+  isAdmin() {
+    return this.userRole() === 'admin';
+  }
 }

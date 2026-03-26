@@ -24,11 +24,9 @@ export class Hostelem {
   @HostBinding('style.backgroundColor')
   bgColor = 'white';
 
-  // dynamically changes border of host tag
   @HostBinding('style.border')
   border = '1px solid black';
 
-  // dynamically changes opacity of host tag
   @HostBinding('style.opacity')
   opacity = '1';
 
@@ -46,24 +44,24 @@ export class Hostelem {
 
 
 
-   @HostListener('mouseenter')
+  @HostListener('mouseenter')
   onMouseEnter() {
     this.bgColor = 'lightblue';
-    this.border  = '2px solid blue';
+    this.border = '2px solid blue';
   }
 
-   @HostListener('mouseleave')
+  @HostListener('mouseleave')
   onMouseLeave() {
     this.bgColor = 'white';
-    this.border  = '1px solid black';
+    this.border = '1px solid black';
   }
 
-   @HostListener('click')
+  @HostListener('click')
   Click() {
     console.log('Host element clicked!');
   }
 
-   @HostListener('keydown', ['$event'])
+  @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     console.log('Key pressed:', event.key);
   }

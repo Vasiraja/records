@@ -38,7 +38,7 @@ export class Welcomepage implements OnInit, OnDestroy {
   closeBulkGuestPopup() {
     this.showBulkPopup = false;
   }
-  constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv,private zone:NgZone) { }
+  constructor(private userdetService: Userserv, private accessControl: Accesscontrol, private router: Router, private cdr: ChangeDetectorRef, private socketcon: Socketserv, private zone: NgZone) { }
   ngOnDestroy(): void {
     const client = this.socketcon.getClient()
 
@@ -167,6 +167,7 @@ export class Welcomepage implements OnInit, OnDestroy {
       const userId = decoded.sub
 
       // client.io.emit('userLogout', userId)
+
 
     })
 
