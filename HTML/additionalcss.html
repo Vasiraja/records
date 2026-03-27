@@ -33,8 +33,6 @@
             font-weight: 400;
             font-style: italic;
             font-style: oblique;
-
-
             text-align: left;
             /* text-align: right; */
             /* text-align: center; */
@@ -48,7 +46,7 @@
             line-height: 30px;    */
             /* letter-spacing: 2px; */
             /*   text-transform: uppercase;
-         text-transform: lowercase; */
+            text-transform: lowercase; */
             text-transform: capitalize;
             white-space: nowrap;
             /* white-space: pre; */
@@ -217,8 +215,7 @@
 
         .parent {
             width: 100%;
-            height:
-                200px;
+            height: 200px;
             background-color: yellow;
             display: flex;
             gap: 1rem;
@@ -250,26 +247,80 @@
         .parent+div {
             border: 5px solid gray;
         }
-        .childexplore{
+
+        .childexplore {
             display: flex;
-            gap:1rem;
+            gap: 1rem;
         }
-        .childexplore div{
-            width:150px;
-            height:150px;
-            background-color:blue;
-            margin:1rem;
-            
+
+        .childexplore div {
+            width: 150px;
+            height: 150px;
+            background-color: blue;
+            margin: 1rem;
+
         }
-        .childexplore div:first-child{
+
+        .childexplore div:first-child {
             background-color: red;
         }
-        .childexplore div:last-child{
+
+        .childexplore div:last-child {
             background-color: aqua;
         }
-        .childexplore div:nth-child(3){
+
+        .childexplore div:nth-child(3) {
             background-color: yellowgreen;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+
         }
+
+        .childexplore div {
+            outline: 3px solid red;
+            outline-offset: 2px;
+
+        }
+
+        .imagecontainer {
+            width: 300px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .imagecontainer img {
+            object-fit: cover;
+            /* object-fit: contain; */
+            /* object-fit: fill; */
+            object-fit: scale-down;
+            object-position: top;
+            object-position: bottom;
+            object-position: 20% 80%;
+            width: 100%;
+            height: 100%;
+            /* filter: blur(5px); */
+            /* filter: brightness(0.4); */
+            /* filter: grayscale(100%); */
+            filter: saturate(3);
+            filter: hue-rotate(180deg);
+            clip-path: circle(50%);
+            /* clip-path: ellipse(100px 50px at center); */
+            clip-path: inset(10px);
+            /* cuts 10px from all sides */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+
+        }
+
+        .navbar {
+            height: 70px;
+        }
+
+        .content {
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+            /* like full page but minus that navbar like above */
+        }
+
         /* .childexplore div:not(.exclude){
             background-color: goldenrod;
         } */
@@ -278,7 +329,7 @@
         } */
         /* .childexplore div:nth-child(even){
             background-color: goldenrod;
-        } */
+       } */
         /* .childexplore div:nth-child(odd){
             background-color: goldenrod;
         } */
@@ -286,8 +337,9 @@
             background-color: goldenrod;
         } */
 
-
-
+        /* .childexplore div:nth-child(2){
+             visibility: hidden;
+        } */
     </style>
 </head>
 
@@ -365,6 +417,13 @@
         <div></div>
         <div class="exclude"></div>
         <div></div>
+    </div>
+
+
+
+
+    <div class="imagecontainer">
+        <img src="./bgv.webp" alt="">
     </div>
 </body>
 
