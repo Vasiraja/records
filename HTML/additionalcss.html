@@ -1,0 +1,371 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        th,
+        tr,
+        td {
+            border: 0.4px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .fontfamilycss {
+            /* background-color: red; */
+            width: 200px;
+        }
+
+        .fontfamilycss #poppins {
+            font-family: "Poppins", Arial, sans-serif;
+            font-size: 1rem;
+            /* html root based*/
+            /* font-size:16px;    px based */
+            /* font-  size: 1em;    parent element based */
+            font-weight: lighter;
+            font-weight: bold;
+            font-weight: 400;
+            font-style: italic;
+            font-style: oblique;
+
+
+            text-align: left;
+            /* text-align: right; */
+            /* text-align: center; */
+            text-align: justify
+        }
+
+        .fontfamilycss #poppins {
+            /* line-height: 1;       */
+            line-height: 1.5;
+            /* line-height: 2;      
+            line-height: 30px;    */
+            /* letter-spacing: 2px; */
+            /*   text-transform: uppercase;
+         text-transform: lowercase; */
+            text-transform: capitalize;
+            white-space: nowrap;
+            /* white-space: pre; */
+            /* white-space: pre-wrap; */
+
+        }
+
+        #poppins span {
+            text-decoration: underline blue dashed;
+            /* text-decoration: line-through yellow double; */
+            /* text-decoration: overline green dotted; */
+        }
+
+        .transitionwidth {
+            transition-property: height;
+            transition-duration: 2s;
+            transition-timing-function: ease-in;
+            transition-delay: 1s;
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+
+        .transitionwidth:hover {
+            height: 300px;
+        }
+
+        .transitioncolor {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+
+        }
+
+        .transitioncolor:hover {
+            background-color: red;
+            transition-property: background-color;
+            transition-duration: 2s;
+            transition-timing-function: ease-in;
+
+        }
+
+        .transitionall {
+            background-color: blue;
+            width: 100px;
+            height: 100px;
+            padding: 0.5rem;
+            transition: all 2s ease-in;
+        }
+
+        .transitionall:hover {
+            height: 200px;
+            width: 200px;
+            padding: 1rem;
+            background-color: aqua;
+            transform: scale(2);
+            transform: rotate(130deg);
+            transform: skewX(20deg);
+            /* transform: skew(20deg,20deg); */
+            transform: translateX(120px);
+            transform: translateY(220px);
+
+            transform-origin: top left;
+            transform-origin: bottom right;
+            /* transform-origin: 50% 50%; */
+            /* transform-origin: 0 0; */
+
+
+        }
+
+        .transformorigin {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+            transition: transform 2s ease-in-out;
+
+
+        }
+
+        .transformorigin:hover {
+            transform: rotate(180deg);
+            transform-origin: 50% 50%;
+            /* transform-origin: 0 0; */
+            /* transform-origin: right top; */
+
+        }
+
+        .overflowcontent {
+            background-color: blueviolet;
+            height: 200px;
+            width: 200px;
+            overflow: scroll;
+            overflow: visible;
+            overflow-y: scroll;
+            overflow-x: scroll;
+            overflow-x: visible;
+            overflow: hidden;
+            margin: 0.5rem;
+        }
+
+
+        .animationdiv {
+            width: 300px;
+            height: 100px;
+            background-color: royalblue;
+            margin: 1rem;
+            animation-name: myAnimation;
+            animation-timing-function: ease-in-out;
+            animation-duration: 10s;
+            animation-iteration-count: infinite;
+            animation-iteration-count: 3;
+            animation-fill-mode: backwards;
+            animation-fill-mode: forwards;
+            animation-fill-mode: none;
+            animation-fill-mode: forwards;
+            animation-direction: normal;
+
+            /* 0 to 100 */
+            animation-direction: reverse;
+            /* 100 to 0 */
+            animation-direction: alternate;
+            /* 0 to 100 again 100 to 0 */
+            animation-direction: alternate-reverse;
+            /* oppsite alternate thign */
+            animation-delay: 2s;
+            animation-delay: -2s;
+        }
+
+        @keyframes myAnimation {
+            0% {
+                background-color: red;
+            }
+
+            25% {
+                background-color: yellow;
+            }
+
+            50% {
+                background-color: green;
+            }
+
+            75% {
+                background-color: orange;
+            }
+
+            100% {
+                background-color: red;
+            }
+
+        }
+
+
+
+
+
+
+        .grandparent {
+            width: 100%;
+            height: 600px;
+            background-color: violet;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem
+        }
+
+        .parent {
+            width: 100%;
+            height:
+                200px;
+            background-color: yellow;
+            display: flex;
+            gap: 1rem;
+
+
+        }
+
+        .parent div {
+            width: 30%;
+            height: 100%;
+
+            background-color: green;
+        }
+
+        .grandparent>div {
+            border: 1px solid red;
+        }
+
+        #child~div {
+            border: 3px solid red
+        }
+
+        #seperateparent {
+            width: 30%;
+            height: 30%;
+            background-color: white;
+        }
+
+        .parent+div {
+            border: 5px solid gray;
+        }
+        .childexplore{
+            display: flex;
+            gap:1rem;
+        }
+        .childexplore div{
+            width:150px;
+            height:150px;
+            background-color:blue;
+            margin:1rem;
+            
+        }
+        .childexplore div:first-child{
+            background-color: red;
+        }
+        .childexplore div:last-child{
+            background-color: aqua;
+        }
+        .childexplore div:nth-child(3){
+            background-color: yellowgreen;
+        }
+        /* .childexplore div:not(.exclude){
+            background-color: goldenrod;
+        } */
+        /* .childexplore div:not(:first-child){
+            background-color: goldenrod;
+        } */
+        /* .childexplore div:nth-child(even){
+            background-color: goldenrod;
+        } */
+        /* .childexplore div:nth-child(odd){
+            background-color: goldenrod;
+        } */
+        /* .childexplore div:not(:first-child){
+            background-color: goldenrod;
+        } */
+
+
+
+    </style>
+</head>
+
+<body>
+
+
+
+
+
+    <h3>font family</h3>
+    <div class="fontfamilycss">
+        <p>poppins font family added before</p>
+        <p id="poppins">poppins font family added here <span> Hello this is my text</span>
+            This is second line ok</p>
+    </div>
+
+    <h3>transitions</h3>
+    <div class="transitionwidth">
+
+        <p style="color:#fff">hover here width</p>
+
+    </div>
+    <div class="animationdiv">
+
+    </div>
+
+    <div class="transitioncolor">
+        <p>hover here color</p>
+
+    </div>
+
+    <div class="transitionall">
+        <p>transition all </p>
+
+    </div>
+    <div class="transformorigin">
+        <p>hover</p>
+
+    </div>
+
+
+    <div class="overflowcontent">
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+        content here ...................
+    </div>
+
+
+    <div class="grandparent">
+        grandparent
+        <div class="parent">
+            parent
+
+            <div id="child">child</div>
+            <div id="anotherchild">child</div>
+            <div id="thirdchild">child</div>
+        </div>
+        <div id="seperateparent">
+            parent
+        </div>
+
+    </div>
+    <div class="childexplore">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div class="exclude"></div>
+        <div></div>
+    </div>
+</body>
+
+</html>

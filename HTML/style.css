@@ -1,5 +1,8 @@
 /* 1. CSS ID and Class Selector */
-
+:root {
+  ---primary-color: #ff6b6b;
+  ---border-color-main: gray;
+}
 
 #mainid {
   width: 300px;
@@ -240,8 +243,8 @@ input:focus {
 }
 
 .flexview div {
-  background-color: aquamarine;
-  border: 1px solid gray;
+  background-color: var(---primary-color);
+  border: 1px solid var(---border-color-main);
   height: 200px;
   /* width: 200px;  */
   flex-basis: 25%;

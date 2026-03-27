@@ -138,9 +138,15 @@
     <button id="btneq">eq(2)</button>
     <button id="btnfilter">filter(.special)</button>
     <button id="btnnot">not(.special)</button>
- 
+
 
     <button id="dimensionbtn">get dimensions</button>
+    <button id="getPosts">Get Posts</button>
+    <button id="getBtn">$.get</button>
+    <button id="createPost">create Posts</button>
+    <button id="postBtn">$.post</button>
+    <button id="loadBtn">Load Content</button>
+    <div id="result"></div>
     <script>
         $("#removediv").click(function () {
 
@@ -173,10 +179,7 @@
                     "width": "200px",
                     "border-radius": "50%"
                 });
-            });
-
-
-            $("#btn-toggle").click(function () {
+            }); $("#btn-toggle").click(function () {
                 $("#content").toggle("slow");
             });
 
@@ -266,8 +269,57 @@
             console.log("not('.special') - selects all li except class special");
         });
 
-      
+        console.log("-----22. ajax get and post");
+        console.log("Asynchronous javascript and xml which used to load data from backend and show in frontend this is the traditional way to fetch data into frontend")
 
+        $("#getPosts").click(function () {
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/posts",
+                method: "GET",
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+        $("#createPost").click(function () {
+            $.ajax({
+                url: "https://jsonplaceholder.typicode.com/posts",
+                method: "POST",
+                data: {
+                    title: "My New Post",
+                    body: "This is the body of my post",
+                    userId: 1
+                },
+                success: function (response) {
+                    console.log("Created:", response);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error:", error);
+                }
+            });
+        });
+        $("#getBtn").click(function () {
+            $.get("https://jsonplaceholder.typicode.com/posts", function (response) {
+                console.log(response);
+            });
+        });
+
+        $("#postBtn").click(function () {
+            $.post("https://jsonplaceholder.typicode.com/posts", {
+                title: "Learning jQuery",
+                body: "This is my first post using $.post()",
+                userId: 1
+            }, function (response) {
+                console.log(response);
+            });
+        });
+
+        $("#loadBtn").click(function () {
+            $("#result").load("https://jsonplaceholder.typicode.com/posts");
+        });
     </script>
 </body>
 
