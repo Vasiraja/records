@@ -16,7 +16,7 @@
     <button onclick="setinterval()"> start interval</button>
     <button onclick="settimeout()">start delay action</button>
 
-    
+
 
     <h3>Event Bubbling</h3>
     <div id="grandparent" style="padding:40px; background:lightblue;">
@@ -45,7 +45,7 @@
         <li>boat</li>
     </ul>
 
-<p id="text">Dom Action first chnage text</p>
+    <p id="text">Dom Action first chnage text</p>
     <button onclick="changeText()">Change Text</button>
 
     <p>DOM List </p>
@@ -1230,11 +1230,181 @@ this `;
         //    let checkedReg = /[A-Z]{1,}[a-z]{1,}[0-9]{1,}^[a-zA-z0-9]{1,}{8-12}/
         //    console.log(checkedReg.test(namesReg));
 
-        console.log("----------------------------")
-  
-        
-        
-        console.log("----------------------------")
+        console.log("----------------------34. Error Handling--------------------");
+
+        console.log("-----i. try catch");
+        try {
+            let result = 10 / 0;
+            console.log(result);
+        } catch (e) {
+            console.log("error caught: " + e.message);
+        }
+
+        console.log("-----ii. try catch with real error");
+        try {
+            undeclaredVariable;
+        } catch (e) {
+            console.log("error caught: " + e.message);
+        }
+
+        console.log("-----iii. finally");
+        try {
+            console.log("try block runs");
+        } catch (e) {
+            console.log("catch block");
+        } finally {
+            console.log("finally always runs no matter what - even if no error");
+        }
+
+        console.log("-----iv. throw custom error");
+        try {
+            let age = 15;
+            if (age < 18) {
+                throw new Error("Age must be 18 or above");
+            }
+            console.log("Access granted");
+        } catch (e) {
+            console.log("Custom error caught: " + e.message);
+        }
+        console.log("----------------------35. Nullish Coalescing ?? --------------------");
+
+        let score = 0;
+        console.log(score ?? "No score");
+        console.log("----------------------36. Arrow Functions & Rest Parameters--------------------");
+
+
+        const addArrow = (a, b) => a + b;
+        console.log(addArrow(3, 4));
+
+
+
+        function userInfo(name, age, ...stacks) {
+            console.log(name);
+            console.log(age);
+            console.log(stacks);
+        }
+        userInfo("vasi", 25, "angular", "react", "laravel");
+
+        console.log("-----Map Methods");
+        const map = new Map();
+
+        map.set("name", "vasi");
+        map.set("age", 25);
+        console.log("set(): ", map);
+
+        console.log("get():", map.get("name"));
+
+        console.log("has():", map.has("age"));
+
+        console.log("size:", map.size);
+
+        map.delete("age");
+        console.log("delete():", map);
+
+        map.forEach((value, key) => console.log("forEach:", key, ":", value));
+
+        console.log("keys():", [...map.keys()]);
+        console.log("values():", [...map.values()]);
+
+        map.clear();
+        console.log("clear():", map);
+
+        console.log("-----Set Methods");
+        const set = new Set([1, 2, 2, 3, 3]);
+
+        console.log("new Set():", set);
+
+        set.add(4);
+        set.add(2);
+        console.log("add():", set);
+
+        console.log("has():", set.has(3));
+        console.log("size:", set.size);
+
+        set.delete(3);
+        console.log("delete():", set);
+
+        set.forEach(value => console.log("forEach:", value));
+
+        console.log("spread to array:", [...set]);
+
+        const setarr = [1, 2, 2, 3, 4, 4, 5];
+        console.log("remove duplicates:", [...new Set(setarr)]);
+
+        set.clear();
+        console.log("clear():", set);
+        console.log("----------------------38. Number Methods--------------------");
+
+        console.log(Number.isInteger(25));
+        console.log(Number.isInteger(25.5));
+
+        console.log(Number.isFinite(100));
+        console.log(Number.isFinite(Infinity));
+
+        console.log(Number.isNaN(NaN));
+        console.log(Number.isNaN(25));
+
+        console.log(Number.parseInt("42px"));    // 42
+        console.log(Number.parseFloat("3.14px"));// 3.14
+
+        console.log((3.14159).toFixed(2));       // 3.14
+
+        console.log((1000000).toLocaleString()); // 1,000,000
+
+        console.log("----------------------39. Math Methods--------------------");
+
+        console.log(Math.round(4.6));
+        console.log(Math.floor(4.9));
+        console.log(Math.ceil(4.1));
+        console.log(Math.abs(-25));
+
+        console.log(Math.max(10, 20, 30));
+        console.log(Math.min(10, 20, 30));
+
+        console.log(Math.pow(2, 3));
+        console.log(Math.sqrt(25));
+
+        console.log(Math.random());
+        console.log(Math.floor(Math.random() * 10)); // random number between 0 and 9
+
+
+console.log("----------------------40. Date Methods--------------------");
+
+    const now = new Date();
+    console.log(now);                        
+
+    console.log("-----get methods");
+    console.log(now.getFullYear());            
+    console.log(now.getMonth());             
+     console.log(now.getDate());             
+    console.log(now.getDay());              
+    console.log(now.getHours());             
+    console.log(now.getMinutes());        
+    console.log(now.getSeconds());         
+
+    console.log("-----set methods");
+    const setDate = new Date();
+    setDate.setFullYear(2030);
+    console.log(setDate.getFullYear());    
+
+    setDate.setMonth(0);
+    console.log(setDate.getMonth() + 1);  
+
+    setDate.setDate(15);
+    console.log(setDate.getDate());       
+
+    console.log("-----create specific date");
+    const birthday = new Date(2000, 11, 14); 
+    console.log(birthday);
+
+    console.log("-----date to string");
+    console.log(now.toDateString());        // Mon Mar 28 2026
+    console.log(now.toLocaleDateString());  // 28/3/2026
+    console.log(now.toLocaleTimeString());  // 10:30:00 AM
+    console.log(now.toLocaleString());      // full date and time
+
+    console.log("-----timestamp");
+    console.log(Date.now());              
 
 
 
@@ -1272,7 +1442,7 @@ this `;
 
 
 
- 
+
 
 
 
