@@ -245,15 +245,13 @@ input:focus {
 .flexview div {
   background-color: var(---primary-color);
   border: 1px solid var(---border-color-main);
-  height: 200px;
-  /* width: 200px;  */
+  height: 200px; 
   flex-basis: 25%;
 
 }
 
 #individual {
   flex-grow: 1;
-
 }
 
 
@@ -356,6 +354,8 @@ input:focus {
 
 .flexcontainer {
   display: flex;
+  gap: 1rem;
+  background-color: blue;
 }
 
 .flexitem {

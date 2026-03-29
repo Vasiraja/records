@@ -57,9 +57,12 @@
 
 
 
-
+    <script src="anotherfile.js" ></script>
 
     <script>
+
+
+
         // "use strict";
 
 
@@ -590,7 +593,7 @@
         delete freezeObj.sealA;
         freezeObj.sealA = "modified user"
 
-        console.log("Below answer is sealed so we can't add or delete properties in object and cannot modify though");
+        console.log("Below answer is freeze so we can't add or delete properties in object and cannot modify though");
         console.log(freezeObj);
 
         console.log("Check object wheter frozen or not through isFrozen property");
@@ -646,7 +649,7 @@
         console.log(copyArr);
 
         console.log("----- Array flat()");
-        let flatArr = [1, [2, [3, 4]]];
+        let flatArr = [1, [2, [3, 4]]]; 
         console.log(flatArr.flat(2));
 
         console.log("----- Array splice()");
@@ -789,7 +792,7 @@
         console.log(squareBracketReg.test(instruction));
 
         console.log("-----ii. [^] negations")
-        console.log("Check globally a or e or o using --/[^Hello]/-- never exists in between this")
+        console.log("Check globally i or s --/[^Hello]/-- never exists in between this")
         let negationBracketReg = /^[is]/;
 
         console.log(negationBracketReg.test(instruction))
@@ -1365,46 +1368,76 @@ this `;
         console.log(Math.sqrt(25));
 
         console.log(Math.random());
-        console.log(Math.floor(Math.random() * 10)); // random number between 0 and 9
+        console.log(Math.floor(Math.random() * 10));
+        console.log("here random numbers between 0 to 9")
 
 
-console.log("----------------------40. Date Methods--------------------");
+        console.log("----------------------40. Date Methods--------------------");
 
-    const now = new Date();
-    console.log(now);                        
+        const now = new Date();
+        console.log(now);
 
-    console.log("-----get methods");
-    console.log(now.getFullYear());            
-    console.log(now.getMonth());             
-     console.log(now.getDate());             
-    console.log(now.getDay());              
-    console.log(now.getHours());             
-    console.log(now.getMinutes());        
-    console.log(now.getSeconds());         
+        console.log("-----get methods");
+        console.log(now.getFullYear());
+        console.log(now.getMonth());
+        console.log(now.getDate());
+        console.log(now.getDay());
+        console.log(now.getHours());
+        console.log(now.getMinutes());
+        console.log(now.getSeconds());
 
-    console.log("-----set methods");
-    const setDate = new Date();
-    setDate.setFullYear(2030);
-    console.log(setDate.getFullYear());    
+        console.log("-----set methods");
+        const setDate = new Date();
+        setDate.setFullYear(2030);
+        console.log(setDate.getFullYear());
 
-    setDate.setMonth(0);
-    console.log(setDate.getMonth() + 1);  
+        setDate.setMonth(0);
+        console.log(setDate.getMonth() + 1);
 
-    setDate.setDate(15);
-    console.log(setDate.getDate());       
+        setDate.setDate(15);
+        console.log(setDate.getDate());
 
-    console.log("-----create specific date");
-    const birthday = new Date(2000, 11, 14); 
-    console.log(birthday);
+        console.log("-----create specific date");
+        const birthday = new Date(2000, 11, 14);
+        console.log(birthday);
 
-    console.log("-----date to string");
-    console.log(now.toDateString());        // Mon Mar 28 2026
-    console.log(now.toLocaleDateString());  // 28/3/2026
-    console.log(now.toLocaleTimeString());  // 10:30:00 AM
-    console.log(now.toLocaleString());      // full date and time
+        console.log("-----date to string");
+        console.log(now.toDateString()); console.log("Mon Mar 28 2026");
+        console.log(now.toLocaleDateString()); console.log("28/3/2026");
+        console.log(now.toLocaleTimeString()); console.log("10:30:00 AM");
+        console.log(now.toLocaleString()); console.log("full date and time");
 
-    console.log("-----timestamp");
-    console.log(Date.now());              
+        console.log("-----timestamp");
+        console.log(Date.now());
+
+        console.log("----------------------41. JSON string --------------------");
+
+
+        const jsonArrayH = { name: "vasi", age: 25, city: "madurai" };
+        const changedJson = JSON.stringify(jsonArrayH);
+        console.log(changedJson)
+        const changedObj = JSON.parse(changedJson);
+        console.log(changedObj)
+        console.log("----------------------42. Generator fucntion--------------------");
+
+
+        function* simpleGen() {
+            yield 1;
+            yield 2;
+            yield 3;
+        }
+
+        const gen = simpleGen();
+        console.log(gen.next());
+        console.log(gen.next().value)
+        console.log(gen.next());
+        console.log(gen.next());
+        console.log(gen.next());
+
+        console.log(gen.next().value)
+
+
+
 
 
 
