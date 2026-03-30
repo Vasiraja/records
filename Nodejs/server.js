@@ -1,16 +1,16 @@
-// const express = require("express");
-// const cors = require("cors");
-// const mongoose = require("mongoose");
-// require("dotenv").config();
-// const fs = require("fs");
-// const path = require("path");
-// const readline = require("readline");
-// const util = require("util");
-// const http = require("http");
-// const os = require("os");
-// const { StringDecoder } = require("string_decoder");
-// const zlib = require("zlib");
-// const EventEmitter = require("events");
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+require("dotenv").config();
+const fs = require("fs");
+const path = require("path");
+const readline = require("readline");
+const util = require("util");
+const http = require("http");
+const os = require("os");
+const { StringDecoder } = require("string_decoder");
+const zlib = require("zlib");
+const EventEmitter = require("events");
 
 // console.log("------------------1. Buffer---------------------");
 // console.log("-----i. Buffer from method")
@@ -54,7 +54,7 @@
 //   if (err) console.error(err);
 //   else console.log("Append file does not replace existing contents");
 // });
-
+// const fs = require("fs");
 // console.log("-----iv. Read Dir File");
 // fs.readdir("./", (err, files) => {
 //   if (err) console.error(err);
@@ -75,7 +75,7 @@
 // console.log(pathJoinVar + " : result of path.join");
 
 // console.log("-----ii. Path Resolve");
-// const pathResolveVar = path.resolve("Nodejs", "..", "firstfile.txt");
+// const pathResolveVar = path.resolve("works", "..", "firstfile.txt");
 // console.log(pathResolveVar);
 
 // console.log("-----iii. Path basename");
@@ -94,6 +94,12 @@
 
 // console.log("-----ii. Write Stream");
 // const writeStream = fs.createWriteStream("files/output.txt");
+// writeStream.write("Hello ");
+// writeStream.write("this ");
+// writeStream.write("is ");
+// writeStream.write("written ");
+// writeStream.write("chunk ");
+// writeStream.end();
 // console.log(writeStream);
 
 // console.log("-----iii. Stream on");
@@ -314,45 +320,45 @@
 // // });
 
 
-// console.log("------------------25. HTTP/2 Server in Nodejs---------------------");
-// console.log("------ Simple HTTP/2 Client Example ------");
+console.log("------------------25. HTTP/2 Server in Nodejs---------------------");
+console.log("------ Simple HTTP/2 Client Example ------");
 
-// // const http2 = require('http2');
+// const http2 = require('http2');
 
-// // console.log("-----i. connecttion implement");
-// // const client = http2.connect('http://localhost:3000');
+// console.log("-----i. connecttion implement");
+// const client = http2.connect('http://localhost:3000');
 
-// // console.log("----- ii. Send request")
-// // const req = client.request({ ':path': '/' });
+// console.log("----- ii. Send request")
+// const req = client.request({ ':path': '/' });
 
-// // console.log("-----iii. Receive response")
-// // req.on('data', (chunk) => {
-// //   console.log("Response:", chunk.toString());
-// // });
+// console.log("-----iii. Receive response")
+// req.on('data', (chunk) => {
+//   console.log("Response:", chunk.toString());
+// });
 
-// // console.log("-----iv. close connection")
-// // req.on('end', () => {
-// //   client.close();
-// // });
+// console.log("-----iv. close connection")
+// req.on('end', () => {
+//   client.close();
+// });
 
-// // req.end();
+// req.end();
 
 // console.log("------------------25. UDB/datagram---------------------");
-// // console.log("Send data in small pockets called datagram faster than tcp")
+// console.log("Send data in small pockets called datagram faster than tcp")
 
 
-// // const dgram = require('dgram');
+// const dgram = require('dgram');
 
-// //  const udpserver = dgram.createSocket('udp4');
+//  const udpserver = dgram.createSocket('udp4');
 
-// //  udpserver.on('message', (msg, rinfo) => {
-// //   console.log(`Message from ${rinfo.address}:${rinfo.port}`);
-// //   console.log("Data:", msg.toString());
-// // });
+//  udpserver.on('message', (msg, rinfo) => {
+//   console.log(`Message from ${rinfo.address}:${rinfo.port}`);
+//   console.log("Data:", msg.toString());
+// });
 
-// // udpserver.bind(process.env.PORT, () => {
-// //   console.log("UDP Server listening on port 4000");
-// // });
+// udpserver.bind(process.env.PORT, () => {
+//   console.log("UDP Server listening on port 4000");
+// });
 
 // console.log("------------------26. Query String---------------------");
 
@@ -506,43 +512,43 @@
 
 // console.log("Updated URL:", myUrl.href);
 
-// // console.log("------31. Async Hook------");
-// // console.log("------ Async Hooks Example ------");
+// console.log("------31. Async Hook------");
+// console.log("------ Async Hooks Example ------");
 
-// // const async_hooks = require('async_hooks');
-// // const fs = require('fs');
+// const async_hooks = require('async_hooks');
+// const fs = require('fs');
 
-// // console.log("-----i. Hook Created")
-// // console.log("Through this we can see the flow of settimeout")
-// //  const hook = async_hooks.createHook({
+// console.log("-----i. Hook Created")
+// console.log("Through this we can see the flow of settimeout")
+//  const hook = async_hooks.createHook({
 
-// //   // 2️ When async resource is created
-// //   init(asyncId, type, triggerAsyncId) {
-// //     fs.writeSync(1, `Init: ${type} | ID: ${asyncId}\n`);
-// //   },
+//   // 2️ When async resource is created
+//   init(asyncId, type, triggerAsyncId) {
+//     fs.writeSync(1, `Init: ${type} | ID: ${asyncId}\n`);
+//   },
 
-// //   // 3️ Before callback
-// //   before(asyncId) {
-// //     fs.writeSync(1, `Before: ${asyncId}\n`);
-// //   },
+//   // 3️ Before callback
+//   before(asyncId) {
+//     fs.writeSync(1, `Before: ${asyncId}\n`);
+//   },
 
-// //   // 4️ After callback
-// //   after(asyncId) {
-// //     fs.writeSync(1, `After: ${asyncId}\n`);
-// //   },
+//   // 4️ After callback
+//   after(asyncId) {
+//     fs.writeSync(1, `After: ${asyncId}\n`);
+//   },
 
-// //   // 5️ Destroy
-// //   destroy(asyncId) {
-// //     fs.writeSync(1, `Destroy: ${asyncId}\n`);
-// //   }
+//   // 5️ Destroy
+//   destroy(asyncId) {
+//     fs.writeSync(1, `Destroy: ${asyncId}\n`);
+//   }
 
-// // });
+// });
 
-// //  hook.enable();
+//  hook.enable();
 
-// //  setTimeout(() => {
-// //   console.log("Timeout executed");
-// // }, 1000);
+//  setTimeout(() => {
+//   console.log("Timeout executed");
+// }, 1000);
 
 
 // console.log("------32. Async Context Tracking  ------");
@@ -577,29 +583,29 @@
 
 
 
-console.log("------33. Worker Threads  ------");
+// console.log("------33. Worker Threads  ------");
 
-const { Worker, isMainThread } = require('worker_threads');
-console.log("Usually used for heavy calculations");
-if (isMainThread) {
+// const { Worker, isMainThread } = require('worker_threads');
+// console.log("Usually used for heavy calculations");
+// if (isMainThread) {
 
-  console.log("Main thread started");
+//   console.log("Main thread started");
 
-   const worker = new Worker('./worker.js');
+//    const worker = new Worker('./worker.js');
 
-   worker.on('message', (result) => {
-    console.log("Result from worker:", result);
-  });
+//    worker.on('message', (result) => {
+//     console.log("Result from worker:", result);
+//   });
 
-  worker.on('error', (err) => {
-    console.error("Worker error:", err);
-  });
+//   worker.on('error', (err) => {
+//     console.error("Worker error:", err);
+//   });
 
-  worker.on('exit', (code) => {
-    console.log("Worker exited with code", code);
-  });
+//   worker.on('exit', (code) => {
+//     console.log("Worker exited with code", code);
+//   });
 
-}
+// }
 
 
 // console.log("------34. Child Process ------");
@@ -745,65 +751,65 @@ if (isMainThread) {
 // console.log("----- node inspect debugger.js");
 
 
-console.log("------41. Performance and Performance hooks------");
-const { performance, PerformanceObserver } = require("perf_hooks");
+// console.log("------41. Performance and Performance hooks------");
+// const { performance, PerformanceObserver } = require("perf_hooks");
 
-console.log("-----i. console.time and console.timeEnd");
-console.time("Loop Time");
-for(let i = 0; i < 1e6; i++){
-  Math.sqrt(i);
-}
-console.timeEnd("Loop Time");
-
-
-console.log("-----ii. performance.now()");
-const start = performance.now();
-
-for(let i = 0; i < 1e6; i++){
-  Math.sqrt(i);
-}
-
-const end = performance.now();
-console.log("Execution time: " + (end - start) + " ms");
+// console.log("-----i. console.time and console.timeEnd");
+// console.time("Loop Time");
+// for(let i = 0; i < 1e6; i++){
+//   Math.sqrt(i);
+// }
+// console.timeEnd("Loop Time");
 
 
-console.log("-----iii. process.hrtime()");
-const startHr = process.hrtime();
+// console.log("-----ii. performance.now()");
+// const start = performance.now();
 
-for(let i = 0; i < 1e6; i++){
-  Math.sqrt(i);
-}
+// for(let i = 0; i < 1e6; i++){
+//   Math.sqrt(i);
+// }
 
-const endHr = process.hrtime(startHr);
-console.log("Execution time: " + endHr[0] + " seconds and " + (endHr[1] / 1e6) + " ms");
-
-
-console.log("-----iv. process.memoryUsage()");
-const memory = process.memoryUsage();
-
-console.log("RSS:", memory.rss);
-console.log("Heap Total:", memory.heapTotal);
-console.log("Heap Used:", memory.heapUsed);
-console.log("External:", memory.external);
+// const end = performance.now();
+// console.log("Execution time: " + (end - start) + " ms");
 
 
-console.log("-----v. perf_hooks performance observer");
-const obs = new PerformanceObserver((list) => {
-  console.log("Measured duration:", list.getEntries()[0].duration + " ms");
-});
+// console.log("-----iii. process.hrtime()");
+// const startHr = process.hrtime();
 
-obs.observe({ entryTypes: ["measure"] });
+// for(let i = 0; i < 1e6; i++){
+//   Math.sqrt(i);
+// }
 
-performance.mark("startWork");
+// const endHr = process.hrtime(startHr);
+// console.log("Execution time: " + endHr[0] + " seconds and " + (endHr[1] / 1e6) + " ms");
 
-for(let i = 0; i < 1e6; i++){
-  Math.sqrt(i);
-}
 
-performance.mark("endWork");
+// console.log("-----iv. process.memoryUsage()");
+// const memory = process.memoryUsage();
 
-performance.measure("Work Duration", "startWork", "endWork");
-console.log("----- Vi. process.now Example -----");
+// console.log("RSS:", memory.rss);
+// console.log("Heap Total:", memory.heapTotal);
+// console.log("Heap Used:", memory.heapUsed);
+// console.log("External:", memory.external);
+
+
+// console.log("-----v. perf_hooks performance observer");
+// const obs = new PerformanceObserver((list) => {
+//   console.log("Measured duration:", list.getEntries()[0].duration + " ms");
+// });
+
+// obs.observe({ entryTypes: ["measure"] });
+
+// performance.mark("startWork");
+
+// for(let i = 0; i < 1e6; i++){
+//   Math.sqrt(i);
+// }
+
+// performance.mark("endWork");
+
+// performance.measure("Work Duration", "startWork", "endWork");
+// console.log("----- Vi. process.now Example -----");
 
 
 // function slowFunction() {
@@ -908,13 +914,13 @@ console.log("----- Vi. process.now Example -----");
 //   });
 
 //   socket.on("error", (err) => {
-//     console.error(`❌ Socket error: ${err.message}`);
+//     console.error(` Socket error: ${err.message}`);
 //   });
 // });
 
 // server.listen(PORT, HOST, () => {
-//   console.log(`🚀 Server running on ${HOST}:${PORT}`);
-// });
+//   console.log(` Server running on ${HOST}:${PORT}`);
+// }); 
 
 
 // console.log("------ 46.  C++ addons ------");

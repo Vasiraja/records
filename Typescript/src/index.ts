@@ -330,7 +330,7 @@ class Rectangle extends Shape {
 }
 
 const myRect = new Rectangle(10, 20);
-console.log(myRect.getArea()); // 200
+console.log(myRect.getArea());
 
 
 console.log("-----iii. public, private, protected");
@@ -1037,6 +1037,7 @@ type keyPersonset = keyof keyPerson
 let key: keyof keyPerson;
 key = "name",
     key = "age",
+    // key='email',---> this will be eror 
 
     console.group("Keyof return the union of property names ");
 
@@ -1081,30 +1082,49 @@ console.log(greeting);
 
 
 console.log("------------------33. Namespaces   ---------------------");
-//  function firstfunc(){}
-//  function secondfunc(){}
-//  function thirdfunc(){}
+//  class User(){}
+//  class User(){}
+//  class User(){}
+
+console.log("Namespaces grouping related codes together to avoid name conflicts ")
+namespace AdminN {
+    export class User {
 
 
-namespace groupfunctions {
-    export function firstfunc() { }
-    export function secondfunc() { }
-    export function thirdfunc() { }
+    }
+}
+namespace GuestN {
+    export class User {
+
+    }
 }
 
 
+const admin = new AdminN.User();
+const guest = new GuestN.User();
+
+
+
+
+
 console.log("------------------34. Ambients   ---------------------");
-console.log("WE are telling typescript to this variable already exists so not cause a problem like that way")
+console.log("Tell typescript that something exists somewere else, without actuall implemenation")
 
-var userName = 'here Ambients name';
+// $("#button").click();    
+console.log("this errors above")
 
+declare var $: any;
 
-declare var userName: string;
+// $("#button").click();   
+
+console.log("But now there is no error");
 
 
 
 console.log("------------------35. Decorators   ---------------------");
 console.log("before using deorator we need to enable it inside ts.config.js  file")
+
+
 function Logger(constructor: Function) {
     console.log("Decorator called");
 }
@@ -1118,7 +1138,36 @@ let p = new Decorcheck();
 console.log("Decorator called even created before instance of the class we can use this method and properties also")
 
 
+console.log("-----i . Class Decorator ")
+function Sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
 
+@Sealed
+class BankAccount {
+    balance: number = 0;
+}
+
+
+console.log("-----ii. property decorator")
+function ReadOnly(target: any, key: string) {
+    Object.defineProperty(target, key, {
+        writable: false,
+        configurable: false,
+    });
+}
+// class Config {
+//     @ReadOnly
+//     version: string = "1.0.0";
+// }
+
+console.log("-----iii. parameter decorator")
+// class OrderService {
+//     createOrder(@Required productId: string, quantity: number) {
+//         // ...
+//     }
+// }
 
 
 

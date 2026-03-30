@@ -240,7 +240,7 @@ class Rectangle extends Shape {
     }
 }
 const myRect = new Rectangle(10, 20);
-console.log(myRect.getArea()); // 200
+console.log(myRect.getArea());
 console.log("-----iii. public, private, protected");
 console.log("Public variable able to access everywhere");
 console.log("Private variable accessible only inside the class");
@@ -662,7 +662,7 @@ function greet(person) {
 console.log("------------------29. KeyOf Type Operator---------------------");
 let key;
 key = "name",
-    key = "age",
+    // key = "age",
     console.group("Keyof return the union of property names ");
 function getProperty(obj, key) {
     return obj[key];
@@ -682,21 +682,30 @@ console.log("------------------32. Template Literal Types   --------------------
 const greeting = "Hi, how are you";
 console.log(greeting);
 console.log("------------------33. Namespaces   ---------------------");
-//  function firstfunc(){}
-//  function secondfunc(){}
-//  function thirdfunc(){}
-var groupfunctions;
-(function (groupfunctions) {
-    function firstfunc() { }
-    groupfunctions.firstfunc = firstfunc;
-    function secondfunc() { }
-    groupfunctions.secondfunc = secondfunc;
-    function thirdfunc() { }
-    groupfunctions.thirdfunc = thirdfunc;
-})(groupfunctions || (groupfunctions = {}));
+//  class User(){}
+//  class User(){}
+//  class User(){}
+console.log("Namespaces grouping related codes together to avoid name conflicts ");
+var AdminN;
+(function (AdminN) {
+    class User {
+    }
+    AdminN.User = User;
+})(AdminN || (AdminN = {}));
+var GuestN;
+(function (GuestN) {
+    class User {
+    }
+    GuestN.User = User;
+})(GuestN || (GuestN = {}));
+const admin = new AdminN.User();
+const guest = new GuestN.User();
 console.log("------------------34. Ambients   ---------------------");
-console.log("WE are telling typescript to this variable already exists so not cause a problem like that way");
-var userName = 'here Ambients name';
+console.log("Tell typescript that something exists somewere else, without actuall implemenation");
+// $("#button").click();    
+console.log("this errors above");
+// $("#button").click();   
+console.log("But now there is no error");
 console.log("------------------35. Decorators   ---------------------");
 console.log("before using deorator we need to enable it inside ts.config.js  file");
 function Logger(constructor) {
@@ -724,6 +733,48 @@ let Decorcheck = (() => {
 })();
 let p = new Decorcheck();
 console.log("Decorator called even created before instance of the class we can use this method and properties also");
+console.log("-----i . Class Decorator ");
+function Sealed(constructor) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+let BankAccount = (() => {
+    let _classDecorators = [Sealed];
+    let _classDescriptor;
+    let _classExtraInitializers = [];
+    let _classThis;
+    var BankAccount = _classThis = class {
+        constructor() {
+            this.balance = 0;
+        }
+    };
+    __setFunctionName(_classThis, "BankAccount");
+    (() => {
+        const _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+        __esDecorate(null, _classDescriptor = { value: _classThis }, _classDecorators, { kind: "class", name: _classThis.name, metadata: _metadata }, null, _classExtraInitializers);
+        BankAccount = _classThis = _classDescriptor.value;
+        if (_metadata) Object.defineProperty(_classThis, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        __runInitializers(_classThis, _classExtraInitializers);
+    })();
+    return BankAccount = _classThis;
+})();
+console.log("-----ii. property decorator");
+function ReadOnly(target, key) {
+    Object.defineProperty(target, key, {
+        writable: false,
+        configurable: false,
+    });
+}
+// class Config {
+//     @ReadOnly
+//     version: string = "1.0.0";
+// }
+console.log("-----iii. parameter decorator");
+// class OrderService {
+//     createOrder(@Required productId: string, quantity: number) {
+//         // ...
+//     }
+// }
 function submitUser() {
     const inputElement = document.querySelector("#inputgiven");
     const userDiv = document.querySelector(".userlists");
